@@ -1,0 +1,10 @@
+# dependencies
+node_modules
+.next
+
+# credentials
+.env
+
+# misc
+.DS_Store
+media-resource
