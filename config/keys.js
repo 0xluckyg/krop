@@ -32,7 +32,7 @@ const APP_EMAIL = 'info@vivelop.com';
 const NAV_WIDTH = 200;
 const NAV_COLOR = '#151b26'
 const HEADER_HEIGHT = 45;
-const SIDE_EDITOR_WIDTH = 300;
+const SIDE_EDITOR_WIDTH = 600;
 
 const SHOW_TOAST = 'show_toast';
 const IS_LOADING = 'is_loading';
@@ -42,6 +42,12 @@ const HANDLE_SAVE_ACTION = 'handle_save_action';
 const GET_USER = 'get_user';
 const SHOW_AUTHORIZE_MODAL = 'show_authorize_modal';
 const ROUTE = 'route';
+
+const MOBILE_PROPERTY = 'mobile_property'
+const DESKTOP_PROPERTY = 'desktop_property'
+
+const BACKGROUND_ELEMENT = 'background_element'
+const ALERT_ELEMENT = 'alert_element'
 
 const FEE_0 = {
     price: 0,
@@ -107,5 +113,11 @@ module.exports = {
     FEE_1,
     FEE_2,
     FEE_3,
-    FREE_TRIAL
+    FREE_TRIAL,
+    
+    MOBILE_PROPERTY,
+    DESKTOP_PROPERTY,
+
+    BACKGROUND_ELEMENT,
+    ALERT_ELEMENT
 }
