@@ -20,12 +20,7 @@ import TabBar from '../../components/survey/tab-bar';
 import MainEditor from '../../components/survey/design'
 import SettingsEditor from '../../components/survey/settings'
 import {defaultSettings} from '../../components/survey/settings/settings-objects'
-import {defaultStage, defaultStyles} from '../../components/survey/design/element-objects'
-
-const defaultStages = [
-    {...defaultStage()}
-]
-defaultStages[0].name = 'Stage 1'
+import {defaultStages, defaultStyles} from '../../components/survey/design/element-objects'
 
 class CreateSurvey extends React.Component {
     constructor(props){
@@ -33,7 +28,7 @@ class CreateSurvey extends React.Component {
 
         this.state = {
             //DESIGN STATE
-            stages: defaultStages,
+            stages: defaultStages(),
             styles: defaultStyles(),
             settings: defaultSettings,
             fonts: [],

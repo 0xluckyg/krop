@@ -335,14 +335,14 @@ class AuthorizeModal extends React.Component {
                             <Button 
                                 disabled={this.state.isLoading}
                                 onClick={() => {
-                                    showType ? this.handleSignUp() : this.handleLogIn()
+                                    showType == 'signup' ? this.handleSignUp() : this.handleLogIn()
                                 }} 
                                 variant="contained" 
                                 size="large" 
                                 color="primary" 
                                 className={classes.button}
                             >
-                                    {showType ? 'GET STARTED' : 'LOG IN'}
+                                    {showType == 'signup' ? 'GET STARTED' : 'LOG IN'}
                             </Button>
                         </div>
                         {this.renderAuthFooter()}
