@@ -70,7 +70,7 @@ class StageBar extends React.Component {
         let stageIndex = this.props.state.selectedStage
         
         let duplicateStage = {...newState.stages[stageIndex]}
-        duplicateStage.name = duplicateStage.name + '-copy'
+        duplicateStage.settings.name = duplicateStage.settings.name + '-copy'
         duplicateStage.stageId = this.generateStageId()
         
         let newStages = [...newState.stages, duplicateStage]
@@ -113,7 +113,7 @@ class StageBar extends React.Component {
             scrollButtons="auto"
         >
             {state.stages.map((stage, index) => {
-                return <Tab label={stage.name} key={index} id={index}/>
+                return <Tab label={stage.settings.name} key={index} id={index}/>
             })}
         </Tabs>)
     }

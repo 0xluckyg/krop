@@ -2,7 +2,7 @@ const keys = require('../../../config/keys')
 const shortid = require('shortid')
 
 const multipleChoice = (custom) => {
-    const {required, media, hasOther, question, options, tags} = custom
+    const {required, media, hasOther, question, options, tags} = custom ? custom : {}
     return {
         type: keys.MULTIPLE_CHOICE,
         required: required ? required : true,
@@ -21,7 +21,7 @@ const multipleChoice = (custom) => {
 }
 
 const checkbox = (custom) => {
-    const {required, media, hasOther, question, options, tags} = custom
+    const {required, media, hasOther, question, options, tags} = custom ? custom : {}
     return {
         type: keys.CHECKBOX,
         required: required ? required : true,
@@ -40,7 +40,7 @@ const checkbox = (custom) => {
 }
 
 const dropdown = (custom) => {
-    const {required, media, question, options, tags} = custom
+    const {required, media, question, options, tags} = custom ? custom : {}
     return {
         type: keys.DROPDOWN,
         required: required ? required : true,
@@ -58,7 +58,7 @@ const dropdown = (custom) => {
 }
 
 const slider = (custom) => {
-    const {required, media, question, min, max, tags} = custom
+    const {required, media, question, min, max, tags} = custom ? custom : {}
     return {
         type: keys.SLIDER,
         required: required ? required : true,
@@ -71,7 +71,7 @@ const slider = (custom) => {
 }
 
 const form = (custom) => {
-    const {required, media, question, maxChar, minChar, numOnly, tags} = custom
+    const {required, media, question, maxChar, minChar, numOnly, tags} = custom ? custom : {}
     return {
         type: keys.FORM,
         required: required ? required : true,
@@ -85,7 +85,7 @@ const form = (custom) => {
 }
 
 const email = (custom) => {
-    const {required, media, question, maxChar, minChar, tags} = custom
+    const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
         type: keys.EMAIL,
         required: required ? required : true,
@@ -98,7 +98,7 @@ const email = (custom) => {
 }
 
 const phone = (custom) => {
-    const {required, media, question, maxChar, minChar, numOnly, tags} = custom
+    const {required, media, question, maxChar, minChar, numOnly, tags} = custom ? custom : {}
     return {
         type: keys.PHONE,
         required: required ? required : true,
@@ -112,7 +112,7 @@ const phone = (custom) => {
 }
 
 const address = (custom) => {
-    const {required, media, question, maxChar, minChar, tags} = custom
+    const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
         type: keys.ADDRESS,
         required: required ? required : true,
@@ -125,7 +125,7 @@ const address = (custom) => {
 }
 
 const name = (custom) => {
-    const {required, media, question, maxChar, minChar, tags} = custom
+    const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
         type: keys.NAME,
         required: required ? required : true,
@@ -138,7 +138,7 @@ const name = (custom) => {
 }
 
 const longForm = (custom) => {
-    const {required, media, question, maxChar, minChar, tags} = custom
+    const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
         type: keys.LONGFORM,
         required: required ? required : true,
@@ -151,7 +151,7 @@ const longForm = (custom) => {
 }
 
 const heading = (custom) => {
-    const {text} = custom
+    const {text} = custom ? custom : {}
     return {
         type: keys.HEADING,
         text: text ? text : ''
@@ -159,7 +159,7 @@ const heading = (custom) => {
 }
 
 const subheading = (custom) => {
-    const {text} = custom
+    const {text} = custom ? custom : {}
     return {
         type: keys.SUBHEADING,
         text: text ? text : ''
@@ -167,7 +167,7 @@ const subheading = (custom) => {
 }
 
 const paragraph = (custom) => {
-    const {text} = custom
+    const {text} = custom ? custom : {}
     return {
         type: keys.PARAGRAPH,
         text: text ? text : ''
@@ -175,14 +175,15 @@ const paragraph = (custom) => {
 }
 
 const media = (custom) => {
-    const {url} = custom
+    const {url} = custom ? custom : {}
     return {
         type: keys.MEDIA,
         url: url ? url : ''
     }
 }
 
-const link = (url) => {
+const link = (custom) => {
+    const {url} = custom ? custom : {}
     return {
         type: keys.MEDIA,
         url: url ? url : ''
