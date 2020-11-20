@@ -172,9 +172,10 @@ class StageBar extends React.Component {
                     newState.stages[state.selectedStage].elements = newElements
                     setState(newState)
                 }}
-                wrapper={(type, name, index) => {
+                wrapper={(type, name, index, element) => {
                     return <ListElement 
                         onClick={() => this.handleElementSelect(index)} 
+                        element={element}
                         elementType={type}
                         elementName={name}
                     />  

@@ -48,6 +48,21 @@ const DESKTOP_PROPERTY = 'desktop_property'
 
 const BACKGROUND_ELEMENT = 'background_element'
 const ALERT_ELEMENT = 'alert_element'
+const MULTIPLE_CHOICE_ELEMENT = 'multiple_choice_element'
+const CHECKBOX_ELEMENT = 'checkbox_element'
+const DROPDOWN_ELEMENT = 'dropdown_element'
+const SLIDER_ELEMENT = 'slider_element'
+const FORM_ELEMENT = 'form_element'
+const EMAIL_ELEMENT = 'email_element'
+const PHONE_ELEMENT = 'phone_element'
+const ADDRESS_ELEMENT = 'address_element'
+const NAME_ELEMENT = 'name_element'
+const LONG_FORM_ELEMENT = 'long_form_element'
+const HEADING_ELEMENT = 'heading_element'
+const SUBHEADING_ELEMENT = 'subheading_element'
+const PARAGRAPH_ELEMENT = 'paragraph_element'
+const MEDIA_ELEMENT = 'media_element'
+const LINK_ELEMENT = 'link_element'
 
 const FEE_0 = {
     price: 0,
@@ -119,5 +134,20 @@ module.exports = {
     DESKTOP_PROPERTY,
 
     BACKGROUND_ELEMENT,
-    ALERT_ELEMENT
+    ALERT_ELEMENT,
+    MULTIPLE_CHOICE_ELEMENT,
+    CHECKBOX_ELEMENT,
+    DROPDOWN_ELEMENT,
+    SLIDER_ELEMENT,
+    FORM_ELEMENT,
+    EMAIL_ELEMENT,
+    PHONE_ELEMENT,
+    ADDRESS_ELEMENT,
+    NAME_ELEMENT,
+    LONG_FORM_ELEMENT,
+    HEADING_ELEMENT,
+    SUBHEADING_ELEMENT,
+    PARAGRAPH_ELEMENT,
+    MEDIA_ELEMENT,
+    LINK_ELEMENT
 }

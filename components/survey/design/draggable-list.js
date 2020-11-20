@@ -58,10 +58,10 @@ class DraggableList extends Component {
     renderElement(element, elementWrapper, index) {
         //For Stage Editor
         if (element.name) {
-            return elementWrapper(element.type, element.name, index)
+            return elementWrapper(element.type, element.name, index, element)
         }
         //For Side Editor
-        return elementWrapper(element.type, element.type, index)
+        return elementWrapper(element.type, element.type, index, element)
     }
 
     // Normally you would want to split things out into separate components.

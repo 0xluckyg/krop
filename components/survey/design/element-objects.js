@@ -4,7 +4,8 @@ const shortid = require('shortid')
 const multipleChoice = (custom) => {
     const {required, media, hasOther, question, options, tags} = custom ? custom : {}
     return {
-        type: keys.MULTIPLE_CHOICE,
+        type: keys.MULTIPLE_CHOICE_ELEMENT,
+        name: 'Multiple Choice',
         required: required ? required : true,
         media: media ? media : null,
         hasOther: hasOther ? hasOther : false,
@@ -23,7 +24,8 @@ const multipleChoice = (custom) => {
 const checkbox = (custom) => {
     const {required, media, hasOther, question, options, tags} = custom ? custom : {}
     return {
-        type: keys.CHECKBOX,
+        type: keys.CHECKBOX_ELEMENT,
+        name: 'Checkbox',
         required: required ? required : true,
         media: media ? media : null,
         hasOther: hasOther ? hasOther : false,
@@ -42,7 +44,8 @@ const checkbox = (custom) => {
 const dropdown = (custom) => {
     const {required, media, question, options, tags} = custom ? custom : {}
     return {
-        type: keys.DROPDOWN,
+        type: keys.DROPDOWN_ELEMENT,
+        name: 'Dropdown',
         required: required ? required : true,
         media: media ? media : null,
         question: question ? question : 'Question',
@@ -60,7 +63,8 @@ const dropdown = (custom) => {
 const slider = (custom) => {
     const {required, media, question, min, max, tags} = custom ? custom : {}
     return {
-        type: keys.SLIDER,
+        type: keys.SLIDER_ELEMENT,
+        name: 'Slider',
         required: required ? required : true,
         media: media ? media : null,
         min: min ? min : 0,
@@ -73,7 +77,8 @@ const slider = (custom) => {
 const form = (custom) => {
     const {required, media, question, maxChar, minChar, numOnly, tags} = custom ? custom : {}
     return {
-        type: keys.FORM,
+        type: keys.FORM_ELEMENT,
+        name: 'Form',
         required: required ? required : true,
         media: media ? media : null,
         question: question ? question : 'Question',
@@ -87,7 +92,8 @@ const form = (custom) => {
 const email = (custom) => {
     const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
-        type: keys.EMAIL,
+        type: keys.EMAIL_ELEMENT,
+        name: 'Email',
         required: required ? required : true,
         media: media ? media : null,
         question: question ? question : 'Question',
@@ -100,7 +106,8 @@ const email = (custom) => {
 const phone = (custom) => {
     const {required, media, question, maxChar, minChar, numOnly, tags} = custom ? custom : {}
     return {
-        type: keys.PHONE,
+        type: keys.PHONE_ELEMENT,
+        name: 'Phone',
         required: required ? required : true,
         media: media ? media : null,
         question: question ? question : 'Question',
@@ -114,7 +121,8 @@ const phone = (custom) => {
 const address = (custom) => {
     const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
-        type: keys.ADDRESS,
+        type: keys.ADDRESS_ELEMENT,
+        name: 'Address',
         required: required ? required : true,
         media: media ? media : null,
         question: question ? question : 'Question',
@@ -127,7 +135,8 @@ const address = (custom) => {
 const name = (custom) => {
     const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
-        type: keys.NAME,
+        type: keys.NAME_ELEMENT,
+        name: 'Name',
         required: required ? required : true,
         media: media ? media : null,
         question: question ? question : 'Question',
@@ -140,7 +149,8 @@ const name = (custom) => {
 const longForm = (custom) => {
     const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
-        type: keys.LONGFORM,
+        type: keys.LONGFORM_ELEMENT,
+        name: 'Long Form',
         required: required ? required : true,
         media: media ? media : null,
         question: question ? question : 'Question',
@@ -153,7 +163,8 @@ const longForm = (custom) => {
 const heading = (custom) => {
     const {text} = custom ? custom : {}
     return {
-        type: keys.HEADING,
+        type: keys.HEADING_ELEMENT,
+        name: 'Heading',
         text: text ? text : ''
     }
 }
@@ -161,7 +172,8 @@ const heading = (custom) => {
 const subheading = (custom) => {
     const {text} = custom ? custom : {}
     return {
-        type: keys.SUBHEADING,
+        type: keys.SUBHEADING_ELEMENT,
+        name: 'Subheading',
         text: text ? text : ''
     }
 }
@@ -169,7 +181,8 @@ const subheading = (custom) => {
 const paragraph = (custom) => {
     const {text} = custom ? custom : {}
     return {
-        type: keys.PARAGRAPH,
+        type: keys.PARAGRAPH_ELEMENT,
+        name: 'Paragraph',
         text: text ? text : ''
     }
 }
@@ -177,7 +190,8 @@ const paragraph = (custom) => {
 const media = (custom) => {
     const {url} = custom ? custom : {}
     return {
-        type: keys.MEDIA,
+        type: keys.MEDIA_ELEMENT,
+        name: 'Media',
         url: url ? url : ''
     }
 }
@@ -185,7 +199,8 @@ const media = (custom) => {
 const link = (custom) => {
     const {url} = custom ? custom : {}
     return {
-        type: keys.MEDIA,
+        type: keys.LINK_ELEMENT,
+        name: 'Link',
         url: url ? url : ''
     }
 }
@@ -232,5 +247,21 @@ const defaultStyles = () => {
 }
 
 module.exports = {
-    defaultStages, defaultStyles
+    defaultStages, 
+    defaultStyles, 
+    multipleChoice, 
+    checkbox, 
+    dropdown, 
+    slider, 
+    form, 
+    email, 
+    phone, 
+    address, 
+    name, 
+    longForm, 
+    heading, 
+    subheading, 
+    paragraph, 
+    media, 
+    link
 }
