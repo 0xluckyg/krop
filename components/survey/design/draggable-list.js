@@ -38,6 +38,7 @@ class DraggableList extends Component {
     }
 
     onDragEnd(result) {
+        // console.log("E: ", result)
         // dropped outside the list
         if (!result.destination) {
             return;

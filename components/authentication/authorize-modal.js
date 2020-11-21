@@ -105,7 +105,7 @@ class AuthorizeModal extends React.Component {
                 window.location.replace(`${process.env.APP_URL}/authentication/validate-email?email=`+signUpEmail)
             })
         }).catch((err) => {
-            console.log("R: ", err.response)
+            console.log("R: ", err)
             if (err.response && err.response.data) {
                 console.log("HEY: ")
                 this.props.showToastAction(true, `Email exists. Please try another email`, 'error')
@@ -246,7 +246,7 @@ class AuthorizeModal extends React.Component {
                     <div className={classes.authTypeWrapper}>
                         <span className={classes.authTypeExplainer}>{authExplainer}</span> 
                         <span onClick={
-                            () => this.props.showAuthorizeModalAction('signup')
+                            () => this.props.showAuthorizeModalAction(showType == 'login' ? 'signup' : 'login')
                         } className={classes.authTypeText}>{authActionText}</span>
                     </div>
                 </div>

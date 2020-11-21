@@ -5,7 +5,7 @@ const {createEmailTemplate, sendEmail} = require('../communication/email')
 async function authenticate(ctx, next) {
     try {
         const {accessToken} = ctx.session
-
+        
         //not authenticated
         if (!accessToken) {
             ctx.redirect('/')
@@ -147,13 +147,12 @@ async function validateEmail(ctx) {
     try {
         const {token, email} = ctx.query
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        
         const user = await User.findOne({
             _id: decoded._id
         });
         
         if (user && user.email == email) {
-            await User.findOneAndUpdate({key: user.key}, {verified: true})
+            await User.findOneAndUpdate({_id: user._id}, {verified: true})
             
             ctx.session = {
                 accessToken: user.accessToken,

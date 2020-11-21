@@ -46,8 +46,14 @@ const ROUTE = 'route';
 const MOBILE_PROPERTY = 'mobile_property'
 const DESKTOP_PROPERTY = 'desktop_property'
 
-const BACKGROUND_ELEMENT = 'background_element'
-const ALERT_ELEMENT = 'alert_element'
+const BRANDING_SETTINGS = 'branding_settings'
+const STAGE_SETTINGS = 'stage_settings'
+const STYLE_SETTINGS = 'style_settings'
+const BACKGROUND_SETTINGS = 'background_settings'
+const TEXT_SETTINGS = 'text_settings'
+const ALERT_SETTINGS = 'alert_settings'
+const LOGO_SETTINGS = 'logo_settings'
+
 const MULTIPLE_CHOICE_ELEMENT = 'multiple_choice_element'
 const CHECKBOX_ELEMENT = 'checkbox_element'
 const DROPDOWN_ELEMENT = 'dropdown_element'
@@ -132,9 +138,15 @@ module.exports = {
     
     MOBILE_PROPERTY,
     DESKTOP_PROPERTY,
+    
+    BRANDING_SETTINGS,
+    STAGE_SETTINGS,
+    STYLE_SETTINGS,
+    BACKGROUND_SETTINGS,
+    TEXT_SETTINGS,
+    ALERT_SETTINGS,
+    LOGO_SETTINGS,
 
-    BACKGROUND_ELEMENT,
-    ALERT_ELEMENT,
     MULTIPLE_CHOICE_ELEMENT,
     CHECKBOX_ELEMENT,
     DROPDOWN_ELEMENT,

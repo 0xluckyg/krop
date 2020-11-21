@@ -14,6 +14,10 @@ import Icon from '@mdi/react'
 import { 
     mdiAlertCircle,
     mdiMonitorDashboard,
+    mdiPalette,
+    mdiFormatPaint,
+    mdiFormatTextVariantOutline,
+    mdiFlagVariant
 } from '@mdi/js';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
@@ -113,7 +117,7 @@ class StageBar extends React.Component {
         ]})
     }
     
-    getCurrentStageObject() {
+    getCurrentStage() {
         return this.props.state.stages[this.props.state.selectedStage]
     }
     
@@ -153,7 +157,7 @@ class StageBar extends React.Component {
     
     renderElementList() {
         const {state, setState, classes} = this.props
-        const stage = this.getCurrentStageObject()
+        const stage = this.getCurrentStage()
         
         if (!stage.elements || stage.elements.length <= 0) {
             return <div onClick={() => this.toggleElementSelector()} className={classes.noContentContainer}>
@@ -173,9 +177,12 @@ class StageBar extends React.Component {
                     setState(newState)
                 }}
                 wrapper={(type, name, index, element) => {
-                    return <ListElement 
-                        onClick={() => this.handleElementSelect(index)} 
+                    return <ListElement
+                        key={index + name}
+                        state={state}
+                        setState={setState}
                         element={element}
+                        index={index}
                         elementType={type}
                         elementName={name}
                     />  
@@ -212,20 +219,56 @@ class StageBar extends React.Component {
                 {this.renderIconWithSubtitle(
                     <IconButton  
                         className={button} 
-                        onClick={() => this.handleElementSelect(keys.MAINBOARD)}
+                        onClick={() => this.handleElementSelect(keys.STAGE_SETTINGS)}
                         size="small" variant="contained" color="secondary">
                         <Icon path={mdiMonitorDashboard}
                             size={0.9}
                             color={keys.APP_COLOR_GRAY_DARKEST}
                         />
                     </IconButton >,
-                    'Mainboard'
+                    'Settings'
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
                         className={button} 
-                        onClick={() => this.handleElementSelect(keys.ALERT)}
+                        onClick={() => this.handleElementSelect(keys.STYLE_SETTINGS)}
                         size="small" variant="contained" color="secondary">
+                        <Icon path={mdiPalette}
+                            size={0.9}
+                            color={keys.APP_COLOR_GRAY_DARKEST}
+                        />
+                    </IconButton >,
+                    'Style'
+                )}
+                {this.renderIconWithSubtitle(
+                    <IconButton  
+                        className={button} 
+                        onClick={() => this.handleElementSelect(keys.BACKGROUND_SETTINGS)}
+                        size="small" variant="contained" color="secondary">
+                        <Icon path={mdiFormatPaint}
+                            size={0.9}
+                            color={keys.APP_COLOR_GRAY_DARKEST}
+                        />
+                    </IconButton >,
+                    'Background'
+                )}
+                {this.renderIconWithSubtitle(
+                    <IconButton  
+                        className={button} 
+                        onClick={() => this.handleElementSelect(keys.TEXT_SETTINGS)}
+                        size="small" variant="contained" color="secondary">
+                        <Icon path={mdiFormatTextVariantOutline}
+                            size={0.9}
+                            color={keys.APP_COLOR_GRAY_DARKEST}
+                        />
+                    </IconButton >,
+                    'Text'
+                )}
+                {this.renderIconWithSubtitle(
+                    <IconButton  
+                        className={button} 
+                        onClick={() => this.handleElementSelect(keys.ALERT_SETTINGS)}
+                        size="small" variant="contained" color="primary">
                         <Icon path={mdiAlertCircle}
                             size={0.9}
                             color={keys.APP_COLOR_GRAY_DARKEST}
@@ -236,20 +279,14 @@ class StageBar extends React.Component {
                 {this.renderIconWithSubtitle(
                     <IconButton  
                         className={button} 
-                        onClick={() => this.handleElementSelect(keys.BACKGROUND)}
-                        size="small" variant="contained" color="secondary">
-                        <BackgroundIcon fontSize="small" />
-                    </IconButton >,
-                    'Background'
-                )}
-                {this.renderIconWithSubtitle(
-                    <IconButton  
-                        className={button} 
-                        onClick={() => this.handleElementSelect(keys.TAB)}
+                        onClick={() => this.handleElementSelect(keys.LOGO_SETTINGS)}
                         size="small" variant="contained" color="primary">
-                        <TriggerTabIcon fontSize="small" />
+                        <Icon path={mdiFlagVariant}
+                            size={0.9}
+                            color={keys.APP_COLOR_GRAY_DARKEST}
+                        />
                     </IconButton >,
-                    'Tab'
+                    'Logo'
                 )}
             </div>
         )

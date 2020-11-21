@@ -2,10 +2,6 @@ import React from 'react';
 import clsx from 'clsx';
 
 import { withStyles } from '@material-ui/core/styles';
-import SectionIcon from '@material-ui/icons/SelectAll';
-import RightIcon from '@material-ui/icons/ChevronRight';
-import ImageIcon from '@material-ui/icons/Image';
-import FormIcon from '@material-ui/icons/ContactMail';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@mdi/react';
@@ -21,14 +17,32 @@ import {
     mdiFormatParagraph,
     mdiImageOutline,
     mdiLink,
+    
+    mdiTrashCanOutline,
+    mdiCircleEditOutline,
+    
+    mdiPlusCircle
 } from '@mdi/js';
 
-
+import {dropdown} from './element-objects'
+import {setProperty} from './element-editor/sub/functions'
 import keys from '../../../config/keys'
 
 class ListElement extends React.Component {      
     constructor(props) {
         super(props)
+    }
+    
+    setProperty(propertyType, property, value) {
+        const {state, index} = this.props
+        setProperty({
+            props: this.props,
+            selectedStage: state.selectedStage,
+            selectedElement: index,
+            propertyType,
+            property,
+            value
+        })
     }
     
     getOptionsInText(options) {
@@ -41,62 +55,88 @@ class ListElement extends React.Component {
     
     handleOptionsChange(value) {
         let newOptions = []
+        console.log("V: ", value)
         value.split('\n').map((o, i) => {
             newOptions.push({
-                option: o,
-                actionType: null
+                text: o,
+                media: null
             })
         })
-        // this.modifyProperty(null, 'options', newOptions)
+        this.setProperty(null, 'options', newOptions)
     }
     
-    renderButton(icon, style, onClick) { 
+    removeElement() {
+        const {state, setState, index} = this.props
+        const {selectedStage} = state
+        let newState = {...state}
+        
+        let newElements = [...newState.stages[selectedStage].elements]
+        newElements.splice(index, 1)
+        newState.stages[selectedStage].elements = newElements
+        newState.selectedElement = null
+        setState(newState)
+    }
+    
+    editElement() {
+        const {setState, index} = this.props
+        setState({selectedElement: index})
+    }
+    
+    addElement() {
+        const {state, setState, index} = this.props
+        const {selectedStage} = state
+        let newState = {...state}
+        
+        let newElements = [...newState.stages[selectedStage].elements]
+        newElements.splice(index+1, 0, dropdown());
+        newState.stages[selectedStage].elements = newElements
+        newState.selectedElement = null
+        setState(newState)
+    }
+    
+    renderIcon(icon, style, onClick) { 
         return (
-            <IconButton  
-                className={style} 
-                onClick={(e) => onClick ? onClick() : null}
-                size="small" variant="contained">
-                <Icon path={icon}
-                    size={0.9}
-                    color={keys.APP_COLOR_GRAY_DARKEST}
-                />
-            </IconButton>
+            <Icon path={icon}
+                className={style}
+                size={0.9}
+                color={keys.APP_COLOR_GRAY_DARKEST}
+            />
         )
     }
     
-    renderIcon() {
+    renderMainIcon() {
         const {classes, elementType} = this.props
         switch(elementType) {
             case keys.MULTIPLE_CHOICE_ELEMENT:
-                return this.renderButton(mdiCheckboxMarkedCircleOutline, classes.icon)
+                return this.renderIcon(mdiCheckboxMarkedCircleOutline, classes.mainIcon)
             case keys.CHECKBOX_ELEMENT:
-                return this.renderButton(mdiCheckboxMarkedOutline, classes.icon)
+                return this.renderIcon(mdiCheckboxMarkedOutline, classes.mainIcon)
             case keys.DROPDOWN_ELEMENT:
-                return this.renderButton(mdiFormDropdown, classes.icon)
+                return this.renderIcon(mdiFormDropdown, classes.mainIcon)
             case keys.SLIDER_ELEMENT:
-                return this.renderButton(mdiRayVertex, classes.icon)
+                return this.renderIcon(mdiRayVertex, classes.mainIcon)
             case keys.FORM_ELEMENT:
-                return this.renderButton(mdiFormTextbox, classes.icon)
+                return this.renderIcon(mdiFormTextbox, classes.mainIcon)
             case keys.EMAIL_ELEMENT:
-                return this.renderButton(mdiFormTextbox, classes.icon)
+                return this.renderIcon(mdiFormTextbox, classes.mainIcon)
             case keys.PHONE_ELEMENT:
-                return this.renderButton(mdiFormTextbox, classes.icon)
+                return this.renderIcon(mdiFormTextbox, classes.mainIcon)
             case keys.ADDRESS_ELEMENT:
-                return this.renderButton(mdiFormTextbox, classes.icon)
+                return this.renderIcon(mdiFormTextbox, classes.mainIcon)
             case keys.NAME_ELEMENT:
-                return this.renderButton(mdiFormTextbox, classes.icon)
+                return this.renderIcon(mdiFormTextbox, classes.mainIcon)
             case keys.LONG_FORM_ELEMENT:
-                return this.renderButton(mdiFormTextarea, classes.icon)
+                return this.renderIcon(mdiFormTextarea, classes.mainIcon)
             case keys.HEADING_ELEMENT:
-                return this.renderButton(mdiFormatHeader1, classes.icon)
+                return this.renderIcon(mdiFormatHeader1, classes.mainIcon)
             case keys.SUBHEADING_ELEMENT:
-                return this.renderButton(mdiFormatHeader2, classes.icon)
+                return this.renderIcon(mdiFormatHeader2, classes.mainIcon)
             case keys.PARAGRAPH_ELEMENT:
-                return this.renderButton(mdiFormatParagraph, classes.icon)
+                return this.renderIcon(mdiFormatParagraph, classes.mainIcon)
             case keys.MEDIA_ELEMENT:
-                return this.renderButton(mdiImageOutline, classes.icon)
+                return this.renderIcon(mdiImageOutline, classes.mainIcon)
             case keys.LINK_ELEMENT:
-                return this.renderButton(mdiLink, classes.icon)
+                return this.renderIcon(mdiLink, classes.mainIcon)
             default:
                 return null
         }
@@ -105,9 +145,26 @@ class ListElement extends React.Component {
     renderSubIcon(type) {
         const {classes} = this.props
         if (type == 'add') {
-            return <AddIcon className={classes.icon} fontSize="small" />
+            return <AddIcon className={classes.mainIcon} fontSize="small" />
         } else {
-            return <RightIcon className={classes.icon} fontSize="small" />   
+            return <div className={classes.sideIconContainer}>
+                <IconButton  
+                    className={classes.sideIcon} 
+                    onClick={(e) => {
+                        this.removeElement()
+                    }}
+                    size="small" variant="contained">
+                    {this.renderIcon(mdiTrashCanOutline)}
+                </IconButton>
+                <IconButton  
+                    className={classes.sideIcon} 
+                    onClick={(e) => {
+                        this.editElement()
+                    }}
+                    size="small" variant="contained">
+                    {this.renderIcon(mdiCircleEditOutline)}
+                </IconButton>
+            </div>
         }
     }
     
@@ -117,7 +174,16 @@ class ListElement extends React.Component {
         const mainText = question ? question : text
         if (!mainText) return null
         return (
-            <textarea value={mainText} className={clsx(classes.inputStyle, classes.mainTextStyle)} type="text"></textarea>
+            <div
+                contentEditable
+                suppressContentEditableWarning={true}
+                onChange={e => {
+                    this.setProperty(null, question ? 'question' : 'text', e.target.value)
+                }}
+                className={clsx(classes.inputStyle, classes.mainTextStyle)}
+            >
+                {mainText}
+            </div>
         )
     }
     
@@ -126,18 +192,27 @@ class ListElement extends React.Component {
         const {options} = element
         if (!options) return null
         return (
-            <textarea  value={this.getOptionsInText(options)} className={clsx(classes.inputStyle, classes.optionsTextStyle)} type="text"></textarea>
+            <div
+                contentEditable
+                suppressContentEditableWarning
+                onChange={e => {
+                    this.handleOptionsChange(e.target.value)  
+                }}
+                className={clsx(classes.inputStyle, classes.optionsTextStyle)}
+            >
+                {this.getOptionsInText(options)}
+            </div>
         )
     }
 
     render() {
-        const {classes, elementName, elementType, type, onClick} = this.props
+        const {classes, elementName, elementType, type} = this.props
 
         return (
             <div className={classes.mainContainer}>
                 <div className={classes.titleContainer}>
                     <div className={classes.titleWrapper}>
-                        {this.renderIcon()}
+                        {this.renderMainIcon()}
                         <p className={classes.elementText}>{
                             (elementName && elementName != '') ? elementName : elementType
                         }</p>
@@ -148,7 +223,14 @@ class ListElement extends React.Component {
                     {this.renderMainText()}
                     {this.renderOptionsText()}
                 </div>
-                <AddIcon className={classes.addIcon} fontSize="small"/>
+                <IconButton  
+                    className={classes.addIcon} 
+                    onClick={() => {
+                        this.addElement()
+                    }}
+                    size="small" variant="contained">
+                    {this.renderIcon(mdiPlusCircle)}
+                </IconButton>
             </div>
         );
     }
@@ -172,6 +254,9 @@ const useStyles = theme => ({
         justifyContent: 'space-between',
         marginBottom: 5
     },
+    sideIconContainer: {
+        marginRight: 15  
+    },
     contentContainer: {
         display: 'flex',
         flexDirection: 'column',
@@ -182,16 +267,20 @@ const useStyles = theme => ({
         display: 'flex',
         alignItems: 'center',
     },
-    icon: {
+    mainIcon: {
         color: keys.APP_COLOR_GRAY_DARKEST,
         margin: '0px 15px'
+    },
+    sideIcon: {
+        color: keys.APP_COLOR_GRAY_DARKEST,
+        marginLeft: 10
     },
     addIcon: {
         color: keys.APP_COLOR_GRAY_DARKEST,
         position: 'absolute',
         right: 15,
-        bottom: -10,
-        zIndex: 100
+        bottom: -15,
+        zIndex: 2
     },
     elementText: {
         margin: '0px 0px',
@@ -212,10 +301,15 @@ const useStyles = theme => ({
         }
     },
     mainTextStyle: {
-        height: 28
+        marginBottom: 10,
+        whiteSpace: "pre-wrap",
+        overflowY: 'auto',
+        cursor: 'text'
     },
     optionsTextStyle: {
-        
+        whiteSpace: "pre-wrap",
+        overflowY: 'auto',
+        cursor: 'text'
     }
 });
 

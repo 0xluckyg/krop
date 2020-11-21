@@ -8,7 +8,7 @@ import Chip from '@material-ui/core/Chip';
 import AddIcon from '@material-ui/icons/Add';
 import IconButton from '@material-ui/core/IconButton';
 
-import {modifyProperty, getProperty} from './functions'
+import {setProperty, getProperty} from './functions'
 import keys from '../../../../../config/keys'
 
 class ShowAfter extends React.Component {
@@ -27,9 +27,9 @@ class ShowAfter extends React.Component {
         })
     }
     
-    modifyProperty(propertyType, property, value) {
+    setProperty(propertyType, property, value) {
         const {selectedStage, selectedElement, selectedSectionElement} = this.props.state
-        modifyProperty({
+        setProperty({
             props: this.props, selectedStage, selectedElement, propertyType, property, value, selectedSectionElement
         })
     }
@@ -47,14 +47,14 @@ class ShowAfter extends React.Component {
         tags = [...tags, this.state.tag]
         
         this.setState({tag: ''})
-        this.modifyProperty(null, 'tags', tags)
+        this.setProperty(null, 'tags', tags)
     }
     
     handleDeleteTag(i) {
         let tags = this.getTags()
         let newTags = [...tags]
         newTags.splice(i, 1)
-        this.modifyProperty(null, 'tags', newTags)
+        this.setProperty(null, 'tags', newTags)
     }
     
     renderTagChips() {

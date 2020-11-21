@@ -3,38 +3,40 @@ import React, {Fragment} from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Icon from '@mdi/react'
 import keys from '../../../../config/keys'
 import BackgroundEditor from './background'
 import AlertEditor from './alert'
+import {getElement} from './sub/functions'
 
 class ElementEditor extends React.Component {
     constructor(props) {
         super(props)
     }
 
-    removeElement() {
+    getElement() {
+        const {selectedStage, selectedElement} = this.props.state
         
-    }
-    
-    renderDeleteButton() {
-        const {classes} = this.props
-        let {selectedElement} = this.props.state
-        if (selectedElement == keys.MAINBOARD || 
-        selectedElement == keys.TAB || 
-        selectedElement == keys.ALERT ||
-        selectedElement == keys.BACKGROUND) {
-            return null
+        if (selectedElement == keys.STAGE_SETTINGS) {
+            return this.props.state.stages[selectedStage].settings
         }
-        return (
-            <Fragment>
-                <IconButton  className={classes.deleteButtonWrapper}  onClick={() => this.removeElement()} 
-                size="small" variant="contained" color="primary">
-                    <DeleteIcon className={classes.buttonIcon} fontSize="small" />
-                </IconButton >
-            </Fragment>
-        )
+        
+        if (selectedElement == keys.ALERT_SETTINGS) {
+            return this.props.state.alert
+        }
+        
+        const styleSettings = [
+            keys.STYLE_SETTINGS, keys.BACKGROUND_SETTINGS, keys.TEXT_SETTINGS, keys.LOGO_SETTINGS
+        ]
+        
+        if (styleSettings.includes(selectedElement)) {
+            return this.props.state.styles
+        }
+        
+        return getElement({
+            props: this.props,
+            selectedStage,
+            selectedElement
+        })
     }
     
     renderExitButton() {
@@ -49,14 +51,13 @@ class ElementEditor extends React.Component {
         )
     }
     
-    renderMainHeader(text) {
+    renderMainHeader() {
         const {classes} = this.props
         
         return (
             <div className={classes.elementsHeader}>
-                <p className={classes.elementsHeaderText}>{text}</p>
+                <p className={classes.elementsHeaderText}>{this.getHeaderName()}</p>
                 <div>
-                {this.renderDeleteButton()}
                 {this.renderExitButton()}
                 </div>
             </div>    
@@ -94,19 +95,35 @@ class ElementEditor extends React.Component {
                     setState={setState}
                 />
             default:
-                return
+                return null
+        }
+    }
+    
+    getHeaderName() {
+        const elm = this.getElement()
+        let type = elm ? elm.type : null
+        let name = elm ? elm.name : null
+        let headerName = name ? name : type
+        if (headerName) {
+            return headerName
+        } else {
+            let nameMap = {}
+            nameMap[keys.STAGE_SETTINGS] = 'Stage Settings', 
+            nameMap[keys.STYLE_SETTINGS] = 'Style Settings', 
+            nameMap[keys.BACKGROUND_SETTINGS] = 'Background Settings', 
+            nameMap[keys.TEXT_SETTINGS] = 'Text Settings', 
+            nameMap[keys.LOGO_SETTINGS] = 'Logo Settings', 
+            nameMap[keys.ALERT_SETTINGS] = 'Alert Settings'
+            
+            return nameMap[this.props.state.selectedElement]
         }
     }
     
     render() {
         const {classes} = this.props
-        const elm = this.getElement()
-        let type = elm ? elm.type : null
-        let name = elm ? elm.name : null
-        let headerName = name ? name : type
         return (
             <div className={classes.sideEditor}>
-                {this.renderMainHeader(headerName)}
+                {this.renderMainHeader()}
                 <div className={classes.elementEditor}>
                     
                 </div>

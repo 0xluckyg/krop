@@ -5,7 +5,7 @@ import axios from 'axios'
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import {modifyProperty, getProperty, getElement, modifyElement} from './functions'
+import {setProperty, getProperty, getElement, modifyElement} from './functions'
 import Input from './input'
 import keys from '../../../../../config/keys'
 import {image, button} from '../../element-objects'
@@ -40,9 +40,9 @@ class BannerDropzone extends React.Component {
         })
     }
     
-    modifyProperty(propertyType, property, value) {
+    setProperty(propertyType, property, value) {
         const {stage, element, sectionElement} = this.props
-        modifyProperty({
+        setProperty({
             props: this.props, 
             selectedStage: stage, 
             selectedElement: element, 
@@ -95,7 +95,7 @@ class BannerDropzone extends React.Component {
     }
 
     handleUrlChange(value) {
-        this.modifyProperty(null, keys.IMAGE_PROPERTY, value)
+        this.setProperty(null, keys.IMAGE_PROPERTY, value)
     }
     
     getUrlValue() {

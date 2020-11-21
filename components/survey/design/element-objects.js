@@ -240,15 +240,24 @@ const defaultStyles = () => {
         primaryColor: keys.APP_COLOR,
         secondaryColor: keys.APP_COLOR_GRAY,
         textColor: '#000',
-        errorColor: 'red',
         align: 'center',
         font: 'helvetica'
+    }
+}
+
+const defaultAlert = () => {
+    return {
+        backgroundColor: '#fff',
+        textColor: '#000',
+        popupTextColor: '#000',
+        align: 'center',
     }
 }
 
 module.exports = {
     defaultStages, 
     defaultStyles, 
+    defaultAlert,
     multipleChoice, 
     checkbox, 
     dropdown, 

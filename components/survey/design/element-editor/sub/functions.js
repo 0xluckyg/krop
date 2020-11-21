@@ -27,162 +27,147 @@ function handleLimit(value, min, max) {
     }
 }
 
-function modifyProperty(options) {
-    
-    let {props, selectedStage, selectedElement, propertyType, property, value, selectedSectionElement} = options
-    
-    if (typeof selectedSectionElement === 'number') {
-        return modifySectionProperty(options)
+function isSurveyElement(element) {
+    let surveyElements = [
+        keys.MULTIPLE_CHOICE_ELEMENT, keys.CHECKBOX_ELEMENT, keys.DROPDOWN_ELEMENT, keys.SLIDER_ELEMENT, keys.FORM_ELEMENT, keys.EMAIL_ELEMENT,
+        keys.PHONE_ELEMENT, keys.ADDRESS_ELEMENT, keys.NAME_ELEMENT, keys.LONG_FORM_ELEMENT
+    ]
+    return surveyElements.includes(element.type)
+}
+
+function requiresButton(elements) {
+    let surveyCount = 0
+    let formCount = 0
+    elements.map(element => {
+        if (isSurveyElement(element)) surveyCount++
+        if (isFormElement(element)) formCount++
+    })
+    if (formCount > 0 || surveyCount > 1) {
+        return true
+    } else {
+        return false
     }
+}
+
+function isFormElement(element) {
+    let formElements = [
+        keys.FORM_ELEMENT, keys.EMAIL_ELEMENT, keys.PHONE_ELEMENT, keys.ADDRESS_ELEMENT, keys.NAME_ELEMENT, keys.LONG_FORM_ELEMENT
+    ]
+    return formElements.includes(element.type)
+}
+
+function hasElement(elements, elementType) {
+    elements.map(element => {
+        if (element.type == elementType) return true
+    })
+    return false
+}
+
+function getStage(options) {
+    let {props, selectedStage} = options
+    return props.state.stages[selectedStage]
+}
+
+function setStage(options) {
+    let {props, selectedStage, stage} = options
+    return props.state.stages[selectedStage] = stage
+}
+
+function getElement(options) {
+    let {props, selectedStage, selectedElement} = options
+
+    if (selectedElement == keys.STYLE_SETTINGS || selectedElement == keys.BRANDING_SETTINGS || selectedElement == keys.ALERT_SETTINGS) {
+        return props.state[selectedElement]
+    } else if (selectedElement == keys.STAGE_SETTINGS) {
+        return props.state.stages[selectedStage].settings
+    } else {
+        return props.state.stages[selectedStage].elements[selectedElement]
+    }
+}
+
+function setElement(options) {
+    let {props, selectedStage, selectedElement, element} = options
     
     let newState = JSON.parse(JSON.stringify(props.state))
     
-    if (selectedElement == keys.BACKGROUND || selectedElement == keys.TAB || selectedElement == keys.ALERT) {
-        if (property != 'locked' && newState.fixed[selectedElement].locked) return
-        if (!propertyType) {
-            newState.fixed[selectedElement][property] = value
-        } else {
-            newState.fixed[selectedElement][propertyType][property] = value
-        }
-    } else if (selectedElement == keys.MAINBOARD) { 
-        if (property != 'locked' && newState.stages[selectedStage][selectedElement].locked) return
-        if (!propertyType) {
-            newState.stages[selectedStage][selectedElement][property] = value
-        } else {
-            newState.stages[selectedStage][selectedElement][propertyType][property] = value
-        }
+    if (selectedElement == keys.STYLE_SETTINGS || selectedElement == keys.BRANDING_SETTINGS || selectedElement == keys.ALERT_SETTINGS) {
+        newState[selectedElement] = element
+    } else if (selectedElement == keys.STAGE_SETTINGS) {
+        newState.stages[selectedStage].settings = element
     } else {
-        if (property != 'locked' && newState.stages[selectedStage].elements[selectedElement].locked) return
-        if (!propertyType) {
-            newState.stages[selectedStage].elements[selectedElement][property] = value
-        } else {
-            newState.stages[selectedStage].elements[selectedElement][propertyType][property] = value
-        }
+        newState.stages[selectedStage].elements[selectedElement] = element
     }
+    
     props.setState(newState)
     
     return newState
 }
 
 function getProperty(options) {
+    let {props, selectedStage, selectedElement, propertyType, property} = options
     
-    let {props, selectedStage, selectedElement, propertyType, property, selectedSectionElement} = options
-
-    if (typeof selectedSectionElement === 'number') {
-        return getSectionProperty(options)
-    }
-    
-     if (Number.isInteger(selectedElement)) {
+    if (selectedElement == keys.STYLE_SETTINGS || selectedElement == keys.BRANDING_SETTINGS || selectedElement == keys.ALERT_SETTINGS) {
         if (!propertyType) {
-            return props.state.stages[selectedStage]?.elements?.[selectedElement]?.[property]
+            return props.state[selectedElement][property]
         } else {
-            return props.state.stages[selectedStage]?.elements?.[selectedElement]?.[propertyType]?.[property]      
+            return props.state[selectedElement][propertyType][property]
         }
-    } else if (selectedElement == keys.BACKGROUND || selectedElement == keys.TAB || selectedElement == keys.ALERT) {
+    } else if (selectedElement == keys.STAGE_SETTINGS) {
         if (!propertyType) {
-            return props.state.fixed[selectedElement]?.[property]
+            return props.state.stages[selectedStage].settings[property]
         } else {
-            return props.state.fixed[selectedElement]?.[propertyType]?.[property]
+            return props.state.stages[selectedStage].settings[propertyType][property]
         }
-    } else if (selectedElement == keys.MAINBOARD) { 
-        if (!propertyType) {
-            return props.state.stages[selectedStage]?.[selectedElement]?.[property]
-        } else {
-            return props.state.stages[selectedStage]?.[selectedElement]?.[propertyType]?.[property]
-        }
-    }
-}
-
-function getElement(options) {
-    
-    let {props, selectedStage, selectedElement, selectedSectionElement} = options
-    if (typeof selectedSectionElement === 'number') {
-        return getSectionElement(options)
-    }
-    
-    if (Number.isInteger(selectedElement)) {
-        return props.state.stages[selectedStage]?.elements?.[selectedElement]
-    } else if (selectedElement == keys.BACKGROUND || selectedElement == keys.TAB || selectedElement == keys.ALERT) {
-        return props.state.fixed[selectedElement]
-    } else if (selectedElement == keys.MAINBOARD) { 
-        return props.state.stages[selectedStage]?.[selectedElement]
-    }
-}
-
-function modifyElement(options) {
-    let {props, selectedStage, selectedElement, element, selectedSectionElement} = options
-    
-    if (typeof selectedSectionElement === 'number') {
-        return modifySectionElement(options)
-    }
-    
-    let newState = JSON.parse(JSON.stringify(props.state))
-    if (Number.isInteger(selectedElement)) {
-        let prevElement = props.state.stages[selectedStage]?.elements?.[selectedElement]
-        if (prevElement.locked) return
-        newState.stages[selectedStage].elements[selectedElement] = {...prevElement, ...element}
-    } else if (selectedElement == keys.BACKGROUND || selectedElement == keys.TAB || selectedElement == keys.ALERT) {
-        let prevElement = newState.fixed[selectedElement]
-        if (prevElement.locked) return
-        newState.fixed[selectedElement] = {...prevElement, ...element}
-    } else if (selectedElement == keys.MAINBOARD) { 
-        let prevElement = newState.stages[selectedStage]?.[selectedElement]
-        if (prevElement.locked) return
-        newState.stages[selectedStage][selectedElement] = {...prevElement, ...element}
-    }
-    
-    props.setState(newState)
-    
-    return newState
-}
-
-function modifySectionProperty(options) {
-    const {props, selectedStage, selectedElement, selectedSectionElement, propertyType, property, value} = options
-    let newState = JSON.parse(JSON.stringify(props.state))
-
-    if (property != 'locked' && newState.stages[selectedStage].elements[selectedElement].elements[selectedSectionElement].locked) return
-    if (!propertyType) {
-        newState.stages[selectedStage].elements[selectedElement].elements[selectedSectionElement][property] = value
     } else {
-        newState.stages[selectedStage].elements[selectedElement].elements[selectedSectionElement][propertyType][property] = value
+        if (!propertyType) {
+            return props.state.stages[selectedStage].elements[selectedElement][property]
+        } else {
+            return props.state.stages[selectedStage].elements[selectedElement][propertyType][property]
+        }
     }
+}
 
-    props.setState(newState)
+function setProperty(options) {
+    let {props, selectedStage, selectedElement, propertyType, property, value} = options
     
-    return newState
-}
-
-function getSectionProperty(options) {
-    const {props, selectedStage, selectedElement, selectedSectionElement, propertyType, property} = options
-    if (!propertyType) {
-        return props.state.stages[selectedStage]?.elements?.[selectedElement]?.elements?.[selectedSectionElement]?.[property]
-    } else {
-        return props.state.stages[selectedStage]?.elements?.[selectedElement]?.elements[selectedSectionElement][propertyType]?.[property]      
-    }
-}
-
-function modifySectionElement(options) {
-    const {props, selectedStage, selectedElement, selectedSectionElement, element} = options
     let newState = JSON.parse(JSON.stringify(props.state))
     
-    let prevElement = props.state.stages[selectedStage]?.elements?.[selectedElement]?.elements?.[selectedSectionElement]
-    if (prevElement.locked) return
-    newState.stages[selectedStage].elements[selectedElement].elements[selectedSectionElement] = {...prevElement, ...element}
+    if (selectedElement == keys.STYLE_SETTINGS || selectedElement == keys.BRANDING_SETTINGS || selectedElement == keys.ALERT_SETTINGS) {
+        if (!propertyType) {
+            newState[selectedElement][property] = value
+        } else {
+            newState[selectedElement][propertyType][property] = value
+        }
+    } else if (selectedElement == keys.STAGE_SETTINGS) {
+        if (!propertyType) {
+            newState.stages[selectedStage].settings[property] = value
+        } else {
+            newState.stages[selectedStage].settings[propertyType][property] = value
+        }
+    } else {
+        if (!propertyType) {
+            newState.stages[selectedStage].elements[selectedElement][property] = value
+        } else {
+            newState.stages[selectedStage].elements[selectedElement][propertyType][property] = value
+        }
+    }
+    
     props.setState(newState)
     
     return newState
-}
-
-function getSectionElement(options) {
-    const {props, selectedStage, selectedElement, selectedSectionElement} = options
-    return props.state.stages[selectedStage]?.elements?.[selectedElement]?.elements?.[selectedSectionElement]
 }
 
 module.exports = {
     handleDisabled, 
     handleLimit, 
-    modifyProperty, 
-    getProperty, 
+    isSurveyElement,
+    requiresButton,
+    isFormElement,
+
+    getStage,
+    setStage,
     getElement, 
-    modifyElement
+    setElement,
+    getProperty,
+    setProperty, 
 }
