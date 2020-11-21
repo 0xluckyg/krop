@@ -82,7 +82,6 @@ class ShowAfter extends React.Component {
             <div>
                 <div className={classes.locationInputContainer}>
                     <TextField      
-                        autoFocus
                         label="Add Tag"
                         style={{marginBottom: '2px'}}
                         value={this.state.tag}

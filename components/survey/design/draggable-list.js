@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable, resetServerContext  } from "react-beautiful-dnd";
 
 import keys from '../../../config/keys'
 import ListElement from './list-element'
@@ -69,6 +69,7 @@ class DraggableList extends Component {
     // But in this example everything is just done in one place for simplicity
     render() {
         const elementWrapper = this.props.wrapper
+        resetServerContext()
         
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>

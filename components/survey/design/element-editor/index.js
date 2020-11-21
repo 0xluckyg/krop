@@ -3,7 +3,9 @@ import React, {Fragment} from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+
 import keys from '../../../../config/keys'
+import MultipleChoiceEditor from './multiple-choice'
 import BackgroundEditor from './background'
 import AlertEditor from './alert'
 import {getElement} from './sub/functions'
@@ -78,16 +80,24 @@ class ElementEditor extends React.Component {
         const {selectedStage, selectedElement} = state
         const elm = this.getElement()
         const type = elm ? elm.type : null
-
+        
+        console.log(": ", type)
         switch(type) {
-            case(keys.ALERT):
+            case(keys.MULTIPLE_CHOICE_ELEMENT):
+                return <MultipleChoiceEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.ALERT_SETTINGS):
                 return <AlertEditor
                     stage={selectedStage}
                     element={selectedElement}
                     state={state}
                     setState={setState}
                 />
-            case(keys.BACKGROUND):
+            case(keys.BACKGROUND_SETTINGS):
                 return <BackgroundEditor
                     stage={selectedStage}
                     element={selectedElement}
@@ -125,7 +135,7 @@ class ElementEditor extends React.Component {
             <div className={classes.sideEditor}>
                 {this.renderMainHeader()}
                 <div className={classes.elementEditor}>
-                    
+                    {this.renderEditorContent()}
                 </div>
             </div>
         )

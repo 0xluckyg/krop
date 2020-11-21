@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import {setProperty, getProperty, getElement, modifyElement} from './functions'
 import Input from './input'
 import keys from '../../../../../config/keys'
-import {image, button} from '../../element-objects'
 
 class BannerDropzone extends React.Component {
     constructor(props){
