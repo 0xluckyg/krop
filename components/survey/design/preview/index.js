@@ -11,11 +11,6 @@ import Branding from './branding'
 class MainboardPreview extends React.Component {
     constructor(props) {
         super(props)
-        
-        this.state = {
-            showHorizontalRuler: false,
-            showVerticalRuler: false
-        }
     }
     
     getDevicePosition(element) {
@@ -86,29 +81,13 @@ const useStyles = theme => ({
             display: 'flex',
             height: "calc(100vh - 48px - 48px)",
             overflowY: 'auto',
-            overflowX: 'hidden',
+            // overflowX: 'hidden',
             justifyContent: 'center',
             alignItems: 'center',
             position: 'relative',
             flex: 1,
             backgroundColor: keys.APP_COLOR_GRAY_LIGHT  
         }  
-    },
-    verticalRuler: {
-        position: 'absolute',
-        left: '50%',
-        height: '100%',
-        width: '1px',
-        backgroundColor: keys.APP_COLOR,
-        zIndex: 100
-    },
-    horizontalRuler: {
-        position: 'absolute',
-        top: '50%',
-        height: '1px',
-        width: '100%',
-        backgroundColor: keys.APP_COLOR,
-        zIndex: 100
     }
 })
 

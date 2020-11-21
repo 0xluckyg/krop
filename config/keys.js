@@ -32,7 +32,7 @@ const APP_EMAIL = 'info@vivelop.com';
 const NAV_WIDTH = 200;
 const NAV_COLOR = '#151b26'
 const HEADER_HEIGHT = 45;
-const SIDE_EDITOR_WIDTH = 600;
+const SIDE_EDITOR_WIDTH = 450;
 
 const SHOW_TOAST = 'show_toast';
 const IS_LOADING = 'is_loading';

@@ -8,8 +8,6 @@ import Slide from '@material-ui/core/Slide';
 import AddIcon from '@material-ui/icons/Add';
 import PhoneIcon from '@material-ui/icons/PhoneIphone';
 import DesktopIcon from '@material-ui/icons/DesktopMac';
-import BackgroundIcon from '@material-ui/icons/FormatPaint';
-import TriggerTabIcon from '@material-ui/icons/CallToAction';
 import Icon from '@mdi/react'
 import { 
     mdiAlertCircle,
@@ -192,33 +190,12 @@ class StageBar extends React.Component {
     }
     
     renderFixedElements() {
-        const {classes, state, setState} = this.props
-        const selected = classes.deviceToggleButton
-        const notSelected = clsx(classes.deviceToggleButton, classes.deviceToggleButtonGray)
-        const button = clsx(classes.deviceToggleButton, classes.deviceToggleButtonGray)
+        const {classes} = this.props
         return (
             <div className={classes.deviceToggleContainer}>
                 {this.renderIconWithSubtitle(
                     <IconButton  
-                        className={state.viewMode == keys.DESKTOP_PROPERTY ? selected : notSelected} 
-                        onClick={() => setState({viewMode: keys.DESKTOP_PROPERTY})} 
-                        size="small" variant="contained" color="secondary">
-                        <DesktopIcon fontSize="small" />
-                    </IconButton>,
-                    'Desktop'
-                )}
-                {this.renderIconWithSubtitle(
-                    <IconButton  
-                        className={state.viewMode == keys.MOBILE_PROPERTY ? selected : notSelected} 
-                        onClick={() => setState({viewMode: keys.MOBILE_PROPERTY})} 
-                        size="small" variant="contained" color="primary">
-                        <PhoneIcon fontSize="small" />
-                    </IconButton>,
-                    'Mobile'
-                )}
-                {this.renderIconWithSubtitle(
-                    <IconButton  
-                        className={button} 
+                        className={classes.deviceToggleButton} 
                         onClick={() => this.handleElementSelect(keys.STAGE_SETTINGS)}
                         size="small" variant="contained" color="secondary">
                         <Icon path={mdiMonitorDashboard}
@@ -230,7 +207,7 @@ class StageBar extends React.Component {
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
-                        className={button} 
+                        className={classes.deviceToggleButton} 
                         onClick={() => this.handleElementSelect(keys.STYLE_SETTINGS)}
                         size="small" variant="contained" color="secondary">
                         <Icon path={mdiPalette}
@@ -242,7 +219,7 @@ class StageBar extends React.Component {
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
-                        className={button} 
+                        className={classes.deviceToggleButton} 
                         onClick={() => this.handleElementSelect(keys.BACKGROUND_SETTINGS)}
                         size="small" variant="contained" color="secondary">
                         <Icon path={mdiFormatPaint}
@@ -254,7 +231,7 @@ class StageBar extends React.Component {
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
-                        className={button} 
+                        className={classes.deviceToggleButton} 
                         onClick={() => this.handleElementSelect(keys.TEXT_SETTINGS)}
                         size="small" variant="contained" color="secondary">
                         <Icon path={mdiFormatTextVariantOutline}
@@ -266,7 +243,7 @@ class StageBar extends React.Component {
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
-                        className={button} 
+                        className={classes.deviceToggleButton} 
                         onClick={() => this.handleElementSelect(keys.ALERT_SETTINGS)}
                         size="small" variant="contained" color="primary">
                         <Icon path={mdiAlertCircle}
@@ -278,7 +255,7 @@ class StageBar extends React.Component {
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
-                        className={button} 
+                        className={classes.deviceToggleButton} 
                         onClick={() => this.handleElementSelect(keys.LOGO_SETTINGS)}
                         size="small" variant="contained" color="primary">
                         <Icon path={mdiFlagVariant}
@@ -396,16 +373,14 @@ const useStyles = theme => ({
         background: 'white',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-around',
         width: '100%',
         height: 60
     },
     deviceToggleButton: {
         margin: '0px 10px',
         height: 40,
-        width: 40
-    },
-    deviceToggleButtonGray: {
+        width: 40,
         color: keys.APP_COLOR_GRAY_DARKEST
     },
     iconContainer: {
