@@ -2,6 +2,7 @@ import React, {Fragment} from 'react'
 
 import { withStyles } from '@material-ui/core/styles';
 
+import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import Input from './sub/input'
 import ImageUploader from './sub/image-uploader'
@@ -161,9 +162,12 @@ class MultipleChoiceEditor extends React.Component {
 const useStyles = theme => ({    
     optionContainer: {
         height: 'auto',
+        paddingBottom: 13
     },
     optionTitle: {
-        margin: 0  
+        margin: 0,
+        fontSize: 10,
+        color: keys.APP_COLOR_GRAY_DARK
     },
     inputStyle: {
         border: 'none',
