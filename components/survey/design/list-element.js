@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import TextareaAutosize from 'react-autosize-textarea';
 
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
@@ -105,8 +106,8 @@ class ListElement extends React.Component {
     }
     
     renderMainIcon() {
-        const {classes, elementType} = this.props
-        switch(elementType) {
+        const {classes, element} = this.props
+        switch(element.type) {
             case keys.MULTIPLE_CHOICE_ELEMENT:
                 return this.renderIcon(mdiCheckboxMarkedCircleOutline, classes.mainIcon)
             case keys.CHECKBOX_ELEMENT:
@@ -174,16 +175,14 @@ class ListElement extends React.Component {
         const mainText = question ? question : text
         if (!mainText) return null
         return (
-            <div
-                contentEditable
-                suppressContentEditableWarning={true}
+            <TextareaAutosize
+                type="text"
                 onChange={e => {
                     this.setProperty(null, question ? 'question' : 'text', e.target.value)
                 }}
                 className={clsx(classes.inputStyle, classes.mainTextStyle)}
-            >
-                {mainText}
-            </div>
+                value={mainText}
+            />
         )
     }
     
@@ -192,21 +191,19 @@ class ListElement extends React.Component {
         const {options} = element
         if (!options) return null
         return (
-            <div
-                contentEditable
-                suppressContentEditableWarning
+            <TextareaAutosize
+                type="text"
                 onChange={e => {
                     this.handleOptionsChange(e.target.value)  
                 }}
                 className={clsx(classes.inputStyle, classes.optionsTextStyle)}
-            >
-                {this.getOptionsInText(options)}
-            </div>
+                value={this.getOptionsInText(options)}
+            />
         )
     }
 
     render() {
-        const {classes, elementName, elementType, type} = this.props
+        const {classes, element, type} = this.props
 
         return (
             <div className={classes.mainContainer}>
@@ -214,7 +211,7 @@ class ListElement extends React.Component {
                     <div className={classes.titleWrapper}>
                         {this.renderMainIcon()}
                         <p className={classes.elementText}>{
-                            (elementName && elementName != '') ? elementName : elementType
+                            (element.name && element.name != '') ? element.name : element.type
                         }</p>
                     </div>
                     {this.renderSubIcon(type)}

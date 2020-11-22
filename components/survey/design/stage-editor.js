@@ -19,7 +19,7 @@ class StageEditor extends React.Component {
     handleStageNameChange(newName, index) {
         const {state, setState} = this.props
         let newState = {...state}
-        newState.stages[index].name = newName
+        newState.stages[index].settings.name = newName
         setState(newState)
     }
     
@@ -41,15 +41,14 @@ class StageEditor extends React.Component {
         setState(newState)
     }
     
-    renderStageItem(type, name, index) {
+    renderStageItem(index, element) {
         const {classes} = this.props
-        console.log({name, index})
         return (
             <div className={classes.stageItemContainer}>
                 <TextField
                     className={classes.stageItemTextField}
                     label="Stage Name"
-                    value={name}
+                    value={element.settings.name}
                     onChange={event => this.handleStageNameChange(event.target.value, index)}
                 /><br/>
                 <DeleteIcon 
@@ -115,7 +114,7 @@ class StageEditor extends React.Component {
                             //Is source was below destination
                             if (src - dest < 0) return setState({selectedStage: selectedStage-1})
                         }}
-                        wrapper={(type, name, index) => this.renderStageItem(type, name, index)}
+                        wrapper={(index, element) => this.renderStageItem(index, element)}
                     />
                 </div>
             </div>
@@ -137,21 +136,21 @@ const useStyles = theme => ({
     },
     elementsHeader: {
         width: '100%',
-        backgroundColor: keys.APP_COLOR,
+        backgroundColor: keys.APP_COLOR_GRAY,
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
     },
     elementsHeaderText: {
         fontSize: 15,
-        color: 'white',
+        color: keys.APP_COLOR_GRAY_DARKEST,
         marginLeft: 20
     },
     exitButton: {
         marginRight: 20
     },
     exitButtonIcon: {
-        color: 'white'
+        color: keys.APP_COLOR_GRAY_DARKEST
     },
     subHeader: {
         width: '100%',

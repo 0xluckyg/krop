@@ -4,6 +4,7 @@ const shortid = require('shortid')
 const multipleChoice = (custom) => {
     const {required, media, hasOther, question, options, tags} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.MULTIPLE_CHOICE_ELEMENT,
         name: 'Multiple Choice',
         required: required ? required : true,
@@ -24,6 +25,7 @@ const multipleChoice = (custom) => {
 const checkbox = (custom) => {
     const {required, media, hasOther, question, options, tags} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.CHECKBOX_ELEMENT,
         name: 'Checkbox',
         required: required ? required : true,
@@ -44,6 +46,7 @@ const checkbox = (custom) => {
 const dropdown = (custom) => {
     const {required, media, question, options, tags} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.DROPDOWN_ELEMENT,
         name: 'Dropdown',
         required: required ? required : true,
@@ -63,6 +66,7 @@ const dropdown = (custom) => {
 const slider = (custom) => {
     const {required, media, question, min, max, tags} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.SLIDER_ELEMENT,
         name: 'Slider',
         required: required ? required : true,
@@ -77,6 +81,7 @@ const slider = (custom) => {
 const form = (custom) => {
     const {required, media, question, maxChar, minChar, numOnly, tags} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.FORM_ELEMENT,
         name: 'Form',
         required: required ? required : true,
@@ -92,6 +97,7 @@ const form = (custom) => {
 const email = (custom) => {
     const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.EMAIL_ELEMENT,
         name: 'Email',
         required: required ? required : true,
@@ -106,6 +112,7 @@ const email = (custom) => {
 const phone = (custom) => {
     const {required, media, question, maxChar, minChar, numOnly, tags} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.PHONE_ELEMENT,
         name: 'Phone',
         required: required ? required : true,
@@ -121,6 +128,7 @@ const phone = (custom) => {
 const address = (custom) => {
     const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.ADDRESS_ELEMENT,
         name: 'Address',
         required: required ? required : true,
@@ -135,6 +143,7 @@ const address = (custom) => {
 const name = (custom) => {
     const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.NAME_ELEMENT,
         name: 'Name',
         required: required ? required : true,
@@ -149,6 +158,7 @@ const name = (custom) => {
 const longForm = (custom) => {
     const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.LONGFORM_ELEMENT,
         name: 'Long Form',
         required: required ? required : true,
@@ -163,6 +173,7 @@ const longForm = (custom) => {
 const heading = (custom) => {
     const {text} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.HEADING_ELEMENT,
         name: 'Heading',
         text: text ? text : ''
@@ -172,6 +183,7 @@ const heading = (custom) => {
 const subheading = (custom) => {
     const {text} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.SUBHEADING_ELEMENT,
         name: 'Subheading',
         text: text ? text : ''
@@ -181,6 +193,7 @@ const subheading = (custom) => {
 const paragraph = (custom) => {
     const {text} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.PARAGRAPH_ELEMENT,
         name: 'Paragraph',
         text: text ? text : ''
@@ -190,6 +203,7 @@ const paragraph = (custom) => {
 const media = (custom) => {
     const {url} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.MEDIA_ELEMENT,
         name: 'Media',
         url: url ? url : ''
@@ -199,6 +213,7 @@ const media = (custom) => {
 const link = (custom) => {
     const {url} = custom ? custom : {}
     return {
+        id: shortid.generate(),
         type: keys.LINK_ELEMENT,
         name: 'Link',
         url: url ? url : ''
