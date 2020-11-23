@@ -11,7 +11,7 @@ import Tags from './sub/tags'
 import SectionTabs from './sub/section-tabs'
 import {setProperty, getProperty} from './sub/functions'
 
-class CheckboxEditor extends React.Component {
+class SliderEditor extends React.Component {
     constructor(props) {
         super(props)
         
@@ -166,4 +166,4 @@ const useStyles = theme => ({
     }
 })
 
-export default withStyles(useStyles)(CheckboxEditor)
+export default withStyles(useStyles)(SliderEditor)

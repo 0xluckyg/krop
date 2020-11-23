@@ -12,6 +12,9 @@ import TextEditor from './text'
 import SliderEditor from './slider'
 import FormEditor from './form'
 import LongFormEditor from './long-form'
+import ImageEditor from './image'
+import VideoEditor from './video'
+import LinkEditor from './link'
 
 import BackgroundEditor from './background'
 import AlertEditor from './alert'
@@ -146,11 +149,26 @@ class ElementEditor extends React.Component {
                 />
             
             case(keys.IMAGE_ELEMENT):
-                return
+                return <ImageEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
             case(keys.VIDEO_ELEMENT):
-                return
+                return <VideoEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
             case(keys.LINK_ELEMENT):
-                return    
+                return <LinkEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
             
             case(keys.ALERT_SETTINGS):
                 return <AlertEditor

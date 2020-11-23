@@ -208,7 +208,8 @@ const image = (custom) => {
         id: shortid.generate(),
         type: keys.IMAGE_ELEMENT,
         name: 'Image',
-        url: url ? url : ''
+        url: url ? url : '',
+        rounding: true
     }
 }
 
@@ -218,7 +219,8 @@ const video = (custom) => {
         id: shortid.generate(),
         type: keys.VIDEO_ELEMENT,
         name: 'Video',
-        url: url ? url : ''
+        url: url ? url : '',
+        rounding: true
     }
 }
 
@@ -228,7 +230,8 @@ const link = (custom) => {
         id: shortid.generate(),
         type: keys.LINK_ELEMENT,
         name: 'Link',
-        url: url ? url : ''
+        url: url ? url : '',
+        newWindow: true
     }
 }
 
@@ -239,16 +242,22 @@ const defaultStages = () => [
             isSinglePage: true
         },
         elements: [
-            heading(),
-            subheading(),
+            multipleChoice(), 
+            checkbox(), 
+            dropdown(), 
+            slider(), 
+            form(), 
+            email(), 
+            phone(), 
+            address(), 
+            name(), 
+            longForm(), 
+            heading(), 
+            subheading(), 
+            paragraph(), 
             image(),
             video(),
-            name(),
-            email(),
-            address(),
-            longForm(),
-            slider(),
-            paragraph()
+            link()
         ]
     },
     {

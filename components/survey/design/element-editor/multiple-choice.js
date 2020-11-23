@@ -107,23 +107,17 @@ class MultipleChoiceEditor extends React.Component {
                             this.setProperty(null, 'options', newElements)
                         }}
                         wrapper={(index, element) => {
-                            console.log({index, element})
                             return <div className={classes.optionContainer}>
-                                <div>
-                                    <p className={classes.optionTitle}>Option {index + 1}</p>
-                                    <div
-                                        contentEditable
-                                        suppressContentEditableWarning
-                                        onInput={e => {
-                                            let options = [...this.getProperty(null, 'options')]
-                                            options[index].text = e.currentTarget.textContent
-                                            this.setProperty(null, 'options', options)
-                                        }}
-                                        className={classes.inputStyle}
-                                    >
-                                        {this.getProperty(null, 'options')[index].text}
-                                    </div>
-                                </div>
+                                <p className={classes.optionTitle}>Option {index + 1}</p>
+                                <input
+                                    onChange={e => {
+                                        let options = [...this.getProperty(null, 'options')]
+                                        options[index].text = e.target.value
+                                        this.setProperty(null, 'options', options)
+                                    }}
+                                    value={this.getProperty(null, 'options')[index].text}
+                                    className={classes.inputStyle}
+                                />
                             </div>
                         }}
                     />
