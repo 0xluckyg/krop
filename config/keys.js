@@ -58,17 +58,23 @@ const MULTIPLE_CHOICE_ELEMENT = 'multiple_choice_element'
 const CHECKBOX_ELEMENT = 'checkbox_element'
 const DROPDOWN_ELEMENT = 'dropdown_element'
 const SLIDER_ELEMENT = 'slider_element'
+
 const FORM_ELEMENT = 'form_element'
 const EMAIL_ELEMENT = 'email_element'
 const PHONE_ELEMENT = 'phone_element'
 const ADDRESS_ELEMENT = 'address_element'
 const NAME_ELEMENT = 'name_element'
+
 const LONG_FORM_ELEMENT = 'long_form_element'
+
 const HEADING_ELEMENT = 'heading_element'
 const SUBHEADING_ELEMENT = 'subheading_element'
 const PARAGRAPH_ELEMENT = 'paragraph_element'
-const MEDIA_ELEMENT = 'media_element'
+
 const LINK_ELEMENT = 'link_element'
+
+const IMAGE_ELEMENT = 'image_element'
+const VIDEO_ELEMENT = 'video_element'
 
 const FEE_0 = {
     price: 0,
@@ -160,6 +166,7 @@ module.exports = {
     HEADING_ELEMENT,
     SUBHEADING_ELEMENT,
     PARAGRAPH_ELEMENT,
-    MEDIA_ELEMENT,
-    LINK_ELEMENT
+    LINK_ELEMENT,
+    IMAGE_ELEMENT,
+    VIDEO_ELEMENT
 }

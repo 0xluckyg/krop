@@ -86,6 +86,7 @@ const form = (custom) => {
         name: 'Form',
         required: required ? required : true,
         media: media ? media : null,
+        placeholder: 'Please write your response here',
         question: question ? question : 'Question',
         maxChar: maxChar ? maxChar : 100,
         minChar: minChar ? minChar : 1,
@@ -159,11 +160,12 @@ const longForm = (custom) => {
     const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
         id: shortid.generate(),
-        type: keys.LONGFORM_ELEMENT,
+        type: keys.LONG_FORM_ELEMENT,
         name: 'Long Form',
         required: required ? required : true,
         media: media ? media : null,
         question: question ? question : 'Question',
+        placeholder: 'Please write your response here',
         maxChar: maxChar ? maxChar : 100,
         minChar: minChar ? minChar : 1,
         tags: tags ? tags : []
@@ -200,12 +202,22 @@ const paragraph = (custom) => {
     }
 }
 
-const media = (custom) => {
+const image = (custom) => {
     const {url} = custom ? custom : {}
     return {
         id: shortid.generate(),
-        type: keys.MEDIA_ELEMENT,
-        name: 'Media',
+        type: keys.IMAGE_ELEMENT,
+        name: 'Image',
+        url: url ? url : ''
+    }
+}
+
+const video = (custom) => {
+    const {url} = custom ? custom : {}
+    return {
+        id: shortid.generate(),
+        type: keys.VIDEO_ELEMENT,
+        name: 'Video',
         url: url ? url : ''
     }
 }
@@ -227,10 +239,16 @@ const defaultStages = () => [
             isSinglePage: true
         },
         elements: [
+            heading(),
             subheading(),
-            multipleChoice(),
-            checkbox(),
-            form(),
+            image(),
+            video(),
+            name(),
+            email(),
+            address(),
+            longForm(),
+            slider(),
+            paragraph()
         ]
     },
     {
@@ -241,7 +259,8 @@ const defaultStages = () => [
         elements: [
             heading(),
             subheading(),
-            media(),
+            image(),
+            video(),
             paragraph()
         ]
     }
@@ -286,6 +305,7 @@ module.exports = {
     heading, 
     subheading, 
     paragraph, 
-    media, 
+    image,
+    video,
     link
 }

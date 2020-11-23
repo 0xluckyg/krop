@@ -6,6 +6,13 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import keys from '../../../../config/keys'
 import MultipleChoiceEditor from './multiple-choice'
+import CheckboxEditor from './checkbox'
+import DropdownEditor from './dropdown'
+import TextEditor from './text'
+import SliderEditor from './slider'
+import FormEditor from './form'
+import LongFormEditor from './long-form'
+
 import BackgroundEditor from './background'
 import AlertEditor from './alert'
 import {getElement} from './sub/functions'
@@ -81,8 +88,55 @@ class ElementEditor extends React.Component {
         const elm = this.getElement()
         const type = elm ? elm.type : null
         
-        console.log(": ", type)
         switch(type) {
+            case(keys.HEADING_ELEMENT):
+            case(keys.SUBHEADING_ELEMENT):
+            case(keys.PARAGRAPH_ELEMENT):
+                return <TextEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.FORM_ELEMENT):
+            case(keys.ADDRESS_ELEMENT):
+            case(keys.NAME_ELEMENT):
+            case(keys.EMAIL_ELEMENT):
+            case(keys.PHONE_ELEMENT):
+                return <FormEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.LONG_FORM_ELEMENT):
+                return <LongFormEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.SLIDER_ELEMENT):
+                return <SliderEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.DROPDOWN_ELEMENT):
+                return <DropdownEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.CHECKBOX_ELEMENT):
+                return <CheckboxEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
             case(keys.MULTIPLE_CHOICE_ELEMENT):
                 return <MultipleChoiceEditor
                     stage={selectedStage}
@@ -90,6 +144,14 @@ class ElementEditor extends React.Component {
                     state={state}
                     setState={setState}
                 />
+            
+            case(keys.IMAGE_ELEMENT):
+                return
+            case(keys.VIDEO_ELEMENT):
+                return
+            case(keys.LINK_ELEMENT):
+                return    
+            
             case(keys.ALERT_SETTINGS):
                 return <AlertEditor
                     stage={selectedStage}

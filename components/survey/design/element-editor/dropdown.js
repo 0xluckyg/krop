@@ -12,7 +12,7 @@ import SectionTabs from './sub/section-tabs'
 import OptionsList from '../draggable-list'
 import {setProperty, getProperty} from './sub/functions'
 
-class MultipleChoiceEditor extends React.Component {
+class CheckboxEditor extends React.Component {
     constructor(props) {
         super(props)
         
@@ -48,7 +48,7 @@ class MultipleChoiceEditor extends React.Component {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Multiple choice settings">
+                <SectionContainer title="Dropdown settings">
                     <Switch 
                         stage={stage}
                         element={element}
@@ -56,14 +56,6 @@ class MultipleChoiceEditor extends React.Component {
                         setState={setState}
                         title="Required"
                         property="required"
-                    />
-                    <Switch 
-                        stage={stage}
-                        element={element}
-                        state={state} 
-                        setState={setState}
-                        title='Has "Other" option'
-                        property="hasOther"
                     />
                 </SectionContainer>
                 <SectionContainer title="Explainer image">
@@ -188,4 +180,4 @@ const useStyles = theme => ({
     }
 })
 
-export default withStyles(useStyles)(MultipleChoiceEditor)
+export default withStyles(useStyles)(CheckboxEditor)

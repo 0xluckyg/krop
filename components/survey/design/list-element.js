@@ -18,6 +18,7 @@ import {
     mdiFormatParagraph,
     mdiImageOutline,
     mdiLink,
+    mdiYoutube,
     
     mdiTrashCanOutline,
     mdiCircleEditOutline,
@@ -56,7 +57,6 @@ class ListElement extends React.Component {
     
     handleOptionsChange(value) {
         let newOptions = []
-        console.log("V: ", value)
         value.split('\n').map((o, i) => {
             newOptions.push({
                 text: o,
@@ -134,8 +134,10 @@ class ListElement extends React.Component {
                 return this.renderIcon(mdiFormatHeader2, classes.mainIcon)
             case keys.PARAGRAPH_ELEMENT:
                 return this.renderIcon(mdiFormatParagraph, classes.mainIcon)
-            case keys.MEDIA_ELEMENT:
+            case keys.IMAGE_ELEMENT:
                 return this.renderIcon(mdiImageOutline, classes.mainIcon)
+            case keys.VIDEO_ELEMENT:
+                return this.renderIcon(mdiYoutube, classes.mainIcon)
             case keys.LINK_ELEMENT:
                 return this.renderIcon(mdiLink, classes.mainIcon)
             default:

@@ -9,10 +9,9 @@ import ImageUploader from './sub/image-uploader'
 import Switch from './sub/switch'
 import Tags from './sub/tags'
 import SectionTabs from './sub/section-tabs'
-import OptionsList from '../draggable-list'
 import {setProperty, getProperty} from './sub/functions'
 
-class MultipleChoiceEditor extends React.Component {
+class CheckboxEditor extends React.Component {
     constructor(props) {
         super(props)
         
@@ -44,11 +43,29 @@ class MultipleChoiceEditor extends React.Component {
         })
     }
     
+    getFormType() {
+        const type = this.getProperty(null, 'type')
+        switch(type) {
+            case(keys.ADDRESS_ELEMENT):
+                return 'Address'
+            case(keys.NAME_ELEMENT):
+                return 'Name'
+            case(keys.FORM_ELEMENT):
+                return 'Form'
+            case(keys.EMAIL_ELEMENT):
+                return 'Email'
+            case(keys.PHONE_ELEMENT):
+                return 'Phone'
+            default:
+                return ''
+        }
+    }
+    
     renderSettingsEditor() {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Multiple choice settings">
+                <SectionContainer title={this.getFormType() + " settings"}>
                     <Switch 
                         stage={stage}
                         element={element}
@@ -62,8 +79,24 @@ class MultipleChoiceEditor extends React.Component {
                         element={element}
                         state={state} 
                         setState={setState}
-                        title='Has "Other" option'
-                        property="hasOther"
+                        title="Number only"
+                        property="numOnly"
+                    />
+                    <Input
+                        label='Minimum length'
+                        onChange={value => {
+                            this.setProperty(null, 'minChar', event.target.value)
+                        }}
+                        value={this.getProperty(null, 'minChar')}
+                        numOnly
+                    />
+                    <Input
+                        label='Maximum length'
+                        onChange={value => {
+                             this.setProperty(null, 'maxChar', event.target.value)
+                        }}
+                        value={this.getProperty(null, 'maxChar')}
+                        numOnly
                     />
                 </SectionContainer>
                 <SectionContainer title="Explainer image">
@@ -87,7 +120,6 @@ class MultipleChoiceEditor extends React.Component {
     }
     
     renderOptionsEditor() {
-        const {classes} = this.props
         return (
             <Fragment>
                 <SectionContainer title="Question">
@@ -98,35 +130,15 @@ class MultipleChoiceEditor extends React.Component {
                         }}
                         value={this.getProperty(null, 'question')}
                     />
-                </SectionContainer>
-                <SectionContainer title="Options">
-                    <OptionsList 
-                        customKey={this.getProperty(null, 'id')}
-                        elements={this.getProperty(null, 'options')}
-                        setElements={newElements => {
-                            this.setProperty(null, 'options', newElements)
-                        }}
-                        wrapper={(index, element) => {
-                            console.log({index, element})
-                            return <div className={classes.optionContainer}>
-                                <div>
-                                    <p className={classes.optionTitle}>Option {index + 1}</p>
-                                    <div
-                                        contentEditable
-                                        suppressContentEditableWarning
-                                        onInput={e => {
-                                            let options = [...this.getProperty(null, 'options')]
-                                            options[index].text = e.currentTarget.textContent
-                                            this.setProperty(null, 'options', options)
-                                        }}
-                                        className={classes.inputStyle}
-                                    >
-                                        {this.getProperty(null, 'options')[index].text}
-                                    </div>
-                                </div>
-                            </div>
-                        }}
-                    />
+                    {this.getProperty(null, 'type') != keys.FORM_ELEMENT ? null : 
+                        <Input
+                            label='Placeholder'
+                            onChange={value => {
+                                 this.setProperty(null, 'placeholder', event.target.value)
+                            }}
+                            value={this.getProperty(null, 'placeholder')}
+                        />
+                    }
                 </SectionContainer>
             </Fragment>
         )
@@ -188,4 +200,4 @@ const useStyles = theme => ({
     }
 })
 
-export default withStyles(useStyles)(MultipleChoiceEditor)
+export default withStyles(useStyles)(CheckboxEditor)

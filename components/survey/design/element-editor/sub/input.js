@@ -2,7 +2,6 @@ import React from 'react'
 
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-const shortid = require('shortid')
 
 class Input extends React.Component {
     constructor(props) {
@@ -11,7 +10,7 @@ class Input extends React.Component {
     
     
     render() {
-        const {classes, label, onChange, value, error, helperText} = this.props
+        const {classes, label, onChange, value, error, helperText, numOnly} = this.props
         return (
             <div className={classes.inputFieldContainer}>
                 <TextField   
@@ -19,6 +18,9 @@ class Input extends React.Component {
                     error={error}
                     helperText={helperText}
                     onChange={event => {
+                        if (numOnly) {
+                            if (isNaN(event.target.value)) return
+                        }
                         onChange(event.target.value)
                     }}
                     value={value}
@@ -33,7 +35,7 @@ class Input extends React.Component {
 
 const useStyles = theme => ({  
     inputFieldContainer: {
-        marginBottom: 5  
+        marginBottom: 20
     },
     textFieldStyle: {
         marginBottom: '2px', 
