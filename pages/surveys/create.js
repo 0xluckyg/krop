@@ -32,7 +32,6 @@ class CreateSurvey extends React.Component {
             styles: defaultStyles(),
             alert: defaultAlert(),
             settings: defaultSettings,
-            fonts: [],
             
             //UI STATES
             selectedStage: 0,

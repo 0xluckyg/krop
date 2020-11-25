@@ -187,10 +187,10 @@ class StageBar extends React.Component {
         )
     }
     
-    renderFixedElements() {
+    renderSettingsEditor() {
         const {classes} = this.props
         return (
-            <div className={classes.deviceToggleContainer}>
+            <div className={classes.settingsEditorContainer}>
                 {this.renderIconWithSubtitle(
                     <IconButton  
                         className={classes.deviceToggleButton} 
@@ -296,7 +296,7 @@ class StageBar extends React.Component {
                 </div>
                 <div className={classes.sideEditorFooter}>
                     <SectionHeader title="View as (Desktop or Mobile)"/>
-                    {this.renderFixedElements()}
+                    {this.renderSettingsEditor()}
                 </div>
             </div>
         )
@@ -367,11 +367,12 @@ const useStyles = theme => ({
     fixedList: {
         width: '100%'
     },
-    deviceToggleContainer: {
+    settingsEditorContainer: {
         background: 'white',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
+        padding: '0px 20px',
         width: '100%',
         height: 60
     },

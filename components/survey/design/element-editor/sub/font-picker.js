@@ -42,20 +42,20 @@ function Row(props) {
   }, [data.filteredFontFamilies]);
 
   return (
-      <ListItem
-        button
-        style={style}
-        key={index}
-        onClick={() => {
-            onFontSelected && onFontSelected(data.filteredFontFamilies[index])
-        }}
-      >
-        <ListItemText
-          primary={family}
-          style={{ fontFamily: family }}
-          disableTypography
-        />
-      </ListItem>
+        <ListItem
+            button
+            style={style}
+            key={index}
+            onClick={() => {
+                onFontSelected && onFontSelected(data.filteredFontFamilies[index])
+            }}
+        >
+            <ListItemText
+                primary={family}
+                style={{ fontFamily: family }}
+                disableTypography
+            />
+        </ListItem>
   );
 }
 
@@ -66,27 +66,27 @@ function FontList({ classes, className, onFontSelected, searchable }) {
 
     return (
         <Paper className={clsx(classes.root, className)}>
-        {searchable && (
-            <ListItem>
-                <TextField
-                    value={query}
-                    style={styles.searchTextField}
-                    placeholder="Search..."
-                    onChange={(event) => {
-                        const value = event.target.value || '';
-                        setQuery(value);
-                        if (value === '') {
-                            setFilteredFontFamilies(fontFamilies);
-                        } else {
-                            setFilteredFontFamilies(fontFamilies.filter((family) => {
-                                const re = new RegExp(value, 'gi');
-                                return re.test(family.family);
-                            }))
-                        }
-                    }}
-                />
-            </ListItem>
-        )}
+            {searchable && (
+                <ListItem>
+                    <TextField
+                        value={query}
+                        style={styles.searchTextField}
+                        placeholder="Search..."
+                        onChange={(event) => {
+                            const value = event.target.value || '';
+                            setQuery(value);
+                            if (value === '') {
+                                setFilteredFontFamilies(fontFamilies);
+                            } else {
+                                setFilteredFontFamilies(fontFamilies.filter((family) => {
+                                    const re = new RegExp(value, 'gi');
+                                    return re.test(family.family);
+                                }))
+                            }
+                        }}
+                    />
+                </ListItem>
+            )}
             <FixedSizeList
                 height={300}
                 itemSize={46}
@@ -102,6 +102,7 @@ function FontList({ classes, className, onFontSelected, searchable }) {
 
 const styles = {
     searchTextField: {
+        width: '100%',
 		padding: 0,
 		marginTop: 10 
 	}

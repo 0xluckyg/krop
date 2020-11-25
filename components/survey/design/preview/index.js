@@ -6,7 +6,7 @@ import keys from '../../../../config/keys'
 import Background from './background'
 import Alert from './alert'
 import Screen from './screen'
-import Branding from './branding'
+import Text from './text'
 
 class MainboardPreview extends React.Component {
     constructor(props) {
@@ -36,28 +36,51 @@ class MainboardPreview extends React.Component {
         return (
             <React.Fragment>
                 {currentStage.elements.map((element, i) => {
-                    const zIndex = currentStage.elements.length - i
+                    switch(element.type) {
+                        case(keys.MULTIPLE_CHOICE_ELEMENT):
+                            return
+                        case(keys.CHECKBOX_ELEMENT):
+                            return
+                        case(keys.DROPDOWN_ELEMENT):
+                            return
+                        case(keys.SLIDER_ELEMENT):
+                            return
+                        case(keys.FORM_ELEMENT):
+                            return
+                        case(keys.EMAIL_ELEMENT):
+                            return
+                        case(keys.PHONE_ELEMENT):
+                            return
+                        case(keys.ADDRESS_ELEMENT):
+                            return
+                        case(keys.NAME_ELEMENT):
+                            return
+                        case(keys.LONG_FORM_ELEMENT):
+                            return
+                        case(keys.PARAGRAPH_ELEMENT):
+                        case(keys.HEADING_ELEMENT):
+                        case(keys.SUBHEADING_ELEMENT):
+                            return <Text
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
+                        case(keys.LINK_ELEMENT):
+                            return
+                        case(keys.IMAGE_ELEMENT):
+                            return
+                        case(keys.VIDEO_ELEMENT):
+                            return
+                    }
                 })}
+                
             </React.Fragment>
         )
     }
     
     render() {
-        // <Background
-        //                 stage={selectedStage}
-        //                 element={keys.BACKGROUND}
-        //                 state={state}
-        //                 setState={setState}
-        //             >
-        //                 {this.renderElements()}
-        //             </Background>
-        //             <Branding/>
-        //             <Alert
-        //                 stage={selectedStage}
-        //                 element={keys.ALERT}
-        //                 state={state}
-        //                 setState={setState}
-        //             />
         const {classes, state, setState} = this.props
         const selectedStage = state.selectedStage
         return (
@@ -68,7 +91,14 @@ class MainboardPreview extends React.Component {
                 onClick={() => this.resetElementSelection()}
             >
                 <Screen state={state} setState={setState}>
-                    
+                    <Background
+                        stage={selectedStage}
+                        element={keys.BACKGROUND}
+                        state={state}
+                        setState={setState}
+                    >
+                        {this.renderElements()}
+                    </Background>
                 </Screen>
             </div>
         )

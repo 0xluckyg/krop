@@ -22,7 +22,7 @@ function PopoverWrapper(props) {
 	const open = customOpen != undefined ? customOpen : Boolean(anchorEl);
 
 	return (
-		<div className={style.buttonWrapper}>
+		<div>
 			{customSelector ? customSelector(e => handleClick(e)) :
 				<button 
 					className={style.button}
