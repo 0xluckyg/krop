@@ -45,8 +45,8 @@ const ROUTE = 'route';
 
 const MOBILE_PROPERTY = 'mobile_property'
 const DESKTOP_PROPERTY = 'desktop_property'
+const IMAGE_PROPERTY = 'image_property'
 
-const BRANDING_SETTINGS = 'branding_settings'
 const STAGE_SETTINGS = 'stage_settings'
 const STYLE_SETTINGS = 'style_settings'
 const BACKGROUND_SETTINGS = 'background_settings'
@@ -144,8 +144,7 @@ module.exports = {
     
     MOBILE_PROPERTY,
     DESKTOP_PROPERTY,
-    
-    BRANDING_SETTINGS,
+
     STAGE_SETTINGS,
     STYLE_SETTINGS,
     BACKGROUND_SETTINGS,

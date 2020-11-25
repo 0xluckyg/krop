@@ -15,9 +15,13 @@ import LongFormEditor from './long-form'
 import ImageEditor from './image'
 import VideoEditor from './video'
 import LinkEditor from './link'
+import StageSettingsEditor from './stage-settings'
+import StyleSettingsEditor from './style-settings'
+import BackgroundSettingsEditor from './background-settings'
+import TextSettingsEditor from './text-settings'
+import AlertSettingsEditor from './alert-settings'
+import LogoSettingsEditor from './logo-settings'
 
-import BackgroundEditor from './background'
-import AlertEditor from './alert'
 import {getElement} from './sub/functions'
 
 class ElementEditor extends React.Component {
@@ -89,8 +93,8 @@ class ElementEditor extends React.Component {
         const {state, setState} = this.props
         const {selectedStage, selectedElement} = state
         const elm = this.getElement()
-        const type = elm ? elm.type : null
-        
+        let type = elm ? elm.type : null
+        type = type ? type : selectedElement
         switch(type) {
             case(keys.HEADING_ELEMENT):
             case(keys.SUBHEADING_ELEMENT):
@@ -170,15 +174,43 @@ class ElementEditor extends React.Component {
                     setState={setState}
                 />
             
-            case(keys.ALERT_SETTINGS):
-                return <AlertEditor
+            case(keys.STAGE_SETTINGS):
+                return <StageSettingsEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.STYLE_SETTINGS):
+                return <StyleSettingsEditor
                     stage={selectedStage}
                     element={selectedElement}
                     state={state}
                     setState={setState}
                 />
             case(keys.BACKGROUND_SETTINGS):
-                return <BackgroundEditor
+                return <BackgroundSettingsEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.TEXT_SETTINGS):
+                return <TextSettingsEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.ALERT_SETTINGS):
+                return <AlertSettingsEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.LOGO_SETTINGS):
+                return <LogoSettingsEditor
                     stage={selectedStage}
                     element={selectedElement}
                     state={state}

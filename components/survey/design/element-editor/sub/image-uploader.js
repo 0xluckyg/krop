@@ -19,28 +19,26 @@ class BannerDropzone extends React.Component {
     }
     
     getElement() {
-        const {stage, element, sectionElement} = this.props
+        const {stage, element} = this.props
         return getElement({
             props: this.props, 
             selectedStage: stage,
             selectedElement: element,
-            selectedSectionElement: sectionElement
         })
     }
     
     getProperty(propertyType, property) {
-        const {stage, element, sectionElement} = this.props
+        const {stage, element} = this.props
         return getProperty({
             props: this.props, 
             selectedStage: stage, 
             selectedElement: element, 
             propertyType, property, 
-            selectedSectionElement: sectionElement
         })
     }
     
     setProperty(propertyType, property, value) {
-        const {stage, element, sectionElement} = this.props
+        const {stage, element} = this.props
         setProperty({
             props: this.props, 
             selectedStage: stage, 
@@ -48,18 +46,16 @@ class BannerDropzone extends React.Component {
             propertyType, 
             property, 
             value, 
-            selectedSectionElement: sectionElement
         })
     }
     
     modifyElement(newElement) {
-        const {stage, element, sectionElement} = this.props
+        const {stage, element} = this.props
         modifyElement({
             props: this.props, 
             selectedStage: stage, 
             selectedElement: element, 
             element: newElement,
-            selectedSectionElement: sectionElement
         })
     }
     
@@ -94,11 +90,15 @@ class BannerDropzone extends React.Component {
     }
 
     handleUrlChange(value) {
-        this.setProperty(null, keys.IMAGE_PROPERTY, value)
+        let propertyType = this.props.propertyType ? this.props.propertyType : null
+        let property = this.props.property ? this.props.property : keys.IMAGE_PROPERTY
+        this.setProperty(propertyType, property, value)
     }
     
     getUrlValue() {
-        return this.getProperty(null, keys.IMAGE_PROPERTY)
+        let propertyType = this.props.propertyType ? this.props.propertyType : null
+        let property = this.props.property ? this.props.property : keys.IMAGE_PROPERTY
+        return this.getProperty(propertyType, property)
     }
     
     getImageUrl() {
@@ -107,104 +107,8 @@ class BannerDropzone extends React.Component {
         return image
     }
     
-    createTabElement(element, media, w, h) {
-        element.position.width = w
-        element.position.height = h
-        element.position.aspectRatio = true
-        if (media.mediaType == keys.SVG_PROPERTY) {
-            element.tabType = keys.SVG_PROPERTY
-            element.svg = media.media
-        } else {
-            element.tabType = keys.IMAGE_PROPERTY
-            element.image = media.media
-        }
-        
-        return element
-    } 
-    
-    createButtonElement(element, media, w, h) {
-        element.position.width = w
-        element.position.height = h
-        element.position.aspectRatio = true
-        if (media.mediaType == keys.SVG_PROPERTY) {
-            element.buttonType = keys.SVG_PROPERTY
-            element.svg = media.media
-        } else {
-            element.buttonType = keys.IMAGE_PROPERTY
-            element.image = media.media
-        }
-        
-        return element
-    } 
-    
-    createImageElement(element, media, w, h) {
-        element.position.width = w
-        element.position.height = h
-        element.position.aspectRatio = true
-        if (media.mediaType == keys.SVG_PROPERTY) {
-            element.imageType = keys.SVG_PROPERTY
-            element.svg = media.media
-        } else {
-            element.imageType = keys.IMAGE_PROPERTY
-            element.image = media.media
-        }
-        return element
-    } 
-
-    calculateDefaultDimensions(media, wantedSize) {
-        let {width, height} = media
-        const widthHeightRatio = width / height
-        const defaultHeight = widthHeightRatio * wantedSize
-        return {width: wantedSize, height: defaultHeight ? defaultHeight : wantedSize}
-    }
-    
     toggleLibrary(event) {
-        const handleSelectMedia = (media, name) => {
-            let element = {}
-            let currentElement = this.getElement()
-            switch (currentElement.type) {
-                case(keys.BUTTON):
-                    var buttonImageDimension = this.calculateDefaultDimensions(media, 100)
-                    element = this.createButtonElement(currentElement, media, buttonImageDimension.width, buttonImageDimension.height)
-                    break;
-                case(keys.TAB):
-                    var tabImageDimension = this.calculateDefaultDimensions(media, 100)
-                    element = this.createTabElement(currentElement, media, tabImageDimension.width, tabImageDimension.height)
-                    break;
-                case(keys.IMAGE):
-                    var {width, height} = this.calculateDefaultDimensions(media, 500)
-                    element = this.createImageElement(currentElement, media, width, height)
-                    break;
-                case(keys.BACKGROUND):
-                    element = {...currentElement}
-                    element.image = media.media
-                    break;
-                case(keys.MAINBOARD):
-                    element = {...currentElement}
-                    element.image = media.media
-                    break;
-            }
-            
-            console.log('E ', element)
-            this.modifyElement(element)
-        }   
         
-        let disabledCategories = []
-        const currentElement = this.getElement()
-        switch (currentElement.type) {
-            case(keys.BACKGROUND):
-                disabledCategories.push(keys.ILLUSTRATION_CATEGORY)
-                break;
-            case(keys.MAINBOARD):
-                disabledCategories.push(keys.ILLUSTRATION_CATEGORY)
-                break;
-        }
-        
-        this.props.setState({templateOptions: [{
-            templateType: keys.MEDIA_TEMPLATE,
-            onSelect: (media, name) => handleSelectMedia(media, name),
-            disabledCategories
-        }]})
     }
 
     render() {

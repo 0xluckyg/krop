@@ -263,7 +263,7 @@ const defaultStages = () => [
     {
         settings: {
             name: 'Thank you',
-            isSinglePage: true
+            questionPerPage: true
         },
         elements: [
             heading(),
@@ -292,8 +292,7 @@ const defaultAlert = () => {
     return {
         backgroundColor: '#fff',
         textColor: '#000',
-        popupTextColor: '#000',
-        align: 'center',
+        popupTextColor: '#000'
     }
 }
 

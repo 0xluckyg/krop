@@ -76,12 +76,14 @@ function setStage(options) {
 function getElement(options) {
     let {props, selectedStage, selectedElement} = options
 
-    if (selectedElement == keys.STYLE_SETTINGS || selectedElement == keys.BRANDING_SETTINGS || selectedElement == keys.ALERT_SETTINGS) {
-        return props.state[selectedElement]
+    if (typeof selectedElement == 'number') {
+        return props.state.stages[selectedStage].elements[selectedElement]
+    } else if (selectedElement == keys.ALERT_SETTINGS) {
+        return props.state.alert
     } else if (selectedElement == keys.STAGE_SETTINGS) {
         return props.state.stages[selectedStage].settings
     } else {
-        return props.state.stages[selectedStage].elements[selectedElement]
+        return props.state.styles
     }
 }
 
@@ -90,12 +92,14 @@ function setElement(options) {
     
     let newState = JSON.parse(JSON.stringify(props.state))
     
-    if (selectedElement == keys.STYLE_SETTINGS || selectedElement == keys.BRANDING_SETTINGS || selectedElement == keys.ALERT_SETTINGS) {
-        newState[selectedElement] = element
+    if (typeof selectedElement == 'number') {
+        newState.stages[selectedStage].elements[selectedElement] = element
+    } else if (selectedElement == keys.ALERT_SETTINGS) {
+        newState.state.alert = element
     } else if (selectedElement == keys.STAGE_SETTINGS) {
         newState.stages[selectedStage].settings = element
     } else {
-        newState.stages[selectedStage].elements[selectedElement] = element
+        newState.styles = element
     }
     
     props.setState(newState)
@@ -106,11 +110,17 @@ function setElement(options) {
 function getProperty(options) {
     let {props, selectedStage, selectedElement, propertyType, property} = options
     
-    if (selectedElement == keys.STYLE_SETTINGS || selectedElement == keys.BRANDING_SETTINGS || selectedElement == keys.ALERT_SETTINGS) {
+    if (typeof selectedElement == 'number') {
         if (!propertyType) {
-            return props.state[selectedElement][property]
+            return props.state.stages[selectedStage].elements[selectedElement][property]
         } else {
-            return props.state[selectedElement][propertyType][property]
+            return props.state.stages[selectedStage].elements[selectedElement][propertyType][property]
+        }
+    } else if (selectedElement == keys.ALERT_SETTINGS) {
+        if (!propertyType) {
+            return props.state.alert[property]
+        } else {
+            return props.state.alert[propertyType][property]
         }
     } else if (selectedElement == keys.STAGE_SETTINGS) {
         if (!propertyType) {
@@ -120,9 +130,9 @@ function getProperty(options) {
         }
     } else {
         if (!propertyType) {
-            return props.state.stages[selectedStage].elements[selectedElement][property]
+            return props.state.styles[property]
         } else {
-            return props.state.stages[selectedStage].elements[selectedElement][propertyType][property]
+            return props.state.styles[propertyType][property]
         }
     }
 }
@@ -132,11 +142,17 @@ function setProperty(options) {
     
     let newState = JSON.parse(JSON.stringify(props.state))
     
-    if (selectedElement == keys.STYLE_SETTINGS || selectedElement == keys.BRANDING_SETTINGS || selectedElement == keys.ALERT_SETTINGS) {
+    if (typeof selectedElement == 'number') {
         if (!propertyType) {
-            newState[selectedElement][property] = value
+            newState.stages[selectedStage].elements[selectedElement][property] = value
         } else {
-            newState[selectedElement][propertyType][property] = value
+            newState.stages[selectedStage].elements[selectedElement][propertyType][property] = value
+        }
+    } else if (selectedElement == keys.ALERT_SETTINGS) {
+        if (!propertyType) {
+            newState.alert[property] = value
+        } else {
+            newState.alert[propertyType][property] = value
         }
     } else if (selectedElement == keys.STAGE_SETTINGS) {
         if (!propertyType) {
@@ -146,9 +162,9 @@ function setProperty(options) {
         }
     } else {
         if (!propertyType) {
-            newState.stages[selectedStage].elements[selectedElement][property] = value
+            newState.styles[property] = value
         } else {
-            newState.stages[selectedStage].elements[selectedElement][propertyType][property] = value
+            newState.styles[propertyType][property] = value
         }
     }
     
