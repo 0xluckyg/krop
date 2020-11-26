@@ -19,7 +19,6 @@ class NoContent extends React.Component {
         return (
             <div className={classes.root}>
                 <div className={classes.container}>
-                    <Toast/>
                     <img className={classes.mainIcon} src={iconPath}/>
                     <div className={classes.mainText}>
                         <h3 className={classes.h2}> 

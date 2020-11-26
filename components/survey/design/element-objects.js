@@ -178,7 +178,7 @@ const heading = (custom) => {
         id: shortid.generate(),
         type: keys.HEADING_ELEMENT,
         name: 'Heading',
-        text: text ? text : ''
+        text: text ? text : 'Heading'
     }
 }
 
@@ -188,7 +188,7 @@ const subheading = (custom) => {
         id: shortid.generate(),
         type: keys.SUBHEADING_ELEMENT,
         name: 'Subheading',
-        text: text ? text : ''
+        text: text ? text : 'Subheading'
     }
 }
 
@@ -198,7 +198,7 @@ const paragraph = (custom) => {
         id: shortid.generate(),
         type: keys.PARAGRAPH_ELEMENT,
         name: 'Paragraph',
-        text: text ? text : ''
+        text: text ? text : 'Paragraph'
     }
 }
 
@@ -242,6 +242,10 @@ const defaultStages = () => [
             isSinglePage: true
         },
         elements: [
+            heading(), 
+            subheading(), 
+            paragraph(), 
+            image(),
             multipleChoice(), 
             checkbox(), 
             dropdown(), 
@@ -252,10 +256,6 @@ const defaultStages = () => [
             address(), 
             name(), 
             longForm(), 
-            heading(), 
-            subheading(), 
-            paragraph(), 
-            image(),
             video(),
             link()
         ]

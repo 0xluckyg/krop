@@ -16,6 +16,7 @@ import { showToastAction, isLoadingAction } from '../../redux/actions';
 import PageFooter from '../../components/reusable/page-footer';
 import {loadFonts} from '../../components/reusable/font-families'
 
+import TemplateSelector from '../../components/templates'
 import TabBar from '../../components/survey/tab-bar';
 import MainEditor from '../../components/survey/design'
 import SettingsEditor from '../../components/survey/settings'
@@ -34,6 +35,7 @@ class CreateSurvey extends React.Component {
             settings: defaultSettings,
             
             //UI STATES
+            templateOptions: null,
             selectedStage: 0,
             selectedElement: null,
             selectedPage: 0,
@@ -177,6 +179,11 @@ class CreateSurvey extends React.Component {
         const {classes} = this.props  
         return (            
             <main className={classes.content}>
+                <TemplateSelector
+                    templateOptions={this.state.templateOptions}
+                    state={this.state}
+                    setState={(state) => this.setState(state)}
+                />
                 {this.renderEditor()}
                 {this.renderFooter()}
             </main>

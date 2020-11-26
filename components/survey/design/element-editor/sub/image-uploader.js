@@ -108,7 +108,16 @@ class BannerDropzone extends React.Component {
     }
     
     toggleLibrary(event) {
+        const handleSelectMedia = (media, name) => {
+            let currentElement = {...this.getElement()}
+            currentElement.image = media.media
+            this.modifyElement(currentElement)
+        }
         
+        this.props.setState({templateOptions: [{
+            templateType: keys.MEDIA_TEMPLATE,
+            onSelect: (media, name) => handleSelectMedia(media, name)
+        }]})
     }
 
     render() {

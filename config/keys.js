@@ -76,6 +76,8 @@ const LINK_ELEMENT = 'link_element'
 const IMAGE_ELEMENT = 'image_element'
 const VIDEO_ELEMENT = 'video_element'
 
+const MEDIA_TEMPLATE = 'media_template'
+
 const FEE_0 = {
     price: 0,
     views: 2000
@@ -167,5 +169,7 @@ module.exports = {
     PARAGRAPH_ELEMENT,
     LINK_ELEMENT,
     IMAGE_ELEMENT,
-    VIDEO_ELEMENT
+    VIDEO_ELEMENT,
+    
+    MEDIA_TEMPLATE
 }
