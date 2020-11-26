@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
-import surveyStyles from '../../../../shared/survey-styles/survey'
+import surveyStyles from '../../../../shared/survey-styles/static'
 
 class BackgroundPreview extends React.Component {
     constructor(props) {
@@ -17,10 +17,11 @@ class BackgroundPreview extends React.Component {
     }
 
     render() {
-        const {children, classes} = this.props
+        const {children, classes, state} = this.props
+        const className = state.viewMode == keys.MOBILE_PROPERTY ? classes.backgroundMobileStyle : classes.backgroundDesktopStyle
         return (
             <div 
-                className={classes.backgroundStyle}
+                className={className}
             >
                 {children}
             </div>
@@ -34,7 +35,7 @@ function getStyle(props) {
 }
 
 const useStyles = theme => ({    
-    backgroundStyle: props => {
+    backgroundMobileStyle: props => {
         let {backgroundColor, backgroundImage} = getStyle(props)
         backgroundImage = (backgroundImage != '') ? `url(${backgroundImage})` : 'none'
         
@@ -42,6 +43,16 @@ const useStyles = theme => ({
             backgroundImage,
             backgroundColor,
             ...surveyStyles.BACKGROUND
+        }
+    },
+    backgroundDesktopStyle: props => {
+        let {backgroundColor, backgroundImage} = getStyle(props)
+        backgroundImage = (backgroundImage != '') ? `url(${backgroundImage})` : 'none'
+        
+        return {
+            backgroundImage,
+            backgroundColor,
+            ...surveyStyles.BACKGROUND_DESKTOP
         }
     }
 })

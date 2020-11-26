@@ -7,6 +7,7 @@ import Background from './background'
 import Alert from './alert'
 import Screen from './screen'
 import Text from './text'
+import Image from './image'
 
 class MainboardPreview extends React.Component {
     constructor(props) {
@@ -70,7 +71,13 @@ class MainboardPreview extends React.Component {
                         case(keys.LINK_ELEMENT):
                             return
                         case(keys.IMAGE_ELEMENT):
-                            return
+                            return <Image
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                         case(keys.VIDEO_ELEMENT):
                             return
                     }

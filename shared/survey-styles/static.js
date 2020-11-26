@@ -9,7 +9,7 @@ const BACKGROUND = {
     flex: 1
 }
 
-const BACKGROUND_MOBILE = {
+const BACKGROUND_DESKTOP = {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     padding: 30,
@@ -23,32 +23,44 @@ const BACKGROUND_MOBILE = {
 const HEADING = {
     wordWrap: 'break-word'
 }
-const HEADING_MOBILE = {
+const HEADING_DESKTOP = {
     wordWrap: 'break-word'
 }
 
 const SUBHEADING = {
     wordWrap: 'break-word'
 }
-const SUBHEADING_MOBILE = {
+const SUBHEADING_DESKTOP = {
     wordWrap: 'break-word'
 }
 
 const PARAGRAPH = {
     wordWrap: 'break-word'
 }
-const PARAGRAPH_MOBILE = {
+const PARAGRAPH_DESKTOP = {
     wordWrap: 'break-word'
+}
+
+const IMAGE = {
+    width: '100%',
+    margin: '10px 0px'
+}
+
+const IMAGE_DESKTOP = {
+    width: '100%',
+    margin: '10px 0px'
 }
 
 module.exports = {
     BACKGROUND,
-    BACKGROUND_MOBILE,
+    BACKGROUND_DESKTOP,
     
     HEADING,
-    HEADING_MOBILE,
+    HEADING_DESKTOP,
     SUBHEADING,
-    SUBHEADING_MOBILE,
+    SUBHEADING_DESKTOP,
     PARAGRAPH,
-    PARAGRAPH_MOBILE
+    PARAGRAPH_DESKTOP,
+    IMAGE,
+    IMAGE_DESKTOP
 }

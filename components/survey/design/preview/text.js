@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
-import surveyStyles from '../../../../shared/survey-styles/survey'
+import surveyStyles from '../../../../shared/survey-styles/static'
 
 class TextPreview extends React.Component {
     constructor(props) {
@@ -17,17 +17,20 @@ class TextPreview extends React.Component {
     }
 
     renderText() {
-        let {stage, element, classes} = this.props
+        let {stage, element, classes, state} = this.props
         let textElement = getElement({
             props: this.props, selectedStage: stage, selectedElement: element
         })
         
         if (textElement.type == keys.HEADING_ELEMENT) {
-            return <h1 className={classes.headingStyle}>{textElement.text}</h1>
+            const className = state.viewMode == keys.MOBILE_PROPERTY ? classes.headingMobileStyle : classes.headingDesktopStyle
+            return <h1 className={className}>{textElement.text}</h1>
         } else if (textElement.type == keys.SUBHEADING_ELEMENT) {
-            return <h3 className={classes.subheadingStyle}>{textElement.text}</h3>
+            const className = state.viewMode == keys.MOBILE_PROPERTY ? classes.subheadingMobileStyle : classes.subheadingDesktopStyle
+            return <h3 className={className}>{textElement.text}</h3>
         } else {
-            return <p className={classes.paragraphStyle}>{textElement.text}</p>
+            const className = state.viewMode == keys.MOBILE_PROPERTY ? classes.paragraphMobileStyle : classes.paragraphDesktopStyle
+            return <p className={className}>{textElement.text}</p>
         }
     }
 
@@ -54,19 +57,19 @@ function getTextStyle(props, type) {
 }
 
 const useStyles = theme => ({    
-    headingStyle: props => {
+    headingDesktopStyle: props => {
         return getTextStyle(props, surveyStyles.HEADING)
     },
     headingMobileStyle: props => {
         return getTextStyle(props, surveyStyles.HEADING)
     },
-    subheadingStyle: props => {
+    subheadingDesktopStyle: props => {
         return getTextStyle(props, surveyStyles.SUBHEADING)
     },
     subheadingMobileStyle: props => {
         return getTextStyle(props, surveyStyles.SUBHEADING)
     },
-    paragraphStyle: props => {
+    paragraphDesktopStyle: props => {
         return getTextStyle(props, surveyStyles.PARAGRAPH)
     },
     paragraphMobileStyle: props => {
