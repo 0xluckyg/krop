@@ -35,8 +35,11 @@ function getStyle(props) {
 
 const useStyles = theme => ({    
     backgroundStyle: props => {
-        const {backgroundColor} = getStyle(props)
+        let {backgroundColor, backgroundImage} = getStyle(props)
+        backgroundImage = (backgroundImage != '') ? `url(${backgroundImage})` : 'none'
+        
         return {
+            backgroundImage,
             backgroundColor,
             ...surveyStyles.BACKGROUND
         }

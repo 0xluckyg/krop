@@ -1,4 +1,6 @@
 const BACKGROUND = {
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
     padding: 30,
     top: 0,
     left: 0,
@@ -8,6 +10,8 @@ const BACKGROUND = {
 }
 
 const BACKGROUND_MOBILE = {
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
     padding: 30,
     top: 0,
     left: 0,

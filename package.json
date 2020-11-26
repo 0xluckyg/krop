@@ -53,6 +53,7 @@
 				"mongoose": "^5.4.18",
 				"next": "^10.0.1",
 				"npm": "^6.11.3",
+				"pexels": "^1.0.1",
 				"postcss": "^8.1.1",
 				"postcss-input-range": "^4.0.0",
 				"react": "^16.8.3",

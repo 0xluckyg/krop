@@ -63,7 +63,7 @@ class BannerDropzone extends React.Component {
         axios.post(process.env.APP_URL + '/upload-image', {data: imageBase64})
         .then(res => {
             this.setState({isLoading: false})
-            this.handleUrlChange(res.data)
+            this.onChange(res.data)
         }).catch(err => {
             if (err.response.data) {
                 this.props.showToastAction(true, err.response.data, 'error')
@@ -89,15 +89,19 @@ class BannerDropzone extends React.Component {
         }
     }
 
-    handleUrlChange(value) {
-        let propertyType = this.props.propertyType ? this.props.propertyType : null
-        let property = this.props.property ? this.props.property : keys.IMAGE_PROPERTY
-        this.setProperty(propertyType, property, value)
+    onChange(value) {
+        if (this.props.onChange) {
+            this.props.onChange(value)
+        } else {
+            let propertyType = this.props.propertyType ? this.props.propertyType : null
+            let property = this.props.property ? this.props.property : keys.MEDIA_PROPERTY
+            this.setProperty(propertyType, property, value)   
+        }
     }
     
     getUrlValue() {
         let propertyType = this.props.propertyType ? this.props.propertyType : null
-        let property = this.props.property ? this.props.property : keys.IMAGE_PROPERTY
+        let property = this.props.property ? this.props.property : keys.MEDIA_PROPERTY
         return this.getProperty(propertyType, property)
     }
     
@@ -108,15 +112,9 @@ class BannerDropzone extends React.Component {
     }
     
     toggleLibrary(event) {
-        const handleSelectMedia = (media, name) => {
-            let currentElement = {...this.getElement()}
-            currentElement.image = media.media
-            this.modifyElement(currentElement)
-        }
-        
         this.props.setState({templateOptions: [{
             templateType: keys.MEDIA_TEMPLATE,
-            onSelect: (media, name) => handleSelectMedia(media, name)
+            onSelect: (media, name) => this.onChange(media.media)
         }]})
     }
 
@@ -134,7 +132,7 @@ class BannerDropzone extends React.Component {
                     {({getRootProps, getInputProps, open, acceptedFiles}) => {
                         let imageUrl = this.getUrlValue()
                         let buttonText = 'Remove image'
-                        let imageSelectorAction = () => this.handleUrlChange('')
+                        let imageSelectorAction = () => this.onChange('')
                         if (!imageUrl || imageUrl == '') {
                             buttonText = 'Select image'
                             imageSelectorAction = open
@@ -172,7 +170,7 @@ class BannerDropzone extends React.Component {
                 </Dropzone>
                 <Input
                     label='Image or gif url'
-                    onChange={this.handleUrlChange.bind(this)}
+                    onChange={this.onChange.bind(this)}
                     value={this.getImageUrl()}
                 />
             </div>

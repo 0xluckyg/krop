@@ -34,6 +34,7 @@ const {
 const {contactUs, contactUsUnauthorized} = require('./server/helper/contact-us');
 const {googleAuth} = require('./server/auth/google-auth');
 const {uploadImage} = require('./server/helper/image')
+const {getMediaTemplates, getPexelsTemplates} = require('./server/admin/templates')
 
 const whitelist = [    
     '/_next',
@@ -126,6 +127,8 @@ app.prepare().then(() => {
     router.post('/contact-us', contactUs);        
     
     router.post('/upload-image', uploadImage);
+    router.get('/get-media-templates', getMediaTemplates)
+    router.get('/get-pexels-templates', getPexelsTemplates)
 
     server.use(handleRender);    
 

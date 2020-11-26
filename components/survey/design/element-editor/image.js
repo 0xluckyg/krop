@@ -43,6 +43,7 @@ class ImageEditor extends React.Component {
                         element={element}
                         state={state} 
                         setState={setState}
+                        property="url"
                     />
                 </SectionContainer>
                 <SectionContainer title="Display settings">

@@ -43,9 +43,10 @@ const GET_USER = 'get_user';
 const SHOW_AUTHORIZE_MODAL = 'show_authorize_modal';
 const ROUTE = 'route';
 
-const MOBILE_PROPERTY = 'mobile_property'
-const DESKTOP_PROPERTY = 'desktop_property'
-const IMAGE_PROPERTY = 'image_property'
+const MOBILE_PROPERTY = 'mobile'
+const DESKTOP_PROPERTY = 'desktop'
+const IMAGE_PROPERTY = 'image'
+const MEDIA_PROPERTY = 'media'
 
 const STAGE_SETTINGS = 'stage_settings'
 const STYLE_SETTINGS = 'style_settings'
