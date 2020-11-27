@@ -8,6 +8,10 @@ import Alert from './alert'
 import Screen from './screen'
 import Text from './text'
 import Image from './image'
+import MultipleChoice from './multiple-choice'
+import Form from './form'
+import Slider from './slider'
+import Dropdown from './dropdown'
 
 class MainboardPreview extends React.Component {
     constructor(props) {
@@ -39,15 +43,39 @@ class MainboardPreview extends React.Component {
                 {currentStage.elements.map((element, i) => {
                     switch(element.type) {
                         case(keys.MULTIPLE_CHOICE_ELEMENT):
-                            return
+                            return <MultipleChoice
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                         case(keys.CHECKBOX_ELEMENT):
-                            return
+                            return 
                         case(keys.DROPDOWN_ELEMENT):
-                            return
+                            return <Dropdown
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                         case(keys.SLIDER_ELEMENT):
-                            return
+                            return <Slider
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                         case(keys.FORM_ELEMENT):
-                            return
+                            return <Form
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                         case(keys.EMAIL_ELEMENT):
                             return
                         case(keys.PHONE_ELEMENT):
@@ -57,7 +85,7 @@ class MainboardPreview extends React.Component {
                         case(keys.NAME_ELEMENT):
                             return
                         case(keys.LONG_FORM_ELEMENT):
-                            return
+                            return 
                         case(keys.PARAGRAPH_ELEMENT):
                         case(keys.HEADING_ELEMENT):
                         case(keys.SUBHEADING_ELEMENT):

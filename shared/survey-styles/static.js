@@ -6,49 +6,42 @@ const BACKGROUND = {
     left: 0,
     width: '100%',
     height: '100%',
-    flex: 1
+    flex: 1,
+    overflowY: 'scroll'
 }
 
 const BACKGROUND_DESKTOP = {
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    padding: 30,
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    flex: 1
+    ...BACKGROUND,
 }
 
 const HEADING = {
     wordWrap: 'break-word'
 }
 const HEADING_DESKTOP = {
-    wordWrap: 'break-word'
+    ...HEADING
 }
 
 const SUBHEADING = {
     wordWrap: 'break-word'
 }
 const SUBHEADING_DESKTOP = {
-    wordWrap: 'break-word'
+    ...SUBHEADING
 }
 
 const PARAGRAPH = {
     wordWrap: 'break-word'
 }
 const PARAGRAPH_DESKTOP = {
-    wordWrap: 'break-word'
+    ...PARAGRAPH
 }
 
 const IMAGE = {
     width: '100%',
-    margin: '10px 0px'
+    margin: '30px 0px'
 }
 
 const IMAGE_DESKTOP = {
-    width: '100%',
-    margin: '10px 0px'
+    ...IMAGE
 }
 
 module.exports = {

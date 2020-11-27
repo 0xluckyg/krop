@@ -53,11 +53,9 @@ const dropdown = (custom) => {
         media: media ? media : null,
         question: question ? question : 'Question',
         options: options ? options : [{
-            text: 'Option 1',
-            media: null
+            text: 'Option 1'
         }, {
-            text: 'Option 2',
-            media: null
+            text: 'Option 2'
         }],
         tags: tags ? tags : []
     }
