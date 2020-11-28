@@ -6,6 +6,7 @@ import keys from '../../../../config/keys'
 import Background from './background'
 import Alert from './alert'
 import Screen from './screen'
+import Header from './header'
 import Text from './text'
 import Image from './image'
 import MultipleChoice from './multiple-choice'
@@ -17,6 +18,8 @@ import Video from './video'
 import Link from './link'
 import Name from './name'
 import Address from './address'
+import Button from './button'
+import pageStyles from '../../../../shared/survey-styles/static'
 
 class MainboardPreview extends React.Component {
     constructor(props) {
@@ -40,11 +43,12 @@ class MainboardPreview extends React.Component {
     }
     
     renderElements() {
-        const {state, setState} = this.props
+        const {state, setState, classes} = this.props
         const currentStage = state.stages[state.selectedStage]
 
         return (
-            <React.Fragment>
+            <div className={classes.pageWrapper}>
+                <div>
                 {currentStage.elements.map((element, i) => {
                     switch(element.type) {
                         case(keys.MULTIPLE_CHOICE_ELEMENT):
@@ -79,11 +83,24 @@ class MainboardPreview extends React.Component {
                                 stage={state.selectedStage}
                                 element={i}
                             />
-                        case(keys.EMAIL_ELEMENT):
-                        case(keys.PHONE_ELEMENT):
-                        case(keys.LONG_FORM_ELEMENT):
-                        case(keys.FORM_ELEMENT):
-                            return <Form
+                        case(keys.LINK_ELEMENT):
+                            return <Link
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
+                        case(keys.IMAGE_ELEMENT):
+                            return <Image
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
+                        case(keys.VIDEO_ELEMENT):
+                            return <Video
                                 key={element.type+i}
                                 state={state}
                                 setState={setState}
@@ -116,24 +133,11 @@ class MainboardPreview extends React.Component {
                                 stage={state.selectedStage}
                                 element={i}
                             />
-                        case(keys.LINK_ELEMENT):
-                            return <Link
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.IMAGE_ELEMENT):
-                            return <Image
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.VIDEO_ELEMENT):
-                            return <Video
+                        case(keys.EMAIL_ELEMENT):
+                        case(keys.PHONE_ELEMENT):
+                        case(keys.LONG_FORM_ELEMENT):
+                        case(keys.FORM_ELEMENT):
+                            return <Form
                                 key={element.type+i}
                                 state={state}
                                 setState={setState}
@@ -142,8 +146,8 @@ class MainboardPreview extends React.Component {
                             />
                     }
                 })}
-                
-            </React.Fragment>
+                </div>
+            </div>
         )
     }
     
@@ -158,18 +162,35 @@ class MainboardPreview extends React.Component {
                 onClick={() => this.resetElementSelection()}
             >
                 <Screen state={state} setState={setState}>
-                    <Background
-                        stage={selectedStage}
-                        element={keys.BACKGROUND}
-                        state={state}
-                        setState={setState}
-                    >
-                        {this.renderElements()}
-                    </Background>
+                    <div className={classes.surveyContainer}>
+                        <Header
+                            state={state}
+                            setState={setState}
+                            stage={state.selectedStage}
+                        />
+                        <Background
+                            stage={selectedStage}
+                            element={keys.BACKGROUND}
+                            state={state}
+                            setState={setState}
+                        >
+                            {this.renderElements()}
+                        </Background>
+                        <Button
+                            state={state}
+                            setState={setState}
+                            stage={state.selectedStage}
+                        />
+                    </div>
                 </Screen>
             </div>
         )
     }
+}
+
+function isDesktop(props) {
+    let {viewMode} = props.state
+    return viewMode == keys.DESKTOP_PROPERTY
 }
 
 const useStyles = theme => ({    
@@ -185,6 +206,18 @@ const useStyles = theme => ({
             flex: 1,
             backgroundColor: keys.APP_COLOR_GRAY_LIGHT  
         }  
+    },
+    surveyContainer: props => {
+        let style = isDesktop(props) ? pageStyles.SURVEY_CONTAINER_DESKTOP : pageStyles.SURVEY_CONTAINER
+        return {
+            ...style
+        }
+    },
+    pageWrapper: props => {
+        let style = isDesktop(props) ? pageStyles.PAGE_WRAPPER_DESKTOP : pageStyles.PAGE_WRAPPER
+        return {
+            ...style
+        }
     }
 })
 
