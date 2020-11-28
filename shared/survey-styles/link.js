@@ -7,7 +7,7 @@ const LINK = {
     BEFORE: {
         pointerEvents: 'none',
         content: "'\\27A4'",
-        paddingRight: 10,
+        marginRight: 10,
         height: 30,
         lineHeight: 30 + 'px',
     },

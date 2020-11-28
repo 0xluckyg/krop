@@ -41,7 +41,8 @@ const useStyles = theme => ({
             color: primaryColor,
             ...style,
             '&:before': {
-                ...style.BEFORE
+                ...style.BEFORE,
+                marginRight: 10
             },
             '&:hover': {
                 ...style.HOVER

@@ -15,6 +15,7 @@ import Slider from './slider'
 import Dropdown from './dropdown'
 import Video from './video'
 import Link from './link'
+import Name from './name'
 
 class MainboardPreview extends React.Component {
     constructor(props) {
@@ -77,6 +78,9 @@ class MainboardPreview extends React.Component {
                                 stage={state.selectedStage}
                                 element={i}
                             />
+                        case(keys.EMAIL_ELEMENT):
+                        case(keys.PHONE_ELEMENT):
+                        case(keys.LONG_FORM_ELEMENT):
                         case(keys.FORM_ELEMENT):
                             return <Form
                                 key={element.type+i}
@@ -85,16 +89,16 @@ class MainboardPreview extends React.Component {
                                 stage={state.selectedStage}
                                 element={i}
                             />
-                        case(keys.EMAIL_ELEMENT):
-                            return
-                        case(keys.PHONE_ELEMENT):
-                            return
                         case(keys.ADDRESS_ELEMENT):
                             return
                         case(keys.NAME_ELEMENT):
-                            return
-                        case(keys.LONG_FORM_ELEMENT):
-                            return 
+                            return <Name
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                         case(keys.PARAGRAPH_ELEMENT):
                         case(keys.HEADING_ELEMENT):
                         case(keys.SUBHEADING_ELEMENT):
