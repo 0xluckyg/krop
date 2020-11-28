@@ -11,6 +11,7 @@ import DropdownEditor from './dropdown'
 import TextEditor from './text'
 import SliderEditor from './slider'
 import FormEditor from './form'
+import AddressEditor from './address'
 import LongFormEditor from './long-form'
 import ImageEditor from './image'
 import VideoEditor from './video'
@@ -106,11 +107,17 @@ class ElementEditor extends React.Component {
                     setState={setState}
                 />
             case(keys.FORM_ELEMENT):
-            case(keys.ADDRESS_ELEMENT):
             case(keys.NAME_ELEMENT):
             case(keys.EMAIL_ELEMENT):
             case(keys.PHONE_ELEMENT):
                 return <FormEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.ADDRESS_ELEMENT):
+                return <AddressEditor
                     stage={selectedStage}
                     element={selectedElement}
                     state={state}

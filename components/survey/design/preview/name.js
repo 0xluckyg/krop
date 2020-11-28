@@ -7,7 +7,7 @@ import {getElement} from '../element-editor/sub/functions'
 import nameStyle from '../../../../shared/survey-styles/name'
 import keys from '../../../../config/keys'
 
-class NAMEPreview extends React.Component {
+class NamePreview extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -84,4 +84,4 @@ const useStyles = theme => ({
     }
 });
 
-export default withStyles(useStyles)(NAMEPreview)
+export default withStyles(useStyles)(NamePreview)

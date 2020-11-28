@@ -16,6 +16,7 @@ import Dropdown from './dropdown'
 import Video from './video'
 import Link from './link'
 import Name from './name'
+import Address from './address'
 
 class MainboardPreview extends React.Component {
     constructor(props) {
@@ -90,7 +91,13 @@ class MainboardPreview extends React.Component {
                                 element={i}
                             />
                         case(keys.ADDRESS_ELEMENT):
-                            return
+                            return <Address
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                         case(keys.NAME_ELEMENT):
                             return <Name
                                 key={element.type+i}

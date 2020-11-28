@@ -9,15 +9,24 @@ import ImageUploader from './sub/image-uploader'
 import Switch from './sub/switch'
 import Tags from './sub/tags'
 import SectionTabs from './sub/section-tabs'
-import {setProperty, getProperty} from './sub/functions'
+import {getElement, setProperty, getProperty} from './sub/functions'
 
-class FormEditor extends React.Component {
+class AddressEditor extends React.Component {
     constructor(props) {
         super(props)
         
         this.state = {
             editorType: 0
         }
+    }
+    
+    getElement() {
+        const {selectedStage, selectedElement} = this.props.state
+        return getElement({
+            props: this.props,
+            selectedStage,
+            selectedElement
+        })
     }
     
     getProperty(propertyType, property) {
@@ -43,59 +52,45 @@ class FormEditor extends React.Component {
         })
     }
     
-    getFormType() {
-        const type = this.getProperty(null, 'type')
-        switch(type) {
-            case(keys.NAME_ELEMENT):
-                return 'Name'
-            case(keys.FORM_ELEMENT):
-                return 'Form'
-            case(keys.EMAIL_ELEMENT):
-                return 'Email'
-            case(keys.PHONE_ELEMENT):
-                return 'Phone'
-            default:
-                return ''
-        }
+    renderSwitch(title, property) {
+        const {state, setState, stage, element} = this.props
+        return (
+            <Switch 
+                stage={stage}
+                element={element}
+                state={state} 
+                setState={setState}
+                title={title}
+                property={property}
+            />
+        )
     }
     
     renderSettingsEditor() {
         const {state, setState, stage, element} = this.props
+        const {
+            address1Enabled, address2Enabled, countryEnabled, stateEnabled, cityEnabled, zipEnabled
+        } = this.getElement()
         return (
             <Fragment>
-                <SectionContainer title={this.getFormType() + " settings"}>
-                    <Switch 
-                        stage={stage}
-                        element={element}
-                        state={state} 
-                        setState={setState}
-                        title="Required"
-                        property="required"
-                    />
-                    <Switch 
-                        stage={stage}
-                        element={element}
-                        state={state} 
-                        setState={setState}
-                        title="Number only"
-                        property="numOnly"
-                    />
-                    <Input
-                        label='Minimum length'
-                        onChange={value => {
-                            this.setProperty(null, 'minChar', event.target.value)
-                        }}
-                        value={this.getProperty(null, 'minChar')}
-                        numOnly
-                    />
-                    <Input
-                        label='Maximum length'
-                        onChange={value => {
-                             this.setProperty(null, 'maxChar', event.target.value)
-                        }}
-                        value={this.getProperty(null, 'maxChar')}
-                        numOnly
-                    />
+                <SectionContainer title={"Address settings"}>
+                    {this.renderSwitch("Address 1 Enabled", "address1Enabled")}
+                    {address1Enabled ? this.renderSwitch("Address 1 Required", "address1Required") : null}
+                    
+                    {this.renderSwitch("Address 2 Enabled", "address2Enabled")}
+                    {address2Enabled ? this.renderSwitch("Address 2 Required", "address2Required") : null}
+                    
+                    {this.renderSwitch("Country Enabled", "countryEnabled")}
+                    {countryEnabled ? this.renderSwitch("Country Required", "countryRequired") : null}
+                    
+                    {this.renderSwitch("State Enabled", "stateEnabled")}
+                    {stateEnabled ? this.renderSwitch("State Required", "stateRequired") : null}
+                    
+                    {this.renderSwitch("City Enabled", "cityEnabled")}
+                    {cityEnabled ? this.renderSwitch("City Required", "cityRequired") : null}
+                    
+                    {this.renderSwitch("Zip Code Enabled", "zipEnabled")}
+                    {zipEnabled ? this.renderSwitch("Zip Code Required", "zipRequired") : null}
                 </SectionContainer>
                 <SectionContainer title="Explainer image">
                     <ImageUploader 
@@ -198,4 +193,4 @@ const useStyles = theme => ({
     }
 })
 
-export default withStyles(useStyles)(FormEditor)
+export default withStyles(useStyles)(AddressEditor)
