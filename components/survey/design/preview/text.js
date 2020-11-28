@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
-import surveyStyles from '../../../../shared/survey-styles/static'
+import staticStyles from '../../../../shared/survey-styles/static'
 
 class TextPreview extends React.Component {
     constructor(props) {
@@ -17,20 +17,17 @@ class TextPreview extends React.Component {
     }
 
     renderText() {
-        let {stage, element, classes, state} = this.props
+        let {stage, element, classes} = this.props
         let textElement = getElement({
             props: this.props, selectedStage: stage, selectedElement: element
         })
         
         if (textElement.type == keys.HEADING_ELEMENT) {
-            const className = state.viewMode == keys.MOBILE_PROPERTY ? classes.headingMobileStyle : classes.headingDesktopStyle
-            return <h1 className={className}>{textElement.text}</h1>
+            return <h1 className={classes.headingStyle}>{textElement.text}</h1>
         } else if (textElement.type == keys.SUBHEADING_ELEMENT) {
-            const className = state.viewMode == keys.MOBILE_PROPERTY ? classes.subheadingMobileStyle : classes.subheadingDesktopStyle
-            return <h3 className={className}>{textElement.text}</h3>
+            return <h3 className={classes.subheadingStyle}>{textElement.text}</h3>
         } else {
-            const className = state.viewMode == keys.MOBILE_PROPERTY ? classes.paragraphMobileStyle : classes.paragraphDesktopStyle
-            return <p className={className}>{textElement.text}</p>
+            return <p className={classes.paragraphStyle}>{textElement.text}</p>
         }
     }
 
@@ -39,6 +36,11 @@ class TextPreview extends React.Component {
             {this.renderText()}
         </React.Fragment>
     }
+}
+
+function isDesktop(props) {
+    let {viewMode} = props.state
+    return viewMode == keys.DESKTOP_PROPERTY
 }
 
 function getStyle(props) {
@@ -57,23 +59,17 @@ function getTextStyle(props, type) {
 }
 
 const useStyles = theme => ({    
-    headingDesktopStyle: props => {
-        return getTextStyle(props, surveyStyles.HEADING)
+    headingStyle: props => {
+        let style = isDesktop(props) ? staticStyles.HEADING_DESKTOP : staticStyles.HEADING
+        return getTextStyle(props, style)
     },
-    headingMobileStyle: props => {
-        return getTextStyle(props, surveyStyles.HEADING)
+    subheadingStyle: props => {
+        let style = isDesktop(props) ? staticStyles.SUBHEADING_DESKTOP : staticStyles.SUBHEADING
+        return getTextStyle(props, style)
     },
-    subheadingDesktopStyle: props => {
-        return getTextStyle(props, surveyStyles.SUBHEADING)
-    },
-    subheadingMobileStyle: props => {
-        return getTextStyle(props, surveyStyles.SUBHEADING)
-    },
-    paragraphDesktopStyle: props => {
-        return getTextStyle(props, surveyStyles.PARAGRAPH)
-    },
-    paragraphMobileStyle: props => {
-        return getTextStyle(props, surveyStyles.PARAGRAPH)
+    paragraphStyle: props => {
+        let style = isDesktop(props) ? staticStyles.PARAGRAPH_DESKTOP : staticStyles.PARAGRAPH
+        return getTextStyle(props, style)
     }
 })
 

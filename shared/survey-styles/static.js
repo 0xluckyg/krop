@@ -37,7 +37,7 @@ const PARAGRAPH_DESKTOP = {
 
 const IMAGE = {
     width: '100%',
-    margin: '30px 0px'
+    // margin: '0px 0px'
 }
 
 const IMAGE_DESKTOP = {

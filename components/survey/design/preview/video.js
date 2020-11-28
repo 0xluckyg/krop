@@ -4,25 +4,24 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
-import staticStyles from '../../../../shared/survey-styles/static'
+import videoStyles from '../../../../shared/survey-styles/video'
 
-class ImagePreview extends React.Component {
+class VideoPreview extends React.Component {
     constructor(props) {
         super(props)
     }
     
-    getImage() {
+    getVideo() {
         let {stage, element} = this.props
         return getElement({props: this.props, selectedStage: stage, selectedElement: element})
     }
 
     render() {
-        const {classes, state} = this.props
+        const {classes} = this.props
         return (
-            <img 
-                src={this.getImage().url}
-                className={classes.imageStyle}
-            />
+            <div className={classes.videoContainerStyle}>
+                <iframe width="100%" className={classes.videoStyle} src={this.getVideo().url+"?controls=0&autoplay=1"}/>
+            </div>
         )
     }
 }
@@ -32,20 +31,27 @@ function isDesktop(props) {
     return viewMode == keys.DESKTOP_PROPERTY
 }
 
+
 function getStyle(props) {
     let {stage, element} = props
     return getElement({props, selectedStage: stage, selectedElement: element})
 }
 
 const useStyles = theme => ({   
-    imageStyle: props => {
-        let style = isDesktop(props) ? staticStyles.IMAGE_DESKTOP : staticStyles.IMAGE
+    videoContainerStyle: props => {
+        let style = isDesktop(props) ? videoStyles.VIDEO_CONTAINER_DESKTOP : videoStyles.VIDEO_CONTAINER
+        return {
+            ...style
+        }
+    },
+    videoStyle: props => {
+        let style = isDesktop(props) ? videoStyles.VIDEO_DESKTOP : videoStyles.VIDEO
         let {rounding} = getStyle(props)
         return {
             borderRadius: rounding ? 20 : 0,
             ...style
         }
-    },
+    }
 })
 
-export default withStyles(useStyles)(ImagePreview)
+export default withStyles(useStyles)(VideoPreview)

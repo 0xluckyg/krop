@@ -77,24 +77,27 @@ const useStyles = theme => ({
         }
     },
     dropdownWrapperStyle: props => {
+        const {primaryColor} = getStyle(props)
         let style = isDesktop(props) ? dropdownStyle.DROPDOWN_WRAPPER_DESKTOP : dropdownStyle.DROPDOWN_WRAPPER
         return {
             ...style,
             '&:after': {
-                ...style.AFTER
+                ...style.AFTER,
                 // background: secondaryColor,
-                // color: 'white',
+                color: primaryColor,
             }
         }
     },
     dropdownStyle: props => {
+        const {textColor, backgroundColor} = getStyle(props)
         let style = isDesktop(props) ? dropdownStyle.DROPDOWN_DESKTOP : dropdownStyle.DROPDOWN
         return {
             ...style,
             margin: 0,
+            backgroundColor,
             // fontSize: size, 
             // fontFamily: font, 
-            // color
+            color: textColor
         }
     }
 })

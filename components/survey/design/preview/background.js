@@ -4,29 +4,28 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
-import surveyStyles from '../../../../shared/survey-styles/static'
+import staticStyles from '../../../../shared/survey-styles/static'
 
 class BackgroundPreview extends React.Component {
     constructor(props) {
         super(props)
     }
-    
-    getBackground() {
-        let {stage, element} = this.props
-        return getElement({props: this.props, selectedStage: stage, selectedElement: element})
-    }
 
     render() {
-        const {children, classes, state} = this.props
-        const className = state.viewMode == keys.MOBILE_PROPERTY ? classes.backgroundMobileStyle : classes.backgroundDesktopStyle
+        const {children, classes} = this.props
         return (
             <div 
-                className={className}
+                className={classes.backgroundStyle}
             >
                 {children}
             </div>
         )
     }
+}
+
+function isDesktop(props) {
+    let {viewMode} = props.state
+    return viewMode == keys.DESKTOP_PROPERTY
 }
 
 function getStyle(props) {
@@ -35,24 +34,15 @@ function getStyle(props) {
 }
 
 const useStyles = theme => ({    
-    backgroundMobileStyle: props => {
+    backgroundStyle: props => {
         let {backgroundColor, backgroundImage} = getStyle(props)
+        let style = isDesktop(props) ? staticStyles.BACKGROUND_DESKTOP : staticStyles.BACKGROUND
         backgroundImage = (backgroundImage != '') ? `url(${backgroundImage})` : 'none'
         
         return {
             backgroundImage,
             backgroundColor,
-            ...surveyStyles.BACKGROUND
-        }
-    },
-    backgroundDesktopStyle: props => {
-        let {backgroundColor, backgroundImage} = getStyle(props)
-        backgroundImage = (backgroundImage != '') ? `url(${backgroundImage})` : 'none'
-        
-        return {
-            backgroundImage,
-            backgroundColor,
-            ...surveyStyles.BACKGROUND_DESKTOP
+            ...style
         }
     }
 })

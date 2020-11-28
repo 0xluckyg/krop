@@ -31,7 +31,7 @@ const DROPDOWN_WRAPPER = {
         position: 'absolute',
         top: 0,
         right: 0,
-        padding: '0 1em',
+        // padding: '0 1em',
         height: 30,
         lineHeight: 30 + 'px',
         // background: secondaryColor,
@@ -47,7 +47,7 @@ const DROPDOWN_WRAPPER_DESKTOP = {
 }
 
 const DROPDOWN = {
-    // backgroundColor: color,
+    backgroundColor: 'transparent',
     borderStyle: `solid`,
     // borderColor,
     borderWidth: '0px 0px 1px 0px',
@@ -57,6 +57,7 @@ const DROPDOWN = {
     display: 'inline-block',
     width: '100%',
     height: 30,
+    fontSize: 18,
     
     outline: 0,
     appearance: 'none',
@@ -67,7 +68,7 @@ const DROPDOWN = {
 }
 
 const DROPDOWN_DESKTOP = {
-    ...DROPDOWN_DESKTOP
+    ...DROPDOWN
 }
 
 module.exports = {

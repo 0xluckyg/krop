@@ -18,7 +18,6 @@ const QUESTION_DESKTOP = {
 const OPTION_CONTAINER = {
     borderStyle: `solid`,
     display: 'inline-block',
-    borderRadius: 20,
     borderWidth: 0,
     padding: 0,
     margin: 0,
@@ -52,8 +51,8 @@ const RADIO = {
     cursor: 'pointer',
     outline: 'none',
     position: 'relative',
-    height: 25,
-    width: 25,
+    height: 20,
+    width: 20,
     marginRight: 20,
     BEFORE: {
         display: 'block',
@@ -66,7 +65,6 @@ const RADIO = {
         borderWidth: 1.5,
         borderStyle: 'solid',
         transition: '0.2s',
-        borderRadius: 15
     },
     AFTER: {
         display: 'block',
@@ -78,7 +76,6 @@ const RADIO = {
         left: '20%',
         top: '20%',
         transition: '0.2s',
-        borderRadius: 15
     },
     CHECKED_AFTER: {
         

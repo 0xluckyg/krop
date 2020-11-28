@@ -9,9 +9,12 @@ import Screen from './screen'
 import Text from './text'
 import Image from './image'
 import MultipleChoice from './multiple-choice'
+import Checkbox from './checkbox'
 import Form from './form'
 import Slider from './slider'
 import Dropdown from './dropdown'
+import Video from './video'
+import Link from './link'
 
 class MainboardPreview extends React.Component {
     constructor(props) {
@@ -51,7 +54,13 @@ class MainboardPreview extends React.Component {
                                 element={i}
                             />
                         case(keys.CHECKBOX_ELEMENT):
-                            return 
+                            return <Checkbox
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                         case(keys.DROPDOWN_ELEMENT):
                             return <Dropdown
                                 key={element.type+i}
@@ -97,7 +106,13 @@ class MainboardPreview extends React.Component {
                                 element={i}
                             />
                         case(keys.LINK_ELEMENT):
-                            return
+                            return <Link
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                         case(keys.IMAGE_ELEMENT):
                             return <Image
                                 key={element.type+i}
@@ -107,7 +122,13 @@ class MainboardPreview extends React.Component {
                                 element={i}
                             />
                         case(keys.VIDEO_ELEMENT):
-                            return
+                            return <Video
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                     }
                 })}
                 

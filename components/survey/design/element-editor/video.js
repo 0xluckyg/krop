@@ -1,4 +1,7 @@
 import React, {Fragment} from 'react'
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+var embed = require("embed-video")
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -7,8 +10,17 @@ import SectionContainer from './frame/section-container'
 import Input from './sub/input'
 import Switch from './sub/switch'
 import {setProperty, getProperty} from './sub/functions'
+import { showToastAction } from '../../../../redux/actions';
 
 class VideoEditor extends React.Component {
+    constructor(props) {
+        super(props)
+        
+        this.state = {
+            urlError: ''
+        }
+    }
+    
     getProperty(propertyType, property) {
         const {selectedStage, selectedElement} = this.props.state
         return getProperty({
@@ -32,15 +44,34 @@ class VideoEditor extends React.Component {
         })
     }
     
+    convertEmbedUrl(url) {
+        try {
+            const iframeString = embed(url)   
+            if (!document || !iframeString) return url
+            const wrapper= document.createElement('div');
+            wrapper.innerHTML= iframeString
+            const iframeElement = wrapper.firstChild;
+            return iframeElement.src
+        } catch (err) {
+            this.props.showToastAction(true, 'Please enter a valid url', 'error')
+        }
+    }
+    
+    handleLinkChange(link) {
+        const embedLink = this.convertEmbedUrl(link)
+        this.setProperty(null, 'url', embedLink)
+    }
+    
     render() {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
                 <SectionContainer title="Video url">
                 <Input
+                    error={this.state.urlError}
                     label='Video url (Link)'
                     onChange={value => {
-                        this.setProperty(null, 'url', value)
+                        this.handleLinkChange(value)
                     }}
                     value={this.getProperty(null, 'url')}
                 />
@@ -85,4 +116,12 @@ const useStyles = theme => ({
     }
 })
 
-export default withStyles(useStyles)(VideoEditor)
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators(
+        {showToastAction},
+        dispatch
+    );
+}
+
+export default connect(null, mapDispatchToProps)(withStyles(useStyles)(VideoEditor));
