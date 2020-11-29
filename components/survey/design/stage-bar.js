@@ -31,6 +31,7 @@ class StageBar extends React.Component {
     
     handleStageChange(event, newValue) {
         this.props.setState({
+            selectedPage: 0,
             selectedStage: newValue, 
             elementEditorOpen: false, 
             stageEditorOpen: false,

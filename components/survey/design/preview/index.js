@@ -21,6 +21,7 @@ import Name from './name'
 import Address from './address'
 import Button from './button'
 import backgroundStyles from '../../../../shared/survey-styles/background'
+import {elementsToPages} from '../element-editor/sub/functions'
 
 class MainboardPreview extends React.Component {
     constructor(props) {
@@ -43,14 +44,39 @@ class MainboardPreview extends React.Component {
         this.props.setState({ selectedElement: null })
     }
     
+    getElementCountFromPages(pages) {
+        const {selectedPage} = this.props.state
+        let count = 0
+        pages.map((page, i) => {
+            if (i < selectedPage) {
+                count += page.length   
+            }
+        })
+        return count
+    }
+    
     renderElements() {
         const {state, setState, classes} = this.props
         const currentStage = state.stages[state.selectedStage]
-
+        console.log("CU ", currentStage)
+        let mapper = []
+        let offsetCounter = 0
+        
+        if (currentStage.settings.questionPerPage) {
+            const {selectedPage} = state
+            const pages = elementsToPages(currentStage.elements)
+            console.log("PPPPP ", pages)
+            mapper = pages[selectedPage]        
+            offsetCounter = this.getElementCountFromPages(pages)   
+        } else {
+            mapper = currentStage.elements
+        }
+        console.log("mmm ", mapper)
         return (
             <div className={classes.pageWrapper}>
                 <div>
-                {currentStage.elements.map((element, i) => {
+                {mapper.map((element, i) => {
+                    i = i + offsetCounter
                     switch(element.type) {
                         case(keys.SPACING_ELEMENT):
                             return <Spacing

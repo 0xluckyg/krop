@@ -28,6 +28,7 @@ function handleLimit(value, min, max) {
 }
 
 function isSurveyElement(element) {
+    if (!element) return false
     let surveyElements = [
         keys.MULTIPLE_CHOICE_ELEMENT, keys.CHECKBOX_ELEMENT, keys.DROPDOWN_ELEMENT, keys.SLIDER_ELEMENT, keys.FORM_ELEMENT, keys.EMAIL_ELEMENT,
         keys.PHONE_ELEMENT, keys.ADDRESS_ELEMENT, keys.NAME_ELEMENT, keys.LONG_FORM_ELEMENT
@@ -50,6 +51,7 @@ function requiresButton(elements) {
 }
 
 function isFormElement(element) {
+    if (!element) return false
     let formElements = [
         keys.FORM_ELEMENT, keys.EMAIL_ELEMENT, keys.PHONE_ELEMENT, keys.ADDRESS_ELEMENT, keys.NAME_ELEMENT, keys.LONG_FORM_ELEMENT
     ]
@@ -61,6 +63,50 @@ function hasElement(elements, elementType) {
         if (element.type == elementType) return true
     })
     return false
+}
+
+function elementsToPages(elements) {
+    let pages = []
+    if (!elements) return pages
+    let pageCount = 0
+    let firstElement = elements[0]
+    let previousElement = firstElement
+    pages[0] = [firstElement]
+    
+    for (let i = 1; i < elements.length; i++) {
+        let element = elements[i]
+        let surveyFlag = isSurveyElement(element)
+        let previousFlag = isSurveyElement(previousElement)
+        
+        if (surveyFlag) {
+            pageCount ++
+            pages[pageCount] = [element]
+        } else {
+            if (previousFlag) pageCount ++
+            if (!pages[pageCount]) pages[pageCount] = []
+            pages[pageCount].push(element)
+        }
+        
+        previousElement = element
+    }
+    
+    console.log('P', pages)
+    return pages
+}
+
+function findElementPageIndex(pages, element) {
+    let pageIndex = 0
+    for (let i = 0; i < pages.length; i++) {
+        let page = pages[i]
+        for (let j = 0; j < page.length; j++) {
+            let pageEl = page[j]
+            if (pageEl.id == element.id) {
+                return pageIndex
+            }
+        }
+        pageIndex++
+    }
+    return pageIndex
 }
 
 function getStage(options) {
@@ -179,7 +225,9 @@ module.exports = {
     isSurveyElement,
     requiresButton,
     isFormElement,
-
+    elementsToPages,
+    findElementPageIndex,
+    
     getStage,
     setStage,
     getElement, 

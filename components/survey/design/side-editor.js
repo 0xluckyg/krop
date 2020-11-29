@@ -23,6 +23,7 @@ import keys from '../../../config/keys'
 import ElementList from './draggable-list'
 import ListElement from './list-element'
 import ElementEditor from './element-editor'
+import {elementsToPages, findElementPageIndex} from './element-editor/sub/functions'
 import StageEditor from './stage-editor'
 import SectionHeader from  './element-editor/frame/section-header'
 import {image} from './element-objects'
@@ -169,9 +170,13 @@ class StageBar extends React.Component {
         return (
             <ElementList 
                 elements={stage.elements}
-                setElements={newElements => {
+                setElements={(newElements, source, destination) => {
                     let newState = {...state}
                     newState.stages[state.selectedStage].elements = newElements
+                    
+                    const pages = elementsToPages(newElements)
+                    const newPageIndex = findElementPageIndex(pages, newElements[destination])
+                    newState.selectedPage = newPageIndex
                     setState(newState)
                 }}
                 wrapper={(index, element) => {

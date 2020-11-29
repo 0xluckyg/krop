@@ -9,10 +9,57 @@ import PhoneIcon from '@material-ui/icons/PhoneIphone';
 import DesktopIcon from '@material-ui/icons/DesktopMac';
 
 import keys from '../../../../../config/keys'
-
+import {elementsToPages} from '../../element-editor/sub/functions'
 class PageController extends React.Component {
     constructor(props) {
         super(props)
+    }
+    
+    togglePage(direction) {
+        const {selectedPage} = this.props.state
+        const toPage = selectedPage + direction
+        // console.log()
+        this.props.setState({selectedPage: toPage})   
+    }
+    
+    hasBefore() {
+        const {selectedPage} = this.props.state
+        return (selectedPage > 0)
+    }
+    
+    hasAfter() {
+        const {state} = this.props
+        const {selectedStage, selectedPage} = state
+        const elements = state.stages[selectedStage].elements
+        const pages = elementsToPages(elements)
+        return (selectedPage < pages.length - 1)
+    }
+    
+    renderPageController() {
+        const {classes, state} = this.props
+        const {selectedStage} = state
+        const {questionPerPage} = state.stages[selectedStage].settings
+        if (!questionPerPage) return null
+        return (
+            <React.Fragment>
+                <IconButton  
+                    onClick={() => this.togglePage(-1)}
+                    className={clsx(classes.button)} 
+                    variant="contained"
+                    disabled={!this.hasBefore()}
+                >
+                    <LeftIcon fontSize="small" />
+                </IconButton>
+                <IconButton  
+                    onClick={() => this.togglePage(1)}
+                    className={clsx(classes.button)} 
+                    variant="contained"
+                    disabled={!this.hasAfter()}
+                >
+                    <RightIcon fontSize="small" />
+                </IconButton>
+            </React.Fragment>    
+        )
     }
 
     render() {
@@ -20,16 +67,7 @@ class PageController extends React.Component {
         
         return (
             <div className={classes.controllerContainer}>
-                <IconButton  
-                    className={clsx(classes.button)} 
-                    variant="contained">
-                    <LeftIcon fontSize="small" />
-                </IconButton>
-                <IconButton  
-                    className={clsx(classes.button)} 
-                    variant="contained">
-                    <RightIcon fontSize="small" />
-                </IconButton>
+                {this.renderPageController()}
                 <IconButton  
                     className={clsx(classes.button, state.viewMode == keys.MOBILE_PROPERTY ? classes.selectedButton : null)} 
                     onClick={() => setState({viewMode: keys.MOBILE_PROPERTY})} 
