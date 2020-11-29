@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 import keys from '../../../../config/keys'
+import SpacingEditor from './spacing'
 import MultipleChoiceEditor from './multiple-choice'
 import CheckboxEditor from './checkbox'
 import DropdownEditor from './dropdown'
@@ -97,6 +98,13 @@ class ElementEditor extends React.Component {
         let type = elm ? elm.type : null
         type = type ? type : selectedElement
         switch(type) {
+            case(keys.SPACING_ELEMENT):
+                return <SpacingEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
             case(keys.HEADING_ELEMENT):
             case(keys.SUBHEADING_ELEMENT):
             case(keys.PARAGRAPH_ELEMENT):

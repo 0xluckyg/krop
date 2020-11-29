@@ -27,21 +27,21 @@ const APP_ZIP = '07310'
 
 const PAGE_SIZE = 50
 
-const LOGO = '../static/logo-white.svg';
-const APP_EMAIL = 'info@vivelop.com';
-const NAV_WIDTH = 200;
+const LOGO = '../static/logo-white.svg'
+const APP_EMAIL = 'info@vivelop.com'
+const NAV_WIDTH = 200
 const NAV_COLOR = '#151b26'
-const HEADER_HEIGHT = 45;
-const SIDE_EDITOR_WIDTH = 450;
+const HEADER_HEIGHT = 45
+const SIDE_EDITOR_WIDTH = 450
 
-const SHOW_TOAST = 'show_toast';
-const IS_LOADING = 'is_loading';
-const IS_DIRTY = 'is_dirty';
-const SHOW_PAYMENT_PLAN = 'show_payment_plan';
-const HANDLE_SAVE_ACTION = 'handle_save_action';
-const GET_USER = 'get_user';
-const SHOW_AUTHORIZE_MODAL = 'show_authorize_modal';
-const ROUTE = 'route';
+const SHOW_TOAST = 'show_toast'
+const IS_LOADING = 'is_loading'
+const IS_DIRTY = 'is_dirty'
+const SHOW_PAYMENT_PLAN = 'show_payment_plan'
+const HANDLE_SAVE_ACTION = 'handle_save_action'
+const GET_USER = 'get_user'
+const SHOW_AUTHORIZE_MODAL = 'show_authorize_modal'
+const ROUTE = 'route'
 
 const MOBILE_PROPERTY = 'mobile'
 const DESKTOP_PROPERTY = 'desktop'
@@ -76,6 +76,7 @@ const LINK_ELEMENT = 'link_element'
 
 const IMAGE_ELEMENT = 'image_element'
 const VIDEO_ELEMENT = 'video_element'
+const SPACING_ELEMENT = 'spacing_element'
 
 const MEDIA_TEMPLATE = 'media_template'
 
@@ -171,6 +172,7 @@ module.exports = {
     LINK_ELEMENT,
     IMAGE_ELEMENT,
     VIDEO_ELEMENT,
+    SPACING_ELEMENT,
     
     MEDIA_TEMPLATE
 }

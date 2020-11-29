@@ -25,21 +25,7 @@ const FRONT_ADDRESS_DESKTOP = {
 }
 
 const ADDRESS = {
-    backgroundColor: 'rgba(0,0,0,0)',
-    width: '100%',
-    borderWidth: `0px 0px 0.5px 0px`,
-    borderStyle: `solid`,
-    padding: `0px 0px 8px 0px`,
-    borderColor: 'black',
-    fontSize: 18,
-    marginTop: 15,
-    FOCUS: {
-        outline: 'none'  
-    },
-    PLACEHOLDER: {
-        fontSize: 18,
-        opacity: 0.7
-    }
+    marginTop: 15
 }
 
 const ADDRESS_DESKTOP = {

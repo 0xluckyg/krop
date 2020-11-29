@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {getElement} from '../element-editor/sub/functions'
 import nameStyle from '../../../../shared/survey-styles/name'
 import elementStyle from '../../../../shared/survey-styles/reusable'
+import formStyle from '../../../../shared/survey-styles/form'
 import keys from '../../../../config/keys'
 
 class NamePreview extends React.Component {
@@ -86,8 +87,8 @@ const useStyles = theme => ({
         }
     },
     nameStyle: props => {
-        const {font, textColor, primaryColor} = getStyle(props)
-        let style = isDesktop(props) ? nameStyle.NAME_DESKTOP : nameStyle.NAME
+        const {font, textColor} = getStyle(props)
+        let style = isDesktop(props) ? formStyle.FORM_DESKTOP : formStyle.FORM
         return {
             ...style,
             font: font,

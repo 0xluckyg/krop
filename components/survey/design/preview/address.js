@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {getElement} from '../element-editor/sub/functions'
 import elementStyle from '../../../../shared/survey-styles/reusable'
 import addressStyle from '../../../../shared/survey-styles/address'
+import formStyle from '../../../../shared/survey-styles/form'
 import keys from '../../../../config/keys'
 
 class NAMEPreview extends React.Component {
@@ -164,9 +165,11 @@ const useStyles = theme => ({
     },
     addressStyle: props => {
         const {font, textColor, primaryColor} = getStyle(props)
-        let style = isDesktop(props) ? addressStyle.ADDRESS_DESKTOP : addressStyle.ADDRESS
+        let customStyle = isDesktop(props) ? addressStyle.ADDRESS_DESKTOP : addressStyle.ADDRESS
+        let style = isDesktop(props) ? formStyle.FORM_DESKTOP : formStyle.FORM
         return {
             ...style,
+            ...customStyle,
             font: font,
             color: textColor,
             borderColor: textColor,

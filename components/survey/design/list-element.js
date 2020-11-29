@@ -19,7 +19,7 @@ import {
     mdiImageOutline,
     mdiLink,
     mdiYoutube,
-    
+    mdiArrowExpandVertical,
     mdiTrashCanOutline,
     mdiCircleEditOutline,
     
@@ -108,6 +108,8 @@ class ListElement extends React.Component {
     renderMainIcon() {
         const {classes, element} = this.props
         switch(element.type) {
+            case keys.SPACING_ELEMENT:
+                return this.renderIcon(mdiArrowExpandVertical, classes.mainIcon)
             case keys.MULTIPLE_CHOICE_ELEMENT:
                 return this.renderIcon(mdiCheckboxMarkedCircleOutline, classes.mainIcon)
             case keys.CHECKBOX_ELEMENT:

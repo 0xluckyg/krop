@@ -246,6 +246,16 @@ const link = (custom) => {
     }
 }
 
+const spacing = (custom) => {
+    const {space} = custom ? custom : {}
+    return {
+        id: shortid.generate(),
+        type: keys.SPACING_ELEMENT,
+        name: 'Spacing',
+        space: space ? space : 1
+    }
+}
+
 const defaultStages = () => [
     {
         settings: {
@@ -253,6 +263,7 @@ const defaultStages = () => [
             isSinglePage: true
         },
         elements: [
+            spacing(),
             heading(), 
             subheading(), 
             paragraph(), 
@@ -268,7 +279,8 @@ const defaultStages = () => [
             name(), 
             longForm(), 
             video(),
-            link()
+            link(),
+            spacing()
         ]
     },
     {
@@ -326,5 +338,6 @@ module.exports = {
     paragraph, 
     image,
     video,
-    link
+    link,
+    spacing
 }

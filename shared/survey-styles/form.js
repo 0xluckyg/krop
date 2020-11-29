@@ -5,8 +5,11 @@ const FORM = {
     borderStyle: `solid`,
     padding: `0px 0px 8px 0px`,
     fontSize: 18,
+    transition: '0.2s',
     FOCUS: {
-        outline: 'none'  
+        outline: 'none',
+        opacity: 0.7,
+        transition: '0.2s'
     },
     PLACEHOLDER: {
         fontSize: 18,

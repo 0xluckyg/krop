@@ -7,6 +7,7 @@ import Background from './background'
 import Alert from './alert'
 import Screen from './screen'
 import Header from './header'
+import Spacing from './spacing'
 import Text from './text'
 import Image from './image'
 import MultipleChoice from './multiple-choice'
@@ -51,6 +52,14 @@ class MainboardPreview extends React.Component {
                 <div>
                 {currentStage.elements.map((element, i) => {
                     switch(element.type) {
+                        case(keys.SPACING_ELEMENT):
+                            return <Spacing
+                                key={element.type+i}
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={i}
+                            />
                         case(keys.MULTIPLE_CHOICE_ELEMENT):
                             return <MultipleChoice
                                 key={element.type+i}
