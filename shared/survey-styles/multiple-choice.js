@@ -1,20 +1,3 @@
-const CONTAINER = {
-    margin: '30px 0px'
-}
-
-const CONTAINER_DESKTOP = {
-    ...CONTAINER
-}
-
-const QUESTION = {
-    fontSize: 20,
-    margin: '0px 0px 10px 0px'
-}
-
-const QUESTION_DESKTOP = {
-    ...QUESTION
-}
-
 const OPTION_CONTAINER = {
     borderStyle: `solid`,
     display: 'inline-block',
@@ -99,10 +82,6 @@ const TEXT_DESKTOP = {
 }
 
 module.exports = {
-    CONTAINER,
-    CONTAINER_DESKTOP,
-    QUESTION,
-    QUESTION_DESKTOP,
     OPTION_CONTAINER,
     OPTION_CONTAINER_DESKTOP,
     OPTION_WRAPPER,

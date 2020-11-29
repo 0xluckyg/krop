@@ -49,8 +49,10 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        let style = isDesktop(props) ? buttonStyles.CONTAINER_DESKTOP : buttonStyles.CONTAINER
+        const {backgroundColor} = getStyle(props)
+        let style = isDesktop(props) ? buttonStyles.BUTTON_CONTAINER_DESKTOP : buttonStyles.BUTTON_CONTAINER
         return {
+            backgroundColor,
             ...style
         }  
     },

@@ -1,11 +1,3 @@
-const CONTAINER = {
-    margin: '30px 0px'
-}
-
-const CONTAINER_DESKTOP = {
-    ...CONTAINER
-}
-
 const ADDRESS_WRAPPER = {
     display: 'flex',
     flexDirection: 'row',
@@ -14,6 +6,14 @@ const ADDRESS_WRAPPER = {
 
 const ADDRESS_WRAPPER_DESKTOP = {
     ...ADDRESS_WRAPPER,
+}
+
+const ADDRESS_TITLE = {
+    marginBottom: -5
+}
+
+const ADDRESS_TITLE_DESKTOP = {
+    ...ADDRESS_TITLE
 }
 
 const FRONT_ADDRESS = {
@@ -32,13 +32,13 @@ const ADDRESS = {
     padding: `0px 0px 8px 0px`,
     borderColor: 'black',
     fontSize: 18,
-    marginBottom: 15,
+    marginTop: 15,
     FOCUS: {
         outline: 'none'  
     },
     PLACEHOLDER: {
-        color: 'gray',
         fontSize: 18,
+        opacity: 0.7
     }
 }
 
@@ -47,12 +47,12 @@ const ADDRESS_DESKTOP = {
 }
 
 module.exports = {
-    CONTAINER,
-    CONTAINER_DESKTOP,
-    FRONT_ADDRESS,
-    FRONT_ADDRESS_DESKTOP,
     ADDRESS_WRAPPER,
     ADDRESS_WRAPPER_DESKTOP,
+    ADDRESS_TITLE,
+    ADDRESS_TITLE_DESKTOP,
+    FRONT_ADDRESS,
+    FRONT_ADDRESS_DESKTOP,
     ADDRESS,
     ADDRESS_DESKTOP
 }

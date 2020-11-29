@@ -1,20 +1,3 @@
-const CONTAINER = {
-    margin: '30px 0px'
-}
-
-const CONTAINER_DESKTOP = {
-    ...CONTAINER
-}
-
-const QUESTION = {
-    fontSize: 20,
-    margin: '0px 0px 10px 0px'
-}
-
-const QUESTION_DESKTOP = {
-    ...QUESTION
-}
-
 const DROPDOWN_WRAPPER = {
     position: 'relative',
     display: 'flex',
@@ -49,11 +32,9 @@ const DROPDOWN_WRAPPER_DESKTOP = {
 const DROPDOWN = {
     backgroundColor: 'transparent',
     borderStyle: `solid`,
-    // borderColor,
     borderWidth: '0px 0px 1px 0px',
     padding: `0px 0px 8px 0px`,
     // margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
-    // boxShadow: `${shadow[0]}px ${shadow[1]}px ${shadow[2]}px ${shadow[3]}px ${shadowColor}`,
     display: 'inline-block',
     width: '100%',
     height: 30,
@@ -72,10 +53,6 @@ const DROPDOWN_DESKTOP = {
 }
 
 module.exports = {
-    CONTAINER,
-    CONTAINER_DESKTOP,
-    QUESTION,
-    QUESTION_DESKTOP,
     DROPDOWN_WRAPPER,
     DROPDOWN_WRAPPER_DESKTOP,
     DROPDOWN,

@@ -1,23 +1,12 @@
-const CONTAINER = {
-    margin: '30px 0px',
+const NAME_WRAPPER = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between'
 }
 
-const CONTAINER_DESKTOP = {
-    ...CONTAINER
+const NAME_WRAPPER_DESKTOP = {
+    ...NAME_WRAPPER
 }
-
-const QUESTION = {
-    fontSize: 20,
-    margin: '0px 0px 10px 0px'
-}
-
-const QUESTION_DESKTOP = {
-    ...QUESTION
-}
-
 
 const FRONT_NAME = {
     marginRight: 20
@@ -39,8 +28,8 @@ const NAME = {
         outline: 'none'  
     },
     PLACEHOLDER: {
-        color: 'gray',
         fontSize: 18,
+        opacity: 0.7
     }
 }
 
@@ -49,10 +38,8 @@ const NAME_DESKTOP = {
 }
 
 module.exports = {
-    CONTAINER,
-    CONTAINER_DESKTOP,
-    QUESTION,
-    QUESTION_DESKTOP,
+    NAME_WRAPPER,
+    NAME_WRAPPER_DESKTOP,
     FRONT_NAME,
     FRONT_NAME_DESKTOP,
     NAME,

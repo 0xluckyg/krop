@@ -241,7 +241,7 @@ const link = (custom) => {
         id: shortid.generate(),
         type: keys.LINK_ELEMENT,
         name: 'Link',
-        url: url ? url : '',
+        url: url ? url : process.env.APP_URL,
         newWindow: true
     }
 }
@@ -294,7 +294,7 @@ const defaultStyles = () => {
         primaryColor: keys.APP_COLOR,
         secondaryColor: keys.APP_COLOR_GRAY,
         textColor: '#000',
-        align: 'center',
+        align: 'left',
         font: 'helvetica'
     }
 }

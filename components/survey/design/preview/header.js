@@ -6,24 +6,44 @@ import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
 import headerStyles from '../../../../shared/survey-styles/header'
 
-class ButtonPreview extends React.Component {
+class HeaderPreview extends React.Component {
     constructor(props) {
         super(props)
     }
     
-    getImage() {
+    getStyle() {
+        let {stage} = this.props
+        return getElement({props: this.props, selectedStage: stage, selectedElement: keys.STYLE_SETTINGS})
+    }
+    
+    getElement() {
         let {stage, element} = this.props
         return getElement({props: this.props, selectedStage: stage, selectedElement: element})
     }
 
-    renderContinueButton() {
-        const {classes} = this.props
+    renderTitle() {
+        const {state, classes} = this.props
+        const name = state.settings.name
+        const {logo} = this.getStyle()
+        if (logo && logo != '') return null
         return (
-            <button 
-                className={classes.buttonStyle}
+            <h3 
+                className={classes.titleStyle}
             >
-                Continue
-            </button>
+                {name}
+            </h3>
+        )
+    }
+
+    renderLogo() {
+        const {classes} = this.props
+        const {logo} = this.getStyle()
+        if (!logo || logo == '') return null
+        return (
+            <img 
+                src={logo}
+                className={classes.logoStyle}
+            />
         )
     }
 
@@ -31,7 +51,8 @@ class ButtonPreview extends React.Component {
         const {classes, state} = this.props
         return (
             <div className={classes.containerStyle}>
-                {this.renderContinueButton()}
+                {this.renderTitle()}
+                {this.renderLogo()}
             </div>
         )
     }
@@ -49,19 +70,28 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        let style = isDesktop(props) ? headerStyles.CONTAINER_DESKTOP : headerStyles.CONTAINER
+        let style = isDesktop(props) ? headerStyles.HEADER_CONTAINER_DESKTOP : headerStyles.HEADER_CONTAINER
+        const {backgroundColor} = getStyle(props)
         return {
+            backgroundColor,
             ...style
         }  
     },
-    buttonStyle: props => {
-        let style = isDesktop(props) ? headerStyles.BUTTON_DESKTOP : headerStyles.BUTTON
+    titleStyle: props => {
+        let style = isDesktop(props) ? headerStyles.TITLE_DESKTOP : headerStyles.TITLE
         const {primaryColor} = getStyle(props)
         return {
+            
             color: primaryColor,
+            ...style
+        }
+    },
+    logoStyle: props => {
+        let style = isDesktop(props) ? headerStyles.LOGO_DESKTOP : headerStyles.LOGO
+        return {
             ...style
         }
     },
 })
 
-export default withStyles(useStyles)(ButtonPreview)
+export default withStyles(useStyles)(HeaderPreview)

@@ -1,7 +1,14 @@
+const IMAGE = {
+    width: '100%'
+}
+
+const IMAGE_DESKTOP = {
+    ...IMAGE
+}
+
 const VIDEO_CONTAINER = {
     position: 'relative',
     paddingBottom: '56.25%',
-    // height: 0,
 }
 
 const VIDEO_CONTAINER_DESKTOP = {
@@ -24,6 +31,9 @@ const VIDEO_DESKTOP = {
 }
 
 module.exports = {
+    IMAGE,
+    IMAGE_DESKTOP,
+    
     VIDEO_CONTAINER,
     VIDEO_CONTAINER_DESKTOP,
     VIDEO,

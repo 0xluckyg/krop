@@ -19,7 +19,7 @@ import Link from './link'
 import Name from './name'
 import Address from './address'
 import Button from './button'
-import pageStyles from '../../../../shared/survey-styles/static'
+import backgroundStyles from '../../../../shared/survey-styles/background'
 
 class MainboardPreview extends React.Component {
     constructor(props) {
@@ -168,19 +168,21 @@ class MainboardPreview extends React.Component {
                             setState={setState}
                             stage={state.selectedStage}
                         />
-                        <Background
-                            stage={selectedStage}
-                            element={keys.BACKGROUND}
-                            state={state}
-                            setState={setState}
-                        >
-                            {this.renderElements()}
-                        </Background>
-                        <Button
-                            state={state}
-                            setState={setState}
-                            stage={state.selectedStage}
-                        />
+                        <div className={classes.surveyWrapper}>
+                            <Background
+                                stage={selectedStage}
+                                element={keys.BACKGROUND}
+                                state={state}
+                                setState={setState}
+                            >
+                                {this.renderElements()}
+                            </Background>
+                            <Button
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                            />
+                        </div>
                     </div>
                 </Screen>
             </div>
@@ -208,13 +210,19 @@ const useStyles = theme => ({
         }  
     },
     surveyContainer: props => {
-        let style = isDesktop(props) ? pageStyles.SURVEY_CONTAINER_DESKTOP : pageStyles.SURVEY_CONTAINER
+        let style = isDesktop(props) ? backgroundStyles.SURVEY_CONTAINER_DESKTOP : backgroundStyles.SURVEY_CONTAINER
+        return {
+            ...style
+        }
+    },
+    surveyWrapper: props => {
+        let style = isDesktop(props) ? backgroundStyles.SURVEY_WRAPPER_DESKTOP : backgroundStyles.SURVEY_WRAPPER
         return {
             ...style
         }
     },
     pageWrapper: props => {
-        let style = isDesktop(props) ? pageStyles.PAGE_WRAPPER_DESKTOP : pageStyles.PAGE_WRAPPER
+        let style = isDesktop(props) ? backgroundStyles.PAGE_WRAPPER_DESKTOP : backgroundStyles.PAGE_WRAPPER
         return {
             ...style
         }

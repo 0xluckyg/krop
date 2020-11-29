@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
 import sliderStyle from '../../../../shared/survey-styles/slider'
+import elementStyle from '../../../../shared/survey-styles/reusable'
 
 class SliderPreview extends React.Component {
     constructor(props) {
@@ -41,7 +42,7 @@ class SliderPreview extends React.Component {
     }
     
     renderSlider() {
-        const {primaryColor} = this.getStyle()
+        const {primaryColor, textColor} = this.getStyle()
         const slider = this.getElement()
         let style = this.isDesktop() ? sliderStyle.SLIDER_DESKTOP : sliderStyle.SLIDER
         return <Slider
@@ -49,11 +50,11 @@ class SliderPreview extends React.Component {
             styles={{
                 track: {
                     ...style.TRACK,
-                    backgroundColor: 'gray'
+                    backgroundColor: textColor
                 },
                 active: {
                     ...style.ACTIVE,
-                    backgroundColor: 'gray'
+                    backgroundColor: primaryColor
                 },
                 thumb: {
                     ...style.THUMB,
@@ -93,14 +94,14 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        let style = isDesktop(props) ? sliderStyle.CONTAINER_DESKTOP : sliderStyle.CONTAINER
+        let style = isDesktop(props) ? elementStyle.CONTAINER_DESKTOP : elementStyle.CONTAINER
         return {
             ...style
         }
     },
     questionStyle: props => {
         const {font, textColor} = getStyle(props)
-        let style = isDesktop(props) ? sliderStyle.QUESTION_DESKTOP : sliderStyle.QUESTION
+        let style = isDesktop(props) ? elementStyle.QUESTION_DESKTOP : elementStyle.QUESTION
         return {
             ...style,
             fontFamily: font, 

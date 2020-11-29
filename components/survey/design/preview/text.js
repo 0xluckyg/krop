@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
-import staticStyles from '../../../../shared/survey-styles/static'
+import textStyles from '../../../../shared/survey-styles/text'
 
 class TextPreview extends React.Component {
     constructor(props) {
@@ -60,15 +60,15 @@ function getTextStyle(props, type) {
 
 const useStyles = theme => ({    
     headingStyle: props => {
-        let style = isDesktop(props) ? staticStyles.HEADING_DESKTOP : staticStyles.HEADING
+        let style = isDesktop(props) ? textStyles.HEADING_DESKTOP : textStyles.HEADING
         return getTextStyle(props, style)
     },
     subheadingStyle: props => {
-        let style = isDesktop(props) ? staticStyles.SUBHEADING_DESKTOP : staticStyles.SUBHEADING
+        let style = isDesktop(props) ? textStyles.SUBHEADING_DESKTOP : textStyles.SUBHEADING
         return getTextStyle(props, style)
     },
     paragraphStyle: props => {
-        let style = isDesktop(props) ? staticStyles.PARAGRAPH_DESKTOP : staticStyles.PARAGRAPH
+        let style = isDesktop(props) ? textStyles.PARAGRAPH_DESKTOP : textStyles.PARAGRAPH
         return getTextStyle(props, style)
     }
 })

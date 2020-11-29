@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
+import elementStyle from '../../../../shared/survey-styles/reusable'
 import addressStyle from '../../../../shared/survey-styles/address'
 import keys from '../../../../config/keys'
 
@@ -15,6 +16,15 @@ class NAMEPreview extends React.Component {
     getElement() {
         let {stage, element, sectionElement} = this.props
         return getElement({props: this.props, selectedStage: stage, selectedElement: element, selectedSectionElement: sectionElement})
+    }
+    
+    renderTitle() {
+        const {classes} = this.props
+        return (
+            <p className={classes.titleStyle}>
+                Address
+            </p>
+        )
     }
     
     renderAddress1() {
@@ -96,6 +106,7 @@ class NAMEPreview extends React.Component {
         const {classes} = this.props
         return (
             <div className={classes.containerStyle}>
+                {this.renderTitle()}
                 {this.renderAddress1()}
                 {this.renderAddress2()}
                 <div className={classes.addressWrapperStyle}>
@@ -123,9 +134,20 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        let style = isDesktop(props) ? addressStyle.CONTAINER_DESKTOP : addressStyle.CONTAINER
+        let style = isDesktop(props) ? elementStyle.CONTAINER_DESKTOP : elementStyle.CONTAINER
         return {
             ...style
+        }
+    },
+    titleStyle: props => {
+        const {font, textColor} = getStyle(props)
+        let style = isDesktop(props) ? elementStyle.QUESTION_DESKTOP : elementStyle.QUESTION
+        let customStyle = isDesktop(props) ? addressStyle.ADDRESS_TITLE_DESKTOP : addressStyle.ADDRESS_TITLE
+        return {
+            ...style,
+            ...customStyle,
+            fontFamily: font, 
+            color: textColor
         }
     },
     addressWrapperStyle: props => {
@@ -141,17 +163,19 @@ const useStyles = theme => ({
         }
     },
     addressStyle: props => {
-        const {font, textColor} = getStyle(props)
+        const {font, textColor, primaryColor} = getStyle(props)
         let style = isDesktop(props) ? addressStyle.ADDRESS_DESKTOP : addressStyle.ADDRESS
         return {
             ...style,
             font: font,
             color: textColor,
+            borderColor: textColor,
             '&:focus': {
                 ...style.FOCUS  
             },
             '&::placeholder': {
                 ...style.PLACEHOLDER,
+                color: textColor,
                 fontFamily: font
             }
         }

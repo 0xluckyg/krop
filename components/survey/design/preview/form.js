@@ -3,6 +3,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
+import elementStyle from '../../../../shared/survey-styles/reusable'
 import formStyle from '../../../../shared/survey-styles/form'
 import keys from '../../../../config/keys'
 
@@ -27,14 +28,29 @@ class FormPreview extends React.Component {
         return placeholders[form.type]
     }
     
-    renderQuestion() {
-        const {classes} = this.props
+    getTitle() {
+        const form = this.getElement()
+        
+        const titles = {}
+        titles[keys.EMAIL_ELEMENT] = 'Email'
+        titles[keys.PHONE_ELEMENT] = 'Number'
+        titles[keys.FORM_ELEMENT] = form.question
+        titles[keys.LONG_FORM_ELEMENT] = form.question
+
+        return titles[form.type]
+    }
+    
+    noQuestion() {
         const form = this.getElement()
         const noQuestionList = [keys.EMAIL_ELEMENT, keys.PHONE_ELEMENT]
-        if (noQuestionList.includes(form.type)) return null
+        return noQuestionList.includes(form.type) ? false : true
+    }
+    
+    renderQuestion() {
+        const {classes} = this.props
         return (
             <p className={classes.questionStyle}>
-                {form.question}
+                {this.getTitle()}
             </p>
         )
     }
@@ -65,14 +81,14 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        let style = isDesktop(props) ? formStyle.CONTAINER_DESKTOP : formStyle.CONTAINER
+        let style = isDesktop(props) ? elementStyle.CONTAINER_DESKTOP : elementStyle.CONTAINER
         return {
             ...style
         }
     },
     questionStyle: props => {
         const {font, textColor} = getStyle(props)
-        let style = isDesktop(props) ? formStyle.QUESTION_DESKTOP : formStyle.QUESTION
+        let style = isDesktop(props) ? elementStyle.QUESTION_DESKTOP : elementStyle.QUESTION
         return {
             ...style,
             fontFamily: font, 
@@ -80,17 +96,19 @@ const useStyles = theme => ({
         }
     },
     formStyle: props => {
-        const {font, textColor} = getStyle(props)
+        const {font, textColor, primaryColor} = getStyle(props)
         let style = isDesktop(props) ? formStyle.FORM_DESKTOP : formStyle.FORM
         return {
             ...style,
             font: font,
             color: textColor,
+            borderColor: textColor,
             '&:focus': {
                 ...style.FOCUS  
             },
             '&::placeholder': {
                 ...style.PLACEHOLDER,
+                color: textColor,
                 fontFamily: font
             }
         }

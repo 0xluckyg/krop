@@ -1,7 +1,5 @@
 const LINK = {
-    fontSize: 18,
     display: 'inline-block',
-    margin: '30px 0px',
     cursor: 'pointer',
     transition: '0.2s',
     BEFORE: {

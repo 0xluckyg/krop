@@ -1,5 +1,5 @@
 const defaultSettings = {
-    name: '',
+    name: 'Survey',
     device: 'both',
     domain: '',
     schedule: {

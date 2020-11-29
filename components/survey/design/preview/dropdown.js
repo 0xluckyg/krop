@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
+import elementStyle from '../../../../shared/survey-styles/reusable'
 import dropdownStyle from '../../../../shared/survey-styles/dropdown'
 
 class SelectorPreview extends React.Component {
@@ -29,10 +30,10 @@ class SelectorPreview extends React.Component {
         const dropdown = this.getElement()
         return <div className={classes.dropdownWrapperStyle}>
             <select className={classes.dropdownStyle}>
-                <option>Please select one</option>
+                <option className={classes.optionStyle}>Please select one</option>
                 {
                     dropdown.options.map((o, i)=> {
-                        return <option key={o + i}>{o.text}</option>
+                        return <option className={classes.optionStyle} key={o + i}>{o.text}</option>
                     })
                 }
             </select>
@@ -62,14 +63,14 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        let style = isDesktop(props) ? dropdownStyle.CONTAINER_DESKTOP : dropdownStyle.CONTAINER
+        let style = isDesktop(props) ? elementStyle.CONTAINER_DESKTOP : elementStyle.CONTAINER
         return {
             ...style
         }
     },
     questionStyle: props => {
         const {font, textColor} = getStyle(props)
-        let style = isDesktop(props) ? dropdownStyle.QUESTION_DESKTOP : dropdownStyle.QUESTION
+        let style = isDesktop(props) ? elementStyle.QUESTION_DESKTOP : elementStyle.QUESTION
         return {
             ...style,
             fontFamily: font, 
@@ -89,14 +90,21 @@ const useStyles = theme => ({
         }
     },
     dropdownStyle: props => {
-        const {textColor, backgroundColor} = getStyle(props)
+        const {font, textColor, primaryColor} = getStyle(props)
         let style = isDesktop(props) ? dropdownStyle.DROPDOWN_DESKTOP : dropdownStyle.DROPDOWN
         return {
             ...style,
             margin: 0,
+            borderColor: textColor,
+            backgroundColor: 'transparent',
+            fontFamily: font, 
+            color: textColor
+        }
+    },
+    optionStyle: props => {
+        const {backgroundColor,textColor} = getStyle(props)
+        return {
             backgroundColor,
-            // fontSize: size, 
-            // fontFamily: font, 
             color: textColor
         }
     }

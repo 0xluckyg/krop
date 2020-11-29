@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import {getElement} from '../element-editor/sub/functions'
 
 import keys from '../../../../config/keys'
+import elementStyle from '../../../../shared/survey-styles/reusable'
 import checkboxStyle from '../../../../shared/survey-styles/checkbox'
 
 class CheckboxPreview extends React.Component {
@@ -72,14 +73,14 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        let style = isDesktop(props) ? checkboxStyle.CONTAINER_DESKTOP : checkboxStyle.CONTAINER
+        let style = isDesktop(props) ? elementStyle.CONTAINER_DESKTOP : elementStyle.CONTAINER
         return {
             ...style
         }
     },
     questionStyle: props => {
         const {font, textColor} = getStyle(props)
-        let style = isDesktop(props) ? checkboxStyle.QUESTION_DESKTOP : checkboxStyle.QUESTION
+        let style = isDesktop(props) ? elementStyle.QUESTION_DESKTOP : elementStyle.QUESTION
         return {
             ...style,
             fontFamily: font, 

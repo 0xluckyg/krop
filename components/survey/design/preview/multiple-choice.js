@@ -7,6 +7,7 @@ import {getElement} from '../element-editor/sub/functions'
 
 import keys from '../../../../config/keys'
 import mcStyle from '../../../../shared/survey-styles/multiple-choice'
+import elementStyle from '../../../../shared/survey-styles/reusable'
 
 class MultipleChoicePreview extends React.Component {
     constructor(props) {
@@ -72,14 +73,14 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        let style = isDesktop(props) ? mcStyle.CONTAINER_DESKTOP : mcStyle.CONTAINER
+        let style = isDesktop(props) ? elementStyle.CONTAINER_DESKTOP : elementStyle.CONTAINER
         return {
             ...style
         }
     },
     questionStyle: props => {
         const {font, textColor} = getStyle(props)
-        let style = isDesktop(props) ? mcStyle.QUESTION_DESKTOP : mcStyle.QUESTION
+        let style = isDesktop(props) ? elementStyle.QUESTION_DESKTOP : elementStyle.QUESTION
         return {
             ...style,
             fontFamily: font, 

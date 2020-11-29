@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import nameStyle from '../../../../shared/survey-styles/name'
+import elementStyle from '../../../../shared/survey-styles/reusable'
 import keys from '../../../../config/keys'
 
 class NamePreview extends React.Component {
@@ -17,18 +18,30 @@ class NamePreview extends React.Component {
         return getElement({props: this.props, selectedStage: stage, selectedElement: element, selectedSectionElement: sectionElement})
     }
     
+    renderTitle() {
+        const {classes} = this.props
+        return (
+            <p className={classes.titleStyle}>
+                Name
+            </p>
+        )
+    }
+    
     render() {
         const {classes} = this.props
         return (
             <div className={classes.containerStyle}>
-                <input 
-                    className={clsx(classes.frontNameStyle, classes.nameStyle)}
-                    placeholder="First name"
-                />
-                <input 
-                    className={classes.nameStyle}
-                    placeholder="Last name"
-                />
+                {this.renderTitle()}
+                <div className={classes.nameWrapperStyle}>
+                    <input 
+                        className={clsx(classes.frontNameStyle, classes.nameStyle)}
+                        placeholder="First name"
+                    />
+                    <input 
+                        className={classes.nameStyle}
+                        placeholder="Last name"
+                    />
+                </div>
             </div>
         )
     }
@@ -46,18 +59,24 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        let style = isDesktop(props) ? nameStyle.CONTAINER_DESKTOP : nameStyle.CONTAINER
+        let style = isDesktop(props) ? elementStyle.CONTAINER_DESKTOP : elementStyle.CONTAINER
         return {
             ...style
         }
     },
-    questionStyle: props => {
+    titleStyle: props => {
         const {font, textColor} = getStyle(props)
-        let style = isDesktop(props) ? nameStyle.QUESTION_DESKTOP : nameStyle.QUESTION
+        let style = isDesktop(props) ? elementStyle.QUESTION_DESKTOP : elementStyle.QUESTION
         return {
             ...style,
             fontFamily: font, 
             color: textColor
+        }
+    },
+    nameWrapperStyle: props => {
+        let style = isDesktop(props) ? nameStyle.NAME_WRAPPER_DESKTOP : nameStyle.NAME_WRAPPER_DESKTOP
+        return {
+            ...style
         }
     },
     frontNameStyle: props => {
@@ -67,17 +86,19 @@ const useStyles = theme => ({
         }
     },
     nameStyle: props => {
-        const {font, textColor} = getStyle(props)
+        const {font, textColor, primaryColor} = getStyle(props)
         let style = isDesktop(props) ? nameStyle.NAME_DESKTOP : nameStyle.NAME
         return {
             ...style,
             font: font,
             color: textColor,
+            borderColor: textColor,
             '&:focus': {
                 ...style.FOCUS  
             },
             '&::placeholder': {
                 ...style.PLACEHOLDER,
+                color: textColor,
                 fontFamily: font
             }
         }

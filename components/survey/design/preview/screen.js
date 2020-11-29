@@ -94,7 +94,6 @@ const useStyles = theme => ({
         const scale = props.state.previewScale
         return {
             margin: 30,
-            transition: '0.2s',
             transform: `scale(${scale})`,
             transformOrigin: scale < 1 ? 'center 10%' : 'top center',
             height: 750,

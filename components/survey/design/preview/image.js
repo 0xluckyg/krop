@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
-import staticStyles from '../../../../shared/survey-styles/static'
+import imageStyles from '../../../../shared/survey-styles/media'
 
 class ImagePreview extends React.Component {
     constructor(props) {
@@ -17,10 +17,12 @@ class ImagePreview extends React.Component {
     }
 
     render() {
-        const {classes, state} = this.props
+        const {classes} = this.props
+        const {url} = this.getImage()
+        if (!url || url == '') return null
         return (
             <img 
-                src={this.getImage().url}
+                src={url}
                 className={classes.imageStyle}
             />
         )
@@ -39,7 +41,7 @@ function getStyle(props) {
 
 const useStyles = theme => ({   
     imageStyle: props => {
-        let style = isDesktop(props) ? staticStyles.IMAGE_DESKTOP : staticStyles.IMAGE
+        let style = isDesktop(props) ? imageStyles.IMAGE_DESKTOP : imageStyles.IMAGE
         let {rounding} = getStyle(props)
         return {
             borderRadius: rounding ? 20 : 0,

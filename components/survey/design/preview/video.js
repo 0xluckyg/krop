@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
-import videoStyles from '../../../../shared/survey-styles/video'
+import videoStyles from '../../../../shared/survey-styles/media'
 
 class VideoPreview extends React.Component {
     constructor(props) {
@@ -18,9 +18,11 @@ class VideoPreview extends React.Component {
 
     render() {
         const {classes} = this.props
+        const {url} = this.getVideo()
+        if (url == '' || !url) return null
         return (
             <div className={classes.videoContainerStyle}>
-                <iframe width="100%" className={classes.videoStyle} src={this.getVideo().url+"?controls=0&autoplay=1"}/>
+                <iframe width="100%" className={classes.videoStyle} src={url+"?controls=0&autoplay=1"}/>
             </div>
         )
     }
