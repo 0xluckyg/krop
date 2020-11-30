@@ -9,6 +9,7 @@ const BUTTON_CONTAINER_DESKTOP = {
 }
 
 const BUTTON = {
+    cursor: 'pointer',
     backgroundColor: 'rgba(0,0,0,0)',
     fontWeight: 700,
     width: '100%',
@@ -17,9 +18,11 @@ const BUTTON = {
     FOCUS: {
         outline: 'none'  
     },
-    PLACEHOLDER: {
-        color: 'gray',
-        fontSize: 18,
+    HOVER: {
+        opacity: 0.8
+    },
+    ACTIVE: {
+        opacity: 0.6
     }
 }
 

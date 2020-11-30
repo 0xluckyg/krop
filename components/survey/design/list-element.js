@@ -27,7 +27,7 @@ import {
 } from '@mdi/js';
 
 import {dropdown} from './element-objects'
-import {setProperty} from './element-editor/sub/functions'
+import {setProperty, findElementPageIndex, elementsToPages} from './element-editor/sub/functions'
 import keys from '../../../config/keys'
 
 class ListElement extends React.Component {      
@@ -66,6 +66,13 @@ class ListElement extends React.Component {
         this.setProperty(null, 'options', newOptions)
     }
     
+    getPageIndex(el, i) {
+        const {state, index} = this.props
+        let elements = el ? el : state.stages[state.selectedStage].elements
+        let pages = elementsToPages(elements)
+        return findElementPageIndex(pages, elements[index])
+    }
+    
     removeElement() {
         const {state, setState, index} = this.props
         const {selectedStage} = state
@@ -75,24 +82,18 @@ class ListElement extends React.Component {
         newElements.splice(index, 1)
         newState.stages[selectedStage].elements = newElements
         newState.selectedElement = null
+        newState.selectedPage = 0
         setState(newState)
     }
     
     editElement() {
         const {setState, index} = this.props
-        setState({selectedElement: index})
+        setState({selectedElement: index, selectedPage: this.getPageIndex()})
     }
     
     addElement() {
-        const {state, setState, index} = this.props
-        const {selectedStage} = state
-        let newState = {...state}
-        
-        let newElements = [...newState.stages[selectedStage].elements]
-        newElements.splice(index+1, 0, dropdown());
-        newState.stages[selectedStage].elements = newElements
-        newState.selectedElement = null
-        setState(newState)
+        const {setState, index} = this.props
+        setState({elementMenuOpen: index+1})
     }
     
     renderIcon(icon, style, onClick) { 

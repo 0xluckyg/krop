@@ -1,11 +1,13 @@
 main::-webkit-scrollbar, div::-webkit-scrollbar {
     background-color:#fff;
-    width:16px
+    width:16px;
+    border-radius: 8px
 }
 
 /* background of the scrollbar except button or resizer */
 main::-webkit-scrollbar-track, div::-webkit-scrollbar-track {
-    background-color:#fff
+    background-color:#fff;
+    border-radius: 8px
 }
 main::-webkit-scrollbar-track:hover, div::-webkit-scrollbar-track:hover {
     background-color:#f4f4f4

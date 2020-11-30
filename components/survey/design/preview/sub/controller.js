@@ -88,7 +88,7 @@ class PageController extends React.Component {
 const useStyles = theme => ({
     controllerContainer: {
         position: 'absolute',
-        width: 220,
+        // width: 220,
         // height: 40,
         bottom: 15,
         right: 30,
@@ -98,6 +98,7 @@ const useStyles = theme => ({
     button: {
         width: 40,
         height: 40,
+        margin: '0px 10px',
         backgroundColor: keys.APP_COLOR_GRAY_DARK,
         zIndex: 999,
         color: 'white',

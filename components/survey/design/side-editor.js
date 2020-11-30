@@ -40,80 +40,10 @@ class StageBar extends React.Component {
         this.props.setState({selectedElement: element})
     }
     
-    insertNewElement(element) {
-        const {type, fonts} = element
-        let newState = JSON.parse(JSON.stringify(this.props.state))
-        let selectedElement
-        if (type == keys.TAB || type == keys.ALERT) {
-            newState.fixed[type] = {...element}
-            selectedElement = (type == keys.TAB) ? keys.TAB : keys.ALERT
-        } else if (type == keys.MAINBOARD) {
-            const stage = this.props.state.selectedStage
-            newState.stages[stage][type] = {...element}
-            selectedElement = keys.MAINBOARD
-        } else {
-            const stage = this.props.state.selectedStage
-            newState.stages[stage].elements = [element,...newState.stages[stage].elements]   
-            selectedElement = 0
-        }
-        
-        if (fonts) {
-            fonts.map(font => {
-                if (!newState.fonts) {
-                    newState.fonts = []
-                }
-                if (!newState.fonts.includes(font)) {
-                    newState.fonts.push(font)
-                }
-            })
-        }
-        
-        this.props.setState(newState, () => {
-            //had to set timeout because of a bug (changing element select also changes the element)
-            setTimeout(() => {
-                this.props.setState({selectedElement})
-            }, 5)
-        })
-    }
-    
-    toggleElementSelector(event) {
-        const handleSelectElement = (newWidget, name) => {
-            let element = {...newWidget.template}
-            this.insertNewElement(element)
-        }
-        
-        const handleSelectMedia = (media, name) => {
-            const {width, height} = media
-            const defaultWidth = 500
-            const ratio = defaultWidth / width
-            const defaultHeight = height * ratio
-            const imageElement = image(0,0, defaultWidth, defaultHeight)
-            imageElement.position.aspectRatio = true
-            if (media.mediaType == keys.SVG_PROPERTY) {
-                imageElement.imageType = keys.SVG_PROPERTY
-                imageElement.svg = media.media
-            } else {
-                console.log("M: ", media)
-                imageElement.imageType = keys.IMAGE_PROPERTY
-                imageElement.image = media.media
-            }
-            
-            this.insertNewElement(imageElement)
-        }   
-        
-        this.props.setState({templateOptions: [{
-                templateType: keys.ELEMENT_TEMPLATE,
-                onSelect: (newWidget, name) => handleSelectElement(newWidget, name)
-            }, 
-            // {
-            //     templateType: keys.SURVEY_ELEMENT_TEMPLATE,
-            //     onSelect: (newWidget, name) => handleSelectElement(newWidget, name)
-            // }, 
-            {
-                templateType: keys.MEDIA_TEMPLATE,
-                onSelect: (media, name) => handleSelectMedia(media, name)
-            }
-        ]})
+    toggleElementMenu(event) {
+        const {state, setState} = this.props
+        const elementCount = state.stages[state.selectedStage].elements.length
+        setState({elementMenuOpen: elementCount})
     }
     
     getCurrentStage() {
@@ -124,7 +54,7 @@ class StageBar extends React.Component {
         const {classes} = this.props
         return (
             <Fragment>
-                <IconButton  className={classes.addButton}  onClick={event => this.toggleElementSelector(event)} 
+                <IconButton  className={classes.addButton}  onClick={event => this.toggleElementMenu()} 
                 size="small" variant="contained" color="primary">
                     <AddIcon className={classes.addButtonIcon} fontSize="small" />
                 </IconButton >
@@ -159,7 +89,7 @@ class StageBar extends React.Component {
         const stage = this.getCurrentStage()
         
         if (!stage.elements || stage.elements.length <= 0) {
-            return <div onClick={() => this.toggleElementSelector()} className={classes.noContentContainer}>
+            return <div onClick={() => this.toggleElementMenu()} className={classes.noContentContainer}>
                 <div className={classes.noContentWrapper}>
                     <AddCircleIcon className={classes.noContentIcon}/>
                     <p className={classes.noContentText}>No Elements</p>

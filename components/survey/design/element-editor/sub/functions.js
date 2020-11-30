@@ -90,7 +90,6 @@ function elementsToPages(elements) {
         previousElement = element
     }
     
-    console.log('P', pages)
     return pages
 }
 

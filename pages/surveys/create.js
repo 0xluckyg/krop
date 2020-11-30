@@ -22,6 +22,7 @@ import MainEditor from '../../components/survey/design'
 import SettingsEditor from '../../components/survey/settings'
 import {defaultSettings} from '../../components/survey/settings/settings-objects'
 import {defaultStages, defaultStyles, defaultAlert} from '../../components/survey/design/element-objects'
+import ElementMenu from '../../components/survey/design/element-menu'
 
 class CreateSurvey extends React.Component {
     constructor(props){
@@ -42,6 +43,7 @@ class CreateSurvey extends React.Component {
             selectedPage: 0,
             selectedEditor: 0,
             previewScale: 0.8,
+            elementMenuOpen: false,
             
             isLoading: false,
         }
@@ -187,6 +189,12 @@ class CreateSurvey extends React.Component {
                 />
                 {this.renderEditor()}
                 {this.renderFooter()}
+                <ElementMenu
+                    state={this.state}
+                    setState={(state) => this.setState(state)}
+                    isOpen={this.state.elementMenuOpen}
+                    close={() => this.setState({elementMenuOpen: false})}
+                />
             </main>
         )
     }
