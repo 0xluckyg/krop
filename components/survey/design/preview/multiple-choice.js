@@ -8,6 +8,7 @@ import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
 import mcStyle from '../../../../shared/survey-styles/multiple-choice'
 import elementStyle from '../../../../shared/survey-styles/reusable'
+import alertStyle from '../../../../shared/survey-styles/alert'
 
 class MultipleChoicePreview extends React.Component {
     constructor(props) {
@@ -50,12 +51,21 @@ class MultipleChoicePreview extends React.Component {
         </React.Fragment>
     }
     
+    renderAlert() {
+        const {classes, state} = this.props
+        if (state.selectedElement != keys.ALERT_SETTINGS) return null
+        return (
+            <p className={classes.alertStyle}>* Please select an option</p>
+        )
+    }
+    
     render() {
         const {classes} = this.props
         return (
             <div className={classes.containerStyle}>
                 {this.renderQuestion()}
                 {this.renderOptions()}
+                {this.renderAlert()}
             </div>
         )
     }
@@ -69,6 +79,11 @@ function isDesktop(props) {
 function getStyle(props) {
     let {stage} = props
     return getElement({props, selectedStage: stage, selectedElement: keys.STYLE_SETTINGS})
+}
+
+function getAlert(props) {
+    let {stage} = props
+    return getElement({props, selectedStage: stage, selectedElement: keys.ALERT_SETTINGS})
 }
 
 const useStyles = theme => ({
@@ -138,6 +153,16 @@ const useStyles = theme => ({
         return {
             ...text,
             fontFamily: font, 
+            color: textColor
+        }
+    },
+    alertStyle: props => {
+        const {textColor} = getAlert(props)
+        const {font, primaryColor} = getStyle(props)
+        let style = isDesktop(props) ? alertStyle.ALERT_TEXT_DESKTOP : alertStyle.ALERT_TEXT
+        return {
+            ...style,
+            font: font,
             color: textColor
         }
     }

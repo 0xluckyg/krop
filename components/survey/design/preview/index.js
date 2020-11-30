@@ -58,20 +58,17 @@ class MainboardPreview extends React.Component {
     renderElements() {
         const {state, setState, classes} = this.props
         const currentStage = state.stages[state.selectedStage]
-        console.log("CU ", currentStage)
         let mapper = []
         let offsetCounter = 0
         
         if (currentStage.settings.questionPerPage) {
             const {selectedPage} = state
             const pages = elementsToPages(currentStage.elements)
-            console.log("PPPPP ", pages)
             mapper = pages[selectedPage]        
             offsetCounter = this.getElementCountFromPages(pages)   
         } else {
             mapper = currentStage.elements
         }
-        console.log("mmm ", mapper)
         return (
             <div className={classes.pageWrapper}>
                 <div>

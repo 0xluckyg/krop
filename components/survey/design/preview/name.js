@@ -7,6 +7,7 @@ import {getElement} from '../element-editor/sub/functions'
 import nameStyle from '../../../../shared/survey-styles/name'
 import elementStyle from '../../../../shared/survey-styles/reusable'
 import formStyle from '../../../../shared/survey-styles/form'
+import alertStyle from '../../../../shared/survey-styles/alert'
 import keys from '../../../../config/keys'
 
 class NamePreview extends React.Component {
@@ -28,6 +29,14 @@ class NamePreview extends React.Component {
         )
     }
     
+    renderAlert() {
+        const {classes, state} = this.props
+        if (state.selectedElement != keys.ALERT_SETTINGS) return null
+        return (
+            <p className={classes.alertStyle}>* Please give a valid name</p>
+        )
+    }
+    
     render() {
         const {classes} = this.props
         return (
@@ -43,6 +52,7 @@ class NamePreview extends React.Component {
                         placeholder="Last name"
                     />
                 </div>
+                {this.renderAlert()}
             </div>
         )
     }
@@ -56,6 +66,11 @@ function isDesktop(props) {
 function getStyle(props) {
     let {stage} = props
     return getElement({props, selectedStage: stage, selectedElement: keys.STYLE_SETTINGS})
+}
+
+function getAlert(props) {
+    let {stage} = props
+    return getElement({props, selectedStage: stage, selectedElement: keys.ALERT_SETTINGS})
 }
 
 const useStyles = theme => ({
@@ -102,6 +117,16 @@ const useStyles = theme => ({
                 color: textColor,
                 fontFamily: font
             }
+        }
+    },
+    alertStyle: props => {
+        const {textColor} = getAlert(props)
+        const {font, primaryColor} = getStyle(props)
+        let style = isDesktop(props) ? alertStyle.ALERT_TEXT_DESKTOP : alertStyle.ALERT_TEXT
+        return {
+            ...style,
+            font: font,
+            color: textColor
         }
     }
 });

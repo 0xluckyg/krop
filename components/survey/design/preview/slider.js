@@ -8,6 +8,7 @@ import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
 import sliderStyle from '../../../../shared/survey-styles/slider'
 import elementStyle from '../../../../shared/survey-styles/reusable'
+import alertStyle from '../../../../shared/survey-styles/alert'
 
 class SliderPreview extends React.Component {
     constructor(props) {
@@ -71,12 +72,21 @@ class SliderPreview extends React.Component {
         />
     }
     
+    renderAlert() {
+        const {classes, state} = this.props
+        if (state.selectedElement != keys.ALERT_SETTINGS) return null
+        return (
+            <p className={classes.alertStyle}>* Please move the slider</p>
+        )
+    }
+    
     render() {
         const {classes} = this.props
         return (
             <div className={classes.containerStyle}>
                 {this.renderQuestion()}
                 {this.renderSlider()}
+                {this.renderAlert()}
             </div>
         )
     }
@@ -90,6 +100,11 @@ function isDesktop(props) {
 function getStyle(props) {
     let {stage} = props
     return getElement({props, selectedStage: stage, selectedElement: keys.STYLE_SETTINGS})
+}
+
+function getAlert(props) {
+    let {stage} = props
+    return getElement({props, selectedStage: stage, selectedElement: keys.ALERT_SETTINGS})
 }
 
 const useStyles = theme => ({
@@ -108,6 +123,16 @@ const useStyles = theme => ({
             color: textColor
         }
     },
+    alertStyle: props => {
+        const {textColor} = getAlert(props)
+        const {font, primaryColor} = getStyle(props)
+        let style = isDesktop(props) ? alertStyle.ALERT_TEXT_DESKTOP : alertStyle.ALERT_TEXT
+        return {
+            ...style,
+            font: font,
+            color: textColor
+        }
+    }
 })
 
 export default withStyles(useStyles)(SliderPreview)

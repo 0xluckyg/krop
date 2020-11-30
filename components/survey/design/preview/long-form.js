@@ -7,7 +7,7 @@ import Draggable  from './sub/draggable-element'
 import {modifyProperty} from './sub/functions'
 import {keyframes, showAnimation, exitAnimation, transitionAnimation}  from './animation/animation-style'
 import {getElement} from '../element-editor/sub/functions'
-
+import alertStyle from '../../../../shared/survey-styles/alert'
 import keys from '../../../config/keys'
 
 class TextareaPreview extends React.Component {
@@ -55,26 +55,21 @@ class TextareaPreview extends React.Component {
         />
     }
     
-    render() {
-        const {zIndex, state, setState, stage, element, setCenterRuler, getParentDimension, sectionElement, rndScale} = this.props
-
+    renderAlert() {
+        const {classes, state} = this.props
+        if (state.selectedElement != keys.ALERT_SETTINGS) return null
         return (
-            <Draggable
-                state={state}
-                setState={setState}
-                stage={stage}
-                element={element}
-                sectionElement={sectionElement}
-                zIndex={zIndex}
-                setCenterRuler={setCenterRuler}
-                getParentDimension={getParentDimension}
-                rndScale={rndScale}
-            >
-                <div className={this.getStyle()}>
-                    {this.renderQuestion()}
-                    {this.renderTextarea()}
-                </div>
-            </Draggable>
+            <p className={classes.alertStyle}>* Please type an answer</p>
+        )
+    }
+    
+    render() {
+        return (
+            <div className={this.getStyle()}>
+                {this.renderQuestion()}
+                {this.renderTextarea()}
+                {this.renderAlert()}
+            </div>
         )
     }
 }
@@ -121,6 +116,11 @@ function getTextareaStyle(props) {
     }
 }
 
+function getAlert(props) {
+    let {stage} = props
+    return getElement({props, selectedStage: stage, selectedElement: keys.ALERT_SETTINGS})
+}
+
 const useStyles = theme => ({
     ...keyframes,
     ...showAnimation,
@@ -156,6 +156,16 @@ const useStyles = theme => ({
                 fontSize: placeholder.size,
                 fontFamily: placeholder.font
             }
+        }
+    },
+    alertStyle: props => {
+        const {textColor} = getAlert(props)
+        const {font, primaryColor} = getStyle(props)
+        let style = isDesktop(props) ? alertStyle.ALERT_TEXT_DESKTOP : alertStyle.ALERT_TEXT
+        return {
+            ...style,
+            font: font,
+            color: textColor
         }
     }
 });
