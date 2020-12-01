@@ -313,9 +313,9 @@ const defaultStyles = () => {
 
 const defaultAlert = () => {
     return {
-        backgroundColor: '#fff',
-        textColor: '#000',
-        popupTextColor: '#000'
+        backgroundColor: 'rgba(255,55,55,1)',
+        textColor: 'rgba(255,55,55,1)',
+        popupTextColor: '#fff'
     }
 }
 

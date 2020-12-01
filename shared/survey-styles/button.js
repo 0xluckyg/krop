@@ -1,7 +1,12 @@
 const BUTTON_CONTAINER = {
     display: 'flex',
     alignItems: 'center',
-    padding: '15px 0px'
+    padding: '15px 0px',
+    transition: '0.1s',
+    HOVER: {
+        opacity: 0.8,
+        transition: '0.1s'
+    }
 }
 
 const BUTTON_CONTAINER_DESKTOP = {
@@ -14,15 +19,16 @@ const BUTTON = {
     fontWeight: 700,
     width: '100%',
     borderStyle: `none`,
+    outline: 'none',
     fontSize: 20,
+    transition: '0.1s',
     FOCUS: {
-        outline: 'none'  
-    },
-    HOVER: {
-        opacity: 0.8
+        border: 0,
+        transition: '0.1s'
     },
     ACTIVE: {
-        opacity: 0.6
+        opacity: 0.6,
+        transition: '0.1s'
     }
 }
 

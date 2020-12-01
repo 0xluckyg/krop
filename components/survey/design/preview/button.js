@@ -53,7 +53,10 @@ const useStyles = theme => ({
         let style = isDesktop(props) ? buttonStyles.BUTTON_CONTAINER_DESKTOP : buttonStyles.BUTTON_CONTAINER
         return {
             backgroundColor,
-            ...style
+            ...style,
+            '&:hover': {
+                ...style.HOVER
+            }
         }  
     },
     buttonStyle: props => {
@@ -61,7 +64,13 @@ const useStyles = theme => ({
         const {primaryColor} = getStyle(props)
         return {
             color: primaryColor,
-            ...style
+            ...style,
+            '&:focus:': {
+                ...style.FOCUS
+            },
+            '&:active': {
+                ...style.ACTIVE
+            }
         }
     },
 })

@@ -213,6 +213,13 @@ class MainboardPreview extends React.Component {
                                 state={state}
                                 setState={setState}
                                 stage={state.selectedStage}
+                                // element={keys.BUTTON_ELEMENT}
+                            />
+                            <Alert
+                                state={state}
+                                setState={setState}
+                                stage={state.selectedStage}
+                                element={keys.ALERT_SETTINGS}
                             />
                         </div>
                     </div>

@@ -176,11 +176,23 @@ class ListElement extends React.Component {
     
     renderMainText() {
         const {element, classes} = this.props
+        const questionElements = [
+            keys.MULTIPLE_CHOICE_ELEMENT, 
+            keys.CHECKBOX_ELEMENT, 
+            keys.SLIDER_ELEMENT, 
+            keys.FORM_ELEMENT, 
+            keys.LONG_FORM_ELEMENT,
+            keys.HEADING_ELEMENT,
+            keys.SUBHEADING_ELEMENT,
+            keys.PARAGRAPH_ELEMENT
+        ]
+        if (!questionElements.includes(element.type)) return
         const {text, question} = element
         const mainText = question ? question : text
-        if (!mainText) return null
+        const placeholder = question ? "Question" : "Text"
         return (
             <TextareaAutosize
+                placeholder={placeholder}
                 type="text"
                 onChange={e => {
                     this.setProperty(null, question ? 'question' : 'text', e.target.value)
@@ -193,10 +205,13 @@ class ListElement extends React.Component {
     
     renderOptionsText() {
         const {element, classes} = this.props
-        const {options} = element
-        if (!options) return null
+        const optionsElements = [keys.MULTIPLE_CHOICE_ELEMENT, keys.CHECKBOX_ELEMENT, keys.DROPDOWN_ELEMENT]
+        if (!optionsElements.includes(element.type)) return
+        let {options} = element
+        if (!options) options = []
         return (
             <TextareaAutosize
+                placeholder="Options"
                 type="text"
                 onChange={e => {
                     this.handleOptionsChange(e.target.value)  

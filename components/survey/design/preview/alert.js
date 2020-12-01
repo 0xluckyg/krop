@@ -4,37 +4,19 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
-import textStyles from '../../../../shared/survey-styles/text'
+import alertStyles from '../../../../shared/survey-styles/alert'
 
-class TextPreview extends React.Component {
+class AlertPreview extends React.Component {
     constructor(props) {
         super(props)
     }
-    
-    getText() {
-        let {stage, element} = this.props
-        return getElement({props: this.props, selectedStage: stage, selectedElement: element})
-    }
-
-    renderText() {
-        let {stage, element, classes} = this.props
-        let textElement = getElement({
-            props: this.props, selectedStage: stage, selectedElement: element
-        })
-        
-        if (textElement.type == keys.HEADING_ELEMENT) {
-            return <h1 className={classes.headingStyle}>{textElement.text}</h1>
-        } else if (textElement.type == keys.SUBHEADING_ELEMENT) {
-            return <h3 className={classes.subheadingStyle}>{textElement.text}</h3>
-        } else {
-            return <p className={classes.paragraphStyle}>{textElement.text}</p>
-        }
-    }
 
     render() {
-        return <React.Fragment>
-            {this.renderText()}
-        </React.Fragment>
+        let {state, stage, element, classes} = this.props
+        if (state.selectedElement != keys.ALERT_SETTINGS) return null
+        return <div className={classes.containerStyle}>
+            <p className={classes.textStyle}>Please fix the errors above!</p>
+        </div>
     }
 }
 
@@ -43,26 +25,35 @@ function isDesktop(props) {
     return viewMode == keys.DESKTOP_PROPERTY
 }
 
+function getAlert(props) {
+    let {stage, element} = props
+    return getElement({props, selectedStage: stage, selectedElement: element})
+}
+
 function getStyle(props) {
     let {stage} = props
     return getElement({props, selectedStage: stage, selectedElement: keys.STYLE_SETTINGS})
 }
 
-function getTextStyle(props, type) {
-    const {font, align, textColor} = getStyle(props)
-    return {
-        color: textColor,
-        fontFamily: font,
-        textAlign: align,
-        ...type
-    }
-}
-
 const useStyles = theme => ({    
-    headingStyle: props => {
-        let style = isDesktop(props) ? textStyles.HEADING_DESKTOP : textStyles.HEADING
-        return getTextStyle(props, style)
+    containerStyle: props => {
+        let style = isDesktop(props) ? alertStyles.ALERT_POPUP_DESKTOP : alertStyles.ALERT_POPUP
+        const {backgroundColor} = getAlert(props)
+        return {
+            ...style,
+            backgroundColor
+        }
     },
+    textStyle: props => {
+        let style = isDesktop(props) ? alertStyles.ALERT_POPUP_TEXT_DESKTOP : alertStyles.ALERT_POPUP_TEXT
+        const {popupTextColor} = getAlert(props)
+        const {font} = getStyle(props)
+        return {
+            ...style,
+            color: popupTextColor,
+            fontFamily: font
+        }
+    }
 })
 
-export default withStyles(useStyles)(TextPreview)
+export default withStyles(useStyles)(AlertPreview)
