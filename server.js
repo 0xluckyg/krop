@@ -34,6 +34,7 @@ const {
 const {contactUs, contactUsUnauthorized} = require('./server/helper/contact-us');
 const {googleAuth} = require('./server/auth/google-auth');
 const {uploadImage} = require('./server/helper/image')
+const {getSurveyScript} = require('./server/survey/serve')
 const {getMediaTemplates, getPexelsTemplates} = require('./server/admin/templates')
 
 const whitelist = [    
@@ -81,6 +82,7 @@ app.prepare().then(() => {
     const routerUnauthorized = new Router();
     server.use(routerUnauthorized.routes());
     
+    routerUnauthorized.get('/script', getSurveyScript);
     routerUnauthorized.get('/log-in', logIn)
     routerUnauthorized.post('/sign-up', signUp)
     routerUnauthorized.post('/send-validation-email', sendValidationEmail);

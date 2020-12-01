@@ -245,6 +245,7 @@ class AddElementModal extends React.Component {
         const {classes} = this.props
         return (
             <div 
+                key={title + type}
                 onClick={() => this.onItemClick(type)}
                 className={classes.titleContainer}
             >

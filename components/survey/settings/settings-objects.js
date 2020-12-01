@@ -11,7 +11,8 @@ const defaultSettings = {
         toOverflow: 1231,
         fromYear: 0,
         toYear: 3000
-    }
+    },
+    importance: 1
 }
 
 module.exports = {
