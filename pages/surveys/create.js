@@ -29,6 +29,8 @@ class CreateSurvey extends React.Component {
         super(props)
 
         this.state = {
+            _id: '',
+            
             //DESIGN STATE
             stages: defaultStages(),
             styles: defaultStyles(),
@@ -77,47 +79,23 @@ class CreateSurvey extends React.Component {
         return true
     }
 
-    validateFonts() {
-        const surveyString = JSON.stringify(this.state.stages) + JSON.stringify(this.state.styles)
-        let fonts = []
-        
-        this.state.fonts.map((font, i) => {
-            if (surveyString.includes(font)) {
-                fonts.push(font)
-            }
-        })
-        this.setState({fonts})
-        return fonts
-    }
-
     async handleSubmit(isPreview) {
         try {
             if (!isPreview) { if (!this.validateSubmit()) return }
             
-            let {domain, settings, stages, styles} = this.state
-            const fonts = this.validateFonts()
-            let data = {domain, settings, stages, styles, fonts}
+            let {settings, stages, styles} = this.state
+            let data = {settings, stages, styles}
             this.setState({isLoading: true})
             //if edit
             if (this.props.handleEdit) {
                 const _id = this.state._id
                 this.props.handleEdit({...data, _id}, () => this.setState({isLoading: false}))
-            } else if (isPreview) {
-                data.previewDomain = 'https://' + this.state.domain
-                axios.post(process.env.APP_URL + '/preview-survey', data)
-                .then(res => {
-                    this.setState({isLoading: false})
-                    window.open(res.data, '_blank')
-                }).catch(() => {
-                    this.setState({isLoading: false})
-                    this.props.showToastAction(true, `Couldn't create preview. Please try again later.`, 'error')
-                })   
             } else {
                 axios.post(process.env.APP_URL + '/create-survey', data)
                 .then(res => {
                     this.setState({isLoading: false})
                     this.props.showToastAction(true, 'Survey created!', 'success')
-                    window.location.replace('/widgets/browse')
+                    window.location.replace('/surveys/browse')
                 }).catch(() => {
                     this.props.showToastAction(true, `Couldn't create survey. Please try again later.`, 'error')
                     this.setState({isLoading: false})

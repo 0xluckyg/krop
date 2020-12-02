@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const SurveySchema = new mongoose.Schema({
+    domain: String,
     accountId: String,
     surveyId: Number,
-    domain: String,
     surveyCount: Number,
     stages: Array,
     enabled: {
@@ -21,8 +21,8 @@ const SurveySchema = new mongoose.Schema({
         font: String
     },
     settings: {
-        name: 'Survey',
-        device: 'both',
+        name: String,
+        device: String,
         schedule: {
             type: {type: String},
             from: Number,
@@ -40,7 +40,7 @@ const SurveySchema = new mongoose.Schema({
     compiled: {
         css: String,
         stages: [{
-            settings: mongoose.Schema.types.mixed,
+            settings: mongoose.Schema.Types.Mixed,
             elements: [
                 {
                     id: String,

@@ -36,6 +36,7 @@ const {googleAuth} = require('./server/auth/google-auth');
 const {uploadImage} = require('./server/helper/image')
 const {getSurveyScript} = require('./server/survey/serve')
 const {getMediaTemplates, getPexelsTemplates} = require('./server/admin/templates')
+const {createSurvey, getSurveys, getSurvey, updateSurvey, deleteSurvey} = require('./server/survey/manage');
 
 const whitelist = [    
     '/_next',
@@ -127,6 +128,12 @@ app.prepare().then(() => {
     router.post('/update-user', updateUser)
     
     router.post('/contact-us', contactUs);        
+    
+    router.post('/create-survey', createSurvey);
+    router.put('/update-survey', updateSurvey);
+    router.post('/delete-survey', deleteSurvey);
+    router.get('/get-surveys', getSurveys);
+    router.get('/get-survey', getSurvey);
     
     router.post('/upload-image', uploadImage);
     router.get('/get-media-templates', getMediaTemplates)
