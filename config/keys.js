@@ -60,6 +60,11 @@ const CHECKBOX_ELEMENT = 'checkbox_element'
 const DROPDOWN_ELEMENT = 'dropdown_element'
 const SLIDER_ELEMENT = 'slider_element'
 
+const HEADER_ELEMENT = 'header_element'
+const ALERT_ELEMENT = 'alert_element'
+const CONTAINER_ELEMENT = 'container_element'
+const WRAPPER_ELEMENT = 'wrapper_element'
+const BACKGROUND_ELEMENT = 'background_element'
 const FORM_ELEMENT = 'form_element'
 const EMAIL_ELEMENT = 'email_element'
 const PHONE_ELEMENT = 'phone_element'
@@ -155,7 +160,12 @@ module.exports = {
     TEXT_SETTINGS,
     ALERT_SETTINGS,
     LOGO_SETTINGS,
-
+    
+    HEADER_ELEMENT,
+    ALERT_ELEMENT,
+    CONTAINER_ELEMENT,
+    WRAPPER_ELEMENT,
+    BACKGROUND_ELEMENT,
     MULTIPLE_CHOICE_ELEMENT,
     CHECKBOX_ELEMENT,
     DROPDOWN_ELEMENT,

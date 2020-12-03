@@ -37,6 +37,7 @@ async function createSurvey(ctx) {
         })
     
         survey.compiled = {...await getCompiledSurvey(survey.toObject())}
+        console.log("COMPILED: ", survey.compiled)
         survey = await survey.save()
         // await saveSurveyQuestions({
         //     ...widget, 

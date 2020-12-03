@@ -95,7 +95,7 @@ class CreateSurvey extends React.Component {
                 .then(res => {
                     this.setState({isLoading: false})
                     this.props.showToastAction(true, 'Survey created!', 'success')
-                    window.location.replace('/surveys/browse')
+                    // window.location.replace('/surveys/browse')
                 }).catch(() => {
                     this.props.showToastAction(true, `Couldn't create survey. Please try again later.`, 'error')
                     this.setState({isLoading: false})

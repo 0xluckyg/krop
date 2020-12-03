@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
-import backgroundStyles from '../../../../shared/survey-styles/background'
+import frameStyles from '../../../../shared/survey-styles/frame'
 
 class BackgroundPreview extends React.Component {
     constructor(props) {
@@ -36,7 +36,7 @@ function getStyle(props) {
 const useStyles = theme => ({    
     backgroundStyle: props => {
         let {backgroundColor, backgroundImage} = getStyle(props)
-        let style = isDesktop(props) ? backgroundStyles.BACKGROUND_DESKTOP : backgroundStyles.BACKGROUND
+        let style = isDesktop(props) ? frameStyles.BACKGROUND_DESKTOP : frameStyles.BACKGROUND
         backgroundImage = (backgroundImage != '') ? `url(${backgroundImage})` : 'none'
         
         return {

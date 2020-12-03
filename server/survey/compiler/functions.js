@@ -19,43 +19,30 @@ async function cleanCSS(css) {
     return css
 }
 
-function setExitCount(element, count) {
-    count > 0 ? element.setAttribute(keys.EXIT, count) : null
-}
-
 function implementAction(options) {
-    let {element, buildId, actionType, postAction, toStage, link, attribute} = options
+    let {element, actionType, toPage, toStage, link, attribute} = options
     attribute = attribute ? attribute : 'onclick'
     switch(actionType) {
-        case(keys.SHOW_ACTION):
-            element.setAttribute(attribute, `showWidget(${buildId})`)
+        case(keys.TO_NEXT_PAGE_ACTION):
+            element.setAttribute(attribute, `nextPage()`)
+            return element
+        case(keys.TO_NEXT_STAGE_ACTION):
+            element.setAttribute(attribute, `nextStage()`)
+            return element
+        case(keys.TO_PREVIOUS_PAGE_ACTION):
+            element.setAttribute(attribute, `previousPage()`)
+            return element
+        case(keys.TO_PREVIOUS_STAGE_ACTION):
+            element.setAttribute(attribute, `previousStage()`)
             return element
         case(keys.SUBMIT_ACTION):
-            let postSubmit;
-            switch(postAction) {
-                case(keys.TO_NEXT_ACTION):
-                    postSubmit = 'nextStage'; break;
-                case(keys.TO_PREVIOUS_ACTION):
-                    postSubmit = 'previousStage'; break;
-                case(keys.CLOSE_ACTION):
-                    postSubmit = 'closeWidget'; break;
-                default:
-                    postSubmit = 'closeWidget'; break;
-            }
-            
-            element.setAttribute(attribute, `submitForm(${buildId}, ${postSubmit})`)
+            element.setAttribute(attribute, `submitSurvey()`)
             return element
-        case(keys.CLOSE_ACTION):
-            element.setAttribute(attribute, `closeWidget(${buildId})`)
-            return element
-        case(keys.TO_NEXT_ACTION):
-            element.setAttribute(attribute, `nextStage(${buildId})`)
-            return element
-        case(keys.TO_PREVIOUS_ACTION):
-            element.setAttribute(attribute, `previousStage(${buildId})`)
+        case(keys.TO_PAGE_ACTION):
+            element.setAttribute(attribute, `toPage(${toPage})`)
             return element
         case(keys.TO_STAGE_ACTION):
-            element.setAttribute(attribute, `toStage(${buildId}, ${toStage})`)
+            element.setAttribute(attribute, `toStage(${toStage})`)
             return element
         case(keys.TO_LINK_ACTION):
             element.setAttribute(attribute, `window.open('${link}', '_blank')`)
@@ -66,21 +53,17 @@ function implementAction(options) {
 }
 
 function createId(options) {
-    const {type, buildId, stageIndex, elementIndex} = options
+    const {type, stageIndex, elementIndex} = options
     let id = `${keys.APP_NAME}__${type}`
-    id = (buildId || buildId === 0) ? id + `__b${buildId}` : id
     id = (stageIndex || stageIndex === 0) ? id + `__s${stageIndex}` : id
     id = (elementIndex || elementIndex === 0) ? id + `__${elementIndex}` : id
     
     return id
 }
 
-function createElementTypeClass(options) {
-    const {type, buildId} = options
-    let id = `${keys.APP_NAME}__${type}`
-    id = (buildId || buildId === 0) ? id + `__b${buildId}` : id
-    
-    return id
+function createClassName(options) {
+    const {type, uid} = options
+    return `${keys.APP_NAME}__${type}__${uid}`
 }
 
 function setStyles(element, styles) {
@@ -91,30 +74,28 @@ function setStyles(element, styles) {
 }
 
 function getCSS(identifier, styles, selector) {
-    selector = (selector) ? selector : '.'
-    let css = `${selector}${identifier} {
-        ${
-            Object.keys(styles).map(function(key) {
-                return `${key}: ${styles[key]};`
-            }).join(' ')
+    styles = Object.keys(styles).reduce((acc, key) => {
+        if (typeof styles[key] !== 'object') {
+            return acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + styles[key] + ';'   
         }
-    }`
+    }, '');
+    
+    selector = (selector) ? selector : '.'
+    let css = `${selector}${identifier} {${styles}}`
     return css
 }
 
-function getMobileCSS(identifier, styles, selector) {
-    selector = (selector) ? selector : '.'
-    const mediaQuery = `@media (max-width : ${768}px)`
-    let css = `${selector}${identifier} {
-        ${
-            Object.keys(styles).map(function(key) {
-                return `${key}: ${styles[key]};`
-            }).join(' ')
+function getDesktopCSS(identifier, styles, selector) {
+    styles = Object.keys(styles).reduce((acc, key) => {
+        if (typeof styles[key] !== 'object') {
+            return acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + styles[key] + ';'   
         }
-    }`
-    css = mediaQuery + `{
-        ${css}
-    }`
+    }, '');
+    
+    selector = (selector) ? selector : '.'
+    const mediaQuery = `@media (min-width : ${768}px)`
+    let css = `${selector}${identifier} {${styles}}`
+    css = mediaQuery + `{${css}}`
     return css
 }
 
@@ -122,10 +103,9 @@ function getMobileCSS(identifier, styles, selector) {
 module.exports = {
     setStyles, 
     getCSS, 
-    getMobileCSS, 
+    getDesktopCSS, 
     createId, 
-    createElementTypeClass,
+    createClassName,
     implementAction, 
-    setExitCount,
     cleanCSS
 }

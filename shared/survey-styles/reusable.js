@@ -1,5 +1,5 @@
 const CONTAINER = {
-    margin: '30px 0px'
+    margin: '15px 0px'
 }
 
 const CONTAINER_DESKTOP = {

@@ -20,7 +20,7 @@ import Link from './link'
 import Name from './name'
 import Address from './address'
 import Button from './button'
-import backgroundStyles from '../../../../shared/survey-styles/background'
+import frameStyles from '../../../../shared/survey-styles/frame'
 import {elementsToPages} from '../element-editor/sub/functions'
 
 class MainboardPreview extends React.Component {
@@ -70,116 +70,114 @@ class MainboardPreview extends React.Component {
             mapper = currentStage.elements
         }
         return (
-            <div className={classes.pageWrapper}>
-                <div>
-                {mapper.map((element, i) => {
-                    i = i + offsetCounter
-                    switch(element.type) {
-                        case(keys.SPACING_ELEMENT):
-                            return <Spacing
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.MULTIPLE_CHOICE_ELEMENT):
-                            return <MultipleChoice
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.CHECKBOX_ELEMENT):
-                            return <Checkbox
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.DROPDOWN_ELEMENT):
-                            return <Dropdown
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.SLIDER_ELEMENT):
-                            return <Slider
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.LINK_ELEMENT):
-                            return <Link
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.IMAGE_ELEMENT):
-                            return <Image
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.VIDEO_ELEMENT):
-                            return <Video
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.ADDRESS_ELEMENT):
-                            return <Address
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.NAME_ELEMENT):
-                            return <Name
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.PARAGRAPH_ELEMENT):
-                        case(keys.HEADING_ELEMENT):
-                        case(keys.SUBHEADING_ELEMENT):
-                            return <Text
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                        case(keys.EMAIL_ELEMENT):
-                        case(keys.PHONE_ELEMENT):
-                        case(keys.LONG_FORM_ELEMENT):
-                        case(keys.FORM_ELEMENT):
-                            return <Form
-                                key={element.type+i}
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                element={i}
-                            />
-                    }
-                })}
-                </div>
-            </div>
+                <React.Fragment>
+                    {mapper.map((element, i) => {
+                        i = i + offsetCounter
+                        switch(element.type) {
+                            case(keys.SPACING_ELEMENT):
+                                return <Spacing
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.MULTIPLE_CHOICE_ELEMENT):
+                                return <MultipleChoice
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.CHECKBOX_ELEMENT):
+                                return <Checkbox
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.DROPDOWN_ELEMENT):
+                                return <Dropdown
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.SLIDER_ELEMENT):
+                                return <Slider
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.LINK_ELEMENT):
+                                return <Link
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.IMAGE_ELEMENT):
+                                return <Image
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.VIDEO_ELEMENT):
+                                return <Video
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.ADDRESS_ELEMENT):
+                                return <Address
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.NAME_ELEMENT):
+                                return <Name
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.PARAGRAPH_ELEMENT):
+                            case(keys.HEADING_ELEMENT):
+                            case(keys.SUBHEADING_ELEMENT):
+                                return <Text
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.EMAIL_ELEMENT):
+                            case(keys.PHONE_ELEMENT):
+                            case(keys.LONG_FORM_ELEMENT):
+                            case(keys.FORM_ELEMENT):
+                                return <Form
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                        }
+                    })}
+                </React.Fragment>
         )
     }
     
@@ -207,7 +205,9 @@ class MainboardPreview extends React.Component {
                                 state={state}
                                 setState={setState}
                             >
-                                {this.renderElements()}
+                                <div className={classes.pageWrapper}>
+                                    {this.renderElements()}
+                                </div>
                             </Background>
                             <Button
                                 state={state}
@@ -240,7 +240,6 @@ const useStyles = theme => ({
             display: 'flex',
             height: "calc(100vh - 48px - 48px)",
             overflowY: 'auto',
-            // overflowX: 'hidden',
             justifyContent: 'center',
             alignItems: 'center',
             position: 'relative',
@@ -249,19 +248,19 @@ const useStyles = theme => ({
         }  
     },
     surveyContainer: props => {
-        let style = isDesktop(props) ? backgroundStyles.SURVEY_CONTAINER_DESKTOP : backgroundStyles.SURVEY_CONTAINER
+        let style = isDesktop(props) ? frameStyles.SURVEY_CONTAINER_DESKTOP : frameStyles.SURVEY_CONTAINER
         return {
             ...style
         }
     },
     surveyWrapper: props => {
-        let style = isDesktop(props) ? backgroundStyles.SURVEY_WRAPPER_DESKTOP : backgroundStyles.SURVEY_WRAPPER
+        let style = isDesktop(props) ? frameStyles.SURVEY_WRAPPER_DESKTOP : frameStyles.SURVEY_WRAPPER
         return {
             ...style
         }
     },
     pageWrapper: props => {
-        let style = isDesktop(props) ? backgroundStyles.PAGE_WRAPPER_DESKTOP : backgroundStyles.PAGE_WRAPPER
+        let style = isDesktop(props) ? frameStyles.PAGE_WRAPPER_DESKTOP : frameStyles.PAGE_WRAPPER
         return {
             ...style
         }
