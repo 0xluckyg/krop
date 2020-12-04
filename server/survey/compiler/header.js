@@ -25,7 +25,7 @@ const logoClass = createClassName({
     uid: shortid.generate()
 })
 
-function compileFrameHTML(options) {
+function compileHeaderHTML(options) {
     const {styles, settings} = options
     const dom = new JSDOM('')
     const document = dom.window.document
@@ -47,7 +47,7 @@ function compileFrameHTML(options) {
     return container
 }
 
-function compileFrameCSS(options) {
+function compileHeaderCSS(options) {
     const {styles} = options
     const {backgroundColor, primaryColor} = styles
     
@@ -69,4 +69,4 @@ function compileFrameCSS(options) {
     return headerCSS
 }
 
-module.exports = {compileFrameHTML, compileFrameCSS}
+module.exports = {compileHeaderHTML, compileHeaderCSS}

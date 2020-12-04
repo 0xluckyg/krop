@@ -21,7 +21,7 @@ async function incrementSurveyView(domain) {
 //TODO: TEST THIS
 async function incrementTotalView(ctx) {
     const query = ctx.query
-    const user = await User.findOne({_id: query.key})
+    const user = await User.findOne({_id: query.id})
     if (!user) return
     const lastUpdated = user.views ? new Date(user.views.updatedAt).getMonth() : undefined
     const thisMonth = new Date().getMonth()
@@ -54,7 +54,7 @@ function parseToday() {
     return Number(today)
 }
 
-async function getSurvey(url, id, referer) {
+async function getSurvey(url, id) {
     
     const today = parseToday()
     const thisYear = new Date().getFullYear()
@@ -76,14 +76,14 @@ async function getSurvey(url, id, referer) {
         'settings.schedule.toYear': { $gte: thisYear },
     }])
     
-    return survey
+    return survey.compiled
 }
 
 
 //MAIN
 async function getSurveyScript(ctx) {
     try {
-        // let script = await fs.readFile(`${__dirname}/script.js`, "utf8");
+        let script = await fs.readFile(`${__dirname}/script.js`, "utf8");
 
         // const user = await incrementTotalView(ctx)
         // if (!user) return
@@ -91,11 +91,22 @@ async function getSurveyScript(ctx) {
         // if (needsUpgrade) {
         //     await handlePaymentUpgradeEmail(ctx, user)
         // } else {
-            // script = script.replace('{{APP_URL}}', process.env.APP_URL)
-            // script = script.replace('{{APP_NAME}}', keys.APP_NAME)
-            // script = minifyJS(script)
-            ctx.body = '<h1>FUCK YES</h1>'
-        // }
+            script = script.replace('{{APP_URL}}', process.env.APP_URL)
+            script = script.replace('{{APP_NAME}}', keys.APP_NAME)
+            script = minifyJS(script)
+            ctx.body = `
+            <html lang="en">
+            <head>
+                <meta charset="utf-8">
+                <title>The HTML5 Herald</title>
+                <meta name="host" content="Underdog">
+                <script>${script}</script>
+                <link rel="stylesheet" href="css/styles.css?v=1.0">
+            </head>
+            <body>
+                
+            </body>
+            </html>`
         
     } catch (err) {
         console.log('Failed getWidgetScript: ', err)
@@ -113,7 +124,7 @@ async function getSurveyOptions(ctx) {
             return
         }
         
-        const survey = await getSurvey(url, body.accountId, ctxHeader.referer)
+        const survey = await getSurvey(url, body.accountId)
 
         ctx.body = {
             survey,

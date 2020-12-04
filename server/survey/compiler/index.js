@@ -7,13 +7,12 @@ const {compileFrameCSS, compileFrameHTML} = require('./frame')
 const {createId, cleanCSS} = require('./functions')
 
 async function compileCSS(options) {
-    const {stages, styles} = options
-    let css = compileFrameCSS({styles})
+    let css = compileFrameCSS(options)
     return await cleanCSS(css)
 }
 
 function compileElement(options) {
-    const {element, styles, stageIndex, elementIndex, surveyOptions} = options
+    const {stage, element, stageIndex, elementIndex} = options
     switch(element.type) {
         
         
@@ -24,20 +23,19 @@ function compileElement(options) {
 
 
 function compileStage(options) {
-    const {stage, styles, stageIndex, surveyOptions} = options
+    const {stage} = options
     
     const compiledStage = {
-        settings: {},
+        settings: stage.settings,
         elements: []
     }
+    
     stage.elements.map((element, i) => {
         const elementIndex = stage.elements.length - i
         const compiledElement = compileElement({
             element, 
-            styles,
-            stageIndex, 
             elementIndex, 
-            surveyOptions
+            ...options
         })
         
         compiledStage.elements.push(compiledElement)
@@ -47,23 +45,24 @@ function compileStage(options) {
 }
 
 async function compiler(surveyOptions) {
-    const {styles, stages} = surveyOptions
-    const frameHTML = compileFrameHTML({styles, surveyOptions}).outerHTML
+    const frameHTML = compileFrameHTML(surveyOptions).outerHTML
     // const compiledAlert = compileAlertHTML({ surveyId })
     
+    const {stages, styles} = surveyOptions
     let compiledStages = []
     stages.map((stage, stageIndex) => {
         const compiledStage = compileStage({
-            stage, styles, stageIndex, surveyOptions
+            stage, stageIndex, ...surveyOptions
         })
         compiledStages.push(compiledStage)
     })
     
-    let css = await compileCSS({stages, styles})
+    let css = await compileCSS(surveyOptions)
     return {
         css, 
         stages: compiledStages, 
         frame: frameHTML, 
+        font: styles.font
         // alert: alertHtml
         // button: 
     }

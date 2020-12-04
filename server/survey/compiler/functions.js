@@ -55,7 +55,7 @@ function implementAction(options) {
 function createId(options) {
     const {type, stageIndex, elementIndex} = options
     let id = `${keys.APP_NAME}__${type}`
-    id = (stageIndex || stageIndex === 0) ? id + `__s${stageIndex}` : id
+    id = (stageIndex || stageIndex === 0) ? id + `__${stageIndex}` : id
     id = (elementIndex || elementIndex === 0) ? id + `__${elementIndex}` : id
     
     return id
