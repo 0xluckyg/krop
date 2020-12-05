@@ -29,6 +29,9 @@ const paragraphClass = createClassName({
 })
 
 function compileTextHTML(options) {
+    const dom = new JSDOM('')
+    const document = dom.window.document
+    
     const {element} = options
     switch(element.type) {
         case(keys.HEADING_ELEMENT):
@@ -63,7 +66,8 @@ function compileTextCSS(options) {
                 ...textStyles.HEADING
             })
         case(keys.SUBHEADING_ELEMENT):
-            return getCSS(headingClass, {
+
+            return getCSS(subheadingClass, {
                 color: textColor, textAlign: align,
                 ...textStyles.SUBHEADING
             })

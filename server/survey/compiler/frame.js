@@ -8,7 +8,15 @@ const {compileHeaderHTML, compileHeaderCSS} = require('../compiler/header')
 const keys = require('../../../config/keys')
 const frameStyles = require('../../../shared/survey-styles/frame')
 
-//Frame includes container, wrapper, header, background
+//Frame includes container, wrapper, header, background, page
+const pageId = createId({
+    type: keys.PAGE_ELEMENT
+})
+const pageClass = createClassName({
+    type: keys.PAGE_ELEMENT,
+    uid: shortid.generate()
+})
+
 const backgroundId = createId({
     type: keys.BACKGROUND_ELEMENT
 })
@@ -37,9 +45,14 @@ function compileFrameHTML(options) {
     const dom = new JSDOM('')
     const document = dom.window.document
     
+    let page = document.createElement('div');
+    page.setAttribute('id', pageId)
+    page.setAttribute('class', pageClass)
+    
     let background = document.createElement('div');
     background.setAttribute('id', backgroundId)
     background.setAttribute('class', backgroundClass)
+    background.appendChild(page)
     
     let wrapper = document.createElement('div');
     wrapper.setAttribute('id', wrapperId)
@@ -73,8 +86,11 @@ function compileFrameCSS(options) {
     let backgroundCSS = getCSS(backgroundClass, {
         ...frameStyles.BACKGROUND
     })
+    let pageCSS = getCSS(pageClass, {
+        ...frameStyles.PAGE_WRAPPER
+    })
 
-    const css = htmlCSS+bodyCSS+headerCSS+containerCSS+wrapperCSS+backgroundCSS
+    const css = htmlCSS+bodyCSS+headerCSS+containerCSS+wrapperCSS+backgroundCSS+pageCSS
     return css
 }
 

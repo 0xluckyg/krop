@@ -60,6 +60,7 @@ const CHECKBOX_ELEMENT = 'checkbox_element'
 const DROPDOWN_ELEMENT = 'dropdown_element'
 const SLIDER_ELEMENT = 'slider_element'
 
+const PAGE_ELEMENT = 'page_element'
 const HEADER_ELEMENT = 'header_element'
 const ALERT_ELEMENT = 'alert_element'
 const CONTAINER_ELEMENT = 'container_element'
@@ -161,6 +162,7 @@ module.exports = {
     ALERT_SETTINGS,
     LOGO_SETTINGS,
     
+    PAGE_ELEMENT,
     HEADER_ELEMENT,
     ALERT_ELEMENT,
     CONTAINER_ELEMENT,

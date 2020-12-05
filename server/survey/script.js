@@ -20,7 +20,12 @@
         DESKTOP_PROPERTY: 'desktop',
         TABLET_PROPERTY: 'tablet',
         
-        SUBMIT_ACTION: 'submit'
+        SUBMIT_ACTION: 'submit',
+        
+        CONTAINER_ELEMENT: 'container_element',
+        WRAPPER_ELEMENT: 'wrapper_element',
+        BACKGROUND_ELEMENT: 'background_element',
+        PAGE_ELEMENT: 'page_element',
     }
     
     var currentSurveyOptions = null;
@@ -97,7 +102,16 @@
         var stages = currentSurveyOptions.stages
         var frame = currentSurveyOptions.frame
         document.getElementsByTagName("body")[0].innerHTML = frame
-        console.log("ST: ", stages)
+        
+        var stage = stages[currentStageIndex]
+        for (var e = 0; e < stage.elements.length; e ++) {
+            var element = stage.elements[e]
+            
+            var tempDiv = document.createElement('div')
+            tempDiv.innerHTML = element
+            document.getElementById(getId(keys.PAGE_ELEMENT)).appendChild(tempDiv.firstChild)
+        }
+        
         // saveVisit()
         // saveInfo()
     }

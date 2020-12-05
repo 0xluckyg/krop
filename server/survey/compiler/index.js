@@ -5,7 +5,7 @@ const keys = require('../../../config/keys')
 const {compileFrameCSS, compileFrameHTML} = require('./frame')
 // const {compileAlert} = require('./alert')
 const {compileMultipleChoiceCSS, compileMultipleChoiceHTML} = require('./multiple-choice')
-const {compileTextCSS, compileTextHTML} = require('./multiple-choice')
+const {compileTextCSS, compileTextHTML} = require('./text')
 const {createId, cleanCSS} = require('./functions')
 
 async function compileCSS(options) {
@@ -14,21 +14,23 @@ async function compileCSS(options) {
     options.stages.map((stage, stageIndex) => {
         stage.elements.map((element, elementIndex) => {
             if (!types[element.type]) {
-                let elementCSS
+                let elementCSS = ''
                 switch(element.type) {
-                    case(keys.MULTIPLE_CHOICE_ELEMENT):
-                        elementCSS = compileMultipleChoiceCSS({
-                            stage, stageIndex, element, elementIndex,
-                            ...options
-                        })
-                        break;
+                    // case(keys.MULTIPLE_CHOICE_ELEMENT):
+                    //     elementCSS = compileMultipleChoiceCSS({
+                    //         stage, stageIndex, element, elementIndex,
+                    //         ...options
+                    //     })
+                    //     break;
                     case(keys.HEADING_ELEMENT):
                     case(keys.SUBHEADING_ELEMENT):
-                    case(keys.MULTIPLE_CHOICE_ELEMENT):
+                    case(keys.PARAGRAPH_ELEMENT):
                         elementCSS = compileTextCSS({
                             stage, stageIndex, element, elementIndex,
                             ...options
                         })
+                        break;
+                    default:
                         break;
                 }
                 
@@ -42,14 +44,14 @@ async function compileCSS(options) {
         css += types[key]
     })
     
-    return await cleanCSS(css)
+    return css
 }
 
 function compileElement(options) {
     const {stage, element, stageIndex, elementIndex} = options
     switch(element.type) {
-        case(keys.MULTIPLE_CHOICE_ELEMENT):
-            return compileMultipleChoiceHTML(options).outerHTML
+        // case(keys.MULTIPLE_CHOICE_ELEMENT):
+        //     return compileMultipleChoiceHTML(options).outerHTML
         case(keys.HEADING_ELEMENT):
         case(keys.SUBHEADING_ELEMENT):
         case(keys.PARAGRAPH_ELEMENT):
@@ -75,8 +77,9 @@ function compileStage(options) {
             elementIndex, 
             ...options
         })
-        
-        compiledStage.elements.push(compiledElement)
+        if (compiledElement) {
+            compiledStage.elements.push(compiledElement)   
+        }
     })
     
     return compiledStage
@@ -96,6 +99,8 @@ async function compiler(surveyOptions) {
     })
     
     let css = await compileCSS(surveyOptions)
+    css = await cleanCSS(css)
+    
     return {
         css, 
         stages: compiledStages, 

@@ -41,12 +41,7 @@ const SurveySchema = new mongoose.Schema({
         css: String,
         stages: [{
             settings: mongoose.Schema.Types.Mixed,
-            elements: [
-                {
-                    id: String,
-                    html: String
-                }
-            ]
+            elements: [String]
         }],
         font: String,
         frame: String
