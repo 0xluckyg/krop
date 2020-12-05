@@ -80,7 +80,7 @@ function getCSS(identifier, styles, selector) {
         }
     }, '');
     
-    selector = (selector) ? selector : '.'
+    selector = (selector || selector == '') ? selector : '.'
     let css = `${selector}${identifier} {${styles}}`
     return css
 }

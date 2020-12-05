@@ -13,7 +13,7 @@ const SURVEY_WRAPPER = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    overflowY: 'scroll',
+    overflowY: 'auto',
 }
 
 const SURVEY_WRAPPER_DESKTOP = {
@@ -21,6 +21,7 @@ const SURVEY_WRAPPER_DESKTOP = {
 }
 
 const BACKGROUND = {
+    boxSizing: 'border-box',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     padding: '0px 30px',

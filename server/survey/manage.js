@@ -26,18 +26,17 @@ async function createSurvey(ctx) {
     try {
         const {id} = ctx.session       
         let body = JSON.parse(ctx.request.rawBody)   
-        let {domain, enabled} = body.settings
+        let {path, enabled} = body.settings
         let surveyId = await getSurveyId(ctx)
         let survey = new Survey({
             ...body,
-            domain,
+            path,
             enabled,
             accountId: id,
             surveyId
         })
     
         survey.compiled = {...await getCompiledSurvey(survey.toObject())}
-        console.log("COMPILED: ", survey.compiled)
         survey = await survey.save()
         // await saveSurveyQuestions({
         //     ...widget, 
@@ -58,13 +57,13 @@ async function updateSurvey(ctx) {
         
         const {surveyId} = await Survey.findOne({_id: body._id}, {surveyId: 1, accountId: 1, settings: 1}).lean()
         body.surveyId = surveyId
-        let {domain, enabled} = body.settings
+        let {path, enabled} = body.settings
         if (body.compile != false) {
             body.compiled = {...await getCompiledSurvey(body)}
         }
         const newSurvey = await Survey.findOneAndUpdate({_id:body._id}, {
             ...body,
-            domain,
+            path,
             enabled
         }, {new: true})
         // await updateSurveyQuestions({

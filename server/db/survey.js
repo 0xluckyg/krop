@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const SurveySchema = new mongoose.Schema({
-    domain: String,
+    path: String,
     accountId: String,
     surveyId: Number,
     surveyCount: Number,
@@ -48,8 +48,8 @@ const SurveySchema = new mongoose.Schema({
                 }
             ]
         }],
-        alert: String,
-        background: String
+        font: String,
+        frame: String
     },
     views: {
         type: Number,

@@ -23,21 +23,21 @@ class SettingsEditor extends React.Component {
 
         this.state = {
             isLoading: false,
-            domainError: ''
+            pathError: ''
         }
     }
     
-    handleHttp(domain) {
+    handleHttp(path) {
         const http = 'http://'; const https = 'https://'; const www = 'www.'
-        if (domain.includes(http)) {
-            domain = domain.replace(http, '')   
-        } else if (domain.includes(https)) {
-            domain = domain.replace(https, '')
-        } else if (domain.includes(www)) {
-            domain = domain.replace(www, '')
+        if (path.includes(http)) {
+            path = path.replace(http, '')   
+        } else if (path.includes(https)) {
+            path = path.replace(https, '')
+        } else if (path.includes(www)) {
+            path = path.replace(www, '')
         }
         
-        return domain
+        return path
     }
     
     renderNameInput() {
@@ -84,28 +84,38 @@ class SettingsEditor extends React.Component {
         )
     }
     
-    renderDomain() {
-        const {classes, state} = this.props
-        const {domainError} = this.state
-        const domain = state.domain
+    renderpath() {
+        const {classes, state, setState} = this.props
+        const {pathError} = this.state
+        const path = state.settings.path
+        const appUrl = process.env.APP_URL.replace("https://", "")
         return (
             <Paper className={classes.paper}>
                 <Typography variant="subtitle2" gutterBottom>
-                    Your Website
+                    This survey's path:
+                </Typography>
+                <Typography variant="subtitle2" gutterBottom>
+                    {state.domain}.{appUrl}/{state.settings.path}
                 </Typography>
                 <TextField
                     className={classes.textField}
-                    onBlur={() => this.props.setState({domain: domain})}
-                    id="domain"
-                    label="Domain"
-                    value={domain}
-                    onChange={(event) => {
-                        const domain = this.handleHttp(event.target.value)
-                        this.props.setState({domain})
+                    onBlur={() => {
+                        let newState = {...state}
+                        newState.settings.path = path
+                        setState(newState)
                     }}
-                    placeholder="Please enter your website domain for this widget"
-                    error={domainError ? true : false}
-                    helperText={domainError ? domainError : false}
+                    id="path"
+                    label="path"
+                    value={path}
+                    onChange={(event) => {
+                        const path = this.handleHttp(event.target.value)
+                        let newState = {...state}
+                        newState.settings.path = path
+                        setState(newState)
+                    }}
+                    placeholder="Please enter your website path"
+                    error={pathError ? true : false}
+                    helperText={pathError ? pathError : false}
                 />
             </Paper>    
         )
@@ -119,7 +129,7 @@ class SettingsEditor extends React.Component {
             <PageHeader title={headerText} modal={(this.props.edit) ? true : false}/>
             <Container maxWidth={keys.CONTAINER_SIZE}>
                 {this.renderNameInput()}
-                {this.renderDomain()} 
+                {this.renderpath()} 
                 <Device state={state} setState={setState}/>
                 <Duration state={state} setState={setState}/>
             </Container>

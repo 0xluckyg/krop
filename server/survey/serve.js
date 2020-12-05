@@ -19,9 +19,8 @@ async function incrementSurveyView(domain) {
 }
 
 //TODO: TEST THIS
-async function incrementTotalView(ctx) {
-    const query = ctx.query
-    const user = await User.findOne({_id: query.id})
+async function incrementTotalView(domain) {
+    const user = await User.findOne({domain})
     if (!user) return
     const lastUpdated = user.views ? new Date(user.views.updatedAt).getMonth() : undefined
     const thisMonth = new Date().getMonth()
@@ -32,7 +31,7 @@ async function incrementTotalView(ctx) {
         views = Number(count) + 1
     }
     
-    return await User.findOneAndUpdate({_id: query.key}, {
+    return await User.findOneAndUpdate({domain}, {
         views: {
             count: views,
             updatedAt: new Date()
@@ -42,9 +41,13 @@ async function incrementTotalView(ctx) {
 
 
 function minifyJS(script) {
-    const options = { toplevel: true }
-    const result = uglifier.minify(script, options);
-    return result.code
+    try {
+        const options = { toplevel: true }
+        const result = uglifier.minify(script, options);
+        return result.code   
+    } catch(err) {
+        console.log("failed minifyJS: ", err)
+    }
 }
 
 function parseToday() {
@@ -54,17 +57,17 @@ function parseToday() {
     return Number(today)
 }
 
-async function getSurvey(url, id) {
+async function getSurvey(domain, path) {
     
     const today = parseToday()
     const thisYear = new Date().getFullYear()
+    const user = await User.findOne({domain})
     const survey = await Survey.findOne({
-        accountId: id,
-        domain: url,
-        //don't fetch preview
+        accountId: user._id,
+        path,
         expiresAt: null,
         enabled: true
-    }, {stages: 0, fixed: 0}).or([{ 
+    }, {stages: 0, fixed: 0}, ).sort({'updatedAt':-1}).or([{ 
         'settings.schedule.from': { $lte: today },  
         'settings.schedule.to': { $gte: today },
         'settings.schedule.fromYear': { $lte: thisYear },
@@ -79,35 +82,68 @@ async function getSurvey(url, id) {
     return survey.compiled
 }
 
+function getSurveyDevParams(ctx) {
+    const ctxHeader = ctx.request
+    const url = ctxHeader.origin.replace(/(^\w+:|^)\/\//, '')
+    return {url, ...ctx.query}
+}
+
+function getSurveyProductionParams(ctx) {
+    const ctxHeader = ctx.request.header
+    const url = ctxHeader.origin.replace(/(^\w+:|^)\/\//, '')
+    return {url, domain: '', path: ''}
+}
 
 //MAIN
 async function getSurveyScript(ctx) {
     try {
         let script = await fs.readFile(`${__dirname}/script.js`, "utf8");
-
-        // const user = await incrementTotalView(ctx)
-        // if (!user) return
+        let surveyParams
+        if (process.env.NODE_ENV == 'development') {
+            surveyParams = getSurveyDevParams(ctx)
+        } else {
+            surveyParams = getSurveyProductionParams(ctx)
+        }
+        const {domain, path} = surveyParams
+        
+        const user = await incrementTotalView(domain)
+        if (!user) return
         // const needsUpgrade = needsPaymentUpgradeForMoreViews(user, user.views.count)
         // if (needsUpgrade) {
         //     await handlePaymentUpgradeEmail(ctx, user)
         // } else {
-            script = script.replace('{{APP_URL}}', process.env.APP_URL)
-            script = script.replace('{{APP_NAME}}', keys.APP_NAME)
-            script = minifyJS(script)
-            ctx.body = `
-            <html lang="en">
-            <head>
-                <meta charset="utf-8">
-                <title>The HTML5 Herald</title>
-                <meta name="host" content="Underdog">
-                <script>${script}</script>
-                <link rel="stylesheet" href="css/styles.css?v=1.0">
-            </head>
-            <body>
-                
-            </body>
-            </html>`
         
+        script = script.replace('{{APP_URL}}', process.env.APP_URL)
+        script = script.replace('{{APP_NAME}}', keys.APP_NAME)
+        script = script.replace('{{DOMAIN}}', domain)
+        script = script.replace('{{PATH}}', path)
+        
+        script = minifyJS(script)
+        // ctx.body = `
+        // <html lang="en">
+        // <head>
+        //     <meta charset="utf-8">
+        //     <title>${keys.APP_NAME}</title>
+        //     <meta name="host" content="Underdog">
+        //     <script>${script}</script>
+        // </head>
+        // <body>
+            
+        // </body>
+        // </html>`
+        ctx.body = `
+        <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>${keys.APP_NAME}</title>
+            <meta name="host" content="Underdog">
+            <script type="text/javascript" async>${script}</script>
+        </head>
+        <body>
+        </body>
+        </html>`
+    
     } catch (err) {
         console.log('Failed getWidgetScript: ', err)
     }
@@ -115,24 +151,16 @@ async function getSurveyScript(ctx) {
 
 async function getSurveyOptions(ctx) {
     try {
-        const body = JSON.parse(ctx.request.rawBody)
-        
-        const ctxHeader = ctx.request.header
-        const url = ctxHeader.origin.replace(/(^\w+:|^)\/\//, '')
-        if (!ctxHeader) {
-            ctx.status = 404
-            return
-        }
-        
-        const survey = await getSurvey(url, body.accountId)
-
+        const {domain, path} = JSON.parse(ctx.request.rawBody)
+        const survey = await getSurvey(domain, path)
+        console.log("S: ", survey)
         ctx.body = {
-            survey,
+            ...survey,
             clientId: mongoose.Types.ObjectId(),
             sessionId: mongoose.Types.ObjectId()
         }
         
-        await incrementSurveyView(url)
+        await incrementSurveyView(domain, path)
     } catch (err) {
         console.log('Failed getSurveyScript: ', err)
     }

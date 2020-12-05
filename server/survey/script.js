@@ -5,8 +5,9 @@
     /// ========= CONFIGURATION ================================================
 
     var appUrl = "{{APP_URL}}"
+    var domain = "{{DOMAIN}}"
+    var path = "{{PATH}}"
     var appName = "{{APP_NAME}}"
-    var accountId = "{{ACCOUNT_ID}}"
 
     /// ========= GLOBAL VARIABLES =========================================
     
@@ -64,12 +65,12 @@
     
     function requestSurveyOptions(callback) {
         var surveyOptionsUrl = appUrl + "/survey-options";
-        var domain = Host.domain || location.host;
+        // var domain = Host.domain || location.host;
         var device = detectMobile()
         JSONPostRequest(surveyOptionsUrl, {
             domain: domain,
+            path: path,
             device: device,
-            accountId: accountId
         }, function(response) {
             callback(response);
         });
@@ -95,15 +96,16 @@
         loadGoogleFont(currentSurveyOptions.font)
         var stages = currentSurveyOptions.stages
         var frame = currentSurveyOptions.frame
-        
+        document.getElementsByTagName("body")[0].innerHTML = frame
+        console.log("ST: ", stages)
         // saveVisit()
         // saveInfo()
     }
     
     function initiateStyle() {
-        var css = currentSurveyOptions.css
-        var stylesheet = document.createElement('style')
-        stylesheet.innerHTML = css
+        var stylesheet = document.createElement(keys.STYLE)
+        stylesheet.id = getId(keys.STYLE)
+        stylesheet.innerHTML = currentSurveyOptions.css
         document.getElementsByTagName("head")[0].appendChild(stylesheet);
     }
     
@@ -119,12 +121,12 @@
     }
     
     function getId(type, stageIndex, elementIndex) {
-        let id = appName+"__"+type
+        var id = appName+"__"+type
         if (stageIndex || stageIndex === 0) {
-            id = id + `__${stageIndex}`
+            id = id + "__"+stageIndex
         }
         if (elementIndex || elementIndex === 0) {
-            id = id + `__${elementIndex}`
+            id = id + "__"+elementIndex
         }
         return id
     }

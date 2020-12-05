@@ -1,23 +1,35 @@
-t=2020-12-04T09:55:09+0000 lvl=info msg="no configuration paths supplied"
-t=2020-12-04T09:55:09+0000 lvl=info msg="using configuration at default config path" path=/home/ec2-user/.ngrok2/ngrok.yml
-t=2020-12-04T09:55:09+0000 lvl=info msg="open config file" path=/home/ec2-user/.ngrok2/ngrok.yml err=nil
-t=2020-12-04T09:55:09+0000 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
-t=2020-12-04T09:55:10+0000 lvl=info msg="tunnel session started" obj=tunnels.session
-t=2020-12-04T09:55:10+0000 lvl=info msg="client session established" obj=csess id=a38224bf0ec5
-t=2020-12-04T09:55:10+0000 lvl=info msg="started tunnel" obj=tunnels name="command_line (http)" addr=http://localhost:3000 url=http://vivelop.ngrok.io
-t=2020-12-04T09:55:10+0000 lvl=info msg="started tunnel" obj=tunnels name=command_line addr=http://localhost:3000 url=https://vivelop.ngrok.io
-t=2020-12-04T09:55:10+0000 lvl=info msg="update available" obj=updater
-t=2020-12-04T09:57:15+0000 lvl=info msg="join connections" obj=join id=7a7d1ad679a5 l=127.0.0.1:3000 r=222.117.88.21:8989
-t=2020-12-04T09:57:15+0000 lvl=info msg="join connections" obj=join id=dc595629a5e6 l=127.0.0.1:3000 r=222.117.88.21:8990
-t=2020-12-04T09:57:19+0000 lvl=info msg="join connections" obj=join id=952aff7b329a l=127.0.0.1:3000 r=222.117.88.21:8994
-t=2020-12-04T09:57:26+0000 lvl=info msg="join connections" obj=join id=b5a437a41337 l=127.0.0.1:3000 r=222.117.88.21:8999
-t=2020-12-04T09:57:26+0000 lvl=info msg="join connections" obj=join id=a9b9e0edbf6f l=127.0.0.1:3000 r=222.117.88.21:8997
-t=2020-12-04T09:57:32+0000 lvl=info msg="join connections" obj=join id=f5393431e2a7 l=127.0.0.1:3000 r=222.117.88.21:9008
-t=2020-12-04T09:57:41+0000 lvl=info msg="join connections" obj=join id=7a515b500444 l=127.0.0.1:3000 r=222.117.88.21:9008
-t=2020-12-04T09:57:41+0000 lvl=info msg="join connections" obj=join id=cf687a112141 l=127.0.0.1:3000 r=222.117.88.21:9010
-t=2020-12-04T09:58:34+0000 lvl=info msg="join connections" obj=join id=c8e21e42bad0 l=127.0.0.1:3000 r=222.117.88.21:9028
-t=2020-12-04T09:58:35+0000 lvl=info msg="join connections" obj=join id=60c4d6082c04 l=127.0.0.1:3000 r=222.117.88.21:9029
-t=2020-12-04T10:02:02+0000 lvl=info msg="join connections" obj=join id=47b2767d64f6 l=127.0.0.1:3000 r=222.117.88.21:9109
-t=2020-12-04T10:05:38+0000 lvl=info msg="join connections" obj=join id=f85f2ebef016 l=127.0.0.1:3000 r=222.117.88.21:9183
-t=2020-12-04T10:19:09+0000 lvl=info msg="join connections" obj=join id=cf602bd7ed9e l=127.0.0.1:3000 r=222.117.88.21:13053
-t=2020-12-04T10:33:53+0000 lvl=info msg="join connections" obj=join id=af87a9e4a17a l=127.0.0.1:3000 r=222.117.88.21:13123
+t=2020-12-05T12:59:14+0000 lvl=info msg="no configuration paths supplied"
+t=2020-12-05T12:59:14+0000 lvl=info msg="using configuration at default config path" path=/home/ec2-user/.ngrok2/ngrok.yml
+t=2020-12-05T12:59:14+0000 lvl=info msg="open config file" path=/home/ec2-user/.ngrok2/ngrok.yml err=nil
+t=2020-12-05T12:59:14+0000 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
+t=2020-12-05T12:59:15+0000 lvl=info msg="tunnel session started" obj=tunnels.session
+t=2020-12-05T12:59:15+0000 lvl=info msg="client session established" obj=csess id=8e9157d8812d
+t=2020-12-05T12:59:15+0000 lvl=info msg="started tunnel" obj=tunnels name="command_line (http)" addr=http://localhost:3000 url=http://vivelop.ngrok.io
+t=2020-12-05T12:59:15+0000 lvl=info msg="started tunnel" obj=tunnels name=command_line addr=http://localhost:3000 url=https://vivelop.ngrok.io
+t=2020-12-05T12:59:15+0000 lvl=info msg="update available" obj=updater
+t=2020-12-05T12:59:21+0000 lvl=warn msg="failed to open private leg" id=f8bea8cdc2f3 privaddr=localhost:3000 err="dial tcp 127.0.0.1:3000: connect: connection refused"
+t=2020-12-05T13:09:13+0000 lvl=info msg="join connections" obj=join id=43d5d3c6c283 l=127.0.0.1:3000 r=222.117.88.21:51147
+t=2020-12-05T13:09:17+0000 lvl=info msg="join connections" obj=join id=98177cf96c05 l=127.0.0.1:3000 r=222.117.88.21:51151
+t=2020-12-05T13:09:17+0000 lvl=info msg="join connections" obj=join id=0094f5e07434 l=127.0.0.1:3000 r=222.117.88.21:51150
+t=2020-12-05T13:09:23+0000 lvl=info msg="join connections" obj=join id=88901de13155 l=127.0.0.1:3000 r=222.117.88.21:51150
+t=2020-12-05T13:09:30+0000 lvl=info msg="join connections" obj=join id=fcd7861b143e l=127.0.0.1:3000 r=222.117.88.21:51179
+t=2020-12-05T13:13:15+0000 lvl=info msg="join connections" obj=join id=51655786cf6a l=127.0.0.1:3000 r=222.117.88.21:51404
+t=2020-12-05T13:13:17+0000 lvl=info msg="join connections" obj=join id=1f055716846e l=127.0.0.1:3000 r=222.117.88.21:51405
+t=2020-12-05T13:13:19+0000 lvl=info msg="join connections" obj=join id=7663d433a15b l=127.0.0.1:3000 r=222.117.88.21:51414
+t=2020-12-05T13:13:29+0000 lvl=info msg="join connections" obj=join id=0e6567868f17 l=127.0.0.1:3000 r=222.117.88.21:51461
+t=2020-12-05T13:13:29+0000 lvl=info msg="join connections" obj=join id=0b0d7f96dbaa l=127.0.0.1:3000 r=222.117.88.21:51463
+t=2020-12-05T13:13:50+0000 lvl=info msg="join connections" obj=join id=fbbf8e5f422a l=127.0.0.1:3000 r=222.117.88.21:51414
+t=2020-12-05T13:13:52+0000 lvl=info msg="join connections" obj=join id=54ae6b684086 l=127.0.0.1:3000 r=222.117.88.21:51513
+t=2020-12-05T13:13:52+0000 lvl=info msg="join connections" obj=join id=1f22244e94f3 l=127.0.0.1:3000 r=222.117.88.21:51512
+t=2020-12-05T13:13:52+0000 lvl=info msg="join connections" obj=join id=7a14870a285f l=127.0.0.1:3000 r=222.117.88.21:51514
+t=2020-12-05T13:13:52+0000 lvl=info msg="join connections" obj=join id=fd4c77f04e33 l=127.0.0.1:3000 r=222.117.88.21:51515
+t=2020-12-05T13:14:14+0000 lvl=info msg="join connections" obj=join id=d62fd28de06a l=127.0.0.1:3000 r=222.117.88.21:51572
+t=2020-12-05T13:14:15+0000 lvl=info msg="join connections" obj=join id=630b416545e2 l=127.0.0.1:3000 r=222.117.88.21:51575
+t=2020-12-05T13:14:30+0000 lvl=info msg="join connections" obj=join id=9dad84d041d0 l=127.0.0.1:3000 r=222.117.88.21:51617
+t=2020-12-05T13:15:19+0000 lvl=info msg="join connections" obj=join id=f3c4f39ae1c1 l=127.0.0.1:3000 r=222.117.88.21:51812
+t=2020-12-05T13:26:00+0000 lvl=info msg="join connections" obj=join id=5c89c5d4da86 l=127.0.0.1:3000 r=222.117.88.21:54796
+t=2020-12-05T13:26:00+0000 lvl=info msg="join connections" obj=join id=ac16179b7ee5 l=127.0.0.1:3000 r=222.117.88.21:54794
+t=2020-12-05T13:26:03+0000 lvl=info msg="join connections" obj=join id=31e9067b6427 l=127.0.0.1:3000 r=222.117.88.21:54824
+t=2020-12-05T13:26:13+0000 lvl=info msg="join connections" obj=join id=aef45492fe29 l=127.0.0.1:3000 r=222.117.88.21:54861
+t=2020-12-05T13:27:25+0000 lvl=info msg="join connections" obj=join id=5549efb3e727 l=127.0.0.1:3000 r=222.117.88.21:55153
+t=2020-12-05T13:27:26+0000 lvl=info msg="join connections" obj=join id=83680bace626 l=127.0.0.1:3000 r=222.117.88.21:55154

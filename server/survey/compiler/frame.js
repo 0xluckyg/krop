@@ -60,6 +60,10 @@ function compileFrameHTML(options) {
 function compileFrameCSS(options) {
     let headerCSS = compileHeaderCSS(options)
     
+    let htmlCSS = getCSS('html *', { fontFamily: options.styles.font }, "")
+    
+    let bodyCSS = getCSS('body', { margin: 0 }, "")
+    
     let containerCSS = getCSS(containerClass, {
         ...frameStyles.SURVEY_CONTAINER
     })
@@ -70,7 +74,7 @@ function compileFrameCSS(options) {
         ...frameStyles.BACKGROUND
     })
 
-    const css = headerCSS+containerCSS+wrapperCSS+backgroundCSS
+    const css = htmlCSS+bodyCSS+headerCSS+containerCSS+wrapperCSS+backgroundCSS
     return css
 }
 

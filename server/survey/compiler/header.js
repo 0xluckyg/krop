@@ -38,10 +38,12 @@ function compileHeaderHTML(options) {
         let logo = document.createElement('img');
         logo.setAttribute('src', styles.logo)
         logo.setAttribute('class', logoClass)
+        container.appendChild(logo)
     } else {
         let title = document.createElement('h3');
         title.setAttribute('class', titleClass)
         title.innerHTML = settings.name
+        container.appendChild(title)
     }
 
     return container
