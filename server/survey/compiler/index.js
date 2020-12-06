@@ -7,9 +7,12 @@ const {compileFrameCSS, compileFrameHTML} = require('./frame')
 const {compileMultipleChoiceCSS, compileMultipleChoiceHTML} = require('./multiple-choice')
 const {compileCheckboxCSS, compileCheckboxHTML} = require('./checkbox')
 const {compileDropdownCSS, compileDropdownHTML} = require('./dropdown')
-const {compileQuestionCSS, compileElementContainerCSS, compileAlertTextCSS, compileGeneralTextCSS} = require('./reusable')
+const {compileFormCSS, compileFormHTML} = require('./form')
 const {compileTextCSS, compileTextHTML} = require('./text')
-const {createId, cleanCSS, createClassName, getCSS} = require('./functions')
+const {compileNameCSS, compileNameHTML} = require('./name')
+const {compileAddressCSS, compileAddressHTML} = require('./address')
+const {compileQuestionCSS, compileElementContainerCSS, compileAlertTextCSS, compileGeneralTextCSS} = require('./reusable')
+const {cleanCSS} = require('./functions')
 
 async function compileCSS(options) {
     let css = compileFrameCSS(options)
@@ -25,19 +28,38 @@ async function compileCSS(options) {
                 let elementCSS = ''
                 switch(element.type) {
                     case(keys.MULTIPLE_CHOICE_ELEMENT):
-                        elementCSS = compileMultipleChoiceCSS({
+                        elementCSS += compileMultipleChoiceCSS({
                             stage, stageIndex, element, elementIndex,
                             ...options
                         })
                         break;
                     case(keys.CHECKBOX_ELEMENT):
-                        elementCSS = compileCheckboxCSS({
+                        elementCSS += compileCheckboxCSS({
                             stage, stageIndex, element, elementIndex,
                             ...options
                         })
                         break;
                     case(keys.DROPDOWN_ELEMENT):
-                        elementCSS = compileDropdownCSS({
+                        elementCSS += compileDropdownCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                        break;
+                    case(keys.NAME_ELEMENT):
+                        elementCSS += compileNameCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                    case(keys.ADDRESS_ELEMENT):
+                        elementCSS += compileAddressCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                    case(keys.FORM_ELEMENT):
+                    case(keys.EMAIL_ELEMENT):
+                    case(keys.PHONE_ELEMENT):
+                    case(keys.LONG_FORM_ELEMENT):
+                        elementCSS += compileFormCSS({
                             stage, stageIndex, element, elementIndex,
                             ...options
                         })
@@ -45,7 +67,7 @@ async function compileCSS(options) {
                     case(keys.HEADING_ELEMENT):
                     case(keys.SUBHEADING_ELEMENT):
                     case(keys.PARAGRAPH_ELEMENT):
-                        elementCSS = compileTextCSS({
+                        elementCSS += compileTextCSS({
                             stage, stageIndex, element, elementIndex,
                             ...options
                         })
@@ -76,6 +98,15 @@ function compileElement(options) {
             return compileCheckboxHTML(options).outerHTML
         case(keys.DROPDOWN_ELEMENT):
             return compileDropdownHTML(options).outerHTML
+        case(keys.FORM_ELEMENT):
+        case(keys.EMAIL_ELEMENT):
+        case(keys.PHONE_ELEMENT):
+        case(keys.LONG_FORM_ELEMENT):
+            return compileFormHTML(options).outerHTML
+        case(keys.NAME_ELEMENT):
+            return compileNameHTML(options).outerHTML
+        case(keys.ADDRESS_ELEMENT):
+            return compileAddressHTML(options).outerHTML
         case(keys.HEADING_ELEMENT):
         case(keys.SUBHEADING_ELEMENT):
         case(keys.PARAGRAPH_ELEMENT):

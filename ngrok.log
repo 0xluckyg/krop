@@ -1,15 +1,15 @@
-t=2020-12-06T13:37:22+0000 lvl=info msg="no configuration paths supplied"
-t=2020-12-06T13:37:22+0000 lvl=info msg="using configuration at default config path" path=/home/ec2-user/.ngrok2/ngrok.yml
-t=2020-12-06T13:37:22+0000 lvl=info msg="open config file" path=/home/ec2-user/.ngrok2/ngrok.yml err=nil
-t=2020-12-06T13:37:22+0000 lvl=warn msg="can't bind default web address, trying alternatives" obj=web addr=127.0.0.1:4040
-t=2020-12-06T13:37:22+0000 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4041
-t=2020-12-06T13:37:22+0000 lvl=info msg="tunnel session started" obj=tunnels.session
-t=2020-12-06T13:37:22+0000 lvl=info msg="client session established" obj=csess id=5347430e0b60
-t=2020-12-06T13:37:22+0000 lvl=eror msg="session closing" obj=tunnels.session err="The tunnel 'https://vivelop.ngrok.io' is already bound to another tunnel session\r\n\r\nERR_NGROK_334\r\n"
-t=2020-12-06T13:37:22+0000 lvl=info msg="received stop request" obj=app stopReq="{err:0xc000476e50 restart:false}"
-t=2020-12-06T13:37:22+0000 lvl=eror msg="terminating with error" obj=app err="The tunnel 'https://vivelop.ngrok.io' is already bound to another tunnel session\r\n\r\nERR_NGROK_334\r\n"
-t=2020-12-06T13:37:22+0000 lvl=info msg="accept failed" obj=csess id=5347430e0b60 err="reconnecting session closed"
-t=2020-12-06T13:37:22+0000 lvl=crit msg="command failed" err="The tunnel 'https://vivelop.ngrok.io' is already bound to another tunnel session\r\n\r\nERR_NGROK_334\r\n"
+t=2020-12-06T15:00:13+0000 lvl=info msg="no configuration paths supplied"
+t=2020-12-06T15:00:13+0000 lvl=info msg="using configuration at default config path" path=/home/ec2-user/.ngrok2/ngrok.yml
+t=2020-12-06T15:00:13+0000 lvl=info msg="open config file" path=/home/ec2-user/.ngrok2/ngrok.yml err=nil
+t=2020-12-06T15:00:13+0000 lvl=warn msg="can't bind default web address, trying alternatives" obj=web addr=127.0.0.1:4040
+t=2020-12-06T15:00:13+0000 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4041
+t=2020-12-06T15:00:13+0000 lvl=info msg="tunnel session started" obj=tunnels.session
+t=2020-12-06T15:00:13+0000 lvl=info msg="client session established" obj=csess id=493f34715a41
+t=2020-12-06T15:00:13+0000 lvl=eror msg="session closing" obj=tunnels.session err="The tunnel 'https://vivelop.ngrok.io' is already bound to another tunnel session\r\n\r\nERR_NGROK_334\r\n"
+t=2020-12-06T15:00:13+0000 lvl=info msg="received stop request" obj=app stopReq="{err:0xc000476ea0 restart:false}"
+t=2020-12-06T15:00:13+0000 lvl=eror msg="terminating with error" obj=app err="The tunnel 'https://vivelop.ngrok.io' is already bound to another tunnel session\r\n\r\nERR_NGROK_334\r\n"
+t=2020-12-06T15:00:13+0000 lvl=info msg="accept failed" obj=csess id=493f34715a41 err="reconnecting session closed"
+t=2020-12-06T15:00:13+0000 lvl=crit msg="command failed" err="The tunnel 'https://vivelop.ngrok.io' is already bound to another tunnel session\r\n\r\nERR_NGROK_334\r\n"
 The tunnel 'https://vivelop.ngrok.io' is already bound to another tunnel session
 
 ERR_NGROK_334

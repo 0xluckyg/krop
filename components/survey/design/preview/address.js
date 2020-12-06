@@ -55,8 +55,8 @@ class NAMEPreview extends React.Component {
     
     renderCity() {
         const {classes} = this.props
-        const {stateEnabled} = this.getElement()
-        if (!stateEnabled) return null
+        const {cityEnabled, stateEnabled} = this.getElement()
+        if (!cityEnabled) return null
         return (
             <input 
                 className={clsx(stateEnabled ? classes.frontAddressStyle : null, classes.addressStyle)}
@@ -70,13 +70,10 @@ class NAMEPreview extends React.Component {
         const {stateEnabled} = this.getElement()
         if (!stateEnabled) return null
         return (
-            <React.Fragment>
-                <input 
-                    className={classes.addressStyle}
-                    placeholder="State"
-                />
-                
-            </React.Fragment>
+            <input 
+                className={classes.addressStyle}
+                placeholder="State"
+            />
         )
     }
     

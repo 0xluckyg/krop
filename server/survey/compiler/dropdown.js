@@ -42,7 +42,7 @@ function compileDropdownHTML(options) {
     dropdownWrapper.setAttribute('class', dropdownWrapperClass)
     
     let dropdown = document.createElement('select');
-    dropdown.setAttribute('class', dropdownClass + " " + textClass)
+    dropdown.setAttribute('class', textClass + " " + dropdownClass)
     
     let defaultOption = document.createElement('option');
     defaultOption.setAttribute('class', dropdownOptionClass)

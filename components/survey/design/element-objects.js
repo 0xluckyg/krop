@@ -101,7 +101,6 @@ const email = (custom) => {
         name: 'Email',
         required: required ? required : true,
         media: media ? media : null,
-        question: question ? question : 'Question',
         maxChar: maxChar ? maxChar : 100,
         minChar: minChar ? minChar : 1,
         tags: tags ? tags : []
@@ -116,7 +115,6 @@ const phone = (custom) => {
         name: 'Phone',
         required: required ? required : true,
         media: media ? media : null,
-        question: question ? question : 'Question',
         maxChar: maxChar ? maxChar : 100,
         minChar: minChar ? minChar : 1,
         numOnly: numOnly ? numOnly : false,
@@ -145,7 +143,6 @@ const address = (custom) => {
         zipRequired: true,
         
         media: media ? media : null,
-        question: question ? question : 'Question',
         maxChar: maxChar ? maxChar : 100,
         minChar: minChar ? minChar : 1,
         tags: tags ? tags : []
@@ -160,7 +157,6 @@ const name = (custom) => {
         name: 'Name',
         required: required ? required : true,
         media: media ? media : null,
-        question: question ? question : 'Question',
         maxChar: maxChar ? maxChar : 100,
         minChar: minChar ? minChar : 1,
         tags: tags ? tags : []
