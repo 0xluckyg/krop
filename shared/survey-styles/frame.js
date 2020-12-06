@@ -41,7 +41,7 @@ const BACKGROUND_DESKTOP = {
 const PAGE_WRAPPER = {
     margin: 'auto',
     width: '100%',
-    minHeight: '100%',
+    // minHeight: '100%',
     height: 'auto',
     display: 'flex',
     flexDirection: 'column',

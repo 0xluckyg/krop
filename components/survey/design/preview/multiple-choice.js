@@ -134,22 +134,24 @@ const useStyles = theme => ({
                 ...before,
                 borderColor: primaryColor,
                 borderRadius: 15,
-                borderWidth: 1.5
+                borderWidth: 1.5,
+                // width: '100%',
+                // height: '100%'
             },
             '&:after': {
                 ...after,
-                backgroundColor: 'transparent',
                 borderRadius: 15
             },
             '&:checked:after': {
                 ...checked,
-                backgroundColor: primaryColor
+                backgroundColor: primaryColor,
+                // borderColor: primaryColor
             }
         }
     },
     textStyle: props => {
         const {font, textColor} = getStyle(props)
-        let text = isDesktop(props) ? mcStyle.TEXT_DESKTOP : mcStyle.TEXT
+        let text = isDesktop(props) ? elementStyle.TEXT_DESKTOP : elementStyle.TEXT
         return {
             ...text,
             fontFamily: font, 

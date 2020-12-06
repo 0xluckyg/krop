@@ -4,11 +4,11 @@ const shortid = require('shortid')
 
 const {getCSS, createId, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
-const mcStyles = require('../../../shared/survey-styles/multiple-choice')
+const checkboxStyles = require('../../../shared/survey-styles/checkbox')
 const {textClass, compileElementContainerHTML, compileQuestionHTML, compileAlertTextHTML} = require('./reusable')
 
-const multipleChoiceId = createId({
-    type: keys.MULTIPLE_CHOICE_ELEMENT
+const checkboxId = createId({
+    type: keys.CHECKBOX_ELEMENT
 })
 const optionContainerClass = createClassName({
     type: 'option',
@@ -24,14 +24,14 @@ const optionRadioClass = createClassName({
 })
 
 
-function compileMultipleChoiceHTML(options) {
+function compileCheckboxHTML(options) {
     const dom = new JSDOM('')
     const document = dom.window.document
     
     const {element} = options
     
     let container = compileElementContainerHTML()
-    container.setAttribute('id', multipleChoiceId)
+    container.setAttribute('id', checkboxId)
     
     let question = compileQuestionHTML()
     question.innerHTML = element.question
@@ -47,8 +47,8 @@ function compileMultipleChoiceHTML(options) {
         let optionRadio = document.createElement('input');
         optionRadio.setAttribute('class', optionRadioClass)
         optionRadio.setAttribute('value', option.text)
-        optionRadio.setAttribute('type', 'radio')
-        optionRadio.setAttribute('name', multipleChoiceId)
+        optionRadio.setAttribute('type', 'checkbox')
+        optionRadio.setAttribute('name', checkboxId)
         
         let optionText = document.createElement('p');
         optionText.setAttribute('class', textClass)
@@ -67,41 +67,38 @@ function compileMultipleChoiceHTML(options) {
     return container
 }
 
-function compileMultipleChoiceCSS(options) {
+function compileCheckboxCSS(options) {
     let optionContainerCSS = getCSS(optionContainerClass, {
-        ...mcStyles.OPTION_CONTAINER
+        ...checkboxStyles.OPTION_CONTAINER
     })
     let optionContainerHoverCSS = getCSS(optionContainerClass+":hover", {
-        ...mcStyles.OPTION_CONTAINER.HOVER
+        ...checkboxStyles.OPTION_CONTAINER.HOVER
     })
     let optionContainerActiveCSS = getCSS(optionContainerClass+":active", {
-        ...mcStyles.OPTION_CONTAINER.ACTIVE
+        ...checkboxStyles.OPTION_CONTAINER.ACTIVE
     })
     
     let optionWrapperCSS = getCSS(optionWrapperClass, {
-        ...mcStyles.OPTION_WRAPPER
+        ...checkboxStyles.OPTION_WRAPPER
     })
     
     const {primaryColor} = options.styles
     let optionRadioCSS = getCSS(optionRadioClass, {
-        ...mcStyles.RADIO
+        ...checkboxStyles.RADIO
     })
     let optionRadioBeforeCSS = getCSS(optionRadioClass+"::before", {
         borderColor: primaryColor,
-        ...mcStyles.RADIO.BEFORE
+        ...checkboxStyles.RADIO.BEFORE
     })
     let optionRadioAfterCSS = getCSS(optionRadioClass+"::after", {
-        ...mcStyles.RADIO.AFTER
+        ...checkboxStyles.RADIO.AFTER
     })
     let optionRadioFocusCSS = getCSS(optionRadioClass+":focus", {
-        ...mcStyles.RADIO.FOCUS
-    })
-    let optionRadioCheckeCSS = getCSS(optionRadioClass+":checked", {
-        ...mcStyles.RADIO.CHECKED
+        ...checkboxStyles.RADIO.FOCUS
     })
     let optionRadioCheckedAfterCSS = getCSS(optionRadioClass+":checked::after", {
         backgroundColor: primaryColor,
-        ...mcStyles.RADIO.CHECKED_AFTER
+        ...checkboxStyles.RADIO.CHECKED_AFTER
     })
     
     return optionContainerCSS
@@ -115,4 +112,4 @@ function compileMultipleChoiceCSS(options) {
     +optionRadioCheckedAfterCSS
 }
 
-module.exports = {compileMultipleChoiceHTML, compileMultipleChoiceCSS}
+module.exports = {compileCheckboxHTML, compileCheckboxCSS}

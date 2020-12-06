@@ -7,7 +7,8 @@ const CONTAINER_DESKTOP = {
 }
 
 const TEXT = {
-    fontSize: 18
+    fontSize: '18px',
+    margin: '0px'
 }
 
 const TEXT_DESKTOP = {
@@ -15,7 +16,7 @@ const TEXT_DESKTOP = {
 }
 
 const QUESTION = {
-    fontSize: 16,
+    fontSize: '16px',
     margin: '0px 0px 10px 0px',
     opacity: 0.8,
     fontWeight: 700

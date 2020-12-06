@@ -75,8 +75,11 @@ function setStyles(element, styles) {
 
 function getCSS(identifier, styles, selector) {
     styles = Object.keys(styles).reduce((acc, key) => {
+        console.log("KEYS: ", styles[key])
         if (typeof styles[key] !== 'object') {
             return acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + styles[key] + ';'   
+        } else {
+            return acc
         }
     }, '');
     

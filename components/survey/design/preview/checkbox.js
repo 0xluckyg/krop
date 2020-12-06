@@ -6,8 +6,8 @@ import { withStyles } from '@material-ui/core/styles';
 import {getElement} from '../element-editor/sub/functions'
 
 import keys from '../../../../config/keys'
+import mcStyle from '../../../../shared/survey-styles/checkbox'
 import elementStyle from '../../../../shared/survey-styles/reusable'
-import checkboxStyle from '../../../../shared/survey-styles/checkbox'
 import alertStyle from '../../../../shared/survey-styles/alert'
 
 class CheckboxPreview extends React.Component {
@@ -42,7 +42,7 @@ class CheckboxPreview extends React.Component {
                 mc.options.map((o, i)=> {
                     return <div key={o.text + i}className={classes.optionContainer}>
                         <label className={classes.optionWrapper}>
-                            <input className={classes.radioStyle} type="checkbox" name="mc" value={o.text}/>
+                            <input className={classes.radioStyle} type="checkbox" name="checkbox" value={o.text}/>
                             <p className={classes.textStyle}>{o.text}</p>
                         </label>
                     </div>
@@ -103,9 +103,9 @@ const useStyles = theme => ({
         }
     },
     optionContainer: props => {
-        let style = isDesktop(props) ? checkboxStyle.OPTION_CONTAINER_DESKTOP : checkboxStyle.OPTION_CONTAINER
-        let hover = isDesktop(props) ? checkboxStyle.OPTION_CONTAINER_DESKTOP.HOVER : checkboxStyle.OPTION_CONTAINER.HOVER
-        let active = isDesktop(props) ? checkboxStyle.OPTION_CONTAINER_DESKTOP.ACTIVE : checkboxStyle.OPTION_CONTAINER.ACTIVE
+        let style = isDesktop(props) ? mcStyle.OPTION_CONTAINER_DESKTOP : mcStyle.OPTION_CONTAINER
+        let hover = isDesktop(props) ? mcStyle.OPTION_CONTAINER_DESKTOP.HOVER : mcStyle.OPTION_CONTAINER.HOVER
+        let active = isDesktop(props) ? mcStyle.OPTION_CONTAINER_DESKTOP.ACTIVE : mcStyle.OPTION_CONTAINER.ACTIVE
         return {
             ...style,
             '&:hover': {
@@ -117,27 +117,30 @@ const useStyles = theme => ({
         }
     },
     optionWrapper: props => {
-        let style = isDesktop(props) ? checkboxStyle.OPTION_WRAPPER_DESKTOP : checkboxStyle.OPTION_WRAPPER
+        let style = isDesktop(props) ? mcStyle.OPTION_WRAPPER_DESKTOP : mcStyle.OPTION_WRAPPER
         return {
             ...style
         }
     },
     radioStyle: props => {
         const {primaryColor} = getStyle(props)
-        let style = isDesktop(props) ? checkboxStyle.RADIO_DESKTOP : checkboxStyle.RADIO
-        let before = isDesktop(props) ? checkboxStyle.RADIO_DESKTOP.BEFORE : checkboxStyle.RADIO.BEFORE
-        let after = isDesktop(props) ? checkboxStyle.RADIO_DESKTOP.AFTER : checkboxStyle.RADIO.AFTER
-        let checked = isDesktop(props) ? checkboxStyle.RADIO_DESKTOP.CHECKED_AFTER : checkboxStyle.RADIO.CHECKED_AFTER
+        let style = isDesktop(props) ? mcStyle.RADIO_DESKTOP : mcStyle.RADIO
+        let before = isDesktop(props) ? mcStyle.RADIO_DESKTOP.BEFORE : mcStyle.RADIO.BEFORE
+        let after = isDesktop(props) ? mcStyle.RADIO_DESKTOP.AFTER : mcStyle.RADIO.AFTER
+        let checked = isDesktop(props) ? mcStyle.RADIO_DESKTOP.CHECKED_AFTER : mcStyle.RADIO.CHECKED_AFTER
         return {
             ...style,
             '&:before': {
                 ...before,
                 borderColor: primaryColor,
-                borderWidth: 1.5
+                // borderRadius: 15,
+                borderWidth: 1.5,
+                width: '100%',
+                height: '100%'
             },
             '&:after': {
                 ...after,
-                backgroundColor: 'transparent',
+                // borderRadius: 15
             },
             '&:checked:after': {
                 ...checked,
@@ -147,7 +150,7 @@ const useStyles = theme => ({
     },
     textStyle: props => {
         const {font, textColor} = getStyle(props)
-        let text = isDesktop(props) ? checkboxStyle.TEXT_DESKTOP : checkboxStyle.TEXT
+        let text = isDesktop(props) ? elementStyle.TEXT_DESKTOP : elementStyle.TEXT
         return {
             ...text,
             fontFamily: font, 
