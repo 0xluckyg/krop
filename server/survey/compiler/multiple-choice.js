@@ -7,11 +7,8 @@ const keys = require('../../../config/keys')
 const mcStyles = require('../../../shared/survey-styles/multiple-choice')
 const {textClass, compileElementContainerHTML, compileQuestionHTML, compileAlertTextHTML} = require('./reusable')
 
-const multipleChoiceId = createId({
-    type: keys.MULTIPLE_CHOICE_ELEMENT
-})
 const optionContainerClass = createClassName({
-    type: 'option',
+    type: 'option_container',
     uid: shortid.generate()
 })
 const optionWrapperClass = createClassName({
@@ -25,6 +22,10 @@ const optionRadioClass = createClassName({
 
 
 function compileMultipleChoiceHTML(options) {
+    const multipleChoiceId = createId({
+        type: keys.MULTIPLE_CHOICE_ELEMENT
+    })
+    
     const dom = new JSDOM('')
     const document = dom.window.document
     

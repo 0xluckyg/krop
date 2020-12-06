@@ -6,15 +6,6 @@ const {getCSS, createId, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const textStyles = require('../../../shared/survey-styles/text')
 
-const headingId = createId({
-    type: keys.HEADING_ELEMENT
-})
-const subheadingId = createId({
-    type: keys.SUBHEADING_ELEMENT
-})
-const paragraphId = createId({
-    type: keys.PARAGRAPH_ELEMENT
-})
 const headingClass = createClassName({
     type: keys.HEADING_ELEMENT,
     uid: shortid.generate()
@@ -29,6 +20,16 @@ const paragraphClass = createClassName({
 })
 
 function compileTextHTML(options) {
+    const headingId = createId({
+        type: keys.HEADING_ELEMENT
+    })
+    const subheadingId = createId({
+        type: keys.SUBHEADING_ELEMENT
+    })
+    const paragraphId = createId({
+        type: keys.PARAGRAPH_ELEMENT
+    })
+    
     const dom = new JSDOM('')
     const document = dom.window.document
     

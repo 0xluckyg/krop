@@ -7,11 +7,8 @@ const keys = require('../../../config/keys')
 const checkboxStyles = require('../../../shared/survey-styles/checkbox')
 const {textClass, compileElementContainerHTML, compileQuestionHTML, compileAlertTextHTML} = require('./reusable')
 
-const checkboxId = createId({
-    type: keys.CHECKBOX_ELEMENT
-})
 const optionContainerClass = createClassName({
-    type: 'option',
+    type: 'option_container',
     uid: shortid.generate()
 })
 const optionWrapperClass = createClassName({
@@ -25,6 +22,10 @@ const optionRadioClass = createClassName({
 
 
 function compileCheckboxHTML(options) {
+    const checkboxId = createId({
+        type: keys.CHECKBOX_ELEMENT
+    })
+
     const dom = new JSDOM('')
     const document = dom.window.document
     
@@ -62,7 +63,7 @@ function compileCheckboxHTML(options) {
     
     let alertText = compileAlertTextHTML()
     alertText.innerHTML = 'Example alert'
-    container.append(alertText)
+    container.appendChild(alertText)
     
     return container
 }

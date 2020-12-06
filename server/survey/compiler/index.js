@@ -6,6 +6,7 @@ const {compileFrameCSS, compileFrameHTML} = require('./frame')
 // const {compileAlert} = require('./alert')
 const {compileMultipleChoiceCSS, compileMultipleChoiceHTML} = require('./multiple-choice')
 const {compileCheckboxCSS, compileCheckboxHTML} = require('./checkbox')
+const {compileDropdownCSS, compileDropdownHTML} = require('./dropdown')
 const {compileQuestionCSS, compileElementContainerCSS, compileAlertTextCSS, compileGeneralTextCSS} = require('./reusable')
 const {compileTextCSS, compileTextHTML} = require('./text')
 const {createId, cleanCSS, createClassName, getCSS} = require('./functions')
@@ -31,6 +32,12 @@ async function compileCSS(options) {
                         break;
                     case(keys.CHECKBOX_ELEMENT):
                         elementCSS = compileCheckboxCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                        break;
+                    case(keys.DROPDOWN_ELEMENT):
+                        elementCSS = compileDropdownCSS({
                             stage, stageIndex, element, elementIndex,
                             ...options
                         })
@@ -67,6 +74,8 @@ function compileElement(options) {
             return compileMultipleChoiceHTML(options).outerHTML
         case(keys.CHECKBOX_ELEMENT):
             return compileCheckboxHTML(options).outerHTML
+        case(keys.DROPDOWN_ELEMENT):
+            return compileDropdownHTML(options).outerHTML
         case(keys.HEADING_ELEMENT):
         case(keys.SUBHEADING_ELEMENT):
         case(keys.PARAGRAPH_ELEMENT):

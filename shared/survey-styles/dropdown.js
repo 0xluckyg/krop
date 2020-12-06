@@ -39,7 +39,7 @@ const DROPDOWN = {
     width: '100%',
     height: 30,
     fontSize: 18,
-    
+    margin: 0,
     outline: 0,
     appearance: 'none',
     cursor: 'pointer',
