@@ -4,7 +4,7 @@ const shortid = require('shortid')
 
 const {getCSS, createId, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
-const mediaStyles = require('../../../shared/survey-styles/button')
+const buttonStyles = require('../../../shared/survey-styles/button')
 
 const buttonContainerClass = createClassName({
     type: keys.BUTTON_ELEMENT,
@@ -43,24 +43,24 @@ function compileButtonCSS(options) {
 
     let buttonContainerCSS = getCSS(buttonContainerClass, {
         backgroundColor,
-        ...mediaStyles.BUTTON_CONTAINER
+        ...buttonStyles.BUTTON_CONTAINER
     })
     
     let buttonContainerHoverCSS = getCSS(buttonContainerClass + ":hover", {
-        ...mediaStyles.BUTTON_CONTAINER.HOVER
+        ...buttonStyles.BUTTON_CONTAINER.HOVER
     })
     
     let buttonCSS = getCSS(buttonClass, {
         color: primaryColor,
-        ...mediaStyles.BUTTON
+        ...buttonStyles.BUTTON
     })
 
     let buttonFocusCSS = getCSS(buttonClass + ":focus", {
-        ...mediaStyles.BUTTON.FOCUS
+        ...buttonStyles.BUTTON.FOCUS
     })
 
     let buttonActiveCSS = getCSS(buttonClass + ":active", {
-        ...mediaStyles.BUTTON.ACTIVE
+        ...buttonStyles.BUTTON.ACTIVE
     })
 
     return buttonContainerCSS 

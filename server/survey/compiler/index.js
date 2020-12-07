@@ -23,6 +23,7 @@ async function compileCSS(options) {
     let css = compileFrameCSS(options)
     css += compileElementContainerCSS(options)
     css += compileQuestionCSS(options)
+    css += compileAlertCSS(options)
     css += compileAlertTextCSS(options)
     css += compileButtonCSS(options)
     css += compileGeneralTextCSS(options)
@@ -120,7 +121,7 @@ async function compileCSS(options) {
 }
 
 function compileElement(options) {
-    const {stage, element, stageIndex, elementIndex} = options
+    const {element} = options
     switch(element.type) {
         case(keys.SPACING_ELEMENT):
             return compileSpacingHTML(options).outerHTML
@@ -181,8 +182,8 @@ function compileStage(options) {
 async function compiler(surveyOptions) {
     const frameHTML = compileFrameHTML(surveyOptions).outerHTML
     const buttonHTML = compileButtonHTML(surveyOptions).outerHTML
-    // const compiledAlert = compileAlertHTML({ surveyId })
-    
+    const alertHTML = compileAlertHTML(surveyOptions).outerHTML
+
     const {stages, styles} = surveyOptions
     let compiledStages = []
     stages.map((stage, stageIndex) => {
@@ -202,7 +203,7 @@ async function compiler(surveyOptions) {
         font: styles.font,
         page: '',
         button: buttonHTML,
-        alert: '',
+        alert: alertHTML,
         alertText: '',
     }
 }
