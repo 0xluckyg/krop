@@ -19,15 +19,17 @@ function compileImageHTML(options) {
     const dom = new JSDOM('')
     const document = dom.window.document
     
-    const {element} = options
+    const {url} = options.element
     
-    let link = document.createElement('img');
-    link.setAttribute('id', imageId)
-    link.setAttribute('class', imageClass)
-    link.setAttribute('src', element.url)
-    link.innerHTML = element.url
+    if (!url || url == '') return document.createElement('span')
     
-    return link
+    let image = document.createElement('img');
+    image.setAttribute('id', imageId)
+    image.setAttribute('class', imageClass)
+    image.setAttribute('src', url)
+    image.innerHTML = url
+    
+    return image
 }
 
 function compileImageCSS(options) {

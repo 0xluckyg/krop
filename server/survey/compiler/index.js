@@ -3,9 +3,11 @@ const { JSDOM } = jsdom;
 
 const keys = require('../../../config/keys')
 const {compileFrameCSS, compileFrameHTML} = require('./frame')
-// const {compileAlert} = require('./alert')
+const {compileButtonCSS, compileButtonHTML} = require('./button')
+const {compileAlertCSS, compileAlertHTML} = require('./alert')
 const {compileSpacingCSS, compileSpacingHTML} = require('./spacing')
 const {compileImageCSS, compileImageHTML} = require('./image')
+const {compileVideoCSS, compileVideoHTML} = require('./video')
 const {compileLinkCSS, compileLinkHTML} = require('./link')
 const {compileMultipleChoiceCSS, compileMultipleChoiceHTML} = require('./multiple-choice')
 const {compileCheckboxCSS, compileCheckboxHTML} = require('./checkbox')
@@ -38,6 +40,12 @@ async function compileCSS(options) {
                         break;
                     case(keys.IMAGE_ELEMENT):
                         elementCSS += compileImageCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                        break;
+                    case(keys.VIDEO_ELEMENT):
+                        elementCSS += compileVideoCSS({
                             stage, stageIndex, element, elementIndex,
                             ...options
                         })
@@ -117,6 +125,8 @@ function compileElement(options) {
             return compileSpacingHTML(options).outerHTML
         case(keys.IMAGE_ELEMENT):
             return compileImageHTML(options).outerHTML
+        case(keys.VIDEO_ELEMENT):
+            return compileVideoHTML(options).outerHTML
         case(keys.LINK_ELEMENT):
             return compileLinkHTML(options).outerHTML
         case(keys.MULTIPLE_CHOICE_ELEMENT):
@@ -191,6 +201,7 @@ async function compiler(surveyOptions) {
         page: '',
         button: '',
         alert: '',
+        alertText: '',
         settings: {}
     }
 }
