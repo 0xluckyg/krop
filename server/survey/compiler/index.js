@@ -24,6 +24,7 @@ async function compileCSS(options) {
     css += compileElementContainerCSS(options)
     css += compileQuestionCSS(options)
     css += compileAlertTextCSS(options)
+    css += compileButtonCSS(options)
     css += compileGeneralTextCSS(options)
     
     let types = {}
@@ -179,6 +180,7 @@ function compileStage(options) {
 
 async function compiler(surveyOptions) {
     const frameHTML = compileFrameHTML(surveyOptions).outerHTML
+    const buttonHTML = compileButtonHTML(surveyOptions).outerHTML
     // const compiledAlert = compileAlertHTML({ surveyId })
     
     const {stages, styles} = surveyOptions
@@ -199,10 +201,9 @@ async function compiler(surveyOptions) {
         frame: frameHTML, 
         font: styles.font,
         page: '',
-        button: '',
+        button: buttonHTML,
         alert: '',
         alertText: '',
-        settings: {}
     }
 }
 
