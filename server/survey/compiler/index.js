@@ -4,6 +4,7 @@ const { JSDOM } = jsdom;
 const keys = require('../../../config/keys')
 const {compileFrameCSS, compileFrameHTML} = require('./frame')
 // const {compileAlert} = require('./alert')
+const {compileLinkCSS, compileLinkHTML} = require('./link')
 const {compileMultipleChoiceCSS, compileMultipleChoiceHTML} = require('./multiple-choice')
 const {compileCheckboxCSS, compileCheckboxHTML} = require('./checkbox')
 const {compileDropdownCSS, compileDropdownHTML} = require('./dropdown')
@@ -27,6 +28,12 @@ async function compileCSS(options) {
             if (!types[element.type]) {
                 let elementCSS = ''
                 switch(element.type) {
+                    case(keys.LINK_ELEMENT):
+                        elementCSS += compileLinkCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                        break;
                     case(keys.MULTIPLE_CHOICE_ELEMENT):
                         elementCSS += compileMultipleChoiceCSS({
                             stage, stageIndex, element, elementIndex,
@@ -92,6 +99,8 @@ async function compileCSS(options) {
 function compileElement(options) {
     const {stage, element, stageIndex, elementIndex} = options
     switch(element.type) {
+        case(keys.LINK_ELEMENT):
+            return compileLinkHTML(options).outerHTML
         case(keys.MULTIPLE_CHOICE_ELEMENT):
             return compileMultipleChoiceHTML(options).outerHTML
         case(keys.CHECKBOX_ELEMENT):
@@ -160,9 +169,11 @@ async function compiler(surveyOptions) {
         css, 
         stages: compiledStages, 
         frame: frameHTML, 
-        font: styles.font
-        // alert: alertHtml
-        // button: 
+        font: styles.font,
+        page: '',
+        button: '',
+        alert: '',
+        settings: {}
     }
 }
 

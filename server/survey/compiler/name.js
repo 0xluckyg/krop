@@ -58,8 +58,6 @@ function compileNameHTML(options) {
 }
 
 function compileNameCSS(options) {
-    const {textColor} = options.styles
-    
     let nameWrapperCSS = getCSS(nameWrapperClass, {
         ...nameStyles.NAME_WRAPPER
     })
@@ -67,9 +65,7 @@ function compileNameCSS(options) {
         ...nameStyles.FRONT_NAME
     })
     
-
     return nameWrapperCSS + frontNameCSS
-    
 }
 
 module.exports = {compileNameHTML, compileNameCSS}
