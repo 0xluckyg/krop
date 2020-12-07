@@ -4,6 +4,7 @@ const { JSDOM } = jsdom;
 const keys = require('../../../config/keys')
 const {compileFrameCSS, compileFrameHTML} = require('./frame')
 // const {compileAlert} = require('./alert')
+const {compileSpacingCSS, compileSpacingHTML} = require('./spacing')
 const {compileLinkCSS, compileLinkHTML} = require('./link')
 const {compileMultipleChoiceCSS, compileMultipleChoiceHTML} = require('./multiple-choice')
 const {compileCheckboxCSS, compileCheckboxHTML} = require('./checkbox')
@@ -28,6 +29,12 @@ async function compileCSS(options) {
             if (!types[element.type]) {
                 let elementCSS = ''
                 switch(element.type) {
+                    case(keys.SPACING_ELEMENT):
+                        elementCSS += compileSpacingCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                        break;
                     case(keys.LINK_ELEMENT):
                         elementCSS += compileLinkCSS({
                             stage, stageIndex, element, elementIndex,
@@ -99,6 +106,8 @@ async function compileCSS(options) {
 function compileElement(options) {
     const {stage, element, stageIndex, elementIndex} = options
     switch(element.type) {
+        case(keys.SPACING_ELEMENT):
+            return compileSpacingHTML(options).outerHTML
         case(keys.LINK_ELEMENT):
             return compileLinkHTML(options).outerHTML
         case(keys.MULTIPLE_CHOICE_ELEMENT):

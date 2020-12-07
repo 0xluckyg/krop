@@ -2,6 +2,7 @@ const LINK = {
     display: 'inline-block',
     cursor: 'pointer',
     transition: '0.2s',
+    textDecoration: 'none',
     BEFORE: {
         pointerEvents: 'none',
         content: "'\\27A4'",

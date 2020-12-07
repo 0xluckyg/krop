@@ -12,8 +12,8 @@ const linkClass = createClassName({
 })
 
 function compileLinkHTML(options) {
-    const nameId = createId({
-        type: keys.NAME_ELEMENT
+    const linkId = createId({
+        type: keys.LINK_ELEMENT
     })
     
     const dom = new JSDOM('')
@@ -22,6 +22,7 @@ function compileLinkHTML(options) {
     const {element} = options
     
     let link = document.createElement('a');
+    link.setAttribute('id', linkId)
     link.setAttribute('class', linkClass)
     link.setAttribute('href', element.url)
     link.innerHTML = element.url
