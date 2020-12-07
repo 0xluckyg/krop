@@ -4,7 +4,7 @@ const { JSDOM } = jsdom;
 const keys = require('../../../config/keys')
 const {compileFrameCSS, compileFrameHTML} = require('./frame')
 const {compileButtonCSS, compileButtonHTML} = require('./button')
-const {compileAlertCSS, compileAlertHTML} = require('./alert')
+const {compileAlertCSS, compileAlertTextCSS, compileAlertHTML, compileAlertTextHTML} = require('./alert')
 const {compileSpacingCSS, compileSpacingHTML} = require('./spacing')
 const {compileImageCSS, compileImageHTML} = require('./image')
 const {compileVideoCSS, compileVideoHTML} = require('./video')
@@ -16,7 +16,7 @@ const {compileFormCSS, compileFormHTML} = require('./form')
 const {compileTextCSS, compileTextHTML} = require('./text')
 const {compileNameCSS, compileNameHTML} = require('./name')
 const {compileAddressCSS, compileAddressHTML} = require('./address')
-const {compileQuestionCSS, compileElementContainerCSS, compileAlertTextCSS, compileGeneralTextCSS} = require('./reusable')
+const {compileQuestionCSS, compileElementContainerCSS, compileGeneralTextCSS} = require('./reusable')
 const {cleanCSS} = require('./functions')
 
 async function compileCSS(options) {
@@ -183,6 +183,7 @@ async function compiler(surveyOptions) {
     const frameHTML = compileFrameHTML(surveyOptions).outerHTML
     const buttonHTML = compileButtonHTML(surveyOptions).outerHTML
     const alertHTML = compileAlertHTML(surveyOptions).outerHTML
+    const alertTextHTML = compileAlertTextHTML(surveyOptions).outerHTML
 
     const {stages, styles} = surveyOptions
     let compiledStages = []
@@ -204,7 +205,7 @@ async function compiler(surveyOptions) {
         page: '',
         button: buttonHTML,
         alert: alertHTML,
-        alertText: '',
+        alertText: alertTextHTML,
     }
 }
 

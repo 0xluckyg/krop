@@ -5,7 +5,7 @@ const shortid = require('shortid')
 const {getCSS, createId, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const addressStyles = require('../../../shared/survey-styles/address')
-const {textClass, compileElementContainerHTML, compileQuestionHTML, compileAlertTextHTML} = require('./reusable')
+const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 const {formClass} = require('./form')
 
 const dom = new JSDOM('')
@@ -144,12 +144,6 @@ function compileAddressHTML(options) {
     
     if (country && zip) container.appendChild(addressWrapper2)
 
-    //------------
-
-    let alertText = compileAlertTextHTML()
-    alertText.innerHTML = 'Example alert'
-    container.appendChild(alertText)
-    
     return container
 }
 

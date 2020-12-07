@@ -14,13 +14,8 @@ const elementContainerClass = createClassName({
     type: 'element_container',
     uid: shortid.generate()
 })
-
 const questionClass = createClassName({
     type: 'question',
-    uid: shortid.generate()
-})
-const alertTextClass = createClassName({
-    type: 'alert_text',
     uid: shortid.generate()
 })
 const textClass = createClassName({
@@ -40,12 +35,6 @@ function compileQuestionHTML(options) {
     return question
 }
 
-function compileAlertTextHTML(options) {
-    let alertText = document.createElement('p');
-    alertText.setAttribute('class', alertTextClass)
-    return alertText
-}
-
 function compileElementContainerCSS(options) {
     return getCSS(elementContainerClass, {
         ...reusableStyles.CONTAINER
@@ -55,12 +44,6 @@ function compileElementContainerCSS(options) {
 function compileQuestionCSS(options) {
     return getCSS(questionClass, {
         ...reusableStyles.QUESTION
-    })
-}
-
-function compileAlertTextCSS(options) {
-    return getCSS(alertTextClass, {
-        ...alertStyles.ALERT_TEXT
     })
 }
 
@@ -75,15 +58,12 @@ function compileGeneralTextCSS(options) {
 module.exports = {
     elementContainerClass,
     questionClass,
-    alertTextClass,
     textClass,
     
     compileElementContainerHTML,
     compileQuestionHTML,
-    compileAlertTextHTML,
-    
+
     compileElementContainerCSS,
     compileQuestionCSS,
-    compileAlertTextCSS,
     compileGeneralTextCSS
 }

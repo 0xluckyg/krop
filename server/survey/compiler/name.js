@@ -5,7 +5,7 @@ const shortid = require('shortid')
 const {getCSS, createId, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const nameStyles = require('../../../shared/survey-styles/name')
-const {textClass, compileElementContainerHTML, compileQuestionHTML, compileAlertTextHTML} = require('./reusable')
+const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 const {formClass} = require('./form')
 
 const nameWrapperClass = createClassName({
@@ -50,10 +50,6 @@ function compileNameHTML(options) {
 
     container.appendChild(nameWrapper)
 
-    let alertText = compileAlertTextHTML()
-    alertText.innerHTML = 'Example alert'
-    container.appendChild(alertText)
-    
     return container
 }
 

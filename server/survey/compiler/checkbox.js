@@ -5,7 +5,7 @@ const shortid = require('shortid')
 const {getCSS, createId, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const checkboxStyles = require('../../../shared/survey-styles/checkbox')
-const {textClass, compileElementContainerHTML, compileQuestionHTML, compileAlertTextHTML} = require('./reusable')
+const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 
 const optionContainerClass = createClassName({
     type: 'option_container',
@@ -60,10 +60,6 @@ function compileCheckboxHTML(options) {
         optionContainer.appendChild(optionWrapper)
         container.appendChild(optionContainer)
     })
-    
-    let alertText = compileAlertTextHTML()
-    alertText.innerHTML = 'Example alert'
-    container.appendChild(alertText)
     
     return container
 }

@@ -5,7 +5,7 @@ const shortid = require('shortid')
 const {getCSS, createId, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const formStyles = require('../../../shared/survey-styles/form')
-const {textClass, compileElementContainerHTML, compileQuestionHTML, compileAlertTextHTML} = require('./reusable')
+const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 
 const formClass = createClassName({
     type: 'input',
@@ -57,10 +57,6 @@ function compileFormHTML(options) {
     input.setAttribute('placeholder', getPlaceholder(element))
     container.appendChild(input)
 
-    let alertText = compileAlertTextHTML()
-    alertText.innerHTML = 'Example alert'
-    container.appendChild(alertText)
-    
     return container
 }
 

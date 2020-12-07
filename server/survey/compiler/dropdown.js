@@ -5,7 +5,7 @@ const shortid = require('shortid')
 const {getCSS, createId, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const dropdownStyles = require('../../../shared/survey-styles/dropdown')
-const {textClass, compileElementContainerHTML, compileQuestionHTML, compileAlertTextHTML} = require('./reusable')
+const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 
 const dropdownWrapperClass = createClassName({
     type: 'dropdown_wrapper',
@@ -58,10 +58,6 @@ function compileDropdownHTML(options) {
     
     dropdownWrapper.appendChild(dropdown)
     container.appendChild(dropdownWrapper)
-    
-    let alertText = compileAlertTextHTML()
-    alertText.innerHTML = 'Example alert'
-    container.appendChild(alertText)
     
     return container
 }

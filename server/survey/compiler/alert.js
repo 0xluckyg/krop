@@ -16,6 +16,11 @@ const alertClass = createClassName({
     uid: shortid.generate()
 })
 
+const alertTextClass = createClassName({
+    type: 'alert_text',
+    uid: shortid.generate()
+})
+
 function compileAlertHTML(options) {
     const alertId = createId({
         type: keys.ALERT_ELEMENT
@@ -36,6 +41,12 @@ function compileAlertHTML(options) {
     return alertContainer
 }
 
+function compileAlertTextHTML(options) {
+    let alertText = document.createElement('p');
+    alertText.setAttribute('class', alertTextClass)
+    return alertText
+}
+
 function compileAlertCSS(options) {
 
     const {backgroundColor, popupTextColor} = options.alert
@@ -54,4 +65,10 @@ function compileAlertCSS(options) {
     + alertCSS
 }
 
-module.exports = {compileAlertHTML, compileAlertCSS}
+function compileAlertTextCSS(options) {
+    return getCSS(alertTextClass, {
+        ...alertStyles.ALERT_TEXT
+    })
+}
+
+module.exports = {compileAlertHTML, compileAlertTextHTML, compileAlertCSS, compileAlertTextCSS}
