@@ -44,7 +44,11 @@ const SurveySchema = new mongoose.Schema({
             elements: [String]
         }],
         font: String,
-        frame: String
+        frame: String,
+        page: String,
+        alert: String,
+        alertText: String,
+        button: String
     },
     views: {
         type: Number,

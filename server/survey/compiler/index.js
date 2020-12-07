@@ -3,6 +3,7 @@ const { JSDOM } = jsdom;
 
 const keys = require('../../../config/keys')
 const {compileFrameCSS, compileFrameHTML} = require('./frame')
+const {compilePageCSS, compilePageHTML} = require('./page')
 const {compileButtonCSS, compileButtonHTML} = require('./button')
 const {compileAlertCSS, compileAlertTextCSS, compileAlertHTML, compileAlertTextHTML} = require('./alert')
 const {compileSpacingCSS, compileSpacingHTML} = require('./spacing')
@@ -21,6 +22,7 @@ const {cleanCSS} = require('./functions')
 
 async function compileCSS(options) {
     let css = compileFrameCSS(options)
+    css += compilePageCSS(options)
     css += compileElementContainerCSS(options)
     css += compileQuestionCSS(options)
     css += compileAlertCSS(options)
@@ -181,6 +183,7 @@ function compileStage(options) {
 
 async function compiler(surveyOptions) {
     const frameHTML = compileFrameHTML(surveyOptions).outerHTML
+    const pageHTML = compilePageHTML(surveyOptions).outerHTML
     const buttonHTML = compileButtonHTML(surveyOptions).outerHTML
     const alertHTML = compileAlertHTML(surveyOptions).outerHTML
     const alertTextHTML = compileAlertTextHTML(surveyOptions).outerHTML
@@ -202,7 +205,7 @@ async function compiler(surveyOptions) {
         stages: compiledStages, 
         frame: frameHTML, 
         font: styles.font,
-        page: '',
+        page: pageHTML,
         button: buttonHTML,
         alert: alertHTML,
         alertText: alertTextHTML,
