@@ -26,6 +26,7 @@
         WRAPPER_ELEMENT: 'wrapper_element',
         BACKGROUND_ELEMENT: 'background_element',
         PAGE_ELEMENT: 'page_element',
+        BUTTON_ELEMENT: 'button_element',
         
         MULTIPLE_CHOICE_ELEMENT: 'multiple_choice_element', 
         CHECKBOX_ELEMENT: 'checkbox_element', 
@@ -183,9 +184,24 @@
     }
     
     this.nextPage = function() {
-        currentPageIndex += 1
-        removePage()
-        renderPage()
+        var stageElements = getStage(currentStageIndex).elements
+        var pages = elementsToPages(stageElements)
+        
+        if (currentPageIndex < pages.length-1) {
+            currentPageIndex += 1
+            removePage()
+
+            var pageElements = pages[currentPageIndex]
+            renderPage(pageElements)      
+        } else {
+            currentStageIndex += 1
+            currentPageIndex = 0
+            removePage()
+            
+            var nextStageElements = getStage(currentStageIndex).elements
+            var nextPageElements = elementsToPages(nextStageElements)[currentPageIndex]
+            renderPage(nextPageElements)
+        }
     }
     
     this.toStage = function(stageId) {
@@ -208,10 +224,21 @@
     
     function removePage() {
         var page = document.getElementById(getId(keys.PAGE_ELEMENT))
+        var button = document.getElementById(getId(keys.BUTTON_ELEMENT))
         page.parentNode.removeChild(page);
+        button.parentNode.removeChild(button)
     }
     
     function createButton(action) {
+        var stage = getStage()
+        var isLastStage = (currentStageIndex >= currentSurveyOptions.stages.length - 1)
+        if (stage.settings.questionPerPage) {
+            var pagesLength = elementsToPages(stage.elements).length
+            if (isLastStage && currentPageIndex >= pagesLength - 1) return null
+        } else {
+            if (isLastStage) return null
+        }
+        
         var button = stringIntoHTML(currentSurveyOptions.button)
         button.firstChild.setAttribute('onclick', action)
         return button
@@ -219,14 +246,14 @@
     
     function renderStage() {
         var stage = getStage()
-        if (!stage.settings.questionPerPage) {
+        if (stage.settings.questionPerPage) {
             var pageElements = getPage()
             renderPage(pageElements)   
         } else {
             var page = createPage(stage.elements)
             document.getElementById(getId(keys.BACKGROUND_ELEMENT)).appendChild(page)
             var button = createButton('nextStage()')
-            document.getElementById(getId(keys.WRAPPER_ELEMENT)).appendChild(button)    
+            if (button) document.getElementById(getId(keys.WRAPPER_ELEMENT)).appendChild(button)    
         }
     }
     
@@ -234,7 +261,7 @@
         var page = createPage(elements)
         document.getElementById(getId(keys.BACKGROUND_ELEMENT)).appendChild(page)
         var button = createButton('nextPage()')
-        document.getElementById(getId(keys.WRAPPER_ELEMENT)).appendChild(button)
+        if (button) document.getElementById(getId(keys.WRAPPER_ELEMENT)).appendChild(button)
     }
     
     function initiateSurvey() {
