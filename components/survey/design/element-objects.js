@@ -1,10 +1,14 @@
 const keys = require('../../../config/keys')
 const shortid = require('shortid')
 
+function createId(type) {
+    return type + "_" + shortid.generate()
+}
+
 const multipleChoice = (custom) => {
     const {required, media, hasOther, question, options, tags} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.MULTIPLE_CHOICE_ELEMENT),
         type: keys.MULTIPLE_CHOICE_ELEMENT,
         name: 'Multiple Choice',
         required: required ? required : true,
@@ -25,7 +29,7 @@ const multipleChoice = (custom) => {
 const checkbox = (custom) => {
     const {required, media, hasOther, question, options, tags} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.CHECKBOX_ELEMENT),
         type: keys.CHECKBOX_ELEMENT,
         name: 'Checkbox',
         required: required ? required : true,
@@ -46,7 +50,7 @@ const checkbox = (custom) => {
 const dropdown = (custom) => {
     const {required, media, question, options, tags} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.DROPDOWN_ELEMENT),
         type: keys.DROPDOWN_ELEMENT,
         name: 'Dropdown',
         required: required ? required : true,
@@ -64,7 +68,7 @@ const dropdown = (custom) => {
 const slider = (custom) => {
     const {required, media, question, min, max, tags} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.SLIDER_ELEMENT),
         type: keys.SLIDER_ELEMENT,
         name: 'Slider',
         required: required ? required : true,
@@ -79,7 +83,7 @@ const slider = (custom) => {
 const form = (custom) => {
     const {required, media, question, maxChar, minChar, numOnly, tags} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.FORM_ELEMENT),
         type: keys.FORM_ELEMENT,
         name: 'Form',
         required: required ? required : true,
@@ -94,9 +98,9 @@ const form = (custom) => {
 }
 
 const email = (custom) => {
-    const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
+    const {required, media, maxChar, minChar, tags} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.EMAIL_ELEMENT),
         type: keys.EMAIL_ELEMENT,
         name: 'Email',
         required: required ? required : true,
@@ -108,9 +112,9 @@ const email = (custom) => {
 }
 
 const phone = (custom) => {
-    const {required, media, question, maxChar, minChar, numOnly, tags} = custom ? custom : {}
+    const {required, media, maxChar, minChar, numOnly, tags} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.PHONE_ELEMENT),
         type: keys.PHONE_ELEMENT,
         name: 'Phone',
         required: required ? required : true,
@@ -123,9 +127,9 @@ const phone = (custom) => {
 }
 
 const address = (custom) => {
-    const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
+    const {media, maxChar, minChar, tags} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.ADDRESS_ELEMENT),
         type: keys.ADDRESS_ELEMENT,
         name: 'Address',
         
@@ -150,9 +154,9 @@ const address = (custom) => {
 }
 
 const name = (custom) => {
-    const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
+    const {required, media, maxChar, minChar, tags} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.NAME_ELEMENT),
         type: keys.NAME_ELEMENT,
         name: 'Name',
         required: required ? required : true,
@@ -166,7 +170,7 @@ const name = (custom) => {
 const longForm = (custom) => {
     const {required, media, question, maxChar, minChar, tags} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.LONG_FORM_ELEMENT),
         type: keys.LONG_FORM_ELEMENT,
         name: 'Long Form',
         required: required ? required : true,
@@ -182,7 +186,7 @@ const longForm = (custom) => {
 const heading = (custom) => {
     const {text} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.HEADING_ELEMENT),
         type: keys.HEADING_ELEMENT,
         name: 'Heading',
         text: text ? text : 'Heading'
@@ -192,7 +196,7 @@ const heading = (custom) => {
 const subheading = (custom) => {
     const {text} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.SUBHEADING_ELEMENT),
         type: keys.SUBHEADING_ELEMENT,
         name: 'Subheading',
         text: text ? text : 'Subheading'
@@ -202,7 +206,7 @@ const subheading = (custom) => {
 const paragraph = (custom) => {
     const {text} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.PARAGRAPH_ELEMENT),
         type: keys.PARAGRAPH_ELEMENT,
         name: 'Paragraph',
         text: text ? text : 'Paragraph'
@@ -212,7 +216,7 @@ const paragraph = (custom) => {
 const image = (custom) => {
     const {url} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.IMAGE_ELEMENT),
         type: keys.IMAGE_ELEMENT,
         name: 'Image',
         url: url ? url : '',
@@ -223,7 +227,7 @@ const image = (custom) => {
 const video = (custom) => {
     const {url} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.VIDEO_ELEMENT),
         type: keys.VIDEO_ELEMENT,
         name: 'Video',
         url: url ? url : '',
@@ -234,7 +238,7 @@ const video = (custom) => {
 const link = (custom) => {
     const {url} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.LINK_ELEMENT),
         type: keys.LINK_ELEMENT,
         name: 'Link',
         url: url ? url : process.env.APP_URL,
@@ -245,7 +249,7 @@ const link = (custom) => {
 const spacing = (custom) => {
     const {space} = custom ? custom : {}
     return {
-        id: shortid.generate(),
+        id:  createId(keys.SPACING_ELEMENT),
         type: keys.SPACING_ELEMENT,
         name: 'Spacing',
         space: space ? space : 1
@@ -255,6 +259,7 @@ const spacing = (custom) => {
 const defaultStages = () => [
     {
         settings: {
+            id: createId(keys.STAGE_ELEMENT),
             name: 'Questions',
             isSinglePage: true
         },
@@ -281,6 +286,7 @@ const defaultStages = () => [
     },
     {
         settings: {
+            id: createId(keys.STAGE_ELEMENT),
             name: 'Thank you',
             questionPerPage: true
         },

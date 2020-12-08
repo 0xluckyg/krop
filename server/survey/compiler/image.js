@@ -2,7 +2,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const shortid = require('shortid')
 
-const {getCSS, createId, createClassName} = require('../compiler/functions')
+const {getCSS, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const mediaStyles = require('../../../shared/survey-styles/media')
 
@@ -12,10 +12,6 @@ const imageClass = createClassName({
 })
 
 function compileImageHTML(options) {
-    const imageId = createId({
-        type: keys.IMAGE_ELEMENT
-    })
-    
     const dom = new JSDOM('')
     const document = dom.window.document
     
@@ -24,8 +20,9 @@ function compileImageHTML(options) {
     if (!url || url == '') return document.createElement('span')
     
     let image = document.createElement('img');
-    image.setAttribute('id', imageId)
+    image.setAttribute('id', options.element.id)
     image.setAttribute('class', imageClass)
+    image.setAttribute('type', keys.IMAGE_ELEMENT)
     image.setAttribute('src', url)
     image.innerHTML = url
     

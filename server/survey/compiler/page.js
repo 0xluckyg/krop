@@ -22,6 +22,7 @@ function compilePageHTML(options) {
     let page = document.createElement('div');
     page.setAttribute('id', pageId)
     page.setAttribute('class', pageClass)
+    page.setAttribute('type', keys.PAGE_ELEMENT)
     
     return page
 }

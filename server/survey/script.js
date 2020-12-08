@@ -26,6 +26,17 @@
         WRAPPER_ELEMENT: 'wrapper_element',
         BACKGROUND_ELEMENT: 'background_element',
         PAGE_ELEMENT: 'page_element',
+        
+        MULTIPLE_CHOICE_ELEMENT: 'multiple_choice_element', 
+        CHECKBOX_ELEMENT: 'checkbox_element', 
+        DROPDOWN_ELEMENT: 'dropdown_element', 
+        SLIDER_ELEMENT: 'slider_element', 
+        FORM_ELEMENT: 'form_element', 
+        EMAIL_ELEMENT: 'email_element',
+        PHONE_ELEMENT: 'phone_element', 
+        ADDRESS_ELEMENT: 'address_element', 
+        NAME_ELEMENT: 'name_element', 
+        LONG_FORM_ELEMENT: 'long_form_element'
     }
     
     var currentSurveyOptions = null;
@@ -97,23 +108,140 @@
         }
     }
     
-    function initiateSurvey() {
-        loadGoogleFont(currentSurveyOptions.font)
-        var stages = currentSurveyOptions.stages
-        var frame = currentSurveyOptions.frame
-        document.getElementsByTagName("body")[0].innerHTML = frame
+    function stringIntoHTML(str) {
+        var tempDiv = document.createElement('div')
+        tempDiv.innerHTML = str
+        return tempDiv.firstChild
+    }
+    
+    function isSurveyElement(element) {
+        if (!element) return false
+        element = stringIntoHTML(element)
+        var surveyElements = [
+            keys.MULTIPLE_CHOICE_ELEMENT, keys.CHECKBOX_ELEMENT, keys.DROPDOWN_ELEMENT, keys.SLIDER_ELEMENT, keys.FORM_ELEMENT, keys.EMAIL_ELEMENT,
+            keys.PHONE_ELEMENT, keys.ADDRESS_ELEMENT, keys.NAME_ELEMENT, keys.LONG_FORM_ELEMENT
+        ]
+        return surveyElements.includes(element.getAttribute("type"))
+    }
+    
+    function elementsToPages(elements) {
+        var pages = []
+        if (!elements) return pages
+        var pageCount = 0
+        var firstElement = elements[0]
+        var previousElement = firstElement
+        pages[0] = [firstElement]
         
-        var stage = stages[currentStageIndex]
-        for (var e = 0; e < stage.elements.length; e ++) {
-            var element = stage.elements[e]
+        for (var i = 1; i < elements.length; i++) {
+            var element = elements[i]
+            var surveyFlag = isSurveyElement(element)
+            var previousFlag = isSurveyElement(previousElement)
             
-            var tempDiv = document.createElement('div')
-            tempDiv.innerHTML = element
-            document.getElementById(getId(keys.PAGE_ELEMENT)).appendChild(tempDiv.firstChild)
+            if (surveyFlag) {
+                pageCount ++
+                pages[pageCount] = [element]
+            } else {
+                if (previousFlag) pageCount ++
+                if (!pages[pageCount]) pages[pageCount] = []
+                pages[pageCount].push(element)
+            }
+            
+            previousElement = element
         }
         
-        // saveVisit()
-        // saveInfo()
+        return pages
+    }
+    
+    // function findElementPageIndex(pages, element) {
+    //     let pageIndex = 0
+    //     for (let i = 0; i < pages.length; i++) {
+    //         let page = pages[i]
+    //         for (let j = 0; j < page.length; j++) {
+    //             let pageEl = page[j]
+    //             if (pageEl.id == element.id) {
+    //                 return pageIndex
+    //             }
+    //         }
+    //         pageIndex++
+    //     }
+    //     return pageIndex
+    // }
+    
+    function getStage() {
+        return currentSurveyOptions.stages[currentStageIndex]
+    }
+    
+    function getPage() {
+        var stageElements = getStage(currentStageIndex).elements
+        return elementsToPages(stageElements)[currentPageIndex]
+    }
+    
+    this.nextStage = function() {
+        currentStageIndex += 1
+        removePage()
+        renderStage()
+    }
+    
+    this.nextPage = function() {
+        currentPageIndex += 1
+        removePage()
+        renderPage()
+    }
+    
+    this.toStage = function(stageId) {
+        
+    }
+    
+    this.toPage = function(pageId) {
+        
+    }
+    
+    function createPage(elements) {
+        var page = stringIntoHTML(currentSurveyOptions.page)
+        for (var e = 0; e < elements.length; e ++) {
+            var element = elements[e]
+            var elementHTML = stringIntoHTML(element)
+            page.appendChild(elementHTML)
+        }
+        return page
+    }
+    
+    function removePage() {
+        var page = document.getElementById(getId(keys.PAGE_ELEMENT))
+        page.parentNode.removeChild(page);
+    }
+    
+    function createButton(action) {
+        var button = stringIntoHTML(currentSurveyOptions.button)
+        button.firstChild.setAttribute('onclick', action)
+        return button
+    }
+    
+    function renderStage() {
+        var stage = getStage()
+        if (!stage.settings.questionPerPage) {
+            var pageElements = getPage()
+            renderPage(pageElements)   
+        } else {
+            var page = createPage(stage.elements)
+            document.getElementById(getId(keys.BACKGROUND_ELEMENT)).appendChild(page)
+            var button = createButton('nextStage()')
+            document.getElementById(getId(keys.WRAPPER_ELEMENT)).appendChild(button)    
+        }
+    }
+    
+    function renderPage(elements) {
+        var page = createPage(elements)
+        document.getElementById(getId(keys.BACKGROUND_ELEMENT)).appendChild(page)
+        var button = createButton('nextPage()')
+        document.getElementById(getId(keys.WRAPPER_ELEMENT)).appendChild(button)
+    }
+    
+    function initiateSurvey() {
+        loadGoogleFont(currentSurveyOptions.font)
+        var frame = currentSurveyOptions.frame
+        document.getElementsByTagName("body")[0].innerHTML = frame
+        renderStage()
     }
     
     function initiateStyle() {
@@ -134,15 +262,14 @@
         document.head.appendChild(link);
     }
     
-    function getId(type, stageIndex, elementIndex) {
-        var id = appName+"__"+type
-        if (stageIndex || stageIndex === 0) {
-            id = id + "__"+stageIndex
+    function getId(type, uid) {
+        var id = type
+        if (uid && uid != '') {
+            uid = "_"+uid
+        } else {
+            uid = ''
         }
-        if (elementIndex || elementIndex === 0) {
-            id = id + "__"+elementIndex
-        }
-        return id
+        return id+uid
     }
 
     function evaluateScripts(html) {

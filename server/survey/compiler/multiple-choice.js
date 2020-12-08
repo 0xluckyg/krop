@@ -2,7 +2,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const shortid = require('shortid')
 
-const {getCSS, createId, createClassName} = require('../compiler/functions')
+const {getCSS, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const mcStyles = require('../../../shared/survey-styles/multiple-choice')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
@@ -22,17 +22,14 @@ const optionRadioClass = createClassName({
 
 
 function compileMultipleChoiceHTML(options) {
-    const multipleChoiceId = createId({
-        type: keys.MULTIPLE_CHOICE_ELEMENT
-    })
-    
     const dom = new JSDOM('')
     const document = dom.window.document
     
     const {element} = options
     
     let container = compileElementContainerHTML()
-    container.setAttribute('id', multipleChoiceId)
+    container.setAttribute('id', element.id)
+    container.setAttribute('type', keys.MULTIPLE_CHOICE_ELEMENT)
     
     let question = compileQuestionHTML()
     question.innerHTML = element.question
@@ -49,7 +46,7 @@ function compileMultipleChoiceHTML(options) {
         optionRadio.setAttribute('class', optionRadioClass)
         optionRadio.setAttribute('value', option.text)
         optionRadio.setAttribute('type', 'radio')
-        optionRadio.setAttribute('name', multipleChoiceId)
+        optionRadio.setAttribute('name', element.id)
         
         let optionText = document.createElement('p');
         optionText.setAttribute('class', textClass)

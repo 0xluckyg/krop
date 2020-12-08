@@ -2,7 +2,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const shortid = require('shortid')
 
-const {getCSS, createId, createClassName} = require('../compiler/functions')
+const {getCSS, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const nameStyles = require('../../../shared/survey-styles/name')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
@@ -18,18 +18,14 @@ const frontNameClass = createClassName({
 })
 
 function compileNameHTML(options) {
-    const nameId = createId({
-        type: keys.NAME_ELEMENT
-    })
-    
     const dom = new JSDOM('')
     const document = dom.window.document
     
     const {element} = options
     
     let container = compileElementContainerHTML()
-    container.setAttribute('id', nameId)
-    container.setAttribute('type', element.type)
+    container.setAttribute('id', element.id)
+    container.setAttribute('type', keys.NAME_ELEMENT)
     
     let question = compileQuestionHTML()
     question.innerHTML = "Name"

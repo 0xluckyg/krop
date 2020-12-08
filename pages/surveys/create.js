@@ -83,8 +83,8 @@ class CreateSurvey extends React.Component {
         try {
             if (!isPreview) { if (!this.validateSubmit()) return }
             
-            let {settings, stages, styles} = this.state
-            let data = {settings, stages, styles}
+            let {settings, stages, styles, alert} = this.state
+            let data = {settings, stages, styles, alert}
             this.setState({isLoading: true})
             //if edit
             if (this.props.handleEdit) {

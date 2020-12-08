@@ -119,18 +119,7 @@ async function getSurveyScript(ctx) {
         script = script.replace('{{PATH}}', path)
         
         script = minifyJS(script)
-        // ctx.body = `
-        // <html lang="en">
-        // <head>
-        //     <meta charset="utf-8">
-        //     <title>${keys.APP_NAME}</title>
-        //     <meta name="host" content="Underdog">
-        //     <script>${script}</script>
-        // </head>
-        // <body>
-            
-        // </body>
-        // </html>`
+
         ctx.body = `
         <html lang="en">
         <head>

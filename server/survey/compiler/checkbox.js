@@ -2,7 +2,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const shortid = require('shortid')
 
-const {getCSS, createId, createClassName} = require('../compiler/functions')
+const {getCSS, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const checkboxStyles = require('../../../shared/survey-styles/checkbox')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
@@ -22,17 +22,14 @@ const optionRadioClass = createClassName({
 
 
 function compileCheckboxHTML(options) {
-    const checkboxId = createId({
-        type: keys.CHECKBOX_ELEMENT
-    })
-
     const dom = new JSDOM('')
     const document = dom.window.document
     
     const {element} = options
     
     let container = compileElementContainerHTML()
-    container.setAttribute('id', checkboxId)
+    container.setAttribute('id', element.id)
+    container.setAttribute('type', keys.CHECKBOX_ELEMENT)
     
     let question = compileQuestionHTML()
     question.innerHTML = element.question
@@ -49,7 +46,7 @@ function compileCheckboxHTML(options) {
         optionRadio.setAttribute('class', optionRadioClass)
         optionRadio.setAttribute('value', option.text)
         optionRadio.setAttribute('type', 'checkbox')
-        optionRadio.setAttribute('name', checkboxId)
+        optionRadio.setAttribute('name', element.id)
         
         let optionText = document.createElement('p');
         optionText.setAttribute('class', textClass)

@@ -2,7 +2,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const shortid = require('shortid')
 
-const {getCSS, createId, createClassName} = require('../compiler/functions')
+const {getCSS, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const mediaStyles = require('../../../shared/survey-styles/media')
 
@@ -17,10 +17,6 @@ const videoClass = createClassName({
 })
 
 function compileVideoHTML(options) {
-    const videoId = createId({
-        type: keys.VIDEO_ELEMENT
-    })
-    
     const dom = new JSDOM('')
     const document = dom.window.document
     
@@ -29,8 +25,9 @@ function compileVideoHTML(options) {
     if (!url || url == '') return document.createElement('span')
     
     let videoContainer = document.createElement('div');
-    videoContainer.setAttribute('id', videoId)
+    videoContainer.setAttribute('id', options.element.id)
     videoContainer.setAttribute('class', videoContainerClass)
+    videoContainer.setAttribute('type', keys.VIDEO_ELEMENT)
     
     let video = document.createElement('iframe');
     video.setAttribute('class', videoClass)

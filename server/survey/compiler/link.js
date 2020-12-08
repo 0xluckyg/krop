@@ -2,7 +2,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const shortid = require('shortid')
 
-const {getCSS, createId, createClassName} = require('../compiler/functions')
+const {getCSS, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const linkStyles = require('../../../shared/survey-styles/link')
 
@@ -12,17 +12,14 @@ const linkClass = createClassName({
 })
 
 function compileLinkHTML(options) {
-    const linkId = createId({
-        type: keys.LINK_ELEMENT
-    })
-    
     const dom = new JSDOM('')
     const document = dom.window.document
     
     const {element} = options
     
     let link = document.createElement('a');
-    link.setAttribute('id', linkId)
+    link.setAttribute('type', keys.LINK_ELEMENT)
+    link.setAttribute('id', element.id)
     link.setAttribute('class', linkClass)
     link.setAttribute('href', element.url)
     link.innerHTML = element.url

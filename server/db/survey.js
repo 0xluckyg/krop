@@ -10,6 +10,11 @@ const SurveySchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    alert: {
+        backgroundColor: String,
+        textColor: String,
+        popupTextColor: String
+    },
     styles: {
         logo: String,
         backgroundColor: String,

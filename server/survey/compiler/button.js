@@ -25,6 +25,7 @@ function compileButtonHTML(options) {
     const document = dom.window.document
     
     let buttonContainer = document.createElement('div');
+    buttonContainer.setAttribute('type', keys.BUTTON_ELEMENT)
     buttonContainer.setAttribute('id', buttonId)
     buttonContainer.setAttribute('class', buttonContainerClass)
     

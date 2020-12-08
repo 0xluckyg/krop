@@ -6,6 +6,9 @@ const {getCSS, createId, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const alertStyles = require('../../../shared/survey-styles/alert')
 
+const dom = new JSDOM('')
+const document = dom.window.document
+
 const alertContainerClass = createClassName({
     type: keys.ALERT_ELEMENT,
     uid: shortid.generate()
@@ -26,11 +29,9 @@ function compileAlertHTML(options) {
         type: keys.ALERT_ELEMENT
     })
     
-    const dom = new JSDOM('')
-    const document = dom.window.document
-    
     let alertContainer = document.createElement('div');
     alertContainer.setAttribute('id', alertId)
+    alertContainer.setAttribute('type', keys.ALERT_ELEMENT)
     alertContainer.setAttribute('class', alertContainerClass)
     
     let alertText = document.createElement('p');
@@ -48,7 +49,6 @@ function compileAlertTextHTML(options) {
 }
 
 function compileAlertCSS(options) {
-
     const {backgroundColor, popupTextColor} = options.alert
 
     let alertContainerCSS = getCSS(alertContainerClass, {

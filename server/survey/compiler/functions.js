@@ -53,17 +53,14 @@ function implementAction(options) {
 }
 
 function createId(options) {
-    const {type, stageIndex, elementIndex} = options
-    let id = `${keys.APP_NAME}__${type}`
-    id = (stageIndex || stageIndex === 0) ? id + `__${stageIndex}` : id
-    id = (elementIndex || elementIndex === 0) ? id + `__${elementIndex}` : id
-    
-    return id
+    let {type, uid} = options
+    uid = uid ? "_"+uid : ''
+    return type+uid
 }
 
 function createClassName(options) {
     const {type, uid} = options
-    return `${keys.APP_NAME}__${type}__${uid}`
+    return `${type}__${uid}`
 }
 
 function setStyles(element, styles) {
@@ -75,7 +72,6 @@ function setStyles(element, styles) {
 
 function getCSS(identifier, styles, selector) {
     styles = Object.keys(styles).reduce((acc, key) => {
-        console.log("KEYS: ", styles[key])
         if (typeof styles[key] !== 'object') {
             return acc + key.split(/(?=[A-Z])/).join('-').toLowerCase() + ':' + styles[key] + ';'   
         } else {

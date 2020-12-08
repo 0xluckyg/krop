@@ -2,7 +2,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const shortid = require('shortid')
 
-const {getCSS, createId, createClassName} = require('../compiler/functions')
+const {getCSS, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const textStyles = require('../../../shared/survey-styles/text')
 
@@ -20,16 +20,6 @@ const paragraphClass = createClassName({
 })
 
 function compileTextHTML(options) {
-    const headingId = createId({
-        type: keys.HEADING_ELEMENT
-    })
-    const subheadingId = createId({
-        type: keys.SUBHEADING_ELEMENT
-    })
-    const paragraphId = createId({
-        type: keys.PARAGRAPH_ELEMENT
-    })
-    
     const dom = new JSDOM('')
     const document = dom.window.document
     
@@ -37,20 +27,23 @@ function compileTextHTML(options) {
     switch(element.type) {
         case(keys.HEADING_ELEMENT):
             let heading = document.createElement('h1');
-            heading.setAttribute('id', headingId)
+            heading.setAttribute('id', element.id)
             heading.setAttribute('class', headingClass)
+            heading.setAttribute('type', keys.ALERT_ELEMENT)
             heading.innerHTML = element.text
             return heading
         case(keys.SUBHEADING_ELEMENT):
             let subheading = document.createElement('h3');
-            subheading.setAttribute('id', subheadingId)
+            subheading.setAttribute('id', element.id)
             subheading.setAttribute('class', subheadingClass)
+            subheading.setAttribute('type', keys.SUBHEADING_ELEMENT)
             subheading.innerHTML = element.text
             return subheading
         case(keys.PARAGRAPH_ELEMENT):
             let paragraph = document.createElement('p');
-            paragraph.setAttribute('id', paragraphId)
+            paragraph.setAttribute('id', element.id)
             paragraph.setAttribute('class', paragraphClass)
+            paragraph.setAttribute('type', keys.PARAGRAPH_ELEMENT)
             paragraph.innerHTML = element.text
             return paragraph
     }

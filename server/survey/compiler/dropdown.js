@@ -2,7 +2,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const shortid = require('shortid')
 
-const {getCSS, createId, createClassName} = require('../compiler/functions')
+const {getCSS, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const dropdownStyles = require('../../../shared/survey-styles/dropdown')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
@@ -22,17 +22,14 @@ const dropdownOptionClass = createClassName({
 
 
 function compileDropdownHTML(options) {
-    const dropdownId = createId({
-        type: keys.DROPDOWN_ELEMENT
-    })
-    
     const dom = new JSDOM('')
     const document = dom.window.document
     
     const {element} = options
     
     let container = compileElementContainerHTML()
-    container.setAttribute('id', dropdownId)
+    container.setAttribute('id', element.id)
+    container.setAttribute('type', keys.DROPDOWN_ELEMENT)
     
     let question = compileQuestionHTML()
     question.innerHTML = element.question
