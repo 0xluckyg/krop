@@ -6,21 +6,20 @@ const SurveyQuestionSchema = new mongoose.Schema({
         required: true,
         index: true
     }, //account _id of the owner
-    surveyId: {
+    questionId: {
         type: String,
         required: true,
         unique: true
     },
-    campaignId: {
+    surveyId: {
         type: String,
         index: true
     },
-    campaignName: {
+    surveyName: {
         type: String
     },
 
     question: String,
-    questionSearchId: String,
     options: [String],
     type: String
 },{

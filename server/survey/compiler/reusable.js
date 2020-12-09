@@ -32,6 +32,7 @@ function compileElementContainerHTML(options) {
 function compileQuestionHTML(options) {
     let question = document.createElement('p');
     question.setAttribute('class', questionClass)
+    question.setAttribute('key', 'question')
     return question
 }
 

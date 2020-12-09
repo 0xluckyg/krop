@@ -37,11 +37,13 @@ function compileNameHTML(options) {
     let firstName = document.createElement('input');
     firstName.setAttribute('class', textClass + " " + frontNameClass + " " + formClass)
     firstName.setAttribute('placeholder', "First name")
+    firstName.setAttribute('key', "firstName")
     nameWrapper.appendChild(firstName)
     
     let lastName = document.createElement('input');
     lastName.setAttribute('class', textClass + " " + formClass)
     lastName.setAttribute('placeholder', "Last name")
+    lastName.setAttribute('key', "lastName")
     nameWrapper.appendChild(lastName)
 
     container.appendChild(nameWrapper)

@@ -35,6 +35,7 @@ function compileAddress1(options) {
     let address1 = document.createElement('input');
     address1.setAttribute('class', textClass + " " + addressClass + " " + formClass)
     address1.setAttribute('placeholder', "Address 1")
+    address1.setAttribute('key', "address1")
     return address1
 }
 
@@ -45,6 +46,7 @@ function compileAddress2(options) {
     let address2 = document.createElement('input');
     address2.setAttribute('class', textClass + " " + addressClass + " " + formClass)
     address2.setAttribute('placeholder', "Address 2")
+    address2.setAttribute('key', "address2")
     return address2
 }
 
@@ -56,6 +58,7 @@ function compileCity(options) {
     let city = document.createElement('input');
     city.setAttribute('class',  frontAddress + " " + textClass + " " + addressClass + " " + formClass)
     city.setAttribute('placeholder', "City")
+    city.setAttribute('key', "city")
     return city
 }
 
@@ -66,6 +69,7 @@ function compileState(options) {
     let state = document.createElement('input');
     state.setAttribute('class', textClass + " " + addressClass + " " + formClass)
     state.setAttribute('placeholder', "State")
+    state.setAttribute('key', "state")
     return state
 }
 
@@ -77,6 +81,7 @@ function compileCountry(options) {
     let country = document.createElement('input');
     country.setAttribute('class',  frontAddress + " " + textClass + " " + addressClass + " " + formClass)
     country.setAttribute('placeholder', "Country")
+    country.setAttribute('key', "country")
     return country
 }
 
@@ -87,6 +92,7 @@ function compileZip(options) {
     let zip = document.createElement('input');
     zip.setAttribute('class', textClass + " " + addressClass + " " + formClass)
     zip.setAttribute('placeholder', "Zip")
+    zip.setAttribute('key', "zip")
     return zip
 }
 
@@ -144,8 +150,6 @@ function compileAddressHTML(options) {
 }
 
 function compileAddressCSS(options) {
-    const {textColor} = options.styles
-    
     let addressTitleCSS = getCSS(addressTitleClass, {
         ...addressStyles.ADDRESS_TITLE
     })

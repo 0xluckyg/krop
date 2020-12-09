@@ -22,6 +22,7 @@
         
         SUBMIT_ACTION: 'submit',
         
+        QUESTION_ELEMENT: 'question_element',
         CONTAINER_ELEMENT: 'container_element',
         WRAPPER_ELEMENT: 'wrapper_element',
         BACKGROUND_ELEMENT: 'background_element',
@@ -46,78 +47,13 @@
     var clientId = null;
     var sessionId = null;
 
-    /// ========= HELPERS ===============================================
-    
-    function JSONPostRequest(url, params, callback, errorCallback) {
-        params = JSON.stringify(params)
-
-        /// Form and send POST request.
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", url);
-        xhr.setRequestHeader(
-            "Content-type", 
-            "application/x-www-form-urlencoded"
-        );
-        xhr.onload = function() {
-            try {
-                if (xhr.status / 100 >= 4) {
-                    return errorCallback(xhr.responseText)
-                }
-                return callback(JSON.parse(xhr.responseText));
-            }
-            catch(e) {
-                errorCallback && errorCallback(e);
-            }
-        };
-        xhr.onerror = function() {
-            var err = new Error(
-                "Received error response, status code " + xhr.status
-            );
-            errorCallback && errorCallback(err);
-        };
-        xhr.send(params);
-    }
-    
-    /// ========= SURVEY INITIATION ===============================================
-    
-    function requestSurveyOptions(callback) {
-        var surveyOptionsUrl = appUrl + "/survey-options";
-        // var domain = Host.domain || location.host;
-        var device = detectMobile()
-        JSONPostRequest(surveyOptionsUrl, {
-            domain: domain,
-            path: path,
-            device: device,
-        }, function(response) {
-            callback(response);
-        });
-    }
-    
-    function gotSurveyOptions(surveyOptions) {
-        clientId = surveyOptions.clientId
-        sessionId = surveyOptions.sessionId
-        currentSurveyOptions = surveyOptions;
-        
-        if(document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", function() {
-                initiateStyle();
-                initiateSurvey();
-            });
-        } else {
-            initiateStyle();
-            initiateSurvey();
-        }
-    }
-    
-    function stringIntoHTML(str) {
-        var tempDiv = document.createElement('div')
-        tempDiv.innerHTML = str
-        return tempDiv.firstChild
-    }
+    /// ========= SURVEY HELPERS ===============================================
     
     function isSurveyElement(element) {
         if (!element) return false
-        element = stringIntoHTML(element)
+        if (typeof element == 'string') {
+            element = stringIntoHTML(element)   
+        }
         var surveyElements = [
             keys.MULTIPLE_CHOICE_ELEMENT, keys.CHECKBOX_ELEMENT, keys.DROPDOWN_ELEMENT, keys.SLIDER_ELEMENT, keys.FORM_ELEMENT, keys.EMAIL_ELEMENT,
             keys.PHONE_ELEMENT, keys.ADDRESS_ELEMENT, keys.NAME_ELEMENT, keys.LONG_FORM_ELEMENT
@@ -153,21 +89,6 @@
         return pages
     }
     
-    // function findElementPageIndex(pages, element) {
-    //     let pageIndex = 0
-    //     for (let i = 0; i < pages.length; i++) {
-    //         let page = pages[i]
-    //         for (let j = 0; j < page.length; j++) {
-    //             let pageEl = page[j]
-    //             if (pageEl.id == element.id) {
-    //                 return pageIndex
-    //             }
-    //         }
-    //         pageIndex++
-    //     }
-    //     return pageIndex
-    // }
-    
     function getStage() {
         return currentSurveyOptions.stages[currentStageIndex]
     }
@@ -177,40 +98,54 @@
         return elementsToPages(stageElements)[currentPageIndex]
     }
     
-    this.nextStage = function() {
-        currentStageIndex += 1
-        removePage()
-        renderStage()
+    /// ========= SURVEY INITIATION ===============================================
+    
+    function requestSurveyOptions(callback) {
+        var surveyOptionsUrl = appUrl + "/survey-options";
+        // var domain = Host.domain || location.host;
+        var device = detectMobile()
+        JSONPostRequest(surveyOptionsUrl, {
+            domain: domain,
+            path: path,
+            device: device,
+        }, function(response) {
+            callback(response);
+        });
     }
     
-    this.nextPage = function() {
-        var stageElements = getStage(currentStageIndex).elements
-        var pages = elementsToPages(stageElements)
+    function gotSurveyOptions(surveyOptions) {
+        clientId = surveyOptions.clientId
+        sessionId = surveyOptions.sessionId
+        currentSurveyOptions = surveyOptions;
         
-        if (currentPageIndex < pages.length-1) {
-            currentPageIndex += 1
-            removePage()
-
-            var pageElements = pages[currentPageIndex]
-            renderPage(pageElements)      
+        if(document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", function() {
+                initiateStyle();
+                initiateSurvey();
+            });
         } else {
-            currentStageIndex += 1
-            currentPageIndex = 0
-            removePage()
-            
-            var nextStageElements = getStage(currentStageIndex).elements
-            var nextPageElements = elementsToPages(nextStageElements)[currentPageIndex]
-            renderPage(nextPageElements)
+            initiateStyle();
+            initiateSurvey();
         }
     }
     
-    this.toStage = function(stageId) {
-        
+    function initiateSurvey() {
+        loadGoogleFont(currentSurveyOptions.font)
+        var frame = currentSurveyOptions.frame
+        document.getElementsByTagName("body")[0].innerHTML = frame
+        renderStage()
     }
     
-    this.toPage = function(pageId) {
-        
+    function initiateStyle() {
+        var stylesheet = document.createElement(keys.STYLE)
+        stylesheet.id = getId(keys.STYLE)
+        stylesheet.innerHTML = currentSurveyOptions.css
+        document.getElementsByTagName("head")[0].appendChild(stylesheet);
     }
+    
+    requestSurveyOptions(gotSurveyOptions);
+    
+    /// ========= SURVEY FUNCTIONS ===============================================
     
     function createPage(elements) {
         var page = stringIntoHTML(currentSurveyOptions.page)
@@ -220,13 +155,6 @@
             page.appendChild(elementHTML)
         }
         return page
-    }
-    
-    function removePage() {
-        var page = document.getElementById(getId(keys.PAGE_ELEMENT))
-        var button = document.getElementById(getId(keys.BUTTON_ELEMENT))
-        page.parentNode.removeChild(page);
-        button.parentNode.removeChild(button)
     }
     
     function createButton(action) {
@@ -264,18 +192,203 @@
         if (button) document.getElementById(getId(keys.WRAPPER_ELEMENT)).appendChild(button)
     }
     
-    function initiateSurvey() {
-        loadGoogleFont(currentSurveyOptions.font)
-        var frame = currentSurveyOptions.frame
-        document.getElementsByTagName("body")[0].innerHTML = frame
+    function removePage() {
+        var page = document.getElementById(getId(keys.PAGE_ELEMENT))
+        var button = document.getElementById(getId(keys.BUTTON_ELEMENT))
+        page.parentNode.removeChild(page);
+        button.parentNode.removeChild(button)
+    }
+    
+    this.nextStage = function() {
+        getSurveyData()
+        currentStageIndex += 1
+        removePage()
         renderStage()
     }
     
-    function initiateStyle() {
-        var stylesheet = document.createElement(keys.STYLE)
-        stylesheet.id = getId(keys.STYLE)
-        stylesheet.innerHTML = currentSurveyOptions.css
-        document.getElementsByTagName("head")[0].appendChild(stylesheet);
+    this.nextPage = function() {
+        getSurveyData()
+        var stageElements = getStage(currentStageIndex).elements
+        var pages = elementsToPages(stageElements)
+        
+        if (currentPageIndex < pages.length-1) {
+            currentPageIndex += 1
+            removePage()
+
+            var pageElements = pages[currentPageIndex]
+            renderPage(pageElements)      
+        } else {
+            currentStageIndex += 1
+            currentPageIndex = 0
+            removePage()
+            
+            var nextStageElements = getStage(currentStageIndex).elements
+            var nextPageElements = elementsToPages(nextStageElements)[currentPageIndex]
+            renderPage(nextPageElements)
+        }
+    }
+    
+    this.toStage = function(stageId) {
+        
+    }
+    
+    this.toPage = function(pageId) {
+        
+    }
+    
+    /// ========= SURVEY RESPONSE ================================================
+    
+    function submit() {
+        getSurveyData()
+    }
+    
+    function getSurveyData() {
+        var page = document.getElementById(getId(keys.PAGE_ELEMENT)) 
+        var surveys = []
+        for (var i = 0; i < page.children.length; i++) {
+            var element = page.children[i]
+            var survey = { type: element.getAttribute('type') }
+            if (isSurveyElement(element)) {
+                switch(element.getAttribute('type')) {
+                    case(keys.MULTIPLE_CHOICE_ELEMENT): 
+                    case(keys.CHECKBOX_ELEMENT): 
+                        survey.question = getQuestion(element)
+                        survey.value = getMultipleChoiceValue(element)
+                        survey.options = getMultipleChoiceOptions(element)
+                        break
+                    case(keys.DROPDOWN_ELEMENT):
+                        survey.question = getQuestion(element)
+                        survey.value = getDropdownValue(element)
+                        survey.options = getDropdownOptions(element)
+                        break
+                    case(keys.SLIDER_ELEMENT):
+                        survey.question = getQuestion(element)
+                        survey.value = getSliderValue(element)
+                        break
+                    case(keys.FORM_ELEMENT):
+                        survey.question = getQuestion(element)
+                    case(keys.EMAIL_ELEMENT):
+                    case(keys.PHONE_ELEMENT):
+                        survey.value = getFormValue(element)
+                        break
+                    case(keys.ADDRESS_ELEMENT):
+                    case(keys.NAME_ELEMENT):
+                        survey.value = getComplexFormValue(element)
+                        break
+                    // case(keys.LONG_FORM_ELEMENT):
+                    //     survey.value = getLongFormValue(element)
+                    //     break
+                    default: 
+                        break
+                }
+                
+                surveys.push(survey)
+            }
+        }
+        
+        console.log("SSU: ", surveys)
+        
+        return surveys
+    }
+    
+    function getQuestion(element) {
+        var question = element.getElementsByTagName('p')[0]
+        if (question.getAttribute('key') == 'question') {
+            return question.innerHTML
+        }
+    }
+    
+    function getMultipleChoiceValue(element) {
+        var options = element.getElementsByTagName('input')
+        var optionsChecked = [];
+        for (var i=0; i<options.length; i++) {
+            if (options[i].checked) {
+                optionsChecked.push(i);
+            }
+        }
+
+        return optionsChecked
+    }
+    
+    function getMultipleChoiceOptions(element) {
+        var optionsElements = element.getElementsByTagName('label')
+        var options = []
+        for (var i = 0; i < optionsElements.length; i++) {
+            var option = optionsElements[i]
+            options.push(option.lastChild.innerHTML)
+        }
+        return options
+    }
+    
+    function getDropdownValue(element) {
+        var dropdown = element.getElementsByTagName('select')[0]
+        return dropdown.selectedIndex
+    }
+    
+    function getDropdownOptions(element) {
+        var optionsElements = element.getElementsByTagName('option')
+        var options = []
+        for (var i = 1; i < optionsElements.length; i++) {
+            var option = optionsElements[i]
+            options.push(option.innerHTML)
+        }
+        return options
+    }
+    
+    function getSliderValue(element) {
+        var slider = element.getElementsByTagName('input')[0];
+        return Number(slider.value)
+    }
+    
+    function getFormValue(element) {
+        var form = element.getElementsByTagName('input')[0];
+        return form.value
+    }
+    
+    function getComplexFormValue(element) {
+        var form = element.getElementsByTagName('input');
+        var answers = {}
+        for (var i = 0; i < form.length; i++) {
+            answers[form[i].getAttribute('key')] = form[i].value
+        }
+        return answers
+    }
+    
+    function getLongFormValue(element) {
+        var textarea = element.getElementsByTagName('textarea')[0];
+        return textarea.value
+    }
+    
+    /// ========= HELPERS ===============================================
+    
+    function JSONPostRequest(url, params, callback, errorCallback) {
+        params = JSON.stringify(params)
+
+        /// Form and send POST request.
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+        xhr.setRequestHeader(
+            "Content-type", 
+            "application/x-www-form-urlencoded"
+        );
+        xhr.onload = function() {
+            try {
+                if (xhr.status / 100 >= 4) {
+                    return errorCallback(xhr.responseText)
+                }
+                return callback(JSON.parse(xhr.responseText));
+            }
+            catch(e) {
+                errorCallback && errorCallback(e);
+            }
+        };
+        xhr.onerror = function() {
+            var err = new Error(
+                "Received error response, status code " + xhr.status
+            );
+            errorCallback && errorCallback(err);
+        };
+        xhr.send(params);
     }
     
     function loadGoogleFont(name) {
@@ -287,16 +400,6 @@
         link.type = "text/css";
         link.href = "https://fonts.googleapis.com/css?family=" + name;
         document.head.appendChild(link);
-    }
-    
-    function getId(type, uid) {
-        var id = type
-        if (uid && uid != '') {
-            uid = "_"+uid
-        } else {
-            uid = ''
-        }
-        return id+uid
     }
 
     function evaluateScripts(html) {
@@ -368,8 +471,20 @@
     function removeCookie(name) {   
         document.cookie = name+'=; Max-Age=-99999999;';  
     }
-
     
-
-    requestSurveyOptions(gotSurveyOptions);
+    function stringIntoHTML(str) {
+        var tempDiv = document.createElement('div')
+        tempDiv.innerHTML = str
+        return tempDiv.firstChild
+    }
+    
+    function getId(type, uid) {
+        var id = type
+        if (uid && uid != '') {
+            uid = "_"+uid
+        } else {
+            uid = ''
+        }
+        return id+uid
+    }
 })(this);

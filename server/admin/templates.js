@@ -2,7 +2,7 @@ const AWS = require('aws-sdk');
 const _ = require('lodash')
 const { createClient } = require('pexels')
 
-const {MediaTemplate} = require('../db/media-templates')
+const {MediaTemplate} = require('../db/media-template')
 const keys = require('../../config/keys')
 
 async function getMediaTemplates(ctx) {

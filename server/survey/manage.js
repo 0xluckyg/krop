@@ -6,6 +6,7 @@ const _ = require('lodash')
 const {Survey} = require('../db/survey');
 const {User} = require('../db/user');
 const surveyCompiler = require('../survey/compiler')
+const {saveSurveyQuestions, updateSurveyQuestions, removeSurveyQuestions} = require('./functions')
 
 async function getCompiledSurvey(survey) {
     return {
@@ -38,11 +39,11 @@ async function createSurvey(ctx) {
     
         survey.compiled = {...await getCompiledSurvey(survey.toObject())}
         survey = await survey.save()
-        // await saveSurveyQuestions({
-        //     ...widget, 
-        //     campaignId: widget._id,
-        //     campaignName: widget.settings.name
-        // })
+        await saveSurveyQuestions({
+            ...survey, 
+            surveyId: survey._id,
+            surveyName: survey.settings.name
+        })
         
         ctx.body = 'Survey saved'
     } catch (err) {
@@ -55,7 +56,9 @@ async function updateSurvey(ctx) {
     try {
         let body = JSON.parse(ctx.request.rawBody)
         
-        const {surveyId} = await Survey.findOne({_id: body._id}, {surveyId: 1, accountId: 1, settings: 1}).lean()
+        const {surveyId, accountId, settings} = await Survey.findOne({
+            _id: body._id}, {surveyId: 1, accountId: 1, settings: 1
+        }).lean()
         body.surveyId = surveyId
         let {path, enabled} = body.settings
         if (body.compile != false) {
@@ -66,12 +69,12 @@ async function updateSurvey(ctx) {
             path,
             enabled
         }, {new: true})
-        // await updateSurveyQuestions({
-        //     ...body, 
-        //     campaignId: body._id, 
-        //     accountId: accountId,
-        //     campaignName: settings.name
-        // })
+        await updateSurveyQuestions({
+            ...body, 
+            surveyId: body._id, 
+            accountId: accountId,
+            surveyName: settings.name
+        })
         
         ctx.body = newSurvey
     } catch (err) {
@@ -120,7 +123,7 @@ async function deleteSurvey(ctx) {
         const _id = body._id
         await Survey.findByIdAndRemove(_id)
         
-        // await removeSurveyQuestions({campaignId: _id})
+        await removeSurveyQuestions({surveyId: _id})
         
         ctx.body = 'Survey removed'
     } catch (err) {

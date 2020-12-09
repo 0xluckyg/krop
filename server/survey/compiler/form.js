@@ -38,11 +38,9 @@ function compileFormHTML(options) {
     
     const {element} = options
     
-    element.type
-    
     let container = compileElementContainerHTML()
     container.setAttribute('id', element.id)
-    container.setAttribute('type', keys.FORM_ELEMENT)
+    container.setAttribute('type', element.type)
     
     let question = compileQuestionHTML()
     question.innerHTML = getQuestion(element)

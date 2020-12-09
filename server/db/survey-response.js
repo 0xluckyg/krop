@@ -6,11 +6,11 @@ const SurveyResponseSchema = new mongoose.Schema({
         required: true,
         index: true
     }, //account _id of the owner
-    surveyId: {
+    questionId: {
         type: String,
         required: true
     },
-    campaignId: {
+    surveyId: {
         type: String,
         index: true
     },
@@ -26,8 +26,7 @@ const SurveyResponseSchema = new mongoose.Schema({
     browser: String,
     device: String,
     ip: String, // not saved for now
-    
-    surveyCount: Number,
+
     question: String,
     options: [String],
     type: String,
