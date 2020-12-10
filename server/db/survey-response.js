@@ -14,10 +14,6 @@ const SurveyResponseSchema = new mongoose.Schema({
         type: String,
         index: true
     },
-    profileId: {
-        type: String,
-        index: true
-    },
     sessionId: {
         type: String,
         index: true
@@ -31,7 +27,10 @@ const SurveyResponseSchema = new mongoose.Schema({
     options: [String],
     type: String,
     value: mongoose.Schema.Types.Mixed,
-    valueSearchId: String
+    consent: {
+        type: Boolean,
+        default: false
+    }
 },{
     timestamps: true // Saves createdAt and updatedAt as dates
 });

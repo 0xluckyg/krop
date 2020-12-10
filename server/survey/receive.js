@@ -1,150 +1,82 @@
 const AWS = require('aws-sdk');
 const _ = require('lodash')
+const emailValidator = require("email-validator");
+const phoneCleaner = require('phone')
 
-const {Survey} = require('../db/survey');
-const {Profile} = require('../db/profile')
 const {SurveyResponse} = require('../db/survey-responses');
 const keys = require('../../config/keys')
-const {getSurveyId} = require('./functions')
 
 function sendErrorMessage(ctx, message) {
     ctx.status = 400
     ctx.body = message
 }
 
-async function incrementWidgetSubmit(_id) {
-    await Survey.update({
-        _id,
-    }, {
-        $inc: { submits: 1 } 
-    })
+function emailError(email) {
+    if (!email) return 'Please enter an email'
+    
+    if (!emailValidator.validate(email)) return 'Your email is not valid.'
+    
+    return false
 }
 
-async function validateWidgetResponse(ctx) {
-    try {
+function cleanPhoneNumber(phone) {
+    return phoneCleaner(phone, 'KOR')[0]
+}
 
-        const body = JSON.parse(ctx.request.rawBody)
-        if (!body.inputs) return
-        
-        const validateError = await Profile.validate({
-            email: body.inputs.email,
-            mobile: body.inputs.mobile
-        })
-        
-        if (!validateError) {
-            ctx.body = {}
-        } else {
-            sendErrorMessage(ctx, validateError)
-        }
-        
-    } catch (err) {
-        console.log('Failed validateWidgetResponse: ', err)
-        ctx.status = 500
+function phoneError(phone) {
+    if (!phone) return 'Please enter a phone number'
+    
+    if (!cleanPhoneNumber(phone)) {
+        return 'Your phone number is not valid'
     }
 }
 
-async function saveWidgetResponse(ctx) {
-    try {
-        const body = JSON.parse(ctx.request.rawBody)
-        
-        if ((!body.inputs || body.inputs.length <= 0) 
-        && (!body.surveys || body.surveys.length <= 0)) return
-        
-        const widget = await Survey.findOne({_id: body.campaignId}, {accountId: 1, key: 1, settings: 1}).lean()
-        const contact = await saveProfileResponse(ctx, {...body, ...widget})
-        await saveSurveyResponse(ctx, {...body, ...widget, profileId: contact._id})
-        
-    } catch (err) {
-        console.log('Failed saveWidgetResponse: ', err)
-        ctx.status = 400
+function getSurveyError(survey) {
+    switch(survey.type) {
+        case(keys.PHONE_ELEMENT):
+            if (phoneError(survey.value)) return phoneError(survey.value)
+        case(keys.EMAIL_ELEMENT):
+            if (emailError(survey.value)) return emailError(survey.value)
     }
+    return true
 }
 
-async function saveProfileResponse(ctx, body) {
-    const {inputs, sessionId, clientId, campaignId, browser, device, path, key, accountId} = body
+async function receiveSurvey(ctx) {
+    const body = JSON.parse(ctx.request.rawBody)
+    if (!body.data || body.data.length <= 0)  return
     
-    if (!inputs || inputs.length <= 0) return {}
+    const {data, sessionId, clientId, surveyId, browser, device, path, accountId} = body
     
-    let email = {};
-    let mobile = {};
-    let profile = {};
-    inputs.map(input => {
-        switch(input.type) {
-            case('email'):
-                email.value = input.value 
-                email.updatedAt = new Date()
-                email.lastActive = new Date()
-                email.tags = [...input.tags]
-                break;
-            case(keys.MOBILE_PROPERTY):
-                mobile.value = input.value 
-                mobile.updatedAt = new Date()
-                mobile.lastActive = new Date()
-                mobile.tags = [...input.tags]
-                break;
-            default:
-                profile[input.type] = input.value
-                profile.updatedAt = new Date()
-                profile.lastActive = new Date()
-                profile.tags = [...input.tags]
-                
-        }
-    })
-
-    const contact = new Profile({
-        clientId,
-        sessionId,
-        campaignId,
-        accountId,
-        key,
-        
-        path,
-        browser,
-        device,
-        
-        email,
-        mobile,
-        profile
-    })
-    
-    const validateError = await Profile.validate(contact)
-    if (!validateError) {
-        await incrementWidgetSubmit(campaignId)
-        await contact.save()
-        ctx.body = {}
-    } else {
-        sendErrorMessage(ctx, validateError)
-    }
-    
-    return contact ? contact : {}
-} 
-
-async function saveSurveyResponse(ctx, body) {
-    const {surveys, sessionId, clientId, campaignId, browser, device, path, accountId, profileId} = body
-    
-    if (!surveys || surveys.length <= 0) return
     let defaultData = {
         accountId,
         sessionId,
         clientId,
-        campaignId,
+        surveyId,
         browser,
         device,
-        path,
-        profileId
+        path
     }
     
     let surveyData = []
-    surveys.map(survey => {
-        const surveyId = getSurveyId(survey.question, survey.options, campaignId)
-        const valueSearchId = survey.value + ''
-        surveyData.push({
-            ...survey,
-            ...defaultData,
-            surveyId,
-            valueSearchId
-        })
+    let surveyError = false
+    data.map(survey => {
+        if (getSurveyError(survey)) {
+            surveyError = getSurveyError(survey)
+        } else {
+            if (survey.type == keys.PHONE_ELEMENT) {
+                survey.value = cleanPhoneNumber(survey.value)
+            }
+            surveyData.push({
+                ...survey,
+                ...defaultData
+            })
+        }
     })
+    
+    if (surveyError) {
+        ctx.status = 400
+        ctx.body = surveyError
+    }
     
     try {
         await SurveyResponse.insertMany(surveyData, {ordered: false})
@@ -154,4 +86,4 @@ async function saveSurveyResponse(ctx, body) {
     }
 }
 
-module.exports = {validateWidgetResponse, saveWidgetResponse}
+module.exports = {receiveSurvey}

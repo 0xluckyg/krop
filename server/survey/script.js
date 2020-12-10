@@ -46,6 +46,8 @@
     var currentPageIndex = 0
     var clientId = null;
     var sessionId = null;
+    var surveyId = null;
+    var accountId = null;
 
     /// ========= SURVEY HELPERS ===============================================
     
@@ -116,6 +118,8 @@
     function gotSurveyOptions(surveyOptions) {
         clientId = surveyOptions.clientId
         sessionId = surveyOptions.sessionId
+        surveyId = surveyOptions.surveyId
+        accountId = surveyOptions.accountId
         currentSurveyOptions = surveyOptions;
         
         if(document.readyState === "loading") {
@@ -200,32 +204,34 @@
     }
     
     this.nextStage = function() {
-        getSurveyData()
-        currentStageIndex += 1
-        removePage()
-        renderStage()
+        submit(function() {
+            currentStageIndex += 1
+            removePage()
+            renderStage()  
+        })
     }
     
     this.nextPage = function() {
-        getSurveyData()
-        var stageElements = getStage(currentStageIndex).elements
-        var pages = elementsToPages(stageElements)
-        
-        if (currentPageIndex < pages.length-1) {
-            currentPageIndex += 1
-            removePage()
-
-            var pageElements = pages[currentPageIndex]
-            renderPage(pageElements)      
-        } else {
-            currentStageIndex += 1
-            currentPageIndex = 0
-            removePage()
+        submit(function() {
+            var stageElements = getStage(currentStageIndex).elements
+            var pages = elementsToPages(stageElements)
             
-            var nextStageElements = getStage(currentStageIndex).elements
-            var nextPageElements = elementsToPages(nextStageElements)[currentPageIndex]
-            renderPage(nextPageElements)
-        }
+            if (currentPageIndex < pages.length-1) {
+                currentPageIndex += 1
+                removePage()
+    
+                var pageElements = pages[currentPageIndex]
+                renderPage(pageElements)      
+            } else {
+                currentStageIndex += 1
+                currentPageIndex = 0
+                removePage()
+                
+                var nextStageElements = getStage(currentStageIndex).elements
+                var nextPageElements = elementsToPages(nextStageElements)[currentPageIndex]
+                renderPage(nextPageElements)
+            }  
+        })
     }
     
     this.toStage = function(stageId) {
@@ -238,8 +244,25 @@
     
     /// ========= SURVEY RESPONSE ================================================
     
-    function submit() {
-        getSurveyData()
+    function submit(callback) {
+        var data = getSurveyData()
+        JSONPostRequest(appUrl+"/survey-receive", {
+            sessionId: sessionId,
+            clientId: clientId,
+            surveyId: surveyId,
+            accountId: accountId,
+            
+            device: detectMobile(),
+            browser: detectBrowser(),
+            path: window.location.href,
+            
+            data: data,
+            //SURVEYS
+        }, function(response) {
+            callback()
+        }, function(error) {
+            renderAlert()
+        });
     }
     
     function getSurveyData() {
@@ -247,26 +270,32 @@
         var surveys = []
         for (var i = 0; i < page.children.length; i++) {
             var element = page.children[i]
-            var survey = { type: element.getAttribute('type') }
+            var survey = { 
+                type: element.getAttribute('type')
+            }
             if (isSurveyElement(element)) {
                 switch(element.getAttribute('type')) {
                     case(keys.MULTIPLE_CHOICE_ELEMENT): 
                     case(keys.CHECKBOX_ELEMENT): 
                         survey.question = getQuestion(element)
+                        survey.questionId = element.getAttribute('id')
                         survey.value = getMultipleChoiceValue(element)
                         survey.options = getMultipleChoiceOptions(element)
                         break
                     case(keys.DROPDOWN_ELEMENT):
                         survey.question = getQuestion(element)
+                        survey.questionId = element.getAttribute('id')
                         survey.value = getDropdownValue(element)
                         survey.options = getDropdownOptions(element)
                         break
                     case(keys.SLIDER_ELEMENT):
                         survey.question = getQuestion(element)
+                        survey.questionId = element.getAttribute('id')
                         survey.value = getSliderValue(element)
                         break
                     case(keys.FORM_ELEMENT):
                         survey.question = getQuestion(element)
+                        survey.questionId = element.getAttribute('id')
                     case(keys.EMAIL_ELEMENT):
                     case(keys.PHONE_ELEMENT):
                         survey.value = getFormValue(element)
@@ -285,9 +314,7 @@
                 surveys.push(survey)
             }
         }
-        
-        console.log("SSU: ", surveys)
-        
+        console.log("???", surveys)
         return surveys
     }
     
@@ -357,6 +384,13 @@
     function getLongFormValue(element) {
         var textarea = element.getElementsByTagName('textarea')[0];
         return textarea.value
+    }
+    
+    
+    /// ========= ALERT ===============================================
+    
+    function renderAlert() {
+        
     }
     
     /// ========= HELPERS ===============================================

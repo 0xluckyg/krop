@@ -79,7 +79,11 @@ async function getSurvey(domain, path) {
         'settings.schedule.toYear': { $gte: thisYear },
     }])
     
-    return survey.compiled
+    return {
+        accountId: user._id,
+        surveyId: survey._id,
+        ...survey.compiled
+    }
 }
 
 function getSurveyDevParams(ctx) {
@@ -142,7 +146,6 @@ async function getSurveyOptions(ctx) {
     try {
         const {domain, path} = JSON.parse(ctx.request.rawBody)
         const survey = await getSurvey(domain, path)
-        console.log("S: ", survey)
         ctx.body = {
             ...survey,
             clientId: mongoose.Types.ObjectId(),

@@ -37,6 +37,7 @@ const {uploadImage} = require('./server/helper/image')
 const {getMediaTemplates, getPexelsTemplates} = require('./server/admin/templates')
 const {createSurvey, getSurveys, getSurvey, updateSurvey, deleteSurvey} = require('./server/survey/manage');
 const {getSurveyScript, getSurveyOptions} = require('./server/survey/serve');
+const {receiveSurvey} = require('./server/survey/receive');
 
 const whitelist = [    
     '/_next',
@@ -85,7 +86,7 @@ app.prepare().then(() => {
     
     routerUnauthorized.get('/dev', getSurveyScript);
     routerUnauthorized.post('/survey-options', getSurveyOptions);
-    // routerUnauthorized.post('/survey-response', saveSurveyResponse);
+    routerUnauthorized.post('/survey-receive', receiveSurvey);
     // routerUnauthorized.post('/survey-validate', validateSurveyResponse);
     
     routerUnauthorized.get('/log-in', logIn)

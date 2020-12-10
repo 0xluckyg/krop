@@ -1,4 +1,4 @@
-const {SurveyQuestion} = require('../../db/survey-questions');
+const {SurveyQuestion} = require('../db/survey-question');
 
 async function saveSurveyQuestions(surveyOptions) {
     const {stages, accountId, surveyId, surveyName} = surveyOptions
