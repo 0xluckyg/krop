@@ -20,7 +20,7 @@ const SurveyQuestionSchema = new mongoose.Schema({
     },
 
     question: String,
-    options: [String],
+    options: [mongoose.Schema.Types.Mixed],
     type: String
 },{
     timestamps: true // Saves createdAt and updatedAt as dates

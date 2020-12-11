@@ -271,31 +271,28 @@
         for (var i = 0; i < page.children.length; i++) {
             var element = page.children[i]
             var survey = { 
-                type: element.getAttribute('type')
+                type: element.getAttribute('type'),
+                id: element.getAttribute('id')
             }
             if (isSurveyElement(element)) {
-                switch(element.getAttribute('type')) {
+                switch(survey.type) {
                     case(keys.MULTIPLE_CHOICE_ELEMENT): 
                     case(keys.CHECKBOX_ELEMENT): 
                         survey.question = getQuestion(element)
-                        survey.questionId = element.getAttribute('id')
                         survey.value = getMultipleChoiceValue(element)
                         survey.options = getMultipleChoiceOptions(element)
                         break
                     case(keys.DROPDOWN_ELEMENT):
                         survey.question = getQuestion(element)
-                        survey.questionId = element.getAttribute('id')
                         survey.value = getDropdownValue(element)
                         survey.options = getDropdownOptions(element)
                         break
                     case(keys.SLIDER_ELEMENT):
                         survey.question = getQuestion(element)
-                        survey.questionId = element.getAttribute('id')
                         survey.value = getSliderValue(element)
                         break
                     case(keys.FORM_ELEMENT):
                         survey.question = getQuestion(element)
-                        survey.questionId = element.getAttribute('id')
                     case(keys.EMAIL_ELEMENT):
                     case(keys.PHONE_ELEMENT):
                         survey.value = getFormValue(element)

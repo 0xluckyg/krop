@@ -10,15 +10,19 @@ const SurveySessionSchema = new mongoose.Schema({
         type: String,
         index: true
     },
-    profileId: {
-        type: String,
-        index: true
-    },
     sessionId: {
         unique: true,
         type: String,
         index: true
-    }
+    },
+    clientId: {
+        type: String,
+        index: true
+    },
+    path: String,
+    browser: String,
+    device: String,
+    ip: String // not saved for now
 },{
     timestamps: true // Saves createdAt and updatedAt as dates
 });

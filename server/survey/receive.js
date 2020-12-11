@@ -3,7 +3,8 @@ const _ = require('lodash')
 const emailValidator = require("email-validator");
 const phoneCleaner = require('phone')
 
-const {SurveyResponse} = require('../db/survey-responses');
+const {SurveyResponse} = require('../db/survey-response');
+const {SurveySession} = require('../db/survey-session');
 const keys = require('../../config/keys')
 
 function sendErrorMessage(ctx, message) {
@@ -11,16 +12,16 @@ function sendErrorMessage(ctx, message) {
     ctx.body = message
 }
 
+function cleanPhoneNumber(phone) {
+    return phoneCleaner(phone, 'KOR')[0]
+}
+
 function emailError(email) {
     if (!email) return 'Please enter an email'
     
-    if (!emailValidator.validate(email)) return 'Your email is not valid.'
-    
-    return false
-}
-
-function cleanPhoneNumber(phone) {
-    return phoneCleaner(phone, 'KOR')[0]
+    if (!emailValidator.validate(email)) {
+        return 'Your email is not valid.'
+    }
 }
 
 function phoneError(phone) {
@@ -34,11 +35,33 @@ function phoneError(phone) {
 function getSurveyError(survey) {
     switch(survey.type) {
         case(keys.PHONE_ELEMENT):
-            if (phoneError(survey.value)) return phoneError(survey.value)
+            if (phoneError(survey.value)) return {
+                id: survey.id,
+                error: phoneError(survey.value)
+            }
+            break
         case(keys.EMAIL_ELEMENT):
-            if (emailError(survey.value)) return emailError(survey.value)
+            if (emailError(survey.value)) return {
+                id: survey.id,
+                error: emailError(survey.value)
+            }
+            break
     }
-    return true
+    return false
+}
+
+async function saveSurveySession(data) {
+    try {
+        await SurveySession.findOneAndUpdate({
+            sessionId: data.sessionId
+        }, {
+            $set: { 
+                ...data
+            }
+        }, {upsert: 1}).lean()
+    } catch(err) {
+        console.log("Failed saveSurveySession: ", err)
+    }
 }
 
 async function receiveSurvey(ctx) {
@@ -58,30 +81,33 @@ async function receiveSurvey(ctx) {
     }
     
     let surveyData = []
-    let surveyError = false
+    let surveyErrors = []
     data.map(survey => {
         if (getSurveyError(survey)) {
-            surveyError = getSurveyError(survey)
+            surveyErrors.push(getSurveyError(survey))
         } else {
             if (survey.type == keys.PHONE_ELEMENT) {
                 survey.value = cleanPhoneNumber(survey.value)
             }
             surveyData.push({
+                questionId: survey.id,
                 ...survey,
                 ...defaultData
             })
         }
     })
     
-    if (surveyError) {
+    if (surveyErrors.length > 0) {
         ctx.status = 400
-        ctx.body = surveyError
+        ctx.body = surveyErrors
     }
     
     try {
+        await saveSurveySession(defaultData)
         await SurveyResponse.insertMany(surveyData, {ordered: false})
         ctx.body = {}
-    } catch(e) {
+    } catch(err) {
+        console.log("Failed receiveSurvey:", err)
         sendErrorMessage(ctx, 'Please try again later')
     }
 }

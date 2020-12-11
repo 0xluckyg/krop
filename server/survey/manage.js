@@ -38,9 +38,9 @@ async function createSurvey(ctx) {
         })
     
         survey.compiled = {...await getCompiledSurvey(survey.toObject())}
-        survey = await survey.save()
+        await survey.save()
         await saveSurveyQuestions({
-            ...survey, 
+            ...survey.toObject(), 
             surveyId: survey._id,
             surveyName: survey.settings.name
         })

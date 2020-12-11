@@ -18,6 +18,10 @@ const SurveyResponseSchema = new mongoose.Schema({
         type: String,
         index: true
     },
+    clientId: {
+        type: String,
+        index: true
+    },
     path: String,
     browser: String,
     device: String,

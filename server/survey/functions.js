@@ -3,6 +3,7 @@ const {SurveyQuestion} = require('../db/survey-question');
 async function saveSurveyQuestions(surveyOptions) {
     const {stages, accountId, surveyId, surveyName} = surveyOptions
     let surveys = []
+    
     stages.map(stage => {
         stage.elements.map(element => {
             let {id, type, question, options} = element

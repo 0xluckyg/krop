@@ -17,10 +17,8 @@ const multipleChoice = (custom) => {
         question: question ? question : 'Question',
         options: options ? options : [{
             text: 'Option 1',
-            media: null
         }, {
             text: 'Option 2',
-            media: null
         }],
         tags: tags ? tags : []
     }
@@ -38,10 +36,8 @@ const checkbox = (custom) => {
         question: question ? question : 'Question',
         options: options ? options : [{
             text: 'Option 1',
-            media: null
         }, {
             text: 'Option 2',
-            media: null
         }],
         tags: tags ? tags : []
     }
