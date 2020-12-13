@@ -10,7 +10,7 @@ async function cleanCSS(css) {
         level: 2
     };
     let crossBrowserCss = await postcss([ 
-        autoprefixer,
+        autoprefixer(),
         sliderCompiler()
     ]).process(css)
     css = crossBrowserCss.css

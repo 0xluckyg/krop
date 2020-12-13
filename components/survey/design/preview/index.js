@@ -209,20 +209,20 @@ class MainboardPreview extends React.Component {
                         <div className={classes.surveyWrapper}>
                             <Background
                                 stage={selectedStage}
-                                element={keys.BACKGROUND}
+                                element={keys.BACKGROUND_ELEMENT}
                                 state={state}
                                 setState={setState}
                             >
                                 <div className={classes.pageWrapper}>
                                     {this.renderElements()}
+                                    <Button
+                                        state={state}
+                                        setState={setState}
+                                        stage={state.selectedStage}
+                                        element={keys.BUTTON_ELEMENT}
+                                    />
                                 </div>
                             </Background>
-                            <Button
-                                state={state}
-                                setState={setState}
-                                stage={state.selectedStage}
-                                // element={keys.BUTTON_ELEMENT}
-                            />
                             <Alert
                                 state={state}
                                 setState={setState}

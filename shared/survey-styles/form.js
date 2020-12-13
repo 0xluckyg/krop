@@ -1,4 +1,5 @@
 const FORM = {
+    borderRadius: '0px',
     backgroundColor: 'rgba(0,0,0,0)',
     width: '100%',
     borderWidth: `0px 0px 0.5px 0px`,

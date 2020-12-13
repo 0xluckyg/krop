@@ -152,7 +152,7 @@
     }
     
     function initiateJS() {
-        console.log("CU: ", currentSurveyOptions.js)
+        // console.log("CU: ", currentSurveyOptions.js)
         eval('eval')(currentSurveyOptions.js);
     }
     
@@ -194,7 +194,7 @@
             var page = createPage(stage.elements)
             document.getElementById(getId(keys.BACKGROUND_ELEMENT)).appendChild(page)
             var button = createButton('nextStage()')
-            if (button) document.getElementById(getId(keys.WRAPPER_ELEMENT)).appendChild(button)    
+            if (button) document.getElementById(getId(keys.PAGE_ELEMENT)).appendChild(button)    
         }
     }
     
@@ -202,7 +202,7 @@
         var page = createPage(elements)
         document.getElementById(getId(keys.BACKGROUND_ELEMENT)).appendChild(page)
         var button = createButton('nextPage()')
-        if (button) document.getElementById(getId(keys.WRAPPER_ELEMENT)).appendChild(button)
+        document.getElementById(getId(keys.PAGE_ELEMENT)).appendChild(button)
     }
     
     function removePage() {

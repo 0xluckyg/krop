@@ -6,7 +6,7 @@ const _ = require('lodash')
 const {Survey} = require('../db/survey');
 const {User} = require('../db/user');
 const surveyCompiler = require('../survey/compiler')
-const {saveSurveyQuestions, updateSurveyQuestions, removeSurveyQuestions} = require('./functions')
+const {updateSurveyQuestions, removeSurveyQuestions} = require('./functions')
 
 async function getCompiledSurvey(survey) {
     return {
@@ -14,36 +14,26 @@ async function getCompiledSurvey(survey) {
     }
 }
 
-async function getSurveyId(ctx) {
-    const {key} = ctx.session
-    let surveyId = await Survey.find({key}).sort({surveyId: -1}).limit(1)
-
-    surveyId = (surveyId && surveyId[0]) ? surveyId[0].surveyId + 1 : 0
-
-    return surveyId
-}
-
 async function createSurvey(ctx) {
     try {
         const {id} = ctx.session       
         let body = JSON.parse(ctx.request.rawBody)   
         let {path, enabled} = body.settings
-        let surveyId = await getSurveyId(ctx)
         let survey = new Survey({
             ...body,
             path,
             enabled,
-            accountId: id,
-            surveyId
+            accountId: id
         })
     
         survey.compiled = {...await getCompiledSurvey(survey.toObject())}
         await survey.save()
-        await saveSurveyQuestions({
+        const surveyOptions = {
             ...survey.toObject(), 
             surveyId: survey._id,
             surveyName: survey.settings.name
-        })
+        }
+        await updateSurveyQuestions(surveyOptions)
         
         ctx.body = 'Survey saved'
     } catch (err) {

@@ -10,6 +10,7 @@ const {compileSpacingCSS, compileSpacingHTML} = require('./spacing')
 const {compileImageCSS, compileImageHTML} = require('./image')
 const {compileVideoCSS, compileVideoHTML} = require('./video')
 const {compileLinkCSS, compileLinkHTML} = require('./link')
+const {compileSliderCSS, compileSliderHTML} = require('./slider')
 const {compileMultipleChoiceCSS, compileMultipleChoiceHTML} = require('./multiple-choice')
 const {compileCheckboxCSS, compileCheckboxHTML} = require('./checkbox')
 const {compileDropdownCSS, compileDropdownHTML} = require('./dropdown')
@@ -92,6 +93,12 @@ async function compileCSS(options) {
                             ...options
                         })
                         break;
+                    case(keys.SLIDER_ELEMENT):
+                        elementCSS += compileSliderCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                        break;
                     case(keys.MULTIPLE_CHOICE_ELEMENT):
                         elementCSS += compileMultipleChoiceCSS({
                             stage, stageIndex, element, elementIndex,
@@ -170,6 +177,8 @@ function compileElement(options) {
             return compileVideoHTML(options).outerHTML
         case(keys.LINK_ELEMENT):
             return compileLinkHTML(options).outerHTML
+        case(keys.SLIDER_ELEMENT):
+            return compileSliderHTML(options).outerHTML
         case(keys.MULTIPLE_CHOICE_ELEMENT):
             return compileMultipleChoiceHTML(options).outerHTML
         case(keys.CHECKBOX_ELEMENT):

@@ -53,10 +53,6 @@ class SliderPreview extends React.Component {
                     ...style.TRACK,
                     backgroundColor: textColor
                 },
-                active: {
-                    ...style.ACTIVE,
-                    backgroundColor: primaryColor
-                },
                 thumb: {
                     ...style.THUMB,
                     backgroundColor: primaryColor

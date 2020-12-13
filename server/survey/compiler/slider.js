@@ -32,9 +32,10 @@ function compileSliderHTML(options) {
     container.appendChild(question)
     
     let sliderInput = document.createElement('input')
+    sliderInput.setAttribute('class', sliderClass)
+    sliderInput.setAttribute('type', 'range')
     sliderInput.setAttribute('min', element.min)
     sliderInput.setAttribute('max', element.max)
-    sliderInput.setAttribute('class', sliderClass)
     container.appendChild(sliderInput)
     
     return container
@@ -44,19 +45,15 @@ function compileSliderCSS(options) {
     const {primaryColor, textColor, backgroundColor} = options.styles
     
     let sliderCSS = getCSS(sliderClass, {
-        ...sliderStyles
+        ...sliderStyles.SLIDER
     })
     let sliderThumbCSS = getCSS(sliderClass +'::range-thumb', {
-        ...sliderStyles.THUMB,
+        ...sliderStyles.SLIDER.THUMB,
         backgroundColor: primaryColor
     })
     let sliderTrackCSS = getCSS(sliderClass +'::range-track', {
-        ...sliderStyles.TRACK,
+        ...sliderStyles.SLIDER.TRACK,
         backgroundColor: textColor
-    })
-    let slideActiveCSS = getCSS(sliderClass +':active', {
-        ...sliderStyles.ACTIVE,
-        backgroundColor: primaryColor
     })
     let sliderFocusCSS = getCSS(sliderClass +':focus', {
         outline: 'none'
@@ -67,8 +64,6 @@ function compileSliderCSS(options) {
     + sliderThumbCSS
     + sliderTrackCSS
     + sliderFocusCSS
-    + slideActiveCSS
-    
 }
 
 module.exports = {compileSliderHTML, compileSliderCSS}

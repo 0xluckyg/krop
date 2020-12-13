@@ -49,10 +49,19 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        const {backgroundColor} = getStyle(props)
+        const {backgroundColor, align} = getStyle(props)
         let style = isDesktop(props) ? buttonStyles.BUTTON_CONTAINER_DESKTOP : buttonStyles.BUTTON_CONTAINER
+        
+        let justifyContent = 'center'
+        if (align == 'left') {
+            justifyContent = 'flex-start'
+        } else if (align == 'right') {
+            justifyContent = 'flex-end'
+        }
+        
         return {
             backgroundColor,
+            justifyContent,
             ...style,
             '&:hover': {
                 ...style.HOVER

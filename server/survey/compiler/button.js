@@ -40,10 +40,18 @@ function compileButtonHTML(options) {
 
 function compileButtonCSS(options) {
 
-    const {backgroundColor, primaryColor} = options.styles
+    const {backgroundColor, primaryColor, align} = options.styles
 
+    let justifyContent = 'center'
+    if (align == 'left') {
+        justifyContent = 'flex-start'
+    } else if (align == 'right') {
+        justifyContent = 'flex-end'
+    }
+    
     let buttonContainerCSS = getCSS(buttonContainerClass, {
         backgroundColor,
+        justifyContent,
         ...buttonStyles.BUTTON_CONTAINER
     })
     

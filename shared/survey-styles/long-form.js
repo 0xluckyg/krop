@@ -1,5 +1,6 @@
 const LONG_FORM = {
     border: 'none',
+    borderRadius: '0px',
     borderWidth: `0px 0px 0.5px 0px`,
     borderStyle: `solid`,
     padding: `0px 0px 8px 0px`,

@@ -60,7 +60,10 @@ function compileFrameHTML(options) {
 function compileFrameCSS(options) {
     let headerCSS = compileHeaderCSS(options)
     
-    let htmlCSS = getCSS('html *', { fontFamily: options.styles.font }, "")
+    let htmlCSS = getCSS('html *', { 
+        fontFamily: options.styles.font,
+        '-webkitTapHighlightColor': 'rgba(0,0,0,0)'
+    }, "")
     
     let bodyCSS = getCSS('body', { margin: 0 }, "")
     

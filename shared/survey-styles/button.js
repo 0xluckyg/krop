@@ -3,6 +3,7 @@ const BUTTON_CONTAINER = {
     alignItems: 'center',
     padding: '15px 0px',
     transition: '0.1s',
+    height: '40px',
     HOVER: {
         opacity: 0.8,
         transition: '0.1s'
@@ -17,7 +18,7 @@ const BUTTON = {
     cursor: 'pointer',
     backgroundColor: 'rgba(0,0,0,0)',
     fontWeight: 700,
-    width: '100%',
+    // width: '100%',
     borderStyle: `none`,
     outline: 'none',
     fontSize: 20,

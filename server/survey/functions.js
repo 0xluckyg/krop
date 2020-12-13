@@ -34,8 +34,8 @@ async function saveSurveyQuestions(surveyOptions) {
 
 async function removeSurveyQuestions(surveyOptions) {
     try {
-        const {campaignId} = surveyOptions
-        await SurveyQuestion.deleteMany({campaignId})   
+        const {surveyId} = surveyOptions
+        await SurveyQuestion.deleteMany({surveyId})   
     } catch(e) {
         console.log("Failed removeSurveyQuestions")
     }

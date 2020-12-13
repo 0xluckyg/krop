@@ -1,18 +1,32 @@
 const SLIDER = {
+    cursor: 'pointer',
+    appearance: 'none',
+    padding: 0,
+    padding: 0 + 'px',
+    'box-sizing': 'content-box',
+    border: 0,
+    width: '100%',
+    marginTop: '5px',
     TRACK: {
-        height: 0.5,
+        height: '0.5px',
         width: '100%',
-        borderRadius: 15,
+        borderRadius: '15px',
+        appearance: 'none',
+        height: '0.5px',
+        width: '100%'
     },
     ACTIVE: {
     },
     THUMB: {
-        width: 20,
-        height: 20,
-        borderStyle: `solid`,
-        borderRadius: 10,
-        boxShadow: 0,
-        borderWidth: 0
+        appearance: 'none',
+        width: '20px',
+        height: '20px',
+        borderRadius: '10px',
+        boxShadow: '0px',
+        borderWidth: '0px',
+        marginTop: `${(0.5 - 20) / 2}px`,
+        marginBottom: `${(0.5 - 20) / 2}px`,
+        borderStyle: `solid`
     }
 }
 
