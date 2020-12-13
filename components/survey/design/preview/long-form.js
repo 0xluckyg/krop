@@ -1,16 +1,15 @@
 import React from 'react'
-import clsx from 'clsx'
+import TextareaAutosize from 'react-autosize-textarea';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import Draggable  from './sub/draggable-element'
-import {modifyProperty} from './sub/functions'
-import {keyframes, showAnimation, exitAnimation, transitionAnimation}  from './animation/animation-style'
 import {getElement} from '../element-editor/sub/functions'
+import elementStyle from '../../../../shared/survey-styles/reusable'
+import formStyle from '../../../../shared/survey-styles/form'
+import keys from '../../../../config/keys'
 import alertStyle from '../../../../shared/survey-styles/alert'
-import keys from '../../../config/keys'
 
-class TextareaPreview extends React.Component {
+class LongFormPreview extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -20,39 +19,19 @@ class TextareaPreview extends React.Component {
         return getElement({props: this.props, selectedStage: stage, selectedElement: element, selectedSectionElement: sectionElement})
     }
     
-    handleFormChange(event) {
-        const {selectedStage, selectedElement} = this.props.state
-        modifyProperty({
-            props: this.props, selectedStage, selectedElement, propertyType: keys.TEXT_PROPERTY, property: 'label', value: event.target.value
-        })
-    }
-    
-    getStyle() {
-        const {state, classes} = this.props
-        const {playAnimation} = state
-        const animateShow = playAnimation == keys.SHOW ? classes.showAnimation : ''
-        const animateExit = playAnimation == keys.EXIT ? classes.exitAnimation : ''
-        return clsx(classes.textareaWrapperStyle, classes.transitionAnimation, animateShow, animateExit)
+    noQuestion() {
+        const form = this.getElement()
+        const noQuestionList = [keys.EMAIL_ELEMENT, keys.PHONE_ELEMENT]
+        return noQuestionList.includes(form.type) ? false : true
     }
     
     renderQuestion() {
         const {classes} = this.props
-        const textarea = this.getElement()
-        if (!textarea.questionStyle.enabled) return
-        return <p className={classes.questionStyle}>
-            {textarea.question}
-        </p>
-    }
-    
-    renderTextarea() {
-        const {classes} = this.props
-        const textarea = this.getElement()
-        return <textarea 
-            onChange={this.handleFormChange.bind(this)}
-            value={textarea.text.label} 
-            className={classes.textareaStyle} 
-            placeholder={textarea.placeholder.label} 
-        />
+        return (
+            <p className={classes.questionStyle}>
+                {this.getElement().question}
+            </p>
+        )
     }
     
     renderAlert() {
@@ -64,56 +43,29 @@ class TextareaPreview extends React.Component {
     }
     
     render() {
+        const {classes} = this.props
         return (
-            <div className={this.getStyle()}>
+            <div className={classes.containerStyle}>
                 {this.renderQuestion()}
-                {this.renderTextarea()}
+                <TextareaAutosize
+                    placeholder={'Please put your answer here'} 
+                    type="text"
+                    className={classes.formStyle}
+                />
                 {this.renderAlert()}
             </div>
         )
     }
 }
 
-function getElementFromProps(props) {
-    let {stage, element, sectionElement} = props
-    return getElement({props, selectedStage: stage, selectedElement: element, selectedSectionElement: sectionElement})
+function isDesktop(props) {
+    let {viewMode} = props.state
+    return viewMode == keys.DESKTOP_PROPERTY
 }
 
-function getTextareaWrapperStyle(props) {
-    const textarea = getElementFromProps(props)
-    const devicePosition = (props.state.viewMode == keys.MOBILE_PROPERTY && textarea.mobile && textarea.mobile.enabled) ? keys.MOBILE_PROPERTY : keys.POSITION_PROPERTY
-    const {rotate, scale} = textarea[devicePosition]
-    const {opacity} = textarea.style
-    
-    return {
-        transform: `scale(${scale ? scale : 1}) rotateZ(${rotate[0]}deg) rotateX(${rotate[1]}deg) rotateY(${rotate[2]}deg)`,
-        opacity,
-        width: '100%'
-    }
-}
-
-function getTextareaStyle(props) {
-    const textarea = getElementFromProps(props)
-    const {color, cornerRounding, borderColor, borderWidth, padding, opacity, shadow, shadowColor, margin, height} = textarea.style
-    const text = textarea.text
-    
-    return {
-        resize: 'none',
-        width: '100%',
-        height,
-        backgroundColor: color,
-        borderRadius: `${cornerRounding[0]}px ${cornerRounding[1]}px ${cornerRounding[2]}px ${cornerRounding[3]}px`,
-        borderWidth: `${borderWidth[0]}px ${borderWidth[1]}px ${borderWidth[2]}px ${borderWidth[3]}px`,
-        borderStyle: `solid`,
-        padding: `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`,
-        borderColor,
-        fontFamily: text.font,
-        color: text.color,
-        fontSize: text.size,
-        font: text.font,
-        margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
-        boxShadow: `${shadow[0]}px ${shadow[1]}px ${shadow[2]}px ${shadow[3]}px ${shadowColor}`,
-    }
+function getStyle(props) {
+    let {stage} = props
+    return getElement({props, selectedStage: stage, selectedElement: keys.STYLE_SETTINGS})
 }
 
 function getAlert(props) {
@@ -122,39 +74,36 @@ function getAlert(props) {
 }
 
 const useStyles = theme => ({
-    ...keyframes,
-    ...showAnimation,
-    ...exitAnimation,
-    ...transitionAnimation,
-    
-    questionStyle: props => {
-        const textarea = getElementFromProps(props)
-        if (!textarea || !textarea.questionStyle) return
-        const style = textarea.questionStyle
-        const {size, font, color} = style
-        const {padding, margin} = textarea.style
+    containerStyle: props => {
+        let style = isDesktop(props) ? elementStyle.CONTAINER_DESKTOP : elementStyle.CONTAINER
         return {
-            padding: `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`,
-            margin: `${margin[0]}px ${margin[1]}px ${margin[2]}px ${margin[3]}px`,
-            fontSize: size, 
-            fontFamily: font, 
-            color
+            ...style
         }
     },
-    textareaWrapperStyle: props => {
-        return {...getTextareaWrapperStyle(props)}  
-    },
-    textareaStyle: inputProps => {
-        const {placeholder} = getElementFromProps(inputProps)
+    questionStyle: props => {
+        const {font, textColor} = getStyle(props)
+        let style = isDesktop(props) ? elementStyle.QUESTION_DESKTOP : elementStyle.QUESTION
         return {
-            ...getTextareaStyle(inputProps),
+            ...style,
+            fontFamily: font, 
+            color: textColor
+        }
+    },
+    formStyle: props => {
+        const {font, textColor, primaryColor} = getStyle(props)
+        let style = isDesktop(props) ? formStyle.FORM_DESKTOP : formStyle.FORM
+        return {
+            ...style,
+            font: font,
+            color: textColor,
+            borderColor: textColor,
             '&:focus': {
-                outline: 'none'  
+                ...style.FOCUS  
             },
             '&::placeholder': {
-                color: placeholder.color,
-                fontSize: placeholder.size,
-                fontFamily: placeholder.font
+                ...style.PLACEHOLDER,
+                color: textColor,
+                fontFamily: font
             }
         }
     },
@@ -170,4 +119,4 @@ const useStyles = theme => ({
     }
 });
 
-export default withStyles(useStyles)(TextareaPreview)
+export default withStyles(useStyles)(LongFormPreview)

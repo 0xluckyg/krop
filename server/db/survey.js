@@ -44,6 +44,7 @@ const SurveySchema = new mongoose.Schema({
     },
     compiled: {
         css: String,
+        js: String,
         stages: [{
             settings: mongoose.Schema.Types.Mixed,
             elements: [String]

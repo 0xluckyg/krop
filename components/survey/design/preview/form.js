@@ -23,8 +23,7 @@ class FormPreview extends React.Component {
         placeholders[keys.EMAIL_ELEMENT] = 'Email'
         placeholders[keys.PHONE_ELEMENT] = 'Phone number'
         placeholders[keys.FORM_ELEMENT] = 'Please put your answer here'
-        placeholders[keys.LONG_FORM_ELEMENT] = 'Please put your answer here'
-        
+
         const form = this.getElement()
         return placeholders[form.type]
     }
@@ -36,7 +35,6 @@ class FormPreview extends React.Component {
         titles[keys.EMAIL_ELEMENT] = 'Email'
         titles[keys.PHONE_ELEMENT] = 'Number'
         titles[keys.FORM_ELEMENT] = form.question
-        titles[keys.LONG_FORM_ELEMENT] = form.question
 
         return titles[form.type]
     }

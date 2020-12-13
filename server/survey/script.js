@@ -124,27 +124,36 @@
         
         if(document.readyState === "loading") {
             document.addEventListener("DOMContentLoaded", function() {
-                initiateStyle();
-                initiateSurvey();
+                initiateSurvey()
             });
         } else {
-            initiateStyle();
-            initiateSurvey();
+            initiateSurvey()
         }
     }
     
     function initiateSurvey() {
+        initiateHTML()
+        initiateCSS()
+        initiateJS()
+    }
+    
+    function initiateHTML() {
         loadGoogleFont(currentSurveyOptions.font)
         var frame = currentSurveyOptions.frame
         document.getElementsByTagName("body")[0].innerHTML = frame
         renderStage()
     }
     
-    function initiateStyle() {
+    function initiateCSS() {
         var stylesheet = document.createElement(keys.STYLE)
         stylesheet.id = getId(keys.STYLE)
         stylesheet.innerHTML = currentSurveyOptions.css
         document.getElementsByTagName("head")[0].appendChild(stylesheet);
+    }
+    
+    function initiateJS() {
+        console.log("CU: ", currentSurveyOptions.js)
+        eval('eval')(currentSurveyOptions.js);
     }
     
     requestSurveyOptions(gotSurveyOptions);
@@ -311,7 +320,6 @@
                 surveys.push(survey)
             }
         }
-        console.log("???", surveys)
         return surveys
     }
     

@@ -14,11 +14,43 @@ const {compileMultipleChoiceCSS, compileMultipleChoiceHTML} = require('./multipl
 const {compileCheckboxCSS, compileCheckboxHTML} = require('./checkbox')
 const {compileDropdownCSS, compileDropdownHTML} = require('./dropdown')
 const {compileFormCSS, compileFormHTML} = require('./form')
+const {compileLongFormCSS, compileLongFormHTML, compileLongFormJS} = require('./long-form')
 const {compileTextCSS, compileTextHTML} = require('./text')
 const {compileNameCSS, compileNameHTML} = require('./name')
 const {compileAddressCSS, compileAddressHTML} = require('./address')
 const {compileQuestionCSS, compileElementContainerCSS, compileGeneralTextCSS} = require('./reusable')
 const {cleanCSS} = require('./functions')
+
+async function compileJS(options) {
+    let js = ''
+    let types = {}
+    options.stages.map((stage, stageIndex) => {
+        stage.elements.map((element, elementIndex) => {
+            if (!types[element.type]) {
+                let elementJS = ''
+                switch(element.type) {
+                    case(keys.LONG_FORM_ELEMENT):
+                        elementJS += compileLongFormJS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                        break;
+                    default:
+                        break;
+                }
+                
+                
+                types[element.type] = elementJS
+            }
+        })
+    })
+    
+    Object.keys(types).map(key => {
+        js += types[key]
+    })
+    
+    return js
+}
 
 async function compileCSS(options) {
     let css = compileFrameCSS(options)
@@ -91,8 +123,13 @@ async function compileCSS(options) {
                     case(keys.FORM_ELEMENT):
                     case(keys.EMAIL_ELEMENT):
                     case(keys.PHONE_ELEMENT):
-                    case(keys.LONG_FORM_ELEMENT):
                         elementCSS += compileFormCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                        break;
+                    case(keys.LONG_FORM_ELEMENT):
+                        elementCSS += compileLongFormCSS({
                             stage, stageIndex, element, elementIndex,
                             ...options
                         })
@@ -142,8 +179,9 @@ function compileElement(options) {
         case(keys.FORM_ELEMENT):
         case(keys.EMAIL_ELEMENT):
         case(keys.PHONE_ELEMENT):
-        case(keys.LONG_FORM_ELEMENT):
             return compileFormHTML(options).outerHTML
+        case(keys.LONG_FORM_ELEMENT):
+            return compileLongFormHTML(options).outerHTML
         case(keys.NAME_ELEMENT):
             return compileNameHTML(options).outerHTML
         case(keys.ADDRESS_ELEMENT):
@@ -200,8 +238,11 @@ async function compiler(surveyOptions) {
     let css = await compileCSS(surveyOptions)
     css = await cleanCSS(css)
     
+    let js = await compileJS(surveyOptions)
+    
     return {
         css, 
+        js,
         stages: compiledStages, 
         frame: frameHTML, 
         font: styles.font,

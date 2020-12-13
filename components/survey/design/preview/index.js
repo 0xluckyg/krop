@@ -13,6 +13,7 @@ import Image from './image'
 import MultipleChoice from './multiple-choice'
 import Checkbox from './checkbox'
 import Form from './form'
+import LongForm from './long-form'
 import Slider from './slider'
 import Dropdown from './dropdown'
 import Video from './video'
@@ -166,9 +167,16 @@ class MainboardPreview extends React.Component {
                                 />
                             case(keys.EMAIL_ELEMENT):
                             case(keys.PHONE_ELEMENT):
-                            case(keys.LONG_FORM_ELEMENT):
                             case(keys.FORM_ELEMENT):
                                 return <Form
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.LONG_FORM_ELEMENT):
+                                return <LongForm
                                     key={element.type+i}
                                     state={state}
                                     setState={setState}

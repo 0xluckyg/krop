@@ -17,7 +17,6 @@ function getQuestion(element) {
     placeholders[keys.EMAIL_ELEMENT] = 'Email'
     placeholders[keys.PHONE_ELEMENT] = 'Phone'
     placeholders[keys.FORM_ELEMENT] = element.question
-    placeholders[keys.LONG_FORM_ELEMENT] = element.question
 
     return placeholders[element.type]
 }
@@ -27,7 +26,6 @@ function getPlaceholder(element) {
     placeholders[keys.EMAIL_ELEMENT] = 'Email'
     placeholders[keys.PHONE_ELEMENT] = 'Phone number'
     placeholders[keys.FORM_ELEMENT] = 'Please put your answer here'
-    placeholders[keys.LONG_FORM_ELEMENT] = 'Please put your answer here'
 
     return placeholders[element.type]
 }
