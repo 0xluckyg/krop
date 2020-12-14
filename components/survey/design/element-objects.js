@@ -317,6 +317,16 @@ const defaultAlert = () => {
     }
 }
 
+const defaultAlertMessages = () => {
+    return {
+        required: 'This form is required!',
+        tooLong: 'Please keep your {{TYPE}} shorter than {{NUMBER}} characters.',
+        tooShort: 'Please make your {{TYPE}} longer than {{NUMBER}} characters.',
+        invalid: 'Your {{TYPE}} is invalid!',
+        popup: 'Please fix the form errors'
+    }
+}
+
 module.exports = {
     defaultStages, 
     defaultStyles, 
@@ -337,5 +347,6 @@ module.exports = {
     image,
     video,
     link,
-    spacing
+    spacing,
+    defaultAlertMessages
 }

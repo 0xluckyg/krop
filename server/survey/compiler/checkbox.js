@@ -30,6 +30,8 @@ function compileCheckboxHTML(options) {
     let container = compileElementContainerHTML()
     container.setAttribute('id', element.id)
     container.setAttribute('type', keys.CHECKBOX_ELEMENT)
+    container.setAttribute('required', element.required)
+    container.setAttribute('tags', element.tags.join(','))
     
     let question = compileQuestionHTML()
     question.innerHTML = element.question
@@ -42,7 +44,7 @@ function compileCheckboxHTML(options) {
         let optionWrapper = document.createElement('label');
         optionWrapper.setAttribute('class', optionWrapperClass)
         
-        let optionRadio = document.createElement('input');
+        let optionRadio = document.createElement('input')
         optionRadio.setAttribute('class', optionRadioClass)
         optionRadio.setAttribute('value', option.text)
         optionRadio.setAttribute('type', 'checkbox')

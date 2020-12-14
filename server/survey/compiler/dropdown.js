@@ -30,6 +30,8 @@ function compileDropdownHTML(options) {
     let container = compileElementContainerHTML()
     container.setAttribute('id', element.id)
     container.setAttribute('type', keys.DROPDOWN_ELEMENT)
+    container.setAttribute('required', element.required)
+    container.setAttribute('tags', element.tags.join(','))
     
     let question = compileQuestionHTML()
     question.innerHTML = element.question

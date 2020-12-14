@@ -82,6 +82,7 @@ async function getSurvey(domain, path) {
     return {
         accountId: user._id,
         surveyId: survey._id,
+        alertMessages: survey.alertMessages,
         ...survey.compiled
     }
 }

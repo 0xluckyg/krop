@@ -26,6 +26,8 @@ function compileSliderHTML(options) {
     let container = compileElementContainerHTML()
     container.setAttribute('id', element.id)
     container.setAttribute('type', keys.SLIDER_ELEMENT)
+    container.setAttribute('required', element.required)
+    container.setAttribute('tags', element.tags.join(','))
     
     let question = compileQuestionHTML()
     question.innerHTML = element.question

@@ -235,7 +235,7 @@ async function compiler(surveyOptions) {
     const alertHTML = compileAlertHTML(surveyOptions).outerHTML
     const alertTextHTML = compileAlertTextHTML(surveyOptions).outerHTML
 
-    const {stages, styles} = surveyOptions
+    const {stages, styles, alertMessages} = surveyOptions
     let compiledStages = []
     stages.map((stage, stageIndex) => {
         const compiledStage = compileStage({

@@ -44,6 +44,7 @@
     var currentSurveyOptions = null;
     var currentStageIndex = 0
     var currentPageIndex = 0
+    var alertActivated = false
     var clientId = null;
     var sessionId = null;
     var surveyId = null;
@@ -254,7 +255,16 @@
     /// ========= SURVEY RESPONSE ================================================
     
     function submit(callback) {
+        resetAlertText()
+        alertActivated = false
         var data = getSurveyData()
+        if (alertActivated) {
+            return
+        }
+        if (!data || data.length <= 0) {
+            return callback()
+        }
+        
         JSONPostRequest(appUrl+"/survey-receive", {
             sessionId: sessionId,
             clientId: clientId,
@@ -270,7 +280,8 @@
         }, function(response) {
             callback()
         }, function(error) {
-            renderAlert()
+            renderServerAlertText(error)
+            renderAlert(error)
         });
     }
     
@@ -308,15 +319,15 @@
                         break
                     case(keys.ADDRESS_ELEMENT):
                     case(keys.NAME_ELEMENT):
-                        survey.value = getComplexFormValue(element)
+                        survey.value = getNestedFormValue(element)
                         break
-                    // case(keys.LONG_FORM_ELEMENT):
-                    //     survey.value = getLongFormValue(element)
-                    //     break
+                    case(keys.LONG_FORM_ELEMENT):
+                        survey.value = getLongFormValue(element)
+                        break
                     default: 
                         break
                 }
-                
+                validate(element, survey.value)
                 surveys.push(survey)
             }
         }
@@ -354,7 +365,7 @@
     
     function getDropdownValue(element) {
         var dropdown = element.getElementsByTagName('select')[0]
-        return dropdown.selectedIndex
+        return [dropdown.selectedIndex]
     }
     
     function getDropdownOptions(element) {
@@ -377,7 +388,7 @@
         return form.value
     }
     
-    function getComplexFormValue(element) {
+    function getNestedFormValue(element) {
         var form = element.getElementsByTagName('input');
         var answers = {}
         for (var i = 0; i < form.length; i++) {
@@ -394,8 +405,126 @@
     
     /// ========= ALERT ===============================================
     
+    function getElementName(element) {
+        switch(element.type) {
+            case(keys.EMAIL_ELEMENT):
+                return 'email'
+            case(keys.PHONE_ELEMENT):    
+                return 'phone number'
+            case(keys.ADDRESS_ELEMENT):
+                return 'address'
+            case(keys.NAME_ELEMENT):
+                return 'name'
+            default: 
+                return 'form'
+        }
+    }
+    
     function renderAlert() {
         
+    }
+    
+    function renderServerAlertText(errors) {
+        errors = JSON.parse(errors)
+        for (var i = errors.length - 1; i >= 0; i--) {
+            var element = document.getElementById(errors[i].id)
+            renderAlertText(element, errors[i].error)
+        }
+    }
+    
+    function getAlertTextClass() {
+        var alertText = stringIntoHTML(currentSurveyOptions.alertText)
+        return alertText.getAttribute('class')
+    }
+    
+    function resetAlertText() {
+        var alertTexts = document.getElementsByClassName(getAlertTextClass())
+        for (var i = alertTexts.length - 1; i >= 0; i--) {
+            var text = alertTexts[i]
+            text.parentNode.removeChild(text)
+        }
+    }
+    
+    function renderAlertText(element, message) {
+        var existingAlert = element.getElementsByClassName(getAlertTextClass())[0]
+        if (existingAlert) return
+        var alertText = stringIntoHTML(currentSurveyOptions.alertText)
+        alertText.innerHTML = message
+        element.appendChild(alertText)
+    }
+    
+    function checkRequired(required, value, element) {
+        if (value === 0) return
+        if (required && (!value || value == '')) {
+            alertActivated = true
+            renderAlertText(element, currentSurveyOptions.alertMessages.required)
+        }
+    }
+    
+    function checkMinChar(min, value, element) {
+        if (value.length < min) {
+            alertActivated = true
+            var message = currentSurveyOptions.alertMessages.tooShort
+            message = message.replace('{{TYPE}}', getElementName(element))
+            message = message.replace('{{NUMBER}}', min)
+            renderAlertText(element, message)
+        }
+    }
+    
+    function checkMaxChar(max, value, element) {
+        if (value.length > max) {
+            alertActivated = true
+            var message = currentSurveyOptions.alertMessages.tooLong
+            message = message.replace('{{TYPE}}', getElementName(element))
+            message = message.replace('{{NUMBER}}', max)
+            renderAlertText(element, message)
+        }
+    }
+    
+    function validateChoiceElement(element, value) {
+        if (element.getAttribute('type') == keys.DROPDOWN_ELEMENT) {
+            if (value[0] === 0) value[0] = false
+        }
+        checkRequired(element.getAttribute('required'), value[0], element)
+    }
+    
+    function validateFormElement(element, value) {
+        checkRequired(element.getAttribute('required'), value, element)
+        checkMinChar(element.getAttribute('min'), value, element)
+        checkMaxChar(element.getAttribute('max'), value, element)
+    }
+    
+    function validateNestedFormElement(element, value) {
+        var form = element.getElementsByTagName('input');
+        for (var i = 0; i < form.length; i++) {
+            var key = form[i].getAttribute('key')
+            checkMinChar(element.getAttribute('min'), value, element)
+            checkMaxChar(element.getAttribute('max'), value, element)
+            checkRequired(form[i].getAttribute('required'), value[key], element)
+        }
+    }
+    
+    function validate(element, value) {
+        switch(element.getAttribute('type')) {
+            case(keys.MULTIPLE_CHOICE_ELEMENT): 
+            case(keys.CHECKBOX_ELEMENT): 
+            case(keys.DROPDOWN_ELEMENT):
+                validateChoiceElement(element, value)
+                break
+            case(keys.SLIDER_ELEMENT):
+            case(keys.FORM_ELEMENT):
+            case(keys.LONG_FORM_ELEMENT):
+            case(keys.EMAIL_ELEMENT):
+            case(keys.PHONE_ELEMENT):
+                validateFormElement(element, value)
+                break
+            case(keys.ADDRESS_ELEMENT):
+            case(keys.NAME_ELEMENT):
+                validateNestedFormElement(element, value)
+                break
+            default: 
+                break
+        }
     }
     
     /// ========= HELPERS ===============================================
@@ -412,12 +541,14 @@
         );
         xhr.onload = function() {
             try {
+                console.log("XHR2: ", xhr)
                 if (xhr.status / 100 >= 4) {
                     return errorCallback(xhr.responseText)
                 }
                 return callback(JSON.parse(xhr.responseText));
             }
             catch(e) {
+                console.log("X22HR: ", xhr)
                 errorCallback && errorCallback(e);
             }
         };

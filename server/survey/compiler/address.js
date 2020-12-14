@@ -29,29 +29,31 @@ const addressClass = createClassName({
 })
 
 function compileAddress1(options) {
-    const {address1Enabled} = options.element
+    const {address1Enabled, address1Required} = options.element
     if (!address1Enabled) return null
     
     let address1 = document.createElement('input');
     address1.setAttribute('class', textClass + " " + addressClass + " " + formClass)
     address1.setAttribute('placeholder', "Address 1")
     address1.setAttribute('key', "address1")
+    address1.setAttribute('required', address1Required)
     return address1
 }
 
 function compileAddress2(options) {
-    const {address2Enabled} = options.element
+    const {address2Enabled, address2Required} = options.element
     if (!address2Enabled) return null
     
     let address2 = document.createElement('input');
     address2.setAttribute('class', textClass + " " + addressClass + " " + formClass)
     address2.setAttribute('placeholder', "Address 2")
     address2.setAttribute('key', "address2")
+    address2.setAttribute('required', address2Required)
     return address2
 }
 
 function compileCity(options) {
-    const {cityEnabled, stateEnabled} = options.element
+    const {cityEnabled, stateEnabled, cityRequired} = options.element
     if (!cityEnabled) return null
     
     const frontAddress = stateEnabled ? frontAddressClass : ""
@@ -59,40 +61,44 @@ function compileCity(options) {
     city.setAttribute('class',  frontAddress + " " + textClass + " " + addressClass + " " + formClass)
     city.setAttribute('placeholder', "City")
     city.setAttribute('key', "city")
+    city.setAttribute('required', cityRequired)
     return city
 }
 
 function compileState(options) {
-    const {stateEnabled} = options.element
+    const {stateEnabled, stateRequired} = options.element
     if (!stateEnabled) return null
     
     let state = document.createElement('input');
     state.setAttribute('class', textClass + " " + addressClass + " " + formClass)
     state.setAttribute('placeholder', "State")
     state.setAttribute('key', "state")
+    state.setAttribute('required', stateRequired)
     return state
 }
 
 function compileCountry(options) {
-    const {address1Enabled, zipEnabled} = options.element
-    if (!address1Enabled) return null
+    const {countryEnabled, zipEnabled, countryRequired} = options.element
+    if (!countryEnabled) return null
     
     const frontAddress = zipEnabled ? frontAddressClass : ""
     let country = document.createElement('input');
     country.setAttribute('class',  frontAddress + " " + textClass + " " + addressClass + " " + formClass)
     country.setAttribute('placeholder', "Country")
     country.setAttribute('key', "country")
+    country.setAttribute('required', countryRequired)
     return country
 }
 
 function compileZip(options) {
-    const {zipEnabled} = options.element
+    const {zipEnabled, zipRequired} = options.element
     if (!zipEnabled) return null
     
     let zip = document.createElement('input');
     zip.setAttribute('class', textClass + " " + addressClass + " " + formClass)
     zip.setAttribute('placeholder', "Zip")
     zip.setAttribute('key', "zip")
+    zip.setAttribute('required', zipRequired)
     return zip
 }
 
@@ -100,11 +106,14 @@ function compileAddressHTML(options) {
     const dom = new JSDOM('')
     const document = dom.window.document
     
-    const {element} = options
+    const {id, minChar, maxChar, tags} = options.element
 
     let container = compileElementContainerHTML()
-    container.setAttribute('id', element.id)
+    container.setAttribute('id', id)
     container.setAttribute('type', keys.ADDRESS_ELEMENT)
+    container.setAttribute('min', minChar)
+    container.setAttribute('max', maxChar)
+    container.setAttribute('tags', tags.join(','))
     
     let question = compileQuestionHTML()
     let newClass = question.getAttribute("class") + " " + addressTitleClass

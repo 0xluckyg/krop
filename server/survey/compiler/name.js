@@ -21,11 +21,14 @@ function compileNameHTML(options) {
     const dom = new JSDOM('')
     const document = dom.window.document
     
-    const {element} = options
+    const {id, minChar, maxChar, tags, required} = options.element
     
     let container = compileElementContainerHTML()
-    container.setAttribute('id', element.id)
+    container.setAttribute('id', id)
     container.setAttribute('type', keys.NAME_ELEMENT)
+    container.setAttribute('min', minChar)
+    container.setAttribute('max', maxChar)
+    container.setAttribute('tags', tags.join(','))
     
     let question = compileQuestionHTML()
     question.innerHTML = "Name"
@@ -38,12 +41,14 @@ function compileNameHTML(options) {
     firstName.setAttribute('class', textClass + " " + frontNameClass + " " + formClass)
     firstName.setAttribute('placeholder', "First name")
     firstName.setAttribute('key', "firstName")
+    firstName.setAttribute('required', required)
     nameWrapper.appendChild(firstName)
     
     let lastName = document.createElement('input');
     lastName.setAttribute('class', textClass + " " + formClass)
     lastName.setAttribute('placeholder', "Last name")
     lastName.setAttribute('key', "lastName")
+    lastName.setAttribute('required', required)
     nameWrapper.appendChild(lastName)
 
     container.appendChild(nameWrapper)

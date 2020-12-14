@@ -39,6 +39,11 @@ function compileFormHTML(options) {
     let container = compileElementContainerHTML()
     container.setAttribute('id', element.id)
     container.setAttribute('type', element.type)
+    container.setAttribute('required', element.required)
+    container.setAttribute('tags', element.tags.join(','))
+    container.setAttribute('min', element.minChar)
+    container.setAttribute('max', element.maxChar)
+    container.setAttribute('num', element.numOnly)
     
     let question = compileQuestionHTML()
     question.innerHTML = getQuestion(element)

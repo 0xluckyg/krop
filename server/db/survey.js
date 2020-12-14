@@ -25,6 +25,13 @@ const SurveySchema = new mongoose.Schema({
         align: String,
         font: String
     },
+    alertMessages: {
+        required: String,
+        tooLong: String,
+        tooShort: String,
+        invalid: String,
+        popup: String
+    },
     settings: {
         name: String,
         device: String,

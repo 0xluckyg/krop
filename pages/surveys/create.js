@@ -21,7 +21,7 @@ import TabBar from '../../components/survey/tab-bar';
 import MainEditor from '../../components/survey/design'
 import SettingsEditor from '../../components/survey/settings'
 import {defaultSettings} from '../../components/survey/settings/settings-objects'
-import {defaultStages, defaultStyles, defaultAlert} from '../../components/survey/design/element-objects'
+import {defaultStages, defaultStyles, defaultAlert, defaultAlertMessages} from '../../components/survey/design/element-objects'
 import ElementMenu from '../../components/survey/design/element-menu'
 
 class CreateSurvey extends React.Component {
@@ -35,8 +35,8 @@ class CreateSurvey extends React.Component {
             stages: defaultStages(),
             styles: defaultStyles(),
             alert: defaultAlert(),
+            alertMessages: defaultAlertMessages(),
             settings: defaultSettings,
-            
             //UI STATES
             templateOptions: null,
             viewMode: keys.MOBILE_PROPERTY,
@@ -83,8 +83,8 @@ class CreateSurvey extends React.Component {
         try {
             if (!isPreview) { if (!this.validateSubmit()) return }
             
-            let {settings, stages, styles, alert} = this.state
-            let data = {settings, stages, styles, alert}
+            let {alertMessages, settings, stages, styles, alert} = this.state
+            let data = {alertMessages, settings, stages, styles, alert}
             this.setState({isLoading: true})
             //if edit
             if (this.props.handleEdit) {

@@ -20,7 +20,11 @@ function compileLongFormHTML(options) {
     let container = compileElementContainerHTML()
     container.setAttribute('id', element.id)
     container.setAttribute('type', element.type)
-    
+    container.setAttribute('required', element.required)
+    container.setAttribute('tags', element.tags.join(','))
+    container.setAttribute('min', element.minChar)
+    container.setAttribute('max', element.maxChar)
+
     let question = compileQuestionHTML()
     question.innerHTML = element.question
     container.appendChild(question)

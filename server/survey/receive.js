@@ -98,14 +98,15 @@ async function receiveSurvey(ctx) {
     })
     
     if (surveyErrors.length > 0) {
-        ctx.status = 400
         ctx.body = surveyErrors
+        ctx.status = 400
+        return
     }
     
     try {
         await saveSurveySession(defaultData)
         await SurveyResponse.insertMany(surveyData, {ordered: false})
-        ctx.body = {}
+        ctx.body = []
     } catch(err) {
         console.log("Failed receiveSurvey:", err)
         sendErrorMessage(ctx, 'Please try again later')
