@@ -99,18 +99,14 @@ class AuthorizeModal extends React.Component {
             withCredentials: true
         })
         .then((res) => {
-            console.log("R: ", res)
             this.setState({isLoading:false})
             this.sendValidationEmail(signUpEmail, () => {
                 window.location.replace(`${process.env.APP_URL}/authentication/validate-email?email=`+signUpEmail)
             })
         }).catch((err) => {
-            console.log("R: ", err)
             if (err.response && err.response.data) {
-                console.log("HEY: ")
                 this.props.showToastAction(true, `Email exists. Please try another email`, 'error')
             } else {
-                console.log("HEY you: ")
                 this.props.showToastAction(true, `Couldn't sign up. Please try again later.`, 'error')   
             }
             this.setState({isLoading:false})            
@@ -137,6 +133,8 @@ class AuthorizeModal extends React.Component {
                 this.props.showToastAction(true, `Couldn't log in. Please check your email or password.`, 'error')
             } else if (err.response && err.response.data == 'wrong password') {
                 this.props.showToastAction(true, `Couldn't log in. Forgot your password?`, 'error')   
+            } else {
+                this.props.showToastAction(true, `Couldn't log in. Please try again later`, 'error')   
             }
             this.setState({isLoading:false})            
         })
@@ -156,7 +154,7 @@ class AuthorizeModal extends React.Component {
                         this.setState({logInEmail:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Email (e.g. vivelop@gmail.com)"
+                    placeholder="Email (e.g. underdog@gmail.com)"
                     error={logInEmailError ? true : false}
                     helperText={logInEmailError ? logInEmailError : false}
                     fullWidth
@@ -194,7 +192,7 @@ class AuthorizeModal extends React.Component {
                         this.setState({signUpEmail:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Email (e.g. vivelop@gmail.com)"
+                    placeholder="Email (e.g. underdog@gmail.com)"
                     error={signUpEmailError ? true : false}
                     helperText={signUpEmailError ? signUpEmailError : false}
                     fullWidth

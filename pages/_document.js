@@ -14,7 +14,7 @@ const noAuth = [
     '/settings/terms-of-service'
 ]
 
-class VivelopDocument extends Document {    
+class UnderdogDocument extends Document {    
     
     renderHead() {
         return (
@@ -51,7 +51,7 @@ class VivelopDocument extends Document {
     }
 }
 
-VivelopDocument.getInitialProps = async ctx => {
+UnderdogDocument.getInitialProps = async ctx => {
     // Resolution order
     //
     // On the server:
@@ -92,4 +92,4 @@ VivelopDocument.getInitialProps = async ctx => {
     };
 };
 
-export default VivelopDocument;
+export default UnderdogDocument;

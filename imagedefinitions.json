@@ -1,6 +1,6 @@
 [
     {
-        "name": "vivelop-container",
-        "imageUri": "838823345115.dkr.ecr.us-east-1.amazonaws.com/vivelop-ecr:latest"
+        "name": "underdog-container",
+        "imageUri": "838823345115.dkr.ecr.us-east-1.amazonaws.com/underdog-ecr:latest"
     }
 ]

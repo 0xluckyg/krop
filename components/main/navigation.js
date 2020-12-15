@@ -35,12 +35,12 @@ const widgets = [
 ]
 const responses = [
     {
-        route: '/leads/profiles',
+        route: '/responses/profiles',
         text: 'Profiles',
         Icon: ProfileIcon
     },
     {
-        route: '/leads/surveys',
+        route: '/responses/surveys',
         text: 'Surveys',
         Icon: SurveyIcon
     },

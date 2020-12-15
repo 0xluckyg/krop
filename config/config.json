@@ -2,8 +2,8 @@
     "development" : {
         "PORT": 3000,
         "APP_URL": "https://vivelop.ngrok.io",
-        "APP_EMAIL": "info@vivelop.com",
-        "MONGODB_URI": "mongodb://localhost:27017/visurve",
+        "APP_EMAIL": "info@underdog.com",
+        "MONGODB_URI": "mongodb://localhost:27017/underdog",
         "S3_BUCKET": "vivelop-images",
         "GOOGLE_API_CLIENT_ID":"230936750545-7v2qm20fiovmavpnb2fn2ut1ffl4u0bt.apps.googleusercontent.com",
         "STRIPE_API_KEY": "pk_test_51H1uBRBI9q0ktHJ5vE0SFWsNWFQkMjZGXXIZuJB6tVzDWX1pc4DsJwWX5pLY3J5DjLWAqmWWQV7SefD4rREf5Mzo00uUoTN6Hw"
@@ -11,16 +11,16 @@
     "test": {
         "PORT": 3000,
         "APP_URL": "https://vivelop.ngrok.io",
-        "APP_EMAIL": "info@vivelop.com",
+        "APP_EMAIL": "info@underdog.com",
         "SHOPIFY_API_KEY": "cc70f60501318eedd43ebaae753aeb96",
-        "MONGODB_URI":"mongodb+srv://vivelop-admin:zpnKDnRPl4KkHLwS@vivelop-cluster.ncf5u.mongodb.net/vivelop?retryWrites=true&w=majority",
+        "MONGODB_URI":"mongodb+srv://underdog-admin:zpnKDnRPl4KkHLwS@underdog-cluster.ncf5u.mongodb.net/underdog?retryWrites=true&w=majority",
         "S3_BUCKET": "vivelop-images",
         "GOOGLE_API_CLIENT_ID":"230936750545-7v2qm20fiovmavpnb2fn2ut1ffl4u0bt.apps.googleusercontent.com",
         "STRIPE_API_KEY": "pk_test_51H1uBRBI9q0ktHJ5vE0SFWsNWFQkMjZGXXIZuJB6tVzDWX1pc4DsJwWX5pLY3J5DjLWAqmWWQV7SefD4rREf5Mzo00uUoTN6Hw"
     },
     "production": {
-        "APP_URL": "https://vivelop.com",
-        "APP_EMAIL": "info@vivelop.com",
+        "APP_URL": "https://underdog.com",
+        "APP_EMAIL": "info@underdog.com",
         "SHOPIFY_API_KEY": "a5a6f83ab61b669d0a1d1cd6924eb713",
         "S3_BUCKET": "vivelop-images",
         "GOOGLE_API_CLIENT_ID":"230936750545-7v2qm20fiovmavpnb2fn2ut1ffl4u0bt.apps.googleusercontent.com",

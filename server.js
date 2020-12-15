@@ -39,6 +39,11 @@ const {createSurvey, getSurveys, getSurvey, updateSurvey, deleteSurvey} = requir
 const {getSurveyScript, getSurveyOptions} = require('./server/survey/serve');
 const {receiveSurvey} = require('./server/survey/receive');
 
+const {getProfiles, updateProfile, deleteProfile} = require('./server/responses/profiles');
+const {getSessions} = require('./server/responses/sessions');
+const {getQuestions} = require('./server/responses/questions');
+const {getResponses, deleteResponse} = require('./server/responses/responses');
+
 const whitelist = [    
     '/_next',
     '/static',
@@ -143,6 +148,11 @@ app.prepare().then(() => {
     router.post('/upload-image', uploadImage);
     router.get('/get-media-templates', getMediaTemplates)
     router.get('/get-pexels-templates', getPexelsTemplates)
+
+    router.get('/get-profiles', getProfiles)
+    router.get('/get-sessions', getSessions)
+    router.get('/get-responses', getResponses)
+    router.get('/get-questions', getQuestions)
 
     server.use(handleRender);    
 

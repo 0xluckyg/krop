@@ -27,7 +27,7 @@ function getStripePrices() {
 function createStripeProduct() {
     return new Promise((resolve, reject) => {
         stripe.products.create(
-            {name: 'Vivelop Custom'},
+            {name: `${process.env.APP_NAME} Custom`},
             function(err, product) {
                 if (err) return reject(err)
                 resolve(product)
@@ -140,7 +140,7 @@ async function updateStripeSubscription(ctx, user) {
         
         await sendEmail({
             to: user.email,
-            subject: 'Vivelop Subscription Changed!',
+            subject: `${process.env.APP_NAME} Subscription Changed!`,
             html: subscriptionChangeNotificationEmail
         })
         
@@ -166,7 +166,7 @@ async function handleStripeSubscription(ctx) {
 }
 
 // to test
-// stripe listen --forward-to vivelop.ngrok.io/webhooks/stripe-webhook
+// stripe listen --forward-to underdog.ngrok.io/webhooks/stripe-webhook
 // Ready! Your webhook signing secret is '{{WEBHOOK_SIGNING_SECRET}}'
 // test with 4242 4242 4242 4242
 async function handleStripeWebhook(ctx) {
@@ -196,7 +196,7 @@ async function handleStripeWebhook(ctx) {
         
         await sendEmail({
             to: billing_details.email,
-            subject: "Vivelop subscription success! Here's your receipt",
+            subject: `${process.env.APP_NAME} subscription success! Here's your receipt`,
             html: receiptEmail
         })
     }

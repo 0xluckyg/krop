@@ -22,23 +22,23 @@
         
         SUBMIT_ACTION: 'submit',
         
-        QUESTION_ELEMENT: 'question_element',
-        CONTAINER_ELEMENT: 'container_element',
-        WRAPPER_ELEMENT: 'wrapper_element',
-        BACKGROUND_ELEMENT: 'background_element',
-        PAGE_ELEMENT: 'page_element',
-        BUTTON_ELEMENT: 'button_element',
+        QUESTION_ELEMENT: 'question',
+        CONTAINER_ELEMENT: 'container',
+        WRAPPER_ELEMENT: 'wrapper',
+        BACKGROUND_ELEMENT: 'background',
+        PAGE_ELEMENT: 'page',
+        BUTTON_ELEMENT: 'button',
         
-        MULTIPLE_CHOICE_ELEMENT: 'multiple_choice_element', 
-        CHECKBOX_ELEMENT: 'checkbox_element', 
-        DROPDOWN_ELEMENT: 'dropdown_element', 
-        SLIDER_ELEMENT: 'slider_element', 
-        FORM_ELEMENT: 'form_element', 
-        EMAIL_ELEMENT: 'email_element',
-        PHONE_ELEMENT: 'phone_element', 
-        ADDRESS_ELEMENT: 'address_element', 
-        NAME_ELEMENT: 'name_element', 
-        LONG_FORM_ELEMENT: 'long_form_element'
+        MULTIPLE_CHOICE_ELEMENT: 'multiple_choice', 
+        CHECKBOX_ELEMENT: 'checkbox', 
+        DROPDOWN_ELEMENT: 'dropdown', 
+        SLIDER_ELEMENT: 'slider', 
+        FORM_ELEMENT: 'form', 
+        EMAIL_ELEMENT: 'email',
+        PHONE_ELEMENT: 'phone', 
+        ADDRESS_ELEMENT: 'address', 
+        NAME_ELEMENT: 'name', 
+        LONG_FORM_ELEMENT: 'long_form'
     }
     
     var currentSurveyOptions = null;

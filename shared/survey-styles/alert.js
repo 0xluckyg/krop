@@ -1,6 +1,6 @@
 const ALERT_TEXT = {
     fontSize: 12,
-    marginTop: 20
+    // marginTop: 20
 }
 const ALERT_TEXT_DESKTOP = {
     ...ALERT_TEXT

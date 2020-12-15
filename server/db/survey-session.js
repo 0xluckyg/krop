@@ -19,6 +19,21 @@ const SurveySessionSchema = new mongoose.Schema({
         type: String,
         index: true
     },
+    address: {
+        address1: String,
+        address2: String,
+        city: String,
+        state: String,
+        country: String,
+        zip: String
+    },
+    phone: String,
+    email: String,
+    name: {
+        firstName: String,
+        lastName: String
+    },
+    hasProfile: Boolean,
     path: String,
     browser: String,
     device: String,

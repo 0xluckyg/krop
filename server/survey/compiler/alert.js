@@ -66,8 +66,11 @@ function compileAlertCSS(options) {
 }
 
 function compileAlertTextCSS(options) {
+    const {textColor} = options.alert
+    
     return getCSS(alertTextClass, {
-        ...alertStyles.ALERT_TEXT
+        ...alertStyles.ALERT_TEXT,
+        color: textColor
     })
 }
 

@@ -6,7 +6,6 @@ import keys from '../config/keys';
 export const showToastAction = (show, text, type) => {    
     if (!text) text = ''
     if (!type) type = 'success'
-    console.log("WTF", {show, text, type})
     return {
         type: keys.SHOW_TOAST,
         payload: {show, text, type}

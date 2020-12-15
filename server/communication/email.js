@@ -9,12 +9,12 @@ async function createEmailTemplate(options) {
     emailScript = emailScript.replace(/{{APP_COLOR}}/g, keys.APP_COLOR)
     emailScript = emailScript.replace(/{{APP_LOGO}}/g, appUrl+'/static/app/logo.svg')
     
-    emailScript = emailScript.replace(/{{HEADER_TEXT}}/g, headerText ? headerText : 'Vivelop Popup Editor')
+    emailScript = emailScript.replace(/{{HEADER_TEXT}}/g, headerText ? headerText : process.env.APP_NAME)
     emailScript = emailScript.replace(/{{BODY_TEXT}}/g, bodyText ? bodyText : 'Check out our app!')
     emailScript = emailScript.replace(/{{BUTTON_LINK}}/g, buttonLink ? buttonLink : appUrl)
     emailScript = emailScript.replace(/{{BUTTON_TEXT}}/g, buttonText ? buttonText : 'GO')
     
-    emailScript = emailScript.replace(/{{SENDER_NAME}}/g, 'Vivelop')
+    emailScript = emailScript.replace(/{{SENDER_NAME}}/g, process.env.APP_NAME)
     emailScript = emailScript.replace(/{{SENDER_ADDRESS}}/g, keys.APP_ADDRESS)
     emailScript = emailScript.replace(/{{SENDER_CITY}}/g, keys.APP_CITY)
     emailScript = emailScript.replace(/{{SENDER_STATE}}/g, keys.APP_STATE)

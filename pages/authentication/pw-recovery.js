@@ -70,7 +70,7 @@ class ValidateEmail extends React.Component {
                     this.setState({recoveryEmail:event.target.value})
                 }}
                 margin="normal"
-                placeholder="Email (e.g. vivelop@gmail.com)"
+                placeholder="Email (e.g. underdog@gmail.com)"
                 error={recoveryEmailError ? true : false}
                 helperText={recoveryEmailError ? recoveryEmailError : false}
                 fullWidth

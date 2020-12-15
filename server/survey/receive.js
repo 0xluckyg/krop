@@ -50,13 +50,29 @@ function getSurveyError(survey) {
     return false
 }
 
-async function saveSurveySession(data) {
+async function saveSurveySession(surveyData) {
     try {
+        let defaultData = surveyData
+        delete defaultData.value
+        
+        //make profile to session and update
+        const profileTypes = [
+            keys.ADDRESS_ELEMENT, keys.PHONE_ELEMENT, keys.EMAIL_ELEMENT, keys.NAME_ELEMENT
+        ]
+        const profileElements = {}
+        surveyData.map(s => {
+            if (profileTypes.includes(s.type)) {
+                profileElements[s.type] = s.value
+                profileElements.hasProfile = true
+            }
+        })
+        
         await SurveySession.findOneAndUpdate({
-            sessionId: data.sessionId
+            sessionId: defaultData.sessionId
         }, {
             $set: { 
-                ...data
+                ...defaultData,
+                ...profileElements
             }
         }, {upsert: 1}).lean()
     } catch(err) {
@@ -97,14 +113,14 @@ async function receiveSurvey(ctx) {
         }
     })
     
-    if (surveyErrors.length > 0) {
+    if (surveyData.length <= 0 || surveyErrors.length > 0) {
         ctx.body = surveyErrors
         ctx.status = 400
         return
     }
     
     try {
-        await saveSurveySession(defaultData)
+        await saveSurveySession(surveyData)
         await SurveyResponse.insertMany(surveyData, {ordered: false})
         ctx.body = []
     } catch(err) {

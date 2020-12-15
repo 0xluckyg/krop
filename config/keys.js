@@ -1,5 +1,5 @@
-const APP_NAME = 'Visurve'
-const APP_FULL_NAME = 'Visurve'
+const APP_NAME = 'Underdog'
+const APP_FULL_NAME = 'Underdog'
 const APP_COLOR = '#13a89e';
 const APP_COLOR_RGB = 'rgb(19,168,158)';
 const APP_COLOR_2 = '#ef3e36';
@@ -28,7 +28,7 @@ const APP_ZIP = '07310'
 const PAGE_SIZE = 50
 
 const LOGO = '../static/logo-white.svg'
-const APP_EMAIL = 'info@vivelop.com'
+const APP_EMAIL = 'info@underdog.com'
 const NAV_WIDTH = 200
 const NAV_COLOR = '#151b26'
 const HEADER_HEIGHT = 45
@@ -55,36 +55,36 @@ const TEXT_SETTINGS = 'text_settings'
 const ALERT_SETTINGS = 'alert_settings'
 const LOGO_SETTINGS = 'logo_settings'
 
-const MULTIPLE_CHOICE_ELEMENT = 'multiple_choice_element'
-const CHECKBOX_ELEMENT = 'checkbox_element'
-const DROPDOWN_ELEMENT = 'dropdown_element'
-const SLIDER_ELEMENT = 'slider_element'
+const MULTIPLE_CHOICE_ELEMENT = 'multiple_choice'
+const CHECKBOX_ELEMENT = 'checkbox'
+const DROPDOWN_ELEMENT = 'dropdown'
+const SLIDER_ELEMENT = 'slider'
 
-const BUTTON_ELEMENT = 'button_element'
-const STAGE_ELEMENT = 'stage_element'
-const PAGE_ELEMENT = 'page_element'
-const HEADER_ELEMENT = 'header_element'
-const ALERT_ELEMENT = 'alert_element'
-const CONTAINER_ELEMENT = 'container_element'
-const WRAPPER_ELEMENT = 'wrapper_element'
-const BACKGROUND_ELEMENT = 'background_element'
-const FORM_ELEMENT = 'form_element'
-const EMAIL_ELEMENT = 'email_element'
-const PHONE_ELEMENT = 'phone_element'
-const ADDRESS_ELEMENT = 'address_element'
-const NAME_ELEMENT = 'name_element'
+const BUTTON_ELEMENT = 'button'
+const STAGE_ELEMENT = 'stage'
+const PAGE_ELEMENT = 'page'
+const HEADER_ELEMENT = 'header'
+const ALERT_ELEMENT = 'alert'
+const CONTAINER_ELEMENT = 'container'
+const WRAPPER_ELEMENT = 'wrapper'
+const BACKGROUND_ELEMENT = 'background'
+const FORM_ELEMENT = 'form'
+const EMAIL_ELEMENT = 'email'
+const PHONE_ELEMENT = 'phone'
+const ADDRESS_ELEMENT = 'address'
+const NAME_ELEMENT = 'name'
 
-const LONG_FORM_ELEMENT = 'long_form_element'
+const LONG_FORM_ELEMENT = 'long_form'
 
-const HEADING_ELEMENT = 'heading_element'
-const SUBHEADING_ELEMENT = 'subheading_element'
-const PARAGRAPH_ELEMENT = 'paragraph_element'
+const HEADING_ELEMENT = 'heading'
+const SUBHEADING_ELEMENT = 'subheading'
+const PARAGRAPH_ELEMENT = 'paragraph'
 
-const LINK_ELEMENT = 'link_element'
+const LINK_ELEMENT = 'link'
 
-const IMAGE_ELEMENT = 'image_element'
-const VIDEO_ELEMENT = 'video_element'
-const SPACING_ELEMENT = 'spacing_element'
+const IMAGE_ELEMENT = 'image'
+const VIDEO_ELEMENT = 'video'
+const SPACING_ELEMENT = 'spacing'
 
 const MEDIA_TEMPLATE = 'media_template'
 

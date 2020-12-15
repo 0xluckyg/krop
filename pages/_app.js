@@ -46,7 +46,7 @@ const noAuth = [
 
 //_app file overrides Next.js App file.
 // Next.js uses an App component to pass down classes to the other files in your app. This saves us from having to add imports to each file
-function Vivelop(props) {
+function Underdog(props) {
     const { Component, pageProps, router } = props;
     
     React.useEffect(() => {
@@ -82,4 +82,4 @@ function Vivelop(props) {
     );
 }
 
-export default Vivelop;
+export default Underdog;
