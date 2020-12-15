@@ -1,13 +1,13 @@
-const {Profile} = require('../db/profiles');
+const {SurveySession} = require('../db/survey-session');
 const keys = require('../../config/keys')
 
 async function updateProfile(ctx) {
     try {
         const body = JSON.parse(ctx.request.rawBody)        
         
-        const newProfile = await Profile.findByIdAndUpdate(body._id, {...body}, {new: true})
+        const newSession = await SurveySession.findByIdAndUpdate(body._id, {...body}, {new: true})
 
-        ctx.body = newProfile
+        ctx.body = newSession
     } catch (err) {
         console.log('Failed updateProfile: ', err)
         ctx.status = 500
@@ -15,25 +15,30 @@ async function updateProfile(ctx) {
 }
 
 function formatProfileQuery(ctx) {
-    const key = ctx.session.key
+    const {id} = ctx.session
     let { filter, searchText, searchType } = ctx.query
     if (filter) filter = JSON.parse(filter)
     let query = {
-        key, 
-        expiresAt: null
+        accountId: id,
+        hasProfile: true
     }
     
     const neQuery = {$ne : null}
     if (filter.email) {
-        query['email.value'] = neQuery
+        query['email'] = neQuery
     }
-    if (filter.mobile) {
-        query['mobile.value'] = neQuery
+    if (filter.phone) {
+        query['phone'] = neQuery
+    }
+    if (filter.address) {
+        query['address'] = neQuery
+    }
+    if (filter.name) {
+        query['name'] = neQuery
     }
     
     if (searchText && searchText != '') {
         const matchQuery = {$eq: searchText}
-        if (searchType == keys.MOBILE_PROPERTY || searchType == 'email') searchType = searchType + '.value'
         if (query[searchType]) {
             query[searchType] = {...query[searchType], ...matchQuery}
         } else {
@@ -54,12 +59,13 @@ async function getProfiles(ctx) {
         let hasPrevious = true; let hasNext = true
 
         const query = formatProfileQuery(ctx)
-        const total = await Profile.countDocuments(query)        
+        console.log("QQQ: ", query)
+        const total = await SurveySession.countDocuments(query)        
         const totalPages = Math.ceil(total / limit)
         if (page == totalPages || totalPages == 0) hasNext = false
         if (page == 1) hasPrevious = false
         
-        const profiles = await Profile.find(query)
+        const profiles = await SurveySession.find(query)
         .sort({from: -1})
         .skip((page * limit) - limit)
         .limit(limit)
@@ -75,7 +81,7 @@ async function deleteProfile(ctx) {
     try {
         const body = JSON.parse(ctx.request.rawBody)      
         const _id = body._id
-        await Profile.findByIdAndRemove(_id)
+        await SurveySession.findByIdAndRemove(_id)
 
         ctx.body = 'profile removed'
     } catch (err) {

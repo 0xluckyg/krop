@@ -37,9 +37,9 @@ import { showToastAction, isLoadingAction, showPaymentPlanAction } from '../../r
 import NoContent from '../../components/reusable/no-content'
 import PageHeader from '../../components/reusable/page-header'
 import keys from '../../config/keys'
-import SurveyCampaigns from '../../components/responses/campaigns';
+import SurveyCampaigns from '../../components/responses/surveys';
 import SurveyQuestions from '../../components/responses/questions';
-import SurveyAnswers from '../../components/responses/answers';
+import SurveyResponses from '../../components/responses/responses';
 import Spinner from '../../components/reusable/spinner'
 
 class Surveys extends React.Component {
@@ -100,7 +100,7 @@ class Surveys extends React.Component {
                     <Paper className={classes.tablePaper}>                                    
                         {filter == 'question' ? <SurveyQuestions/> : null}
                         {filter == 'campaign' ? <SurveyCampaigns/> : null}
-                        {filter == 'answer' ? <SurveyAnswers/> : null}
+                        {filter == 'answer' ? <SurveyResponses/> : null}
                     </Paper>
                     <Paper className={classes.filterPaper}>
                         {this.renderFilter()}

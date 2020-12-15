@@ -7,6 +7,7 @@ const {Survey} = require('../db/survey');
 const {User} = require('../db/user');
 const surveyCompiler = require('../survey/compiler')
 const {updateSurveyQuestions, removeSurveyQuestions} = require('./functions')
+const keys = require('../../config/keys')
 
 async function getCompiledSurvey(survey) {
     return {
@@ -85,17 +86,17 @@ async function getSurvey(ctx) {
 
 async function getSurveys(ctx) {
     try {        
-        const limit = 30
-        const key = ctx.session.key
+        const limit = keys.PAGE_SIZE
+        const {id} = ctx.session
         let page = parseInt(ctx.query.page)
         let hasPrevious = true; let hasNext = true
 
-        const total = await Survey.countDocuments({key, expiresAt: null})
+        const total = await Survey.countDocuments({accountId: id, expiresAt: null})
         const totalPages = Math.ceil(total / limit)
         if (page == totalPages || totalPages == 0) hasNext = false
         if (page == 1) hasPrevious = false
         
-        const surveys = await Survey.find({key, expiresAt: null})
+        const surveys = await Survey.find({accountId: id, expiresAt: null})
         .sort({from: -1})
         .skip((page * limit) - limit)
         .limit(limit)

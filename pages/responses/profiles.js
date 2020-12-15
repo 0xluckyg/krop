@@ -54,7 +54,7 @@ class BrowseProfiles extends React.Component {
             searchType: 'email',
             filter: {
                 email: false,
-                mobile: false
+                phone: false
             }
         }
     }
@@ -75,7 +75,8 @@ class BrowseProfiles extends React.Component {
         axios.get(process.env.APP_URL + '/get-profiles', {
             params,
             withCredentials: true
-        }).then(res => {                        
+        }).then(res => {                
+            console.log("RES: ", res.data)
             const result = res.data
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
@@ -175,8 +176,8 @@ class BrowseProfiles extends React.Component {
             <TableHead>
                 <TableRow>
                     <TableCell size="small">Email</TableCell>
+                    <TableCell size="small">Phone</TableCell>
                     <TableCell size="small">Name</TableCell>
-                    <TableCell size="small">Number</TableCell>
                     <TableCell size="small">Signup Date</TableCell>
                     <TableCell align="right">View / Delete</TableCell>                    
                 </TableRow>
@@ -299,16 +300,14 @@ class BrowseProfiles extends React.Component {
                 {this.renderTableHeader()}
                 <TableBody>
                     {profiles.map((row, i) => {
-                    let {_id, profile, email, mobile, createdAt} = row
-                    email = email.value
-                    mobile = mobile.value
-                    const name = formatName(profile.firstName, profile.lastName)
+                    let {_id, email, phone, name, createdAt} = row
+                    const cleanName = name ? formatName(name.firstName, name.lastName) : ''
                     const created = formatDate(createdAt)
                     return (
                         <TableRow key={i}>
                             <TableCell size="small">{email}</TableCell>
-                            <TableCell size="small">{name}</TableCell>
-                            <TableCell size="small">{mobile}</TableCell>
+                            <TableCell size="small">{phone}</TableCell>
+                            <TableCell size="small">{cleanName}</TableCell>
                             <TableCell size="small">{created}</TableCell>
                             <TableCell align="right">
                                 <IconButton
@@ -341,14 +340,18 @@ class BrowseProfiles extends React.Component {
     renderSearch() {
         const {classes} = this.props
         const searchTypes = [
-            { value: "email", label: "Email" },
-            { value: keys.MOBILE_PROPERTY, label: "Mobile" },
-            { value: "firstName", label: "First Name"},
-            { value: "lastName", label: "Last Name"},
-            { value: "country", label: "Country"},
-            { value: "state", label: "State"},
-            { value: "city", label: "City"},
-            { value: "organization", label: "Organization"}
+            { value: keys.EMAIL_ELEMENT, label: "Email" },
+            { value: keys.PHONE_ELEMENT, label: "Phone" },
+            
+            { value: "name.firstName", label: "First Name"},
+            { value: "name.lastName", label: "Last Name"},
+            
+            { value: "address.country", label: "Country"},
+            { value: "address.state", label: "State"},
+            { value: "address.city", label: "City"},
+            { value: "address.zip", label: "Zip"},
+            { value: "address.address1", label: "Address 1"},
+            { value: "address.address2", label: "Address 2"},
         ]
         return (
             <div className={classes.searchContainer}>
@@ -400,9 +403,19 @@ class BrowseProfiles extends React.Component {
                     <FormControlLabel value={true} control={<Switch/>} label="Email" />
                 </FormGroup>
                 <FormGroup aria-label="type" name="type" 
-                    value={filter.mobile} 
-                    onChange={(event) => this.handleFilterSwitch(keys.MOBILE_PROPERTY)} row>
-                    <FormControlLabel value={true} control={<Switch/>} label="Mobile" />
+                    value={filter.phone} 
+                    onChange={(event) => this.handleFilterSwitch(keys.PHONE_ELEMENT)} row>
+                    <FormControlLabel value={true} control={<Switch/>} label="Phone" />
+                </FormGroup>
+                <FormGroup aria-label="type" name="type" 
+                    value={filter.name} 
+                    onChange={(event) => this.handleFilterSwitch("name")} row>
+                    <FormControlLabel value={true} control={<Switch/>} label="Name" />
+                </FormGroup>
+                <FormGroup aria-label="type" name="type" 
+                    value={filter.address} 
+                    onChange={(event) => this.handleFilterSwitch("address")} row>
+                    <FormControlLabel value={true} control={<Switch/>} label="Address" />
                 </FormGroup>
             </div>
         )

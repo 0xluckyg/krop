@@ -150,9 +150,9 @@ app.prepare().then(() => {
     router.get('/get-pexels-templates', getPexelsTemplates)
 
     router.get('/get-profiles', getProfiles)
-    router.get('/get-sessions', getSessions)
-    router.get('/get-responses', getResponses)
-    router.get('/get-questions', getQuestions)
+    // router.get('/get-sessions', getSessions)
+    // router.get('/get-responses', getResponses)
+    // router.get('/get-questions', getQuestions)
 
     server.use(handleRender);    
 

@@ -1,6 +1,6 @@
-const {SurveyResponse} = require('../db/survey-responses');
-const {SurveyQuestion} = require('../db/survey-questions');
-const {Widget} = require('../db/widgets');
+const {SurveyResponse} = require('../db/survey-response');
+const {SurveyQuestion} = require('../db/survey-question');
+const {Survey} = require('../db/survey');
 const keys = require('../../config/keys')
 
 function formatQuestionQuery(ctx) {
@@ -96,19 +96,19 @@ async function deleteResponse(ctx) {
     }
 }
 
-async function getSurveyWidgets(ctx) {
+async function getSurveySurveys(ctx) {
     try {        
         const limit = 30
         const key = ctx.session.key
         let page = parseInt(ctx.query.page)
         let hasPrevious = true; let hasNext = true
 
-        const total = await Widget.countDocuments({key, expiresAt: null})
+        const total = await Survey.countDocuments({key, expiresAt: null})
         const totalPages = Math.ceil(total / limit)
         if (page == totalPages || totalPages == 0) hasNext = false
         if (page == 1) hasPrevious = false
         
-        const surveys = await Widget.find({
+        const surveys = await Survey.find({
             key, 
             expiresAt: null,
             'surveyCount': { 
@@ -135,9 +135,9 @@ async function getSurveyWidgets(ctx) {
         
         ctx.body = {surveys, page, hasPrevious, hasNext, totalPages, total}
     } catch (err) {
-        console.log('Failed getWidgets: ', err)
+        console.log('Failed getSurveys: ', err)
         ctx.status = 400
     }     
 }
 
-module.exports = {getSurveyQuestions, getSurveyResponses, deleteResponse, getSurveyWidgets}
+module.exports = {getSurveyQuestions, getSurveyResponses, deleteResponse, getSurveySurveys}

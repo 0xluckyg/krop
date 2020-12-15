@@ -52,7 +52,7 @@ function getSurveyError(survey) {
 
 async function saveSurveySession(surveyData) {
     try {
-        let defaultData = surveyData
+        let defaultData = {...surveyData[0]}
         delete defaultData.value
         
         //make profile to session and update

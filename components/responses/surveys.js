@@ -55,12 +55,11 @@ class SurveyCampaigns extends React.Component {
         params.page = page
 
         this.setState({isLoading: true})
-        axios.get(process.env.APP_URL + '/get-survey-widgets', {
+        axios.get(process.env.APP_URL + '/get-surveys', {
             params,
             withCredentials: true
         }).then(res => {                        
             const result = res.data
-            console.log("result", result)
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
@@ -93,7 +92,6 @@ class SurveyCampaigns extends React.Component {
                     <TableCell size="small">Campaign Name</TableCell>
                     <TableCell size="small">Views</TableCell>
                     <TableCell size="small">Submits</TableCell>
-                    <TableCell size="small">Questions</TableCell>
                     <TableCell size="small">Enabled</TableCell>
                     <TableCell size="small">Devices</TableCell>
                     <TableCell size="small">Updated At</TableCell>
@@ -217,13 +215,13 @@ class SurveyCampaigns extends React.Component {
                 <TableBody>
                     {surveys.map((row, i) => {
                     console.log("R: ", row)
-                    let {name, views, submits, surveyCount, enabled, device, updatedAt} = row
+                    let {views, submits, enabled, updatedAt} = row
+                    let {name, device} = row.settings
                     return (
                         <TableRow onClick={() => handleEdit(row)} className={classes.tableRow} key={i}>
                             <TableCell size="small">{name}</TableCell>
                             <TableCell size="small">{views}</TableCell>
                             <TableCell size="small">{submits}</TableCell>
-                            <TableCell size="small">{surveyCount}</TableCell>
                             <TableCell size="small">{enabled ? 'true' : 'false'}</TableCell>
                             <TableCell size="small">{device}</TableCell>
                             <TableCell size="small">{formatDate(updatedAt)}</TableCell>
