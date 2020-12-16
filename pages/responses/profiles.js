@@ -76,7 +76,6 @@ class BrowseProfiles extends React.Component {
             params,
             withCredentials: true
         }).then(res => {                
-            console.log("RES: ", res.data)
             const result = res.data
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
@@ -158,7 +157,7 @@ class BrowseProfiles extends React.Component {
         return (
             <div className={this.props.classes.emptyContainer}>
                 <NoContent
-                    iconPath="../../static/leads/market.svg"
+                    iconPath="../../static/responses/market.svg"
                     text='Hey there,'
                     subText="It looks like you don't have a profile in your contacts!"
                     actionText='Set up a Campaign'

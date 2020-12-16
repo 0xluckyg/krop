@@ -38,6 +38,7 @@ import NoContent from '../../components/reusable/no-content'
 import PageHeader from '../../components/reusable/page-header'
 import keys from '../../config/keys'
 import SurveyCampaigns from '../../components/responses/surveys';
+import SurveySessions from '../../components/responses/sessions';
 import SurveyQuestions from '../../components/responses/questions';
 import SurveyResponses from '../../components/responses/responses';
 import Spinner from '../../components/reusable/spinner'
@@ -58,7 +59,7 @@ class Surveys extends React.Component {
             currentProfile: undefined,
             
             searchType: 'email',
-            filter: 'question'
+            filter: 'campaign'
         }
     }
 
@@ -78,9 +79,10 @@ class Surveys extends React.Component {
                 <FormControl>
                     <FormLabel component="legend">Show by</FormLabel>
                     <RadioGroup value={filter} onChange={(event) => this.handleFilterSwitch(event.target.value)}>
-                        <FormControlLabel value="question" control={<Radio />} label="Questions" />
                         <FormControlLabel value="campaign" control={<Radio />} label="Campaigns" />
+                        <FormControlLabel value="session" control={<Radio />} label="Sessions" />
                         <FormControlLabel value="response" control={<Radio />} label="Responses" />
+                        <FormControlLabel value="question" control={<Radio />} label="Questions" />
                     </RadioGroup>
                 </FormControl>
             </div>
@@ -97,10 +99,11 @@ class Surveys extends React.Component {
                     paddingTop
                 />
                 <Container className={classes.container} maxWidth={keys.CONTAINER_SIZE}>
-                    <Paper className={classes.tablePaper}>                                    
-                        {filter == 'question' ? <SurveyQuestions/> : null}
+                    <Paper className={classes.tablePaper}>                
                         {filter == 'campaign' ? <SurveyCampaigns/> : null}
-                        {filter == 'answer' ? <SurveyResponses/> : null}
+                        {filter == 'session' ? <SurveySessions/> : null}
+                        {filter == 'response' ? <SurveyResponses/> : null}
+                        {filter == 'question' ? <SurveyQuestions/> : null}
                     </Paper>
                     <Paper className={classes.filterPaper}>
                         {this.renderFilter()}

@@ -84,7 +84,7 @@ class SurveyQuestions extends React.Component {
         return (
             <div className={this.props.classes.emptyContainer}>
                 <NoContent
-                    iconPath="../../static/leads/market.svg"
+                    iconPath="../../static/responses/market.svg"
                     text='Hey there,'
                     subText="It looks like you don't have a profile in your contacts!"
                     actionText='Set up a Campaign'

@@ -34,7 +34,7 @@ class SurveyCampaigns extends React.Component {
             hasPrevious: false,
             hasNext: false,
             isLoading: true,
-            isEditing: false,
+            isViewing: false,
             currentSurvey: undefined,
             
             searchType: 'email',
@@ -44,10 +44,10 @@ class SurveyCampaigns extends React.Component {
 
     componentDidMount() {
         this.props.isLoadingAction(false)    
-        this.fetchSurveyQuestions(1)
+        this.fetchSurveys(1)
     }
 
-    fetchSurveyQuestions(page, params) {
+    fetchSurveys(page, params) {
         if (!params) {
             const { filter, searchText, searchType } = this.state
             params = { filter, searchText, searchType }
@@ -72,7 +72,7 @@ class SurveyCampaigns extends React.Component {
         return (
             <div className={this.props.classes.emptyContainer}>
                 <NoContent
-                    iconPath="../../static/leads/market.svg"
+                    iconPath="../../static/responses/market.svg"
                     text='Hey there,'
                     subText="It looks like you don't have a profile in your contacts!"
                     actionText='Set up a Campaign'
@@ -106,19 +106,19 @@ class SurveyCampaigns extends React.Component {
         const { page, totalPages, hasPrevious, hasNext, isLoading } = this.state;
     
         const handleFirstPageButtonClick = () => {
-            this.fetchSurveyQuestions(1)
+            this.fetchSurveys(1)
         }
     
         const handleBackButtonClick = () => {
-            this.fetchSurveyQuestions(page - 1)
+            this.fetchSurveys(page - 1)
         }
     
         const handleNextButtonClick = () => {
-            this.fetchSurveyQuestions(page + 1)
+            this.fetchSurveys(page + 1)
         }
     
         const handleLastPageButtonClick = () => {
-            this.fetchSurveyQuestions(totalPages)
+            this.fetchSurveys(totalPages)
         }        
             
         return (
@@ -193,9 +193,9 @@ class SurveyCampaigns extends React.Component {
         const {classes} = this.props
         const {surveys, isLoading} = this.state
         
-        const handleEdit = (row) => {
+        const handleView = (row) => {
             this.setState({
-                isEditing: true,
+                isViewing: true,
                 currentSurvey: {...row}
             })
         }
@@ -218,7 +218,7 @@ class SurveyCampaigns extends React.Component {
                     let {views, submits, enabled, updatedAt} = row
                     let {name, device} = row.settings
                     return (
-                        <TableRow onClick={() => handleEdit(row)} className={classes.tableRow} key={i}>
+                        <TableRow onClick={() => handleView(row)} className={classes.tableRow} key={i}>
                             <TableCell size="small">{name}</TableCell>
                             <TableCell size="small">{views}</TableCell>
                             <TableCell size="small">{submits}</TableCell>
@@ -227,9 +227,9 @@ class SurveyCampaigns extends React.Component {
                             <TableCell size="small">{formatDate(updatedAt)}</TableCell>
                             <TableCell align="right">
                                 <IconButton
-                                    onClick={() => handleEdit(row)}
+                                    onClick={() => handleView(row)}
                                     disabled={isLoading}
-                                    aria-label="Edit"
+                                    aria-label="View"
                                 >                    
                                     <ViewIcon/>
                                 </IconButton>

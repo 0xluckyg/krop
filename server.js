@@ -40,7 +40,7 @@ const {getSurveyScript, getSurveyOptions} = require('./server/survey/serve');
 const {receiveSurvey} = require('./server/survey/receive');
 
 const {getProfiles, updateProfile, deleteProfile} = require('./server/responses/profiles');
-const {getSessions} = require('./server/responses/sessions');
+const {getSurveySessions} = require('./server/responses/sessions');
 const {getQuestions} = require('./server/responses/questions');
 const {getResponses, deleteResponse} = require('./server/responses/responses');
 
@@ -150,7 +150,7 @@ app.prepare().then(() => {
     router.get('/get-pexels-templates', getPexelsTemplates)
 
     router.get('/get-profiles', getProfiles)
-    // router.get('/get-sessions', getSessions)
+    router.get('/get-sessions', getSurveySessions)
     // router.get('/get-responses', getResponses)
     // router.get('/get-questions', getQuestions)
 
