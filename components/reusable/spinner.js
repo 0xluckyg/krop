@@ -26,13 +26,17 @@ class Spinner extends React.Component {
 // https://loading.io/css/
 // https://tobiasahlin.com/spinkit/
 const useStyles = theme => ({
-    foldingCube: {
-        margin: '20px auto',
-        width: 40,
-        height: 40,
-        position: 'relative',
-        transform: 'rotateZ(45deg)',
-        
+    foldingCube: props => {
+        let {size, margin} = props
+        margin = margin ? margin : 20
+        return {
+            margin: `${margin}px auto`,
+            width: size ? size : 40,
+            height: size ? size : 40,
+            position: 'relative',
+            transform: 'rotateZ(45deg)',
+            
+        }
     },
     cube: {
         float: 'left',

@@ -39,8 +39,8 @@ import PageHeader from '../../components/reusable/page-header'
 import keys from '../../config/keys'
 import SurveyCampaigns from '../../components/responses/surveys';
 import SurveySessions from '../../components/responses/sessions';
-import SurveyQuestions from '../../components/responses/questions';
-import SurveyResponses from '../../components/responses/responses';
+// import SurveyQuestions from '../../components/responses/questions';
+// import SurveyResponses from '../../components/responses/responses';
 import Spinner from '../../components/reusable/spinner'
 
 class Surveys extends React.Component {
@@ -81,8 +81,6 @@ class Surveys extends React.Component {
                     <RadioGroup value={filter} onChange={(event) => this.handleFilterSwitch(event.target.value)}>
                         <FormControlLabel value="campaign" control={<Radio />} label="Campaigns" />
                         <FormControlLabel value="session" control={<Radio />} label="Sessions" />
-                        <FormControlLabel value="response" control={<Radio />} label="Responses" />
-                        <FormControlLabel value="question" control={<Radio />} label="Questions" />
                     </RadioGroup>
                 </FormControl>
             </div>
@@ -99,12 +97,8 @@ class Surveys extends React.Component {
                     paddingTop
                 />
                 <Container className={classes.container} maxWidth={keys.CONTAINER_SIZE}>
-                    <Paper className={classes.tablePaper}>                
-                        {filter == 'campaign' ? <SurveyCampaigns/> : null}
-                        {filter == 'session' ? <SurveySessions/> : null}
-                        {filter == 'response' ? <SurveyResponses/> : null}
-                        {filter == 'question' ? <SurveyQuestions/> : null}
-                    </Paper>
+                    {filter == 'campaign' ? <SurveyCampaigns/> : null}
+                    {filter == 'session' ? <SurveySessions/> : null}
                     <Paper className={classes.filterPaper}>
                         {this.renderFilter()}
                     </Paper>
@@ -137,9 +131,6 @@ const useStyles = theme => ({
         marginTop: theme.spacing(4),
         marginBottom: theme.spacing(4),
         flex: 1
-    },
-    tablePaper: {
-        flex: 1,
     },
     paginationWrapper: {
         flexShrink: 0,

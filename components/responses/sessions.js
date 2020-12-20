@@ -2,20 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Waypoint } from "react-waypoint";
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
 import ViewIcon from '@material-ui/icons/Visibility';
 import { showToastAction, isLoadingAction, showPaymentPlanAction } from '../../redux/actions';
 import NoContent from '../../components/reusable/no-content'
@@ -58,7 +53,6 @@ class SurveySessions extends React.Component {
             params,
             withCredentials: true
         }).then(res => {                
-            console.log("RRRR: ", res)
             const result = res.data
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
@@ -89,98 +83,28 @@ class SurveySessions extends React.Component {
         return (
             <TableHead>
                 <TableRow>
-                    <TableCell size="small">Email</TableCell>
-                    <TableCell size="small">Phone</TableCell>
-                    <TableCell size="small">Name</TableCell>
-                    <TableCell size="small">Signup Date</TableCell>
+                    <TableCell size="small">Date</TableCell>
+                    <TableCell size="small">SurveyName</TableCell>
+                    <TableCell size="small">Browser</TableCell>
+                    <TableCell size="small">Contact</TableCell>
                     <TableCell align="right" size="small">View</TableCell>
                 </TableRow>
             </TableHead>
         )
     }
+    
+    renderSpinner() {
+        const SpinnerCell = withStyles({
+            root: {
+                borderBottom: "none"
+            }
+        })(TableCell);
+        if (!this.state.isLoading) return null
+        return <SpinnerCell colSpan={5}>
+            <Spinner margin={5} size={20}/>
+        </SpinnerCell>
+    }
 
-    renderTablePagination() {        
-        const {classes} = this.props;
-        const { page, totalPages, hasPrevious, hasNext, isLoading } = this.state;
-    
-        const handleFirstPageButtonClick = () => {
-            this.fetchSurveySessions(1)
-        }
-    
-        const handleBackButtonClick = () => {
-            this.fetchSurveySessions(page - 1)
-        }
-    
-        const handleNextButtonClick = () => {
-            this.fetchSurveySessions(page + 1)
-        }
-    
-        const handleLastPageButtonClick = () => {
-            this.fetchSurveySessions(totalPages)
-        }        
-            
-        return (
-            <div className={classes.paginationWrapper}>
-                <IconButton
-                    onClick={handleFirstPageButtonClick}
-                    disabled={!hasPrevious || isLoading}
-                    aria-label="First Page"
-                >
-                    <FirstPageIcon />
-                </IconButton>
-                <IconButton 
-                    onClick={handleBackButtonClick} 
-                    disabled={!hasPrevious || isLoading} 
-                    aria-label="Previous Page"
-                >
-                    <KeyboardArrowLeft />
-                </IconButton>
-                <IconButton
-                    onClick={handleNextButtonClick}
-                    disabled={!hasNext || isLoading}
-                    aria-label="Next Page"
-                >                    
-                    <KeyboardArrowRight />
-                </IconButton>
-                <IconButton
-                    onClick={handleLastPageButtonClick}
-                    disabled={!hasNext || isLoading}
-                    aria-label="Last Page"
-                >                    
-                    <LastPageIcon/>
-                </IconButton>
-            </div>
-        );
-    }
-    
-    renderTableFooter() {
-        const {sessions, total, page} = this.state   
-        const limit = keys.PAGE_SIZE
-        return (
-            <TableFooter>
-                <TableRow>
-                <TablePagination
-                    rowsPerPageOptions={[]}                    
-                    colSpan={8}
-                    labelDisplayedRows={() => {
-                        const current = (page * limit) - limit
-                        return `${current + 1} - ${current + sessions.length} of ${total}`
-                    }}
-                    SelectProps={{
-                        inputProps: { 'aria-label': 'Rows per page' },
-                        native: true,
-                    }}
-                    rowsPerPage={limit}
-                    page={0}
-                    count={sessions.length}
-                    onChangePage={() => {}}
-                    ActionsComponent={this.renderTablePagination.bind(this)}
-                />
-                </TableRow>
-            </TableFooter>
-        )
-    }
-    
     renderTable() {
         //formats ISO date into a prettier format
         const formatDate = (ISO) => {
@@ -188,13 +112,7 @@ class SurveySessions extends React.Component {
             let date = new Date(Date.parse(ISO))
             return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`        
         }
-
-        const formatName = (first, last) => {
-            first = first ? first : ''
-            last = last ? " " + last : ''
-            return first + last
-        }
-
+        
         const {classes} = this.props
         const {sessions, isLoading} = this.state
         
@@ -205,14 +123,7 @@ class SurveySessions extends React.Component {
             })
         }
         
-        // if (true) {
-        if (isLoading) {
-            return (
-                <div className={classes.emptyContainer}>
-                    <Spinner/>
-                </div>
-            )
-        } else if (sessions.length <= 0) {
+        if (!isLoading && sessions.length <= 0) {
             return this.renderNoContent()
         }
         
@@ -221,15 +132,15 @@ class SurveySessions extends React.Component {
                 {this.renderTableHeader()}
                 <TableBody>
                     {sessions.map((row, i) => {
-                    let {_id, email, phone, name, createdAt} = row
-                    const cleanName = name ? formatName(name.firstName, name.lastName) : ''
+                    let {_id, email, phone, browser, surveyName, createdAt} = row
+                    const contact = email ? email : phone ? phone : 'N/A'
                     const created = formatDate(createdAt)
                     return (
                         <TableRow key={i}>
-                            <TableCell size="small">{email}</TableCell>
-                            <TableCell size="small">{phone}</TableCell>
-                            <TableCell size="small">{cleanName}</TableCell>
                             <TableCell size="small">{created}</TableCell>
+                            <TableCell size="small">{surveyName}</TableCell>
+                            <TableCell size="small">{browser}</TableCell>
+                            <TableCell size="small">{contact}</TableCell>
                             <TableCell align="right">
                                 <IconButton
                                     onClick={() => handleView(row)}
@@ -238,29 +149,27 @@ class SurveySessions extends React.Component {
                                 >                    
                                     <ViewIcon/>
                                 </IconButton>
-                            </TableCell>     
+                            </TableCell>
+                            {(i >= 50 && i == row.length - 1) ? 
+                                <Waypoint
+                                    onEnter={() => {
+                                        this.fetchSurveySessions(this.state.page + 1)
+                                    }}
+                                />
+                                : null
+                            }
                         </TableRow>
                     )}
                 )}
-                </TableBody>                                     
-                {this.renderTableFooter()}
+                {this.renderSpinner()}
+                </TableBody>     
             </Table>
         )
     }
 
     render() {
         const {classes} = this.props
-        const {sessions, isLoading} = this.state
-        
-        if (isLoading) {
-            return (
-                <div className={classes.emptyContainer}>
-                    <Spinner/>
-                </div>
-            )
-        } else if (sessions.length <= 0) {
-            return this.renderNoContent()
-        }
+
         return (
             <Table className={classes.table}>
                 {this.renderTable()}                              
@@ -272,6 +181,7 @@ class SurveySessions extends React.Component {
 const useStyles = theme => ({    
     emptyContainer: {
         height: '100%',
+        width: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'

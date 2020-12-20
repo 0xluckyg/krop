@@ -45,6 +45,7 @@
     var currentStageIndex = 0
     var currentPageIndex = 0
     var alertActivated = false
+    var surveyName = null;
     var clientId = null;
     var sessionId = null;
     var surveyId = null;
@@ -120,6 +121,7 @@
         clientId = surveyOptions.clientId
         sessionId = surveyOptions.sessionId
         surveyId = surveyOptions.surveyId
+        surveyName = surveyOptions.surveyName
         accountId = surveyOptions.accountId
         currentSurveyOptions = surveyOptions;
         
@@ -269,6 +271,7 @@
             sessionId: sessionId,
             clientId: clientId,
             surveyId: surveyId,
+            surveyName: surveyName,
             accountId: accountId,
             
             device: detectMobile(),

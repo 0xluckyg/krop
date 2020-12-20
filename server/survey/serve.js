@@ -67,7 +67,7 @@ async function getSurvey(domain, path) {
         path,
         expiresAt: null,
         enabled: true
-    }, {stages: 0, fixed: 0}, ).sort({'updatedAt':-1}).or([{ 
+    }, {stages: 0}, ).sort({'updatedAt':-1}).or([{ 
         'settings.schedule.from': { $lte: today },  
         'settings.schedule.to': { $gte: today },
         'settings.schedule.fromYear': { $lte: thisYear },
@@ -82,6 +82,7 @@ async function getSurvey(domain, path) {
     return {
         accountId: user._id,
         surveyId: survey._id,
+        surveyName: survey.settings.name,
         alertMessages: survey.alertMessages,
         ...survey.compiled
     }

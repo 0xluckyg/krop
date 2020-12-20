@@ -84,7 +84,7 @@ async function receiveSurvey(ctx) {
     const body = JSON.parse(ctx.request.rawBody)
     if (!body.data || body.data.length <= 0)  return
     
-    const {data, sessionId, clientId, surveyId, browser, device, path, accountId} = body
+    const {data, surveyName, sessionId, clientId, surveyId, browser, device, path, accountId} = body
     
     let defaultData = {
         accountId,
@@ -93,6 +93,7 @@ async function receiveSurvey(ctx) {
         surveyId,
         browser,
         device,
+        surveyName,
         path
     }
     

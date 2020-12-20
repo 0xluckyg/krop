@@ -2,20 +2,15 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Waypoint } from "react-waypoint";
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
 import ViewIcon from '@material-ui/icons/Visibility';
 import { showToastAction, isLoadingAction, showPaymentPlanAction } from '../../redux/actions';
 import NoContent from '../../components/reusable/no-content'
@@ -92,95 +87,23 @@ class SurveyCampaigns extends React.Component {
                     <TableCell size="small">Campaign Name</TableCell>
                     <TableCell size="small">Views</TableCell>
                     <TableCell size="small">Submits</TableCell>
-                    <TableCell size="small">Enabled</TableCell>
-                    <TableCell size="small">Devices</TableCell>
                     <TableCell size="small">Updated At</TableCell>
                     <TableCell align="right">View</TableCell>
                 </TableRow>
             </TableHead>
         )
     }
-
-    renderTablePagination() {        
-        const {classes} = this.props;
-        const { page, totalPages, hasPrevious, hasNext, isLoading } = this.state;
     
-        const handleFirstPageButtonClick = () => {
-            this.fetchSurveys(1)
-        }
-    
-        const handleBackButtonClick = () => {
-            this.fetchSurveys(page - 1)
-        }
-    
-        const handleNextButtonClick = () => {
-            this.fetchSurveys(page + 1)
-        }
-    
-        const handleLastPageButtonClick = () => {
-            this.fetchSurveys(totalPages)
-        }        
-            
-        return (
-            <div className={classes.paginationWrapper}>
-                <IconButton
-                    onClick={handleFirstPageButtonClick}
-                    disabled={!hasPrevious || isLoading}
-                    aria-label="First Page"
-                >
-                    <FirstPageIcon />
-                </IconButton>
-                <IconButton 
-                    onClick={handleBackButtonClick} 
-                    disabled={!hasPrevious || isLoading} 
-                    aria-label="Previous Page"
-                >
-                    <KeyboardArrowLeft />
-                </IconButton>
-                <IconButton
-                    onClick={handleNextButtonClick}
-                    disabled={!hasNext || isLoading}
-                    aria-label="Next Page"
-                >                    
-                    <KeyboardArrowRight />
-                </IconButton>
-                <IconButton
-                    onClick={handleLastPageButtonClick}
-                    disabled={!hasNext || isLoading}
-                    aria-label="Last Page"
-                >                    
-                    <LastPageIcon/>
-                </IconButton>
-            </div>
-        );
-    }
-    
-    renderTableFooter() {
-        const {surveys, total, page} = this.state   
-        const limit = keys.PAGE_SIZE
-        return (
-            <TableFooter>
-                <TableRow>
-                <TablePagination
-                    rowsPerPageOptions={[]}                    
-                    colSpan={8}
-                    labelDisplayedRows={() => {
-                        const current = (page * limit) - limit
-                        return `${current + 1} - ${current + surveys.length} of ${total}`
-                    }}
-                    SelectProps={{
-                        inputProps: { 'aria-label': 'Rows per page' },
-                        native: true,
-                    }}
-                    rowsPerPage={limit}
-                    page={0}
-                    count={surveys.length}
-                    onChangePage={() => {}}
-                    ActionsComponent={this.renderTablePagination.bind(this)}
-                />
-                </TableRow>
-            </TableFooter>
-        )
+    renderSpinner() {
+        const SpinnerCell = withStyles({
+            root: {
+                borderBottom: "none"
+            }
+        })(TableCell);
+        if (!this.state.isLoading) return null
+        return <SpinnerCell colSpan={5}>
+            <Spinner margin={5} size={20}/>
+        </SpinnerCell>
     }
 
     render() {
@@ -200,13 +123,7 @@ class SurveyCampaigns extends React.Component {
             })
         }
         
-        if (isLoading) {
-            return (
-                <div className={classes.emptyContainer}>
-                    <Spinner/>
-                </div>
-            )
-        } else if (surveys.length <= 0) {
+        if (!isLoading && surveys.length <= 0) {
             return this.renderNoContent()
         }
         return (
@@ -214,31 +131,36 @@ class SurveyCampaigns extends React.Component {
                 {this.renderTableHeader()}
                 <TableBody>
                     {surveys.map((row, i) => {
-                    console.log("R: ", row)
-                    let {views, submits, enabled, updatedAt} = row
-                    let {name, device} = row.settings
-                    return (
-                        <TableRow onClick={() => handleView(row)} className={classes.tableRow} key={i}>
-                            <TableCell size="small">{name}</TableCell>
-                            <TableCell size="small">{views}</TableCell>
-                            <TableCell size="small">{submits}</TableCell>
-                            <TableCell size="small">{enabled ? 'true' : 'false'}</TableCell>
-                            <TableCell size="small">{device}</TableCell>
-                            <TableCell size="small">{formatDate(updatedAt)}</TableCell>
-                            <TableCell align="right">
-                                <IconButton
-                                    onClick={() => handleView(row)}
-                                    disabled={isLoading}
-                                    aria-label="View"
-                                >                    
-                                    <ViewIcon/>
-                                </IconButton>
-                            </TableCell>                                                              
-                        </TableRow>
+                        let {views, submits, updatedAt} = row
+                        let {name} = row.settings
+                        return (
+                            <TableRow onClick={() => handleView(row)} className={classes.tableRow} key={i}>
+                                <TableCell size="small">{name}</TableCell>
+                                <TableCell size="small">{views}</TableCell>
+                                <TableCell size="small">{submits}</TableCell>
+                                <TableCell size="small">{formatDate(updatedAt)}</TableCell>
+                                <TableCell align="right">
+                                    <IconButton
+                                        onClick={() => handleView(row)}
+                                        disabled={isLoading}
+                                        aria-label="View"
+                                    >                    
+                                        <ViewIcon/>
+                                    </IconButton>
+                                </TableCell>
+                                {(i >= 50 && i == row.length - 1) ? 
+                                    <Waypoint
+                                        onEnter={() => {
+                                            this.fetchSurveys(this.state.page + 1)
+                                        }}
+                                    />
+                                    : null
+                                }
+                            </TableRow>
+                        )}
                     )}
-                )}
+                    {this.renderSpinner()}
                 </TableBody>                                     
-                {this.renderTableFooter()}
             </Table>
         )
     }
@@ -247,9 +169,15 @@ class SurveyCampaigns extends React.Component {
 const useStyles = theme => ({    
     emptyContainer: {
         height: '100%',
+        width: '100%',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    spinnerContainer: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center'
     },
     tableRow: {
         transition: '0.2s',

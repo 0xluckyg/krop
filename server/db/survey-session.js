@@ -10,6 +10,9 @@ const SurveySessionSchema = new mongoose.Schema({
         type: String,
         index: true
     },
+    surveyName: {
+        type: String
+    },
     sessionId: {
         unique: true,
         type: String,

@@ -67,6 +67,7 @@
 				"react-input-slider": "^6.0.0",
 				"react-masonry-component": "^6.2.1",
 				"react-redux": "^6.0.1",
+				"react-waypoint": "^9.0.3",
 				"react-window": "^1.8.5",
 				"redux": "^4.0.1",
 				"redux-thunk": "^2.3.0",
@@ -79,10 +80,10 @@
 				"warnings": "^1.0.1"
 		},
 		"browserslist": [
-			"> 0.3%",
-			"last 7 versions",
-			"Android >= 4", 
-			"Firefox >= 20", 
-			"iOS >= 8"
+				"> 0.3%",
+				"last 7 versions",
+				"Android >= 4",
+				"Firefox >= 20",
+				"iOS >= 8"
 		]
 }
