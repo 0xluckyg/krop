@@ -311,8 +311,11 @@
                         survey.options = getDropdownOptions(element)
                         break
                     case(keys.SLIDER_ELEMENT):
+                        var slider = getSliderValue(element)
                         survey.question = getQuestion(element)
-                        survey.value = getSliderValue(element)
+                        survey.value = slider.value
+                        survey.min = slider.min
+                        survey.max = slider.max
                         break
                     case(keys.FORM_ELEMENT):
                         survey.question = getQuestion(element)
@@ -325,6 +328,7 @@
                         survey.value = getNestedFormValue(element)
                         break
                     case(keys.LONG_FORM_ELEMENT):
+                        survey.question = getQuestion(element)
                         survey.value = getLongFormValue(element)
                         break
                     default: 
@@ -374,7 +378,7 @@
     function getDropdownOptions(element) {
         var optionsElements = element.getElementsByTagName('option')
         var options = []
-        for (var i = 1; i < optionsElements.length; i++) {
+        for (var i = 0; i < optionsElements.length; i++) {
             var option = optionsElements[i]
             options.push(option.innerHTML)
         }
@@ -383,7 +387,13 @@
     
     function getSliderValue(element) {
         var slider = element.getElementsByTagName('input')[0];
-        return Number(slider.value)
+        var min = slider.getAttribute('min')
+        var max = slider.getAttribute('max')
+        return {
+            value: Number(slider.value),
+            min: min,
+            max: max
+        }
     }
     
     function getFormValue(element) {

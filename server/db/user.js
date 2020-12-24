@@ -90,6 +90,7 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.methods.generateAuthToken = async function() {
     try {
+        console.log("PRO: ", process.env.JWT_SECRET)
         //Arrow function does not bind 'this' keyword.
         const user = this;
         const token = jwt.sign({

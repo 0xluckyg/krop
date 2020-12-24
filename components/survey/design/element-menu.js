@@ -105,10 +105,10 @@ class AddElementModal extends React.Component {
         }
     }
     
-    renderIcon(icon, style, onClick) { 
+    renderIcon(icon) { 
         return (
             <Icon path={icon}
-                className={style}
+                className={this.props.classes.mainIcon}
                 size={0.9}
                 color={keys.APP_COLOR_GRAY_DARKEST}
             />
@@ -119,41 +119,41 @@ class AddElementModal extends React.Component {
         const {classes} = this.props
         switch(type) {
             case "template":
-                return this.renderIcon(mdiTableHeart, classes.mainIcon)
+                return this.renderIcon(mdiTableHeart)
             case keys.SPACING_ELEMENT:
-                return this.renderIcon(mdiArrowExpandVertical, classes.mainIcon)
+                return this.renderIcon(mdiArrowExpandVertical)
             case keys.MULTIPLE_CHOICE_ELEMENT:
-                return this.renderIcon(mdiCheckboxMarkedCircleOutline, classes.mainIcon)
+                return this.renderIcon(mdiCheckboxMarkedCircleOutline)
             case keys.CHECKBOX_ELEMENT:
-                return this.renderIcon(mdiCheckboxMarkedOutline, classes.mainIcon)
+                return this.renderIcon(mdiCheckboxMarkedOutline)
             case keys.DROPDOWN_ELEMENT:
-                return this.renderIcon(mdiFormDropdown, classes.mainIcon)
+                return this.renderIcon(mdiFormDropdown)
             case keys.SLIDER_ELEMENT:
-                return this.renderIcon(mdiRayVertex, classes.mainIcon)
+                return this.renderIcon(mdiRayVertex)
             case keys.FORM_ELEMENT:
-                return this.renderIcon(mdiFormTextbox, classes.mainIcon)
+                return this.renderIcon(mdiFormTextbox)
             case keys.EMAIL_ELEMENT:
-                return this.renderIcon(mdiFormTextbox, classes.mainIcon)
+                return this.renderIcon(mdiFormTextbox)
             case keys.PHONE_ELEMENT:
-                return this.renderIcon(mdiFormTextbox, classes.mainIcon)
+                return this.renderIcon(mdiFormTextbox)
             case keys.ADDRESS_ELEMENT:
-                return this.renderIcon(mdiFormTextbox, classes.mainIcon)
+                return this.renderIcon(mdiFormTextbox)
             case keys.NAME_ELEMENT:
-                return this.renderIcon(mdiFormTextbox, classes.mainIcon)
+                return this.renderIcon(mdiFormTextbox)
             case keys.LONG_FORM_ELEMENT:
-                return this.renderIcon(mdiFormTextarea, classes.mainIcon)
+                return this.renderIcon(mdiFormTextarea)
             case keys.HEADING_ELEMENT:
-                return this.renderIcon(mdiFormatHeader1, classes.mainIcon)
+                return this.renderIcon(mdiFormatHeader1)
             case keys.SUBHEADING_ELEMENT:
-                return this.renderIcon(mdiFormatHeader2, classes.mainIcon)
+                return this.renderIcon(mdiFormatHeader2)
             case keys.PARAGRAPH_ELEMENT:
-                return this.renderIcon(mdiFormatParagraph, classes.mainIcon)
+                return this.renderIcon(mdiFormatParagraph)
             case keys.IMAGE_ELEMENT:
-                return this.renderIcon(mdiImageOutline, classes.mainIcon)
+                return this.renderIcon(mdiImageOutline)
             case keys.VIDEO_ELEMENT:
-                return this.renderIcon(mdiYoutube, classes.mainIcon)
+                return this.renderIcon(mdiYoutube)
             case keys.LINK_ELEMENT:
-                return this.renderIcon(mdiLink, classes.mainIcon)
+                return this.renderIcon(mdiLink)
             default:
                 return null
         }

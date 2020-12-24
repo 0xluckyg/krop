@@ -28,6 +28,8 @@ const SurveyResponseSchema = new mongoose.Schema({
     ip: String, // not saved for now
 
     question: String,
+    min: Number,
+    max: Number,
     options: [String],
     type: String,
     value: mongoose.Schema.Types.Mixed,

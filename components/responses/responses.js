@@ -5,17 +5,19 @@ import { bindActionCreators } from 'redux';
 import { Waypoint } from "react-waypoint";
 
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
-import ViewIcon from '@material-ui/icons/Visibility';
 import { showToastAction, isLoadingAction, showPaymentPlanAction } from '../../redux/actions';
 import NoContent from '../../components/reusable/no-content'
 import keys from '../../config/keys'
 import Spinner from '../../components/reusable/spinner'
+import Icon from '@mdi/react';
+import { 
+    mdiCheckboxMarkedOutline,
+    mdiCheckboxMarkedCircleOutline,
+    mdiFormDropdown,
+    mdiRayVertex,
+    mdiFormTextbox,
+    mdiFormTextarea
+} from '@mdi/js';
 
 class SurveyResponses extends React.Component {
     constructor(props){
@@ -25,16 +27,19 @@ class SurveyResponses extends React.Component {
             page: 1,
             total: 0,
             totalPages: 0,
-            surveys: [],
+            responses: [],
             hasPrevious: false,
             hasNext: false,
             isLoading: true,
             isEditing: false,
-            currentSurvey: undefined,
-            
-            searchType: 'email',
-            filter: 'question'
+            currentSurvey: undefined,            
         }
+    }
+
+    formatDate(ISO) {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        let date = new Date(Date.parse(ISO))
+        return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`        
     }
 
     componentDidMount() {
@@ -42,11 +47,14 @@ class SurveyResponses extends React.Component {
         this.fetchSurveyResponses(1)
     }
 
-    fetchSurveyResponses(page, params) {
-        if (!params) {
-            const { filter, searchText, searchType } = this.state
-            params = { filter, searchText, searchType }
+    fetchSurveyResponses(page) {
+        let params = {
+            filter: {}
         }
+        const {surveyId, sessionId} = this.props
+        surveyId ? params.filter.surveyId = surveyId : null
+        sessionId ? params.filter.sessionId = sessionId : null
+
         params.page = page
 
         this.setState({isLoading: true})
@@ -54,8 +62,8 @@ class SurveyResponses extends React.Component {
             params,
             withCredentials: true
         }).then(res => {                        
-            const result = res.data
-            console.log("result", result)
+            let result = res.data
+            result.responses = [...this.state.responses, ...result.responses]
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
@@ -71,7 +79,6 @@ class SurveyResponses extends React.Component {
                     iconPath="../../static/responses/market.svg"
                     text='Hey there,'
                     subText="It looks like you don't have a profile in your contacts!"
-                    actionText='Set up a Campaign'
                     footerText="Your contacts will show up here after people register with your campaigns."
                     action={() => {
                         window.location.replace(`${process.env.APP_URL}/widgets/create`)
@@ -80,94 +87,153 @@ class SurveyResponses extends React.Component {
             </div>
         )
     }
-
-    renderTableHeader() {
-        return (
-            <TableHead>
-                <TableRow>
-                    <TableCell size="small">Campaign Name</TableCell>
-                    <TableCell size="small">Views</TableCell>
-                    <TableCell size="small">Submits</TableCell>
-                    <TableCell size="small">Questions</TableCell>
-                    <TableCell size="small">Enabled</TableCell>
-                    <TableCell size="small">Devices</TableCell>
-                    <TableCell size="small">Updated At</TableCell>
-                    <TableCell align="right">View</TableCell>
-                </TableRow>
-            </TableHead>
-        )
-    }
     
     renderSpinner() {
-        const SpinnerCell = withStyles({
-            root: {
-                borderBottom: "none"
-            }
-        })(TableCell);
         if (!this.state.isLoading) return null
-        return <SpinnerCell colSpan={5}>
+        return <div colSpan={5}>
             <Spinner margin={5} size={20}/>
-        </SpinnerCell>
+        </div>
+    }
+
+    renderMultipleChoiceResponse(row, i) {
+        let {updatedAt, question, value, type, options, device, browser} = row
+        return <div key={i}>
+            <p className={this.props.classes.question}>{question}</p>
+            {value.map((v, j)  => {
+                return <p className={this.props.classes.answer}>{options[v]}</p>
+            })}
+        </div>
+    }
+
+    renderRatingResponse(row, i) {
+        let {updatedAt, question, value, min, max, type, device, browser} = row
+        return <div key={i}>
+            <p className={this.props.classes.question}>{question}</p>
+            <p className={this.props.classes.answer}><b>{value}</b> out of {min} to {max}</p>
+        </div>
+    }
+
+    renderFormResponse(row, i) {
+        let {updatedAt, question, value, type, device, browser} = row
+        question = type == keys.EMAIL_ELEMENT ? 'Email' : type == keys.PHONE_ELEMENT ? 'Phone' : question
+        return <div key={i}>
+            <p className={this.props.classes.question}>{question}</p>
+            <p className={this.props.classes.answer}>{value}</p>
+        </div>
+    }
+
+    formatAddress(address) {
+        let addressArray = []
+        let {address1, address2, city, state, country, zip} = address
+        address1 ? addressArray.push(address1) : null
+        address2 ? addressArray.push(address2) : null
+        city ? addressArray.push(city) : null
+        state ? addressArray.push(state) : null
+        country ? addressArray.push(country) : null
+        zip ? addressArray.push(zip) : null
+
+        return addressArray.join(', ')
+    }
+
+    renderAddressResponse(row, i) {
+        let {updatedAt, value, type, device, browser} = row
+        let address = this.formatAddress(value)
+        return <div key={i}>
+            <p className={this.props.classes.question}>Address</p>
+            <p className={this.props.classes.answer}>{address}</p>
+        </div>
+    }
+
+    renderNameResponse(row, i) {
+        let {updatedAt, question, value, type, options, device, browser} = row
+        const {firstName, lastName} = value
+        return <div key={i}>
+            <p className={this.props.classes.question}>Name</p>
+            <p className={this.props.classes.answer}>{firstName ? firstName + ' ': ''}{lastName ? lastName : ''}</p>
+        </div>
+    }   
+
+    getIcon(icon, i) { 
+        return (
+            <Icon 
+                key={i}
+                path={icon}
+                className={this.props.classes.mainIcon}
+                size={0.9}
+                color={keys.APP_COLOR_GRAY_DARKEST}
+            />
+        )
+    }
+
+    renderIcon(row, i) {
+        let {type} = row
+
+        const {classes} = this.props
+        switch(type) {
+            case (keys.MULTIPLE_CHOICE_ELEMENT):
+                return this.getIcon(mdiCheckboxMarkedCircleOutline, i)
+            case (keys.CHECKBOX_ELEMENT):
+                return this.getIcon(mdiCheckboxMarkedOutline, i)
+            case (keys.DROPDOWN_ELEMENT):
+                return this.getIcon(mdiFormDropdown, i)
+            case (keys.SLIDER_ELEMENT):
+                return this.getIcon(mdiRayVertex, i)
+            case (keys.FORM_ELEMENT):
+            case (keys.EMAIL_ELEMENT):
+            case (keys.PHONE_ELEMENT):
+            case (keys.ADDRESS_ELEMENT):
+            case (keys.NAME_ELEMENT):
+                return this.getIcon(mdiFormTextbox, i)
+            case (keys.LONG_FORM_ELEMENT):
+                return this.getIcon(mdiFormTextarea, i)
+        }
+    }
+
+    renderResponse(row, i) {
+        let {type} = row
+        switch(type) {
+            case(keys.MULTIPLE_CHOICE_ELEMENT):
+            case(keys.CHECKBOX_ELEMENT):
+            case(keys.DROPDOWN_ELEMENT):
+                return this.renderMultipleChoiceResponse(row, i)
+            case(keys.SLIDER_ELEMENT):
+                return this.renderRatingResponse(row, i)
+            case(keys.FORM_ELEMENT):
+            case(keys.LONG_FORM_ELEMENT):
+            case(keys.PHONE_ELEMENT):
+            case(keys.EMAIL_ELEMENT):
+                return this.renderFormResponse(row, i)
+            case(keys.ADDRESS_ELEMENT):
+                return this.renderAddressResponse(row, i)
+            case(keys.NAME_ELEMENT):
+                return this.renderNameResponse(row, i)
+        }
     }
 
     render() {
-         //formats ISO date into a prettier format
-        const formatDate = (ISO) => {
-            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-            let date = new Date(Date.parse(ISO))
-            return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`        
-        }
+        const {responses, isLoading} = this.state
         const {classes} = this.props
-        const {surveys, isLoading} = this.state
-        
-        const handleEdit = (row) => {
-            this.setState({
-                isEditing: true,
-                currentSurvey: {...row}
-            })
-        }
-        
-        if (!isLoading && surveys.length <= 0) {
+        if (!isLoading && responses.length <= 0) {
             return this.renderNoContent()
         }
         return (
-            <Table className={classes.table}>
-                {this.renderTableHeader()}
-                <TableBody>
-                    {surveys.map((row, i) => {
-                    let {name, views, submits, surveyCount, enabled, device, updatedAt} = row
-                    return (
-                        <TableRow onClick={() => handleEdit(row)} className={classes.tableRow} key={i}>
-                            <TableCell size="small">{name}</TableCell>
-                            <TableCell size="small">{views}</TableCell>
-                            <TableCell size="small">{submits}</TableCell>
-                            <TableCell size="small">{surveyCount}</TableCell>
-                            <TableCell size="small">{enabled ? 'true' : 'false'}</TableCell>
-                            <TableCell size="small">{device}</TableCell>
-                            <TableCell size="small">{formatDate(updatedAt)}</TableCell>
-                            <TableCell align="right">
-                                <IconButton
-                                    onClick={() => handleEdit(row)}
-                                    disabled={isLoading}
-                                    aria-label="Edit"
-                                >                    
-                                    <ViewIcon/>
-                                </IconButton>
-                            </TableCell>
-                            {(i >= 50 && i == row.length - 1) ? 
-                                <Waypoint
-                                    onEnter={() => {
-                                        this.fetchSurveyResponses(this.state.page + 1)
-                                    }}
-                                />
-                                : null
-                            }
-                        </TableRow>
-                    )}
-                )}
+            <div className={classes.responses}>
+                {responses.map((row, i) => {
+                    return <div className={classes.responseContainer}>
+                        {this.renderIcon(row, i)}
+                        {this.renderResponse(row, i)}
+                        {(i >= 50 && i == row.length - 1) ? 
+                            <Waypoint
+                                onEnter={() => {
+                                    this.fetchSurveyResponses(this.state.page + 1)
+                                }}
+                            />
+                            : null
+                        }
+                    </div>
+                })}
                 {this.renderSpinner()}
-                </TableBody>           
-            </Table>
+            </div>           
         )
     }
 }
@@ -180,18 +246,31 @@ const useStyles = theme => ({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    tableRow: {
-        transition: '0.2s',
-        '&:hover': {
-            backgroundColor: keys.APP_COLOR_GRAY_LIGHT,
-            cursor: 'pointer',
-            transition: '0.2s'
-        }  
+    mainIcon: {
+        color: keys.APP_COLOR_GRAY_DARKEST,
+        margin: '0px 15px'
     },
-    paginationWrapper: {
-        flexShrink: 0,
-        color: theme.palette.text.secondary,
-        marginLeft: theme.spacing(2.5),
+    responses: {
+        margin: '0px 0px 0px 30px',
+        paddingTop: 30,
+        flex: 1,
+        overflowY: 'auto'
+    },
+    responseContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginBottom: 30
+    },
+    question: {
+        margin: 0,
+        fontWeight: 500
+    },
+    answer: {
+        margin: '10px 0px 0px 0px',
+        backgroundColor: keys.APP_COLOR_GRAY,
+        padding: '5px 10px',
+        borderRadius: 3,
+        color: keys.APP_COLOR_GRAY_DARKEST
     }
 });
 

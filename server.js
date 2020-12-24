@@ -42,7 +42,7 @@ const {receiveSurvey} = require('./server/survey/receive');
 const {getProfiles, updateProfile, deleteProfile} = require('./server/responses/profiles');
 const {getSurveySessions} = require('./server/responses/sessions');
 const {getQuestions} = require('./server/responses/questions');
-const {getResponses, deleteResponse} = require('./server/responses/responses');
+const {getSurveyResponses, deleteSurveyResponse} = require('./server/responses/responses');
 
 const whitelist = [    
     '/_next',
@@ -151,7 +151,7 @@ app.prepare().then(() => {
 
     router.get('/get-profiles', getProfiles)
     router.get('/get-sessions', getSurveySessions)
-    // router.get('/get-responses', getResponses)
+    router.get('/get-responses', getSurveyResponses)
     // router.get('/get-questions', getQuestions)
 
     server.use(handleRender);    

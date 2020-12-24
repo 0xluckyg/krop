@@ -16,6 +16,8 @@ import { showToastAction, isLoadingAction, showPaymentPlanAction } from '../../r
 import NoContent from '../../components/reusable/no-content'
 import keys from '../../config/keys'
 import Spinner from '../../components/reusable/spinner'
+import DetailModal from './detail-modal'
+import SurveyResponses from './responses'
 
 class SurveySessions extends React.Component {
     constructor(props){
@@ -30,9 +32,7 @@ class SurveySessions extends React.Component {
             hasNext: false,
             isLoading: true,
             isEditing: false,
-            currentSession: undefined,
-            
-            searchType: 'email',
+            currentSession: undefined,            
         }
     }
 
@@ -41,19 +41,20 @@ class SurveySessions extends React.Component {
         this.fetchSurveySessions(1)
     }
 
-    fetchSurveySessions(page, params) {
-        if (!params) {
-            const {searchText, searchType } = this.state
-            params = {searchText, searchType }
+    fetchSurveySessions(page) {
+        let params = {
+            filter: {}
         }
-        params.page = page
+        const {surveyId} = this.props
+        surveyId ? params.filter.surveyId = surveyId : null
 
         this.setState({isLoading: true})
         axios.get(process.env.APP_URL + '/get-sessions', {
             params,
             withCredentials: true
         }).then(res => {                
-            const result = res.data
+            let result = res.data
+            result.sessions = [...this.state.sessions, ...result.sessions]
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
@@ -119,7 +120,7 @@ class SurveySessions extends React.Component {
         const handleView = (row) => {
             this.setState({
                 isViewing: true,
-                currentSurvey: {...row}
+                currentSession: {...row}
             })
         }
         
@@ -167,13 +168,36 @@ class SurveySessions extends React.Component {
         )
     }
 
+    renderSessionDetail() {
+        const {currentSession} = this.state
+        if (!currentSession) return null
+        return (<DetailModal 
+            close={() => {
+                this.setState({
+                    isViewing: false,
+                    currentSession: null
+                })
+            }} 
+            detail={currentSession}
+            tabs={['Responses']}
+        >
+            <SurveyResponses
+                surveyId={this.props.surveyId}
+                sessionId={currentSession.sessionId}
+            />
+        </DetailModal>)
+    }
+
     render() {
         const {classes} = this.props
 
         return (
-            <Table className={classes.table}>
-                {this.renderTable()}                              
-            </Table>
+            <React.Fragment>
+                {this.renderSessionDetail()}
+                <Table className={classes.table}>
+                    {this.renderTable()}                              
+                </Table> 
+            </React.Fragment>
         )
     }
 }

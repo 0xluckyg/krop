@@ -3,22 +3,11 @@ const keys = require('../../config/keys')
 
 function formatSurveySessionQuery(ctx) {
     const {id} = ctx.session
-    let { filter, searchText, searchType } = ctx.query
-    if (filter) filter = JSON.parse(filter)
-    let query = {
-        accountId: id
-    }
+    let { filter } = ctx.query
+    filter ? filter = JSON.parse(filter) : filter = {}
+    filter.accountId = id
     
-    if (searchText && searchText != '') {
-        const matchQuery = {$eq: searchText}
-        if (query[searchType]) {
-            query[searchType] = {...query[searchType], ...matchQuery}
-        } else {
-            query[searchType] = matchQuery   
-        }
-    }
-    
-    return query
+    return filter
 }
 
 async function getSurveySessions(ctx) {

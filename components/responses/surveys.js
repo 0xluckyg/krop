@@ -13,9 +13,13 @@ import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import ViewIcon from '@material-ui/icons/Visibility';
 import { showToastAction, isLoadingAction, showPaymentPlanAction } from '../../redux/actions';
+
 import NoContent from '../../components/reusable/no-content'
 import keys from '../../config/keys'
 import Spinner from '../../components/reusable/spinner'
+import DetailModal from './detail-modal'
+import SurveySessions from './sessions'
+import SurveyResponses from './responses'
 
 class SurveyCampaigns extends React.Component {
     constructor(props){
@@ -31,9 +35,6 @@ class SurveyCampaigns extends React.Component {
             isLoading: true,
             isViewing: false,
             currentSurvey: undefined,
-            
-            searchType: 'email',
-            filter: 'question'
         }
     }
 
@@ -42,11 +43,8 @@ class SurveyCampaigns extends React.Component {
         this.fetchSurveys(1)
     }
 
-    fetchSurveys(page, params) {
-        if (!params) {
-            const { filter, searchText, searchType } = this.state
-            params = { filter, searchText, searchType }
-        }
+    fetchSurveys(page) {
+        let params = {}
         params.page = page
 
         this.setState({isLoading: true})
@@ -54,7 +52,8 @@ class SurveyCampaigns extends React.Component {
             params,
             withCredentials: true
         }).then(res => {                        
-            const result = res.data
+            let result = res.data
+            result.surveys = [...this.state.surveys, ...result.surveys]
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
@@ -106,6 +105,28 @@ class SurveyCampaigns extends React.Component {
         </SpinnerCell>
     }
 
+    renderCampaignDetail() {
+        const {currentSurvey} = this.state
+        if (!currentSurvey) return null
+        return (<DetailModal 
+            close={() => {
+                this.setState({
+                    isViewing: false,
+                    currentSurvey: null
+                })
+            }} 
+            detail={currentSurvey}
+            tabs={['Responses', 'Sessions']}
+        >
+            <SurveyResponses
+                surveyId={currentSurvey._id}
+            />
+            <SurveySessions
+                surveyId={currentSurvey._id}
+            />
+        </DetailModal>)
+    }
+
     render() {
          //formats ISO date into a prettier format
         const formatDate = (ISO) => {
@@ -127,6 +148,8 @@ class SurveyCampaigns extends React.Component {
             return this.renderNoContent()
         }
         return (
+            <React.Fragment>
+            {this.renderCampaignDetail()}
             <Table className={classes.table}>
                 {this.renderTableHeader()}
                 <TableBody>
@@ -162,6 +185,7 @@ class SurveyCampaigns extends React.Component {
                     {this.renderSpinner()}
                 </TableBody>                                     
             </Table>
+            </React.Fragment>
         )
     }
 }

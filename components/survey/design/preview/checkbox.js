@@ -36,12 +36,18 @@ class CheckboxPreview extends React.Component {
         const {classes} = this.props
         const mc = this.getElement()
         if (!mc.options) return
+        const {answer} = this.props
+        let hasAnswer = (answer || answer === 0)
         return <React.Fragment>
             {
-                mc.options.map((o, i)=> {
+                mc.options.map((o, i)=> {                    
+                    let checked
+                    if (hasAnswer) {
+                        if (answer.includes[i]) checked = "checked"
+                    }
                     return <div key={o.text + i}className={classes.optionContainer}>
                         <label className={classes.optionWrapper}>
-                            <input className={classes.radioStyle} type="checkbox" name="checkbox" value={o.text}/>
+                            <input disabled={hasAnswer} checked={checked} className={classes.radioStyle} type="checkbox" name="checkbox" value={o.text}/>
                             <p className={classes.textStyle}>{o.text}</p>
                         </label>
                     </div>
