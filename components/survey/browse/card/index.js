@@ -13,7 +13,7 @@ import CheckIcon from '@material-ui/icons/CheckCircleOutline';
 
 import { showToastAction, isLoadingAction } from '../../../../redux/actions';
 import keys from '../../../../config/keys';
-import CompiledPreview from '../../../reusable/compile-preview'
+import SurveyPreview from './preview'
 
 class Card extends React.Component {      
     constructor(props) {
@@ -25,30 +25,31 @@ class Card extends React.Component {
     }
     
     handleEdit() {
+        let survey = this.props.survey
         this.props.setState({
             isEditing: true,
-            currentEdit: {...this.props.widget}
+            currentEdit: {...survey}
         })  
     }
     
     handleDelete() {
-        this.props.delete(this.props.widget._id)
+        this.props.delete(this.props.survey._id)
     }
     
     handleDuplicate() {
-        this.props.duplicate(this.props.widget)
+        this.props.duplicate(this.props.survey)
     }
     
     handleToggleActive() {
-        const widget = {...this.props.widget}
-        widget.enabled = !widget.enabled
-        widget.compile = false
-        this.props.edit(widget, () => {})
+        const survey = {...this.props.survey}
+        survey.enabled = !survey.enabled
+        survey.compile = false
+        this.props.edit(survey, () => {})
     }
     
     renderActiveStatus() {
         const {classes} = this.props
-        const enabled = this.props.widget.enabled
+        const enabled = this.props.survey.enabled
         const color = enabled ? keys.APP_COLOR : keys.APP_COLOR_GRAY
         return (
             <div 
@@ -63,13 +64,13 @@ class Card extends React.Component {
     }
     
     render() {
-        const {classes, widget, admin} = this.props
+        const {classes, survey, admin} = this.props
 
         return (
             <div className={classes.card}>
                 <div className={classes.cardPreview}>
-                    <div className={classes.widgetView}>
-                        <CompiledPreview widget={widget}/>
+                    <div className={classes.surveyView}>
+                        <SurveyPreview survey={{...survey}}/>
                     </div>
                     <div className={classes.cardHover}>
                         <div className={classes.iconButtons}>
@@ -101,11 +102,11 @@ class Card extends React.Component {
                 </div>
                 <div className={classes.cardFooter}>
                     <p className={classes.cardTitle}>
-                        {widget.settings ? widget.settings.name : widget.name}
+                        {survey.settings ? survey.settings.name : survey.name}
                     </p>
                     {admin ? null :<p className={classes.cardViews}>
-                        <span className={classes.viewCount}>{widget.views}</span>
-                        Views
+                        Path: 
+                        <span className={classes.viewCount}> /{survey.path}</span>
                     </p> }
                 </div>
             </div>
@@ -125,11 +126,11 @@ const useStyles = theme => ({
     cardPreview: {
         width: '100%',
         height: 190,
-        backgroundColor: 'gray',
+        backgroundColor: keys.APP_COLOR_GRAY,
         borderRadius: '8px 8px 0px 0px',
         position: 'relative'
     },
-    widgetView: {
+    surveyView: {
         position: 'absolute',
         width: '100%',
         height: '100%',
@@ -148,7 +149,7 @@ const useStyles = theme => ({
         '&:hover': {
             transition: '200ms',
             opacity: 1,
-            backgroundColor: 'rgba(0,0,0,0.5)'
+            backgroundColor: 'rgba(0,0,0,0.3)'
         }
     },
     iconButtons: {

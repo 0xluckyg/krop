@@ -51,17 +51,21 @@ class CreateSurvey extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.edit && this.props.edit._id != prevState._id) {
-            loadFonts(document, this.props.edit.fonts)
-            this.setState(this.props.edit)
+    static getDerivedStateFromProps(nextProps, state) {
+
+        const editableSurvey = nextProps.edit
+
+        if (editableSurvey && editableSurvey._id != state._id) {
+            loadFonts(document, [editableSurvey.styles.font])
+            return editableSurvey
         } else {
-            const {getUserReducer} = this.props
+            const {getUserReducer} = nextProps
             if (getUserReducer && getUserReducer.domain) {
-                if (!this.state.domain || this.state.domain == '') {
-                    this.setState({domain: getUserReducer.domain})
-                }
+                if (!state.domain || state.domain == '') {
+                    return {domain: getUserReducer.domain}
+                } 
             }
+            return {}
         }
     }
     
@@ -95,7 +99,7 @@ class CreateSurvey extends React.Component {
                 .then(res => {
                     this.setState({isLoading: false})
                     this.props.showToastAction(true, 'Survey created!', 'success')
-                    // window.location.replace('/surveys/browse')
+                    window.location.replace('/surveys/browse')
                 }).catch(() => {
                     this.props.showToastAction(true, `Couldn't create survey. Please try again later.`, 'error')
                     this.setState({isLoading: false})

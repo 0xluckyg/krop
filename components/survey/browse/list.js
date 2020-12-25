@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import Card from './card'
 import {loadFonts} from '../../reusable/font-families'
@@ -19,21 +20,36 @@ class List extends React.Component {
         }
     }
     
+    createCard() {
+        const {classes} = this.props
+        return <div onClick={() => {
+            window.location.replace(`${process.env.APP_URL}/surveys/create`)
+        }} className={classes.card}>
+            <div className={classes.cardWrapper}>
+                <div className={classes.iconContainer}>
+                    <AddCircleOutlineIcon className={classes.mainIcon} fontSize="large" />
+                </div>
+                <p>Create a new survey!</p>
+            </div>
+        </div>
+    }
+
     renderCards() {
         const {duplicate, edit, state, setState, admin} = this.props
         return <React.Fragment>
-            {this.props.state.widgets.map(widget => {
-                loadFonts(document, widget.fonts)
+            {this.createCard()}
+            {this.props.state.surveys.map(survey => {
+                loadFonts(document, [survey.styles.font])
                 return (
                     <Card 
                         admin={admin}
-                        key={widget._id}
+                        key={survey._id}
                         delete={this.props.delete} 
                         edit={edit} 
                         duplicate={duplicate} 
                         state={state} 
                         setState={setState} 
-                        widget={widget}
+                        survey={survey}
                     />
                 )
             })}
@@ -60,6 +76,28 @@ const useStyles = theme => ({
         gridGap: 30,
         justifyItems: 'center',
         overflowY: 'scroll'
+    },
+    card: {
+        width: 300,
+        height: 250,
+        borderRadius: 8,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)',
+        cursor: 'pointer'
+    },
+    cardWrapper: {
+        borderRadius: 8,
+        transition: '0.2s',
+        '&:hover': {
+            opacity: 0.7,
+            transition: '0.2s'
+        }
+    },
+    iconContainer: {
+        display:'flex',
+        justifyContent: 'center'
     }
 });
 

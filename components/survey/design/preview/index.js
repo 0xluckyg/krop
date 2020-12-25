@@ -24,7 +24,7 @@ import Button from './button'
 import frameStyles from '../../../../shared/survey-styles/frame'
 import {elementsToPages} from '../element-editor/sub/functions'
 
-class MainboardPreview extends React.Component {
+class SurveyPreview extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -275,4 +275,4 @@ const useStyles = theme => ({
     }
 })
 
-export default withStyles(useStyles)(MainboardPreview)
+export default withStyles(useStyles)(SurveyPreview)

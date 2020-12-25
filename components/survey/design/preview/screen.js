@@ -43,18 +43,26 @@ class Screen extends React.Component {
         }
     }
 
+    renderControllers() {
+        const {classes, state, setState} = this.props
+        if (state.cardMode) return null
+        return <React.Fragment>
+            <Controller
+                state={state}
+                setState={setState}
+            />
+            <Scaler
+                state={state}
+                setState={setState}
+            />
+        </React.Fragment>
+    }
+
     render() {
         const {classes, state, setState} = this.props
         return (
             <div className={classes.mainContainer}>
-                    <Controller
-                        state={state}
-                        setState={setState}
-                    />
-                    <Scaler
-                        state={state}
-                        setState={setState}
-                    />
+                {this.renderControllers()}
                 {this.renderDevice()}
             </div>
         )
@@ -67,15 +75,13 @@ const useStyles = theme => ({
         width:  '100%',
         position: 'relative'
     },
-    controllerContainer: {
-        // position: 'absolute',
-        // height: '100%',
-        // width: '100%'
-    },
     mobileFrame: {
         height: '100%',
         width:  '100%',
-        overflowY: 'auto',
+        overflowY: props => {
+            if (props.state.cardMode) return ''
+            return 'auto'
+        },
         // position: 'relative',
         flex: 1,
         display: 'flex',
@@ -92,8 +98,9 @@ const useStyles = theme => ({
     },
     mobileDevice: props => {
         const scale = props.state.previewScale
+        const isCardMode = props.state.cardMode
         return {
-            margin: 30,
+            margin: isCardMode ? -5 : 30,
             transform: `scale(${scale})`,
             transformOrigin: scale < 1 ? 'center 10%' : 'top center',
             height: 750,

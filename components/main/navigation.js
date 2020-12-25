@@ -10,27 +10,28 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import WidgetBrowseIcon from '@material-ui/icons/WebAsset';
-import WidgetCreateIcon from '@material-ui/icons/TextFormat';
 import StoreIcon from '@material-ui/icons/Store';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ContactIcon from '@material-ui/icons/Mail';
 import ProfileIcon from '@material-ui/icons/PersonPin';
 import SurveyIcon from '@material-ui/icons/DonutSmall';
+import CropFreeIcon from '@material-ui/icons/CropFree';
+import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 
 import {showPaymentPlanAction} from '../../redux/actions';
 import keys from '../../config/keys'
 
 const widgets = [
     {
-        route: '/widgets/browse',
-        text: 'Browse',
-        Icon: WidgetBrowseIcon
+        route: '/surveys/browse',
+        text: 'Survey',
+        Icon: PhoneIphoneIcon
     },
     {
-        route: '/widgets/create',
-        text: 'Create',
-        Icon: WidgetCreateIcon
+        route: '/banners/browse',
+        text: 'QR Banner',
+        Icon: CropFreeIcon
     },
 ]
 const responses = [
@@ -130,7 +131,7 @@ class Navigation extends React.Component {
         const {classes} = this.props
         return (
             <div>
-                <Typography className={classes.menuLabel}>Widgets</Typography>
+                <Typography className={classes.menuLabel}>Campaigns</Typography>
                 {this.renderList(widgets)}  
                 <Typography className={classes.menuLabel}>Responses</Typography>
                 {this.renderList(responses)}  

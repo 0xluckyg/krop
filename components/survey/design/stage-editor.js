@@ -99,6 +99,7 @@ class StageEditor extends React.Component {
                 <SectionHeader title="Stages (Drag to Reorder)"/>
                 <div className={classes.elementsList}>
                     <ElementList 
+                        customKey="Stage"
                         elements={state.stages}
                         setElements={(newElements, src, dest) => {
                             setState({stages: newElements})
