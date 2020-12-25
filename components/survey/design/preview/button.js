@@ -5,15 +5,20 @@ import { withStyles } from '@material-ui/core/styles';
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
 import buttonStyles from '../../../../shared/survey-styles/button'
+import {elementsToPages} from '../element-editor/sub/functions'
 
 class ButtonPreview extends React.Component {
     constructor(props) {
         super(props)
     }
-    
-    getImage() {
-        let {stage, element} = this.props
-        return getElement({props: this.props, selectedStage: stage, selectedElement: element})
+
+    hideButton() {
+        const {stages, selectedStage, selectedPage} = this.props.state
+        const stage = stages[selectedStage]
+        const pages = elementsToPages(stage.elements)
+        if (selectedStage < stages.length - 1) return false
+        if (stage.settings.questionPerPage && (selectedPage < pages.length - 1)) return false
+        return true
     }
 
     renderContinueButton() {
@@ -29,6 +34,7 @@ class ButtonPreview extends React.Component {
 
     render() {
         const {classes, state} = this.props
+        if (this.hideButton()) return null
         return (
             <div className={classes.containerStyle}>
                 {this.renderContinueButton()}
