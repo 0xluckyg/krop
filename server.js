@@ -39,9 +39,8 @@ const {createSurvey, getSurveys, getSurvey, updateSurvey, deleteSurvey} = requir
 const {getSurveyScript, getSurveyOptions} = require('./server/survey/serve');
 const {receiveSurvey} = require('./server/survey/receive');
 
-const {getProfiles, updateProfile, deleteProfile} = require('./server/responses/profiles');
+const {getProfiles, removeProfile} = require('./server/responses/profiles');
 const {getSurveySessions} = require('./server/responses/sessions');
-const {getQuestions} = require('./server/responses/questions');
 const {getSurveyResponses, deleteSurveyResponse} = require('./server/responses/responses');
 
 const whitelist = [    
@@ -152,7 +151,7 @@ app.prepare().then(() => {
     router.get('/get-profiles', getProfiles)
     router.get('/get-sessions', getSurveySessions)
     router.get('/get-responses', getSurveyResponses)
-    // router.get('/get-questions', getQuestions)
+    router.post('/remove-profile', removeProfile)
 
     server.use(handleRender);    
 

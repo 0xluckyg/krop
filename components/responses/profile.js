@@ -13,103 +13,19 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
-import TextField from '@material-ui/core/TextField';
-import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
 
 import {getUserAction, showToastAction, isLoadingAction} from '../../redux/actions';
-import PageHeader from '../../components/reusable/page-header'
-import PageFooter from '../../components/reusable/page-footer';
+import PageHeader from '../reusable/page-header'
+import PageFooter from '../reusable/page-footer';
 
 class NoContent extends React.Component {   
     constructor(props) {
         super(props)
         
         this.state = {
-            isLoading: false,
-            emailTag: '',
-            mobileTag: '',
-            profileTag: ''
+            isLoading: false
         }
     }
-    
-    handleAddTag(type) {
-        const tag = this.state[type+'Tag']
-        
-        let newProfile = JSON.parse(JSON.stringify(this.props.profile))
-        let tags = newProfile[type].tags
-
-        const special = /[^A-Za-z0-9]/
-        if (tags.includes(tag) || special.test(tag)) return
-        tags = [...tags, tag]
-        
-        newProfile[type].tags = tags
-        
-        let temporaryTag = {}
-        temporaryTag[type+'Tag'] = ''
-        this.setState(temporaryTag)
-        this.props.setProfile(newProfile)
-    }
-    
-    handleDeleteTag(i, type) {
-        let newProfile = JSON.parse(JSON.stringify(this.props.profile))
-        let tags = newProfile[type].tags
-        let newTags = [...tags]
-        newTags.splice(i, 1)
-        newProfile[type].tags = newTags
-        this.props.setProfile(newProfile)
-    }
-    
-    renderTagChips(tags, type) {
-        const {classes} = this.props
-        return (
-            <div>
-                <div className={classes.tagContainer}>
-                    <TextField      
-                        autoFocus
-                        label="Add Tag"
-                        style={{marginBottom: '2px'}}
-                        value={this.state[type+'Tag']}
-                        onChange={(event) => {
-                            if (type == 'email') {
-                                this.setState({emailTag: event.target.value})   
-                            } else if (type == keys.MOBILE_PROPERTY) {
-                                this.setState({mobileTag: event.target.value})
-                            } else {
-                                this.setState({profileTag: event.target.value})
-                            }
-                        }}
-                        onKeyPress={event => {
-                            if (event.charCode === 13) { // enter key pressed
-                                event.preventDefault();
-                                this.handleAddTag(type)
-                            } 
-                        }}
-                        helperText="Ex. subscribers"
-                        className={classes.formControl}
-                    />
-                    <IconButton  className={classes.addButton}  onClick={() => this.handleAddTag(type)} 
-                    size="small" variant="contained" color="primary">
-                        <AddIcon className={classes.addButtonIcon} fontSize="small" />
-                    </IconButton >
-                </div>
-                <div className={classes.chipsContainer}>
-                    {tags.map((tag, i) => {
-                        return (
-                            <Chip
-                                key={tag}
-                                label={tag}
-                                onDelete={() => this.handleDeleteTag(i, type)}
-                                className={classes.chip}
-                            />
-                        );
-                    })}
-                </div>  
-            </div>
-        )
-    }
-
     renderProperty(key, value) {
         const {classes} = this.props
         return (
@@ -126,42 +42,37 @@ class NoContent extends React.Component {
                     Email
                 </Typography> 
                 <Paper className={classes.paper}>
-                    {this.renderProperty('Email', email.value ? email.value : "No Email")}
-                    {this.renderProperty('Last Active', this.formatDate(email.lastActive))}
-                    {this.renderProperty('Last Update', this.formatDate(email.updatedAt))}
-                    {this.renderTagChips(email.tags, 'email')}
+                    {this.renderProperty('Email', email ? email : "No Email")}
                 </Paper>    
             </React.Fragment>
         )
     }
     
-    renderMobile() {
+    renderPhone() {
         const {classes, profile} = this.props
-        const mobile = profile.mobile
+        const phone = profile.phone
         return (
             <React.Fragment>
                  <Typography variant="h5" gutterBottom>
-                    Mobile
+                    Phone number
                 </Typography> 
                 <Paper className={classes.paper}>
-                    {this.renderProperty('Mobile', mobile.value ? mobile.value : "No Number")}
-                    {this.renderProperty('Last Active', this.formatDate(mobile.lastActive))}
-                    {this.renderProperty('Last Update', this.formatDate(mobile.updatedAt))}
-                    {this.renderTagChips(mobile.tags, keys.MOBILE_PROPERTY)}
+                    {this.renderProperty('Phone', phone ? phone : "No Number")}
                 </Paper>    
             </React.Fragment>
         )
     }
     
     formatName(profile) {
-        const first = profile.firstName ? profile.firstName : ''
-        const last = profile.lastName ? ' ' + profile.lastName : ''
+        const {firstName, lastName} = profile.name
+        const first = firstName ? firstName : ''
+        const last = lastName ? ' ' + lastName : ''
         if (!first && !last) return 'N/A'
         return first + last
     }
     
     formatAddress(profile) {
-        let {address1, address2, city, state, country, zip} = profile
+        let {address1, address2, city, state, country, zip} = profile.address
         
         if (!address1 && !address2 && !city && !state && !country && !zip) return 'N/A'
         
@@ -184,7 +95,6 @@ class NoContent extends React.Component {
     
     renderProfile() {
         let {classes, profile} = this.props
-        profile = profile.profile
 
         return (
             <React.Fragment>
@@ -192,12 +102,9 @@ class NoContent extends React.Component {
                     Profile
                 </Typography> 
                 <Paper className={classes.paper}>
+
                     {this.renderProperty('Name', this.formatName(profile))}
                     {this.renderProperty('Address', this.formatAddress(profile))}
-                    {this.renderProperty('Organization', profile.organization ? profile.organization : "N/A")}
-                    {this.renderProperty('Last Active', this.formatDate(profile.lastActive))}
-                    {this.renderProperty('Last Update', this.formatDate(profile.updatedAt))}
-                    {this.renderTagChips(profile.tags, 'profile')}
                 </Paper>    
             </React.Fragment>
         )
@@ -211,7 +118,6 @@ class NoContent extends React.Component {
                     Attributes
                 </Typography> 
                 <Paper className={classes.paper}>
-                    {this.renderProperty('Sign Up Location', profile.path ? profile.path : 'N/A')}
                     {this.renderProperty('Browser', profile.browser ? profile.browser : "N/A")}
                     {this.renderProperty('Device', profile.device ? profile.device : "N/A")}
                     {this.renderProperty('Created At', this.formatDate(profile.createdAt))}
@@ -220,37 +126,15 @@ class NoContent extends React.Component {
         )
     }
     
-    renderFooter() {
-        return (
-            <PageFooter
-                isLoading={this.state.isLoading}
-                saveLabel="Save"
-                discardLabel="Discard"
-                showSave={true}
-                showDiscard={true}
-                saveAction={() => {
-                    const newProfile = this.props.profile
-                    console.log("newP:", newProfile)
-                    this.props.handleEdit({...newProfile}, () => this.setState({isLoading: false}))
-                }}
-                discardAction={() => {
-                    this.setState({isLoading:false})
-                    this.props.backAction()
-                }}
-            />    
-        )
-    }
-    
     render() {
-        const { classes, backAction } = this.props;
+        const { classes, backAction, profile } = this.props;
         return (
             <main className={classes.content}>   
-                <PageHeader paddingTop title="Profile" modal={false} action={() => backAction()}/>
                 <Container className={classes.container} maxWidth={keys.CONTAINER_SIZE}>
                     <div className={classes.sectionPaper}>
                         {this.renderEmail()}
                         <br/>
-                        {this.renderMobile()}
+                        {this.renderPhone()}
                     </div>            
                     <div className={classes.sectionPaper}>
                         {this.renderProfile()}
@@ -259,7 +143,6 @@ class NoContent extends React.Component {
                         {this.renderAttributes()}   
                     </div>            
                 </Container>
-                {this.renderFooter()}
             </main>
         );
     }
@@ -290,8 +173,6 @@ const useStyles = theme => ({
         flexDirection: 'column'
     },
     paper: {
-        // flex: 1,
-        padding: 20,
         height: 'max-content'
     },
     
@@ -308,9 +189,6 @@ const useStyles = theme => ({
         marginTop: theme.spacing(1),
         marginBottom: theme.spacing(2),
         flex: 1
-    },
-    tagContainer: {
-        display: 'flex', alignItems: 'center', flex: 1, marginTop: 10
     },
     addButtonIcon: {
         color: keys.APP_COLOR_GRAY_DARKEST

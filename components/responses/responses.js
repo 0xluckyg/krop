@@ -95,28 +95,28 @@ class SurveyResponses extends React.Component {
         </div>
     }
 
-    renderMultipleChoiceResponse(row, i) {
-        let {updatedAt, question, value, type, options, device, browser} = row
-        return <div key={i}>
+    renderMultipleChoiceResponse(row) {
+        let {question, value, options} = row
+        return <div>
             <p className={this.props.classes.question}>{question}</p>
             {value.map((v, j)  => {
-                return <p className={this.props.classes.answer}>{options[v]}</p>
+                return <p key={j} className={this.props.classes.answer}>{options[v]}</p>
             })}
         </div>
     }
 
-    renderRatingResponse(row, i) {
-        let {updatedAt, question, value, min, max, type, device, browser} = row
-        return <div key={i}>
+    renderRatingResponse(row) {
+        let {question, value, min, max} = row
+        return <div>
             <p className={this.props.classes.question}>{question}</p>
             <p className={this.props.classes.answer}><b>{value}</b> out of {min} to {max}</p>
         </div>
     }
 
-    renderFormResponse(row, i) {
-        let {updatedAt, question, value, type, device, browser} = row
+    renderFormResponse(row) {
+        let {question, value, type} = row
         question = type == keys.EMAIL_ELEMENT ? 'Email' : type == keys.PHONE_ELEMENT ? 'Phone' : question
-        return <div key={i}>
+        return <div>
             <p className={this.props.classes.question}>{question}</p>
             <p className={this.props.classes.answer}>{value}</p>
         </div>
@@ -135,28 +135,27 @@ class SurveyResponses extends React.Component {
         return addressArray.join(', ')
     }
 
-    renderAddressResponse(row, i) {
-        let {updatedAt, value, type, device, browser} = row
+    renderAddressResponse(row) {
+        let {value} = row
         let address = this.formatAddress(value)
-        return <div key={i}>
+        return <div>
             <p className={this.props.classes.question}>Address</p>
             <p className={this.props.classes.answer}>{address}</p>
         </div>
     }
 
-    renderNameResponse(row, i) {
-        let {updatedAt, question, value, type, options, device, browser} = row
+    renderNameResponse(row) {
+        let {value} = row
         const {firstName, lastName} = value
-        return <div key={i}>
+        return <div>
             <p className={this.props.classes.question}>Name</p>
             <p className={this.props.classes.answer}>{firstName ? firstName + ' ': ''}{lastName ? lastName : ''}</p>
         </div>
     }   
 
-    getIcon(icon, i) { 
+    getIcon(icon) { 
         return (
             <Icon 
-                key={i}
                 path={icon}
                 className={this.props.classes.mainIcon}
                 size={0.9}
@@ -165,48 +164,48 @@ class SurveyResponses extends React.Component {
         )
     }
 
-    renderIcon(row, i) {
+    renderIcon(row) {
         let {type} = row
 
         const {classes} = this.props
         switch(type) {
             case (keys.MULTIPLE_CHOICE_ELEMENT):
-                return this.getIcon(mdiCheckboxMarkedCircleOutline, i)
+                return this.getIcon(mdiCheckboxMarkedCircleOutline)
             case (keys.CHECKBOX_ELEMENT):
-                return this.getIcon(mdiCheckboxMarkedOutline, i)
+                return this.getIcon(mdiCheckboxMarkedOutline)
             case (keys.DROPDOWN_ELEMENT):
-                return this.getIcon(mdiFormDropdown, i)
+                return this.getIcon(mdiFormDropdown)
             case (keys.SLIDER_ELEMENT):
-                return this.getIcon(mdiRayVertex, i)
+                return this.getIcon(mdiRayVertex)
             case (keys.FORM_ELEMENT):
             case (keys.EMAIL_ELEMENT):
             case (keys.PHONE_ELEMENT):
             case (keys.ADDRESS_ELEMENT):
             case (keys.NAME_ELEMENT):
-                return this.getIcon(mdiFormTextbox, i)
+                return this.getIcon(mdiFormTextbox)
             case (keys.LONG_FORM_ELEMENT):
-                return this.getIcon(mdiFormTextarea, i)
+                return this.getIcon(mdiFormTextarea)
         }
     }
 
-    renderResponse(row, i) {
+    renderResponse(row) {
         let {type} = row
         switch(type) {
             case(keys.MULTIPLE_CHOICE_ELEMENT):
             case(keys.CHECKBOX_ELEMENT):
             case(keys.DROPDOWN_ELEMENT):
-                return this.renderMultipleChoiceResponse(row, i)
+                return this.renderMultipleChoiceResponse(row)
             case(keys.SLIDER_ELEMENT):
-                return this.renderRatingResponse(row, i)
+                return this.renderRatingResponse(row)
             case(keys.FORM_ELEMENT):
             case(keys.LONG_FORM_ELEMENT):
             case(keys.PHONE_ELEMENT):
             case(keys.EMAIL_ELEMENT):
-                return this.renderFormResponse(row, i)
+                return this.renderFormResponse(row)
             case(keys.ADDRESS_ELEMENT):
-                return this.renderAddressResponse(row, i)
+                return this.renderAddressResponse(row)
             case(keys.NAME_ELEMENT):
-                return this.renderNameResponse(row, i)
+                return this.renderNameResponse(row)
         }
     }
 
@@ -219,9 +218,9 @@ class SurveyResponses extends React.Component {
         return (
             <div className={classes.responses}>
                 {responses.map((row, i) => {
-                    return <div className={classes.responseContainer}>
-                        {this.renderIcon(row, i)}
-                        {this.renderResponse(row, i)}
+                    return <div key={i} className={classes.responseContainer}>
+                        {this.renderIcon(row)}
+                        {this.renderResponse(row)}
                         {(i >= 50 && i == row.length - 1) ? 
                             <Waypoint
                                 onEnter={() => {

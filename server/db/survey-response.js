@@ -31,6 +31,7 @@ const SurveyResponseSchema = new mongoose.Schema({
     min: Number,
     max: Number,
     options: [String],
+    tags: [String],
     type: String,
     value: mongoose.Schema.Types.Mixed,
     consent: {

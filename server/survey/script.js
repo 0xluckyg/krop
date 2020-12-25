@@ -295,7 +295,8 @@
             var element = page.children[i]
             var survey = { 
                 type: element.getAttribute('type'),
-                id: element.getAttribute('id')
+                id: element.getAttribute('id'),
+                tags: getElementTags(element)
             }
             if (isSurveyElement(element)) {
                 switch(survey.type) {
@@ -339,6 +340,16 @@
             }
         }
         return surveys
+    }
+
+    function getElementTags(element) {
+        var tags = element.getAttribute('tags')
+        if (tags) {
+            tags = tags.split(',')
+        } else {
+            tags = ''
+        }
+        return tags
     }
     
     function getQuestion(element) {

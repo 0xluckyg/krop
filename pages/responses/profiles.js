@@ -28,8 +28,10 @@ import { showToastAction, isLoadingAction, showPaymentPlanAction } from '../../r
 import NoContent from '../../components/reusable/no-content'
 import PageHeader from '../../components/reusable/page-header'
 import keys from '../../config/keys'
-import ProfileDetail from '../../components/responses/profile-detail';
+import ProfileDetail from '../../components/responses/profile';
 import Spinner from '../../components/reusable/spinner'
+import DetailModal from '../../components/responses/detail-modal'
+import SurveyResponses from '../../components/responses/responses'
 
 class BrowseProfiles extends React.Component {
     constructor(props){
@@ -83,7 +85,7 @@ class BrowseProfiles extends React.Component {
     handleDelete(_id) {      
         const params = { _id }
         this.setState({isLoading:true})
-        axios.post(process.env.APP_URL + '/delete-profile', params, {
+        axios.post(process.env.APP_URL + '/remove-profile', params, {
             withCredentials: true
         })
         .then(() => {
@@ -125,7 +127,9 @@ class BrowseProfiles extends React.Component {
         const index = profiles.findIndex(d => d._id == newHeader._id)
         if (index < 0) return
         profiles[index] = newHeader
-        this.setState({profiles})
+        this.setState({
+            profiles
+        })
     }
     
     handleSearchTypeSelect(searchType) {
@@ -186,9 +190,9 @@ class BrowseProfiles extends React.Component {
             }
         })(TableCell);
         if (!this.state.isLoading) return null
-        return <SpinnerCell colSpan={5}>
+        return <TableRow><SpinnerCell colSpan={5}>
             <Spinner margin={5} size={20}/>
-        </SpinnerCell>
+        </SpinnerCell></TableRow>
     }
 
     renderTable() {
@@ -231,7 +235,7 @@ class BrowseProfiles extends React.Component {
                                 <IconButton
                                     onClick={() => this.setState({
                                         isEditing: true,
-                                        currentProfile: {...row,...row.content}
+                                        currentProfile: {...row}
                                     })}
                                     disabled={isLoading}
                                     aria-label="Edit"
@@ -347,21 +351,35 @@ class BrowseProfiles extends React.Component {
         )
     }
 
+    renderProfileDetail() {
+        const {currentProfile} = this.state
+        if (!currentProfile) return null
+        return (<DetailModal 
+            close={() => {
+                this.setState({
+                    isViewing: false,
+                    currentProfile: null
+                })
+            }} 
+            detail={currentProfile}
+            tabs={['Profile', 'Responses']}
+        >
+            <ProfileDetail 
+                profile={this.state.currentProfile}
+                handleEdit={this.handleEdit.bind(this)}
+                backAction={() => this.setState({isEditing: false, currentProfile: undefined})}
+            />
+            <SurveyResponses
+                sessionId={currentProfile.sessionId}
+            />
+        </DetailModal>)
+    }
+
     render() {
         const {classes} = this.props
-
-        if (this.state.isEditing) {
-            return (            
-                <ProfileDetail 
-                    profile={this.state.currentProfile}
-                    setProfile={(currentProfile) => this.setState({currentProfile})}
-                    handleEdit={this.handleEdit.bind(this)}
-                    backAction={() => this.setState({isEditing: false, currentProfile: undefined})}
-                />
-            )
-        }
         return (            
             <main className={classes.content}>   
+                {this.renderProfileDetail()}
                 <PageHeader 
                     title='PROFILES'
                     paddingTop

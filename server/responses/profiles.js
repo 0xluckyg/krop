@@ -59,7 +59,6 @@ async function getProfiles(ctx) {
         let hasPrevious = true; let hasNext = true
 
         const query = formatProfileQuery(ctx)
-        console.log("QQQ: ", query)
         const total = await SurveySession.countDocuments(query)        
         const totalPages = Math.ceil(total / limit)
         if (page == totalPages || totalPages == 0) hasNext = false
@@ -77,17 +76,19 @@ async function getProfiles(ctx) {
     }       
 }
 
-async function deleteProfile(ctx) {
+async function removeProfile(ctx) {
     try {
         const body = JSON.parse(ctx.request.rawBody)      
         const _id = body._id
-        await SurveySession.findByIdAndRemove(_id)
+        await SurveySession.findByIdAndUpdate(_id, {
+            hasProfile: false
+        })
 
         ctx.body = 'profile removed'
     } catch (err) {
-        console.log('Failed deleteProfile: ', err)
+        console.log('Failed removeProfile: ', err)
         ctx.status = 500
     }
 }
 
-module.exports = {getProfiles, updateProfile, deleteProfile}
+module.exports = {getProfiles, updateProfile, removeProfile}
