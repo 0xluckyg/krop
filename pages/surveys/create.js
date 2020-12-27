@@ -39,7 +39,7 @@ class CreateSurvey extends React.Component {
             settings: defaultSettings,
             //UI STATES
             templateOptions: null,
-            viewMode: keys.MOBILE_PROPERTY,
+            viewMode: keys.PHONE_ELEMENT,
             selectedStage: 0,
             selectedElement: null,
             selectedPage: 0,

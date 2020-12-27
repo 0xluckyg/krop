@@ -30,7 +30,7 @@ class SurveyPreview extends React.Component {
     }
     
     getDevicePosition(element) {
-        return (this.props.state.viewMode == keys.MOBILE_PROPERTY && element.mobile && element.mobile.enabled) ? keys.MOBILE_PROPERTY : keys.POSITION_PROPERTY
+        return (this.props.state.viewMode == keys.PHONE_ELEMENT && element.mobile && element.mobile.enabled) ? keys.PHONE_ELEMENT : keys.POSITION_PROPERTY
     }
     
     mouseEnter() {

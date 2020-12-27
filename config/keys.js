@@ -86,6 +86,10 @@ const IMAGE_ELEMENT = 'image'
 const VIDEO_ELEMENT = 'video'
 const SPACING_ELEMENT = 'spacing'
 
+const MAINBOARD_ELEMENT = 'mainboard'
+const BOX_ELEMENT = 'box'
+const TEXT_ELEMENT = 'text'
+
 const MEDIA_TEMPLATE = 'media_template'
 
 const FEE_0 = {
@@ -154,7 +158,7 @@ module.exports = {
     FEE_3,
     FREE_TRIAL,
     
-    MOBILE_PROPERTY,
+    PHONE_ELEMENT,
     DESKTOP_PROPERTY,
 
     STAGE_SETTINGS,
@@ -189,6 +193,10 @@ module.exports = {
     IMAGE_ELEMENT,
     VIDEO_ELEMENT,
     SPACING_ELEMENT,
+    
+    MAINBOARD_ELEMENT,
+    BOX_ELEMENT,
+    TEXT_ELEMENT,
     
     MEDIA_TEMPLATE
 }

@@ -8,22 +8,12 @@ import Slide from '@material-ui/core/Slide';
 import AddIcon from '@material-ui/icons/Add';
 import PhoneIcon from '@material-ui/icons/PhoneIphone';
 import DesktopIcon from '@material-ui/icons/DesktopMac';
-import Icon from '@mdi/react'
-import { 
-    mdiAlertCircle,
-    mdiMonitorDashboard,
-    mdiPalette,
-    mdiFormatPaint,
-    mdiFormatTextVariantOutline,
-    mdiFlagVariant
-} from '@mdi/js';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import keys from '../../../config/keys'
 import ElementList from './draggable-list'
 import ListElement from './list-element'
 import ElementEditor from './element-editor'
-import {elementsToPages, findElementPageIndex} from './element-editor/sub/functions'
 import StageEditor from './stage-editor'
 import SectionHeader from  './element-editor/frame/section-header'
 import {image} from './element-objects'
@@ -40,21 +30,95 @@ class StageBar extends React.Component {
         this.props.setState({selectedElement: element})
     }
     
-    toggleElementMenu(event) {
-        const {state, setState} = this.props
-        const elementCount = state.stages[state.selectedStage].elements.length
-        setState({elementMenuOpen: elementCount})
+    insertNewElement(element) {
+        const {type, fonts} = element
+        let newState = JSON.parse(JSON.stringify(this.props.state))
+        let selectedElement
+        if (type == keys.TAB || type == keys.ALERT) {
+            newState.fixed[type] = {...element}
+            selectedElement = (type == keys.TAB) ? keys.TAB : keys.ALERT
+        } else if (type == keys.MAINBOARD_ELEMENT) {
+            const stage = this.props.state.selectedStage
+            newState.stages[stage][type] = {...element}
+            selectedElement = keys.MAINBOARD_ELEMENT
+        } else {
+            const stage = this.props.state.selectedStage
+            newState.stages[stage].elements = [element,...newState.stages[stage].elements]   
+            selectedElement = 0
+        }
+        
+        if (fonts) {
+            fonts.map(font => {
+                if (!newState.fonts) {
+                    newState.fonts = []
+                }
+                if (!newState.fonts.includes(font)) {
+                    newState.fonts.push(font)
+                }
+            })
+        }
+        
+        this.props.setState(newState, () => {
+            //had to set timeout because of a bug (changing element select also changes the element)
+            setTimeout(() => {
+                this.props.setState({selectedElement})
+            }, 5)
+        })
     }
     
-    getCurrentStage() {
+    toggleElementSelector(event) {
+        const handleSelectElement = (newWidget, name) => {
+            let element = {...newWidget.template}
+            this.insertNewElement(element)
+        }
+        
+        const handleSelectMedia = (media, name) => {
+            const {width, height} = media
+            const defaultWidth = 500
+            const ratio = defaultWidth / width
+            const defaultHeight = height * ratio
+            const imageElement = image(0,0, defaultWidth, defaultHeight)
+            imageElement.position.aspectRatio = true
+            if (media.mediaType == keys.SVG_PROPERTY) {
+                imageElement.imageType = keys.SVG_PROPERTY
+                imageElement.svg = media.media
+            } else {
+                console.log("M: ", media)
+                imageElement.imageType = keys.IMAGE_PROPERTY
+                imageElement.image = media.media
+            }
+            
+            this.insertNewElement(imageElement)
+        }   
+        
+        this.props.setState({templateOptions: [{
+                templateType: keys.ELEMENT_TEMPLATE,
+                onSelect: (newWidget, name) => handleSelectElement(newWidget, name)
+            }, 
+            // {
+            //     templateType: keys.SURVEY_ELEMENT_TEMPLATE,
+            //     onSelect: (newWidget, name) => handleSelectElement(newWidget, name)
+            // }, 
+            {
+                templateType: keys.MEDIA_TEMPLATE,
+                onSelect: (media, name) => handleSelectMedia(media, name)
+            }
+        ]})
+    }
+    
+    getCurrentStageObject() {
         return this.props.state.stages[this.props.state.selectedStage]
+    }
+    
+    toggleAnimation(type) {
+        this.props.setState({playAnimation: (this.props.state.playAnimation == type) ? null : type})
     }
     
     renderAddButton() {
         const {classes} = this.props
         return (
             <Fragment>
-                <IconButton  className={classes.addButton}  onClick={event => this.toggleElementMenu()} 
+                <IconButton  className={classes.addButton}  onClick={event => this.toggleElementSelector(event)} 
                 size="small" variant="contained" color="primary">
                     <AddIcon className={classes.addButtonIcon} fontSize="small" />
                 </IconButton >
@@ -86,10 +150,10 @@ class StageBar extends React.Component {
     
     renderElementList() {
         const {state, setState, classes} = this.props
-        const stage = this.getCurrentStage()
+        const stage = this.getCurrentStageObject()
         
         if (!stage.elements || stage.elements.length <= 0) {
-            return <div onClick={() => this.toggleElementMenu()} className={classes.noContentContainer}>
+            return <div onClick={() => this.toggleElementSelector()} className={classes.noContentContainer}>
                 <div className={classes.noContentWrapper}>
                     <AddCircleIcon className={classes.noContentIcon}/>
                     <p className={classes.noContentText}>No Elements</p>
@@ -100,103 +164,46 @@ class StageBar extends React.Component {
         return (
             <ElementList 
                 elements={stage.elements}
-                setElements={(newElements, source, destination) => {
+                setElements={newElements => {
                     let newState = {...state}
                     newState.stages[state.selectedStage].elements = newElements
-                    
-                    const pages = elementsToPages(newElements)
-                    const newPageIndex = findElementPageIndex(pages, newElements[destination])
-                    newState.selectedPage = newPageIndex
                     setState(newState)
                 }}
-                wrapper={(index, element) => {
-                    return <ListElement
-                        key={index + element.name ? element.name : element.type}
-                        state={state}
-                        setState={setState}
-                        element={element}
-                        index={index}
+                wrapper={(type, name, index) => {
+                    return <ListElement 
+                        onClick={() => this.handleElementSelect(index)} 
+                        elementType={type}
+                        elementName={name}
                     />  
                 }}
             />
         )
     }
     
-    renderSettingsEditor() {
-        const {classes} = this.props
+    renderDeviceToggle() {
+        const {classes, state, setState} = this.props
+        const selected = classes.deviceToggleButton
+        const notSelected = clsx(classes.deviceToggleButton, classes.deviceToggleButtonGray)
+        this
         return (
-            <div className={classes.settingsEditorContainer}>
+            <div className={classes.deviceToggleContainer}>
                 {this.renderIconWithSubtitle(
                     <IconButton  
-                        className={classes.deviceToggleButton} 
-                        onClick={() => this.handleElementSelect(keys.STAGE_SETTINGS)}
+                        className={state.viewMode == keys.DESKTOP_PROPERTY ? selected : notSelected} 
+                        onClick={() => setState({viewMode: keys.DESKTOP_PROPERTY})} 
                         size="small" variant="contained" color="secondary">
-                        <Icon path={mdiMonitorDashboard}
-                            size={0.9}
-                            color={keys.APP_COLOR_GRAY_DARKEST}
-                        />
-                    </IconButton >,
-                    'Settings'
+                        <DesktopIcon fontSize="small" />
+                    </IconButton>,
+                    'Desktop'
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
-                        className={classes.deviceToggleButton} 
-                        onClick={() => this.handleElementSelect(keys.STYLE_SETTINGS)}
-                        size="small" variant="contained" color="secondary">
-                        <Icon path={mdiPalette}
-                            size={0.9}
-                            color={keys.APP_COLOR_GRAY_DARKEST}
-                        />
-                    </IconButton >,
-                    'Style'
-                )}
-                {this.renderIconWithSubtitle(
-                    <IconButton  
-                        className={classes.deviceToggleButton} 
-                        onClick={() => this.handleElementSelect(keys.BACKGROUND_SETTINGS)}
-                        size="small" variant="contained" color="secondary">
-                        <Icon path={mdiFormatPaint}
-                            size={0.9}
-                            color={keys.APP_COLOR_GRAY_DARKEST}
-                        />
-                    </IconButton >,
-                    'Background'
-                )}
-                {this.renderIconWithSubtitle(
-                    <IconButton  
-                        className={classes.deviceToggleButton} 
-                        onClick={() => this.handleElementSelect(keys.TEXT_SETTINGS)}
-                        size="small" variant="contained" color="secondary">
-                        <Icon path={mdiFormatTextVariantOutline}
-                            size={0.9}
-                            color={keys.APP_COLOR_GRAY_DARKEST}
-                        />
-                    </IconButton >,
-                    'Text'
-                )}
-                {this.renderIconWithSubtitle(
-                    <IconButton  
-                        className={classes.deviceToggleButton} 
-                        onClick={() => this.handleElementSelect(keys.ALERT_SETTINGS)}
+                        className={state.viewMode == keys.PHONE_ELEMENT ? selected : notSelected} 
+                        onClick={() => setState({viewMode: keys.PHONE_ELEMENT})} 
                         size="small" variant="contained" color="primary">
-                        <Icon path={mdiAlertCircle}
-                            size={0.9}
-                            color={keys.APP_COLOR_GRAY_DARKEST}
-                        />
-                    </IconButton >,
-                    'Alert'
-                )}
-                {this.renderIconWithSubtitle(
-                    <IconButton  
-                        className={classes.deviceToggleButton} 
-                        onClick={() => this.handleElementSelect(keys.LOGO_SETTINGS)}
-                        size="small" variant="contained" color="primary">
-                        <Icon path={mdiFlagVariant}
-                            size={0.9}
-                            color={keys.APP_COLOR_GRAY_DARKEST}
-                        />
-                    </IconButton >,
-                    'Logo'
+                        <PhoneIcon fontSize="small" />
+                    </IconButton>,
+                    'Mobile'
                 )}
             </div>
         )
@@ -223,7 +230,7 @@ class StageBar extends React.Component {
                     </Slide>
                     <div className={classes.sideEditor}>
                         {this.renderMainHeader()}
-                        <SectionHeader title="Campaign Elements (Drag to Reorder)"/>
+                        <SectionHeader title="Mainboard Elements (Drag to Reorder)"/>
                         <div className={classes.elementsList}>
                             {this.renderElementList()}
                         </div>
@@ -231,7 +238,7 @@ class StageBar extends React.Component {
                 </div>
                 <div className={classes.sideEditorFooter}>
                     <SectionHeader title="View as (Desktop or Mobile)"/>
-                    {this.renderSettingsEditor()}
+                    {this.renderDeviceToggle()}
                 </div>
             </div>
         )
@@ -242,7 +249,7 @@ const useStyles = theme => ({
     sideEditorContainer: {
         display: 'flex',
         flexDirection: 'column',
-        width: keys.SIDE_EDITOR_WIDTH
+        width: 350
     },
     sideEditorMain: {
         position: 'relative',
@@ -302,19 +309,20 @@ const useStyles = theme => ({
     fixedList: {
         width: '100%'
     },
-    settingsEditorContainer: {
+    deviceToggleContainer: {
         background: 'white',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-around',
-        padding: '0px 20px',
+        justifyContent: 'center',
         width: '100%',
         height: 60
     },
     deviceToggleButton: {
         margin: '0px 10px',
         height: 40,
-        width: 40,
+        width: 40
+    },
+    deviceToggleButtonGray: {
         color: keys.APP_COLOR_GRAY_DARKEST
     },
     iconContainer: {

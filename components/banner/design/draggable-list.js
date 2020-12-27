@@ -1,6 +1,5 @@
-  
 import { Component } from "react";
-import { DragDropContext, Droppable, Draggable, resetServerContext  } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 import keys from '../../../config/keys'
 import ListElement from './list-element'
@@ -39,7 +38,6 @@ class DraggableList extends Component {
     }
 
     onDragEnd(result) {
-        // console.log("E: ", result)
         // dropped outside the list
         if (!result.destination) {
             return;
@@ -60,17 +58,16 @@ class DraggableList extends Component {
     renderElement(element, elementWrapper, index) {
         //For Stage Editor
         if (element.name) {
-            return elementWrapper(index, element)
+            return elementWrapper(element.type, element.name, index)
         }
         //For Side Editor
-        return elementWrapper(index, element)
+        return elementWrapper(element.type, element.type, index)
     }
 
     // Normally you would want to split things out into separate components.
     // But in this example everything is just done in one place for simplicity
     render() {
-        const {wrapper, customKey} = this.props
-        resetServerContext()
+        const elementWrapper = this.props.wrapper
         
         return (
             <DragDropContext onDragEnd={this.onDragEnd}>
@@ -82,11 +79,7 @@ class DraggableList extends Component {
                             style={getListStyle(snapshot.isDraggingOver)}
                         >
                             {this.props.elements.map((element, index) => (
-                                <Draggable 
-                                    key={(customKey ? customKey : '') + index} 
-                                    draggableId={(customKey ? customKey : '') + index} 
-                                    index={index}
-                                >
+                                <Draggable key={'' + index} draggableId={'' + index} index={index}>
                                     {(provided, snapshot) => (
                                     <div
                                         ref={provided.innerRef}
@@ -97,7 +90,7 @@ class DraggableList extends Component {
                                             provided.draggableProps.style
                                         )}
                                     >
-                                        {this.renderElement(element, wrapper, index)}
+                                        {this.renderElement(element, elementWrapper, index)}
                                     </div>
                                     )}
                                 </Draggable>

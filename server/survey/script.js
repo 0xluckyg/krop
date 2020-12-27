@@ -16,7 +16,7 @@
         WIDGET: 'widget',
         STYLE: 'style',
         
-        MOBILE_PROPERTY: 'mobile',
+        PHONE_ELEMENT: 'mobile',
         DESKTOP_PROPERTY: 'desktop',
         TABLET_PROPERTY: 'tablet',
         
@@ -609,9 +609,9 @@
     // https://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device
     function detectMobile() {
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-            return keys.MOBILE_PROPERTY
+            return keys.PHONE_ELEMENT
         } else if (window.innerWidth < 481) {
-            return keys.MOBILE_PROPERTY
+            return keys.PHONE_ELEMENT
         } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
             return keys.TABLET_PROPERTY
         } else {

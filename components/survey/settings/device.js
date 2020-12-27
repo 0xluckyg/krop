@@ -36,7 +36,7 @@ class Device extends React.Component {
                         value={state.settings.device} 
                         onChange={(event) => this.handleSwitchOption(event.target.value)} row>
                         <FormControlLabel value="both" control={<Radio />} label="Both" />
-                        <FormControlLabel value={keys.MOBILE_PROPERTY} control={<Radio />} label="Mobile Only" />
+                        <FormControlLabel value={keys.PHONE_ELEMENT} control={<Radio />} label="Mobile Only" />
                         <FormControlLabel value={keys.DESKTOP_PROPERTY} control={<Radio />} label="Desktop Only" />
                     </RadioGroup>
                 </FormControl><br/>

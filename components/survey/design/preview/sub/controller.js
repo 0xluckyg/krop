@@ -69,8 +69,8 @@ class PageController extends React.Component {
             <div className={classes.controllerContainer}>
                 {this.renderPageController()}
                 <IconButton  
-                    className={clsx(classes.button, state.viewMode == keys.MOBILE_PROPERTY ? classes.selectedButton : null)} 
-                    onClick={() => setState({viewMode: keys.MOBILE_PROPERTY})} 
+                    className={clsx(classes.button, state.viewMode == keys.PHONE_ELEMENT ? classes.selectedButton : null)} 
+                    onClick={() => setState({viewMode: keys.PHONE_ELEMENT})} 
                     variant="contained">
                     <PhoneIcon fontSize="small" />
                 </IconButton>
