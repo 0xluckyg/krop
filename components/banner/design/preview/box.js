@@ -13,12 +13,11 @@ class BoxPreview extends React.Component {
     }
     
     render() {
-        const {classes, zIndex, state, setState, stage, element, setCenterRuler, getParentDimension, sectionElement, rndScale} = this.props
+        const {classes, zIndex, state, setState, element, setCenterRuler, getParentDimension, sectionElement, rndScale} = this.props
         return (
             <Draggable
                 state={state}
                 setState={setState}
-                stage={stage}
                 element={element}
                 sectionElement={sectionElement}
                 zIndex={zIndex}
@@ -33,8 +32,8 @@ class BoxPreview extends React.Component {
 }
 
 function getElementFromProps(props) {
-    let {stage, element, sectionElement} = props
-    return getElement({props, selectedStage: stage, selectedElement: element})
+    let {element} = props
+    return getElement({props, selectedElement: element})
 }
 
 function getBoxStyle(props) {

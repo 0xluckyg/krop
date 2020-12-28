@@ -37,26 +37,22 @@ class Style extends React.Component {
     }
     
     getProperty(propertyType, property) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         return getProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
-            propertyType, property, 
-            selectedSectionElement: sectionElement
+            propertyType, property
         })
     }
     
     modifyProperty(propertyType, property, value) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         modifyProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
             propertyType, 
             property, 
-            value, 
-            selectedSectionElement: sectionElement
+            value
         })
     }
     

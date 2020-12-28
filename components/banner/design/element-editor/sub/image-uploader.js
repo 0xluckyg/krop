@@ -20,47 +20,39 @@ class BannerDropzone extends React.Component {
     }
     
     getElement() {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         return getElement({
             props: this.props, 
-            selectedStage: stage,
-            selectedElement: element,
-            selectedSectionElement: sectionElement
+            selectedElement: element
         })
     }
     
     getProperty(propertyType, property) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         return getProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
-            propertyType, property, 
-            selectedSectionElement: sectionElement
+            propertyType, property
         })
     }
     
     modifyProperty(propertyType, property, value) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         modifyProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
             propertyType, 
             property, 
-            value, 
-            selectedSectionElement: sectionElement
+            value
         })
     }
     
     modifyElement(newElement) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         modifyElement({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
-            element: newElement,
-            selectedSectionElement: sectionElement
+            element: newElement
         })
     }
     

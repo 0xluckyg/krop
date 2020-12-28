@@ -12,8 +12,8 @@ class MainboardPreview extends React.Component {
     }
     
     getMainboard() {
-        let {stage, element} = this.props
-        return getElement({props: this.props, selectedStage: stage, selectedElement: element})
+        let {element} = this.props
+        return getElement({props: this.props, selectedElement: element})
     }
     
     handleMainboardClick(e) {
@@ -40,7 +40,7 @@ class MainboardPreview extends React.Component {
 }
 
 function getElementFromProps(props) {
-    return getElement({props, selectedStage: 0, selectedElement: keys.MAINBOARD_ELEMENT})
+    return getElement({props, selectedElement: keys.MAINBOARD_ELEMENT})
 }
 
 function getMainboardStyle(props) {    

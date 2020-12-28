@@ -88,20 +88,18 @@ class MainboardPreview extends React.Component {
         const setCenterRuler = this.setCenterRuler.bind(this)
         const getParentDimension = this.getMainboardDimension.bind(this)
         const {state, setState} = this.props
-        const currentStage = state.stages[state.selectedStage]
         const rndScale = this.getRndScale()
         
         return (
             <React.Fragment>
-                {currentStage.elements.map((element, i) => {
-                    const zIndex = currentStage.elements.length - i
+                {state.elements.map((element, i) => {
+                    const zIndex = state.elements.length - i
                     switch(element.type) {
                     case(keys.TEXT_ELEMENT):
                         return <Text
                                     key={element.type+i}
                                     state={state}
                                     setState={setState}
-                                    stage={state.selectedStage}
                                     element={i}
                                     zIndex={zIndex}
                                     setCenterRuler={setCenterRuler}
@@ -113,7 +111,6 @@ class MainboardPreview extends React.Component {
                                     key={element.type+i}
                                     state={state}
                                     setState={setState}
-                                    stage={state.selectedStage}
                                     element={i}
                                     zIndex={zIndex}
                                     setCenterRuler={setCenterRuler}
@@ -125,7 +122,6 @@ class MainboardPreview extends React.Component {
                                     key={element.type+i}
                                     state={state}
                                     setState={setState}
-                                    stage={state.selectedStage}
                                     element={i}
                                     zIndex={zIndex}
                                     setCenterRuler={setCenterRuler}
@@ -137,7 +133,6 @@ class MainboardPreview extends React.Component {
                                     key={element.type+i}
                                     state={state}
                                     setState={setState}
-                                    stage={state.selectedStage}
                                     element={i}
                                     zIndex={zIndex}
                                     setCenterRuler={setCenterRuler}
@@ -153,7 +148,6 @@ class MainboardPreview extends React.Component {
     
     render() {
         const {classes, state, setState} = this.props
-        const selectedStage = state.selectedStage
         return (
             <div 
                 onMouseEnter={this.mouseEnter.bind(this)} 
@@ -163,7 +157,6 @@ class MainboardPreview extends React.Component {
             >
                 <Screen state={state} setState={setState}>
                     <Mainboard 
-                        stage={selectedStage}
                         element={keys.MAINBOARD_ELEMENT}
                         state={state}
                         setState={setState}
@@ -182,7 +175,7 @@ const useStyles = theme => ({
     previewContainer: props => {
         return {
             display: 'flex',
-            height: "calc(100vh - 48px - 48px)",
+            height: "calc(100vh - 48px)",
             overflowY: 'hidden',
             overflowX: 'hidden',
             justifyContent: 'center',

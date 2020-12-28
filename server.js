@@ -36,6 +36,7 @@ const {googleAuth} = require('./server/auth/google-auth');
 const {uploadImage} = require('./server/helper/image')
 const {getMediaTemplates, getPexelsTemplates} = require('./server/admin/templates')
 const {createSurvey, getSurveys, getSurvey, updateSurvey, deleteSurvey} = require('./server/survey/manage');
+const {createBanner, getBanners, getBanner, updateBanner, deleteBanner} = require('./server/banner/manage');
 const {getSurveyScript, getSurveyOptions} = require('./server/survey/serve');
 const {receiveSurvey} = require('./server/survey/receive');
 
@@ -143,6 +144,12 @@ app.prepare().then(() => {
     router.post('/delete-survey', deleteSurvey);
     router.get('/get-surveys', getSurveys);
     router.get('/get-survey', getSurvey);
+
+    router.post('/create-banner', createBanner);
+    router.put('/update-banner', updateBanner);
+    router.post('/delete-banner', deleteBanner);
+    router.get('/get-banners', getBanners);
+    router.get('/get-banner', getBanner);
     
     router.post('/upload-image', uploadImage);
     router.get('/get-media-templates', getMediaTemplates)

@@ -29,22 +29,22 @@ function handleLimit(value, min, max) {
 
 function modifyProperty(options) {
     
-    let {props, selectedStage, selectedElement, propertyType, property, value} = options
+    let {props, selectedElement, propertyType, property, value} = options
     
     let newState = JSON.parse(JSON.stringify(props.state))
     if (selectedElement == keys.MAINBOARD_ELEMENT) { 
-        if (property != 'locked' && newState.stages[selectedStage][selectedElement].locked) return
+        if (property != 'locked' && newState[selectedElement].locked) return
         if (!propertyType) {
-            newState.stages[selectedStage][selectedElement][property] = value
+            newState[selectedElement][property] = value
         } else {
-            newState.stages[selectedStage][selectedElement][propertyType][property] = value
+            newState[selectedElement][propertyType][property] = value
         }
     } else {
-        if (property != 'locked' && newState.stages[selectedStage].elements[selectedElement].locked) return
+        if (property != 'locked' && newState.elements[selectedElement].locked) return
         if (!propertyType) {
-            newState.stages[selectedStage].elements[selectedElement][property] = value
+            newState.elements[selectedElement][property] = value
         } else {
-            newState.stages[selectedStage].elements[selectedElement][propertyType][property] = value
+            newState.elements[selectedElement][propertyType][property] = value
         }
     }
     props.setState(newState)
@@ -54,46 +54,44 @@ function modifyProperty(options) {
 
 function getProperty(options) {
     
-    let {props, selectedStage, selectedElement, propertyType, property} = options
-    console.log("OO: ", props.state.stages[selectedStage].elements[selectedElement])
-    console.log("2: ", {propertyType, property})
+    let {props, selectedElement, propertyType, property} = options
      if (Number.isInteger(selectedElement)) {
         if (!propertyType) {
-            return props.state.stages[selectedStage].elements[selectedElement][property]
+            return props.state.elements[selectedElement][property]
         } else {
-            return props.state.stages[selectedStage].elements[selectedElement][propertyType][property]      
+            return props.state.elements[selectedElement][propertyType][property]      
         }
     } else if (selectedElement == keys.MAINBOARD_ELEMENT) { 
         if (!propertyType) {
-            return props.state.stages[selectedStage][selectedElement][property]
+            return props.state[selectedElement][property]
         } else {
-            return props.state.stages[selectedStage][selectedElement][propertyType][property]
+            return props.state[selectedElement][propertyType][property]
         }
     }
 }
 
 function getElement(options) {
     
-    let {props, selectedStage, selectedElement} = options
+    let {props, selectedElement} = options
     if (Number.isInteger(selectedElement)) {
-        return props.state.stages[selectedStage].elements[selectedElement]
+        return props.state.elements[selectedElement]
     } else if (selectedElement == keys.MAINBOARD_ELEMENT) { 
-        return props.state.stages[selectedStage][selectedElement]
+        return props.state[selectedElement]
     }
 }
 
 function modifyElement(options) {
-    let {props, selectedStage, selectedElement, element} = options
+    let {props, selectedElement, element} = options
     
     let newState = JSON.parse(JSON.stringify(props.state))
     if (Number.isInteger(selectedElement)) {
-        let prevElement = props.state.stages[selectedStage].elements[selectedElement]
+        let prevElement = props.state.elements[selectedElement]
         if (prevElement.locked) return
-        newState.stages[selectedStage].elements[selectedElement] = {...prevElement, ...element}
+        newState.elements[selectedElement] = {...prevElement, ...element}
     } else if (selectedElement == keys.MAINBOARD_ELEMENT) { 
-        let prevElement = newState.stages[selectedStage][selectedElement]
+        let prevElement = newState[selectedElement]
         if (prevElement.locked) return
-        newState.stages[selectedStage][selectedElement] = {...prevElement, ...element}
+        newState[selectedElement] = {...prevElement, ...element}
     }
     
     props.setState(newState)

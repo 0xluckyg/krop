@@ -14,7 +14,6 @@ import keys from '../../../config/keys'
 import ElementList from './draggable-list'
 import ListElement from './list-element'
 import ElementEditor from './element-editor'
-import StageEditor from './stage-editor'
 import SectionHeader from  './element-editor/frame/section-header'
 import {image} from './element-objects'
 
@@ -38,12 +37,10 @@ class StageBar extends React.Component {
             newState.fixed[type] = {...element}
             selectedElement = (type == keys.TAB) ? keys.TAB : keys.ALERT
         } else if (type == keys.MAINBOARD_ELEMENT) {
-            const stage = this.props.state.selectedStage
-            newState.stages[stage][type] = {...element}
+            newState[type] = {...element}
             selectedElement = keys.MAINBOARD_ELEMENT
         } else {
-            const stage = this.props.state.selectedStage
-            newState.stages[stage].elements = [element,...newState.stages[stage].elements]   
+            newState.elements = [element,...newState.elements]   
             selectedElement = 0
         }
         
@@ -107,7 +104,7 @@ class StageBar extends React.Component {
     }
     
     getCurrentStageObject() {
-        return this.props.state.stages[this.props.state.selectedStage]
+        return this.props.state
     }
     
     toggleAnimation(type) {
@@ -150,9 +147,8 @@ class StageBar extends React.Component {
     
     renderElementList() {
         const {state, setState, classes} = this.props
-        const stage = this.getCurrentStageObject()
         
-        if (!stage.elements || stage.elements.length <= 0) {
+        if (!state.elements || state.elements.length <= 0) {
             return <div onClick={() => this.toggleElementSelector()} className={classes.noContentContainer}>
                 <div className={classes.noContentWrapper}>
                     <AddCircleIcon className={classes.noContentIcon}/>
@@ -163,10 +159,10 @@ class StageBar extends React.Component {
         }
         return (
             <ElementList 
-                elements={stage.elements}
+                elements={state.elements}
                 setElements={newElements => {
                     let newState = {...state}
-                    newState.stages[state.selectedStage].elements = newElements
+                    newState.elements = newElements
                     setState(newState)
                 }}
                 wrapper={(type, name, index) => {
@@ -214,13 +210,6 @@ class StageBar extends React.Component {
         return (
             <div className={classes.sideEditorContainer}>
                 <div className={classes.sideEditorMain}>
-                    <Slide direction="left" in={state.stageEditorOpen} mountOnEnter unmountOnExit>
-                        <StageEditor 
-                            setState={setState} 
-                            state={state} 
-                            onExit={() => setState({stageEditorOpen: false})}
-                        />
-                    </Slide>
                     <Slide direction="left" in={state.selectedElement != null} mountOnEnter unmountOnExit>
                         <ElementEditor
                             setState={setState}

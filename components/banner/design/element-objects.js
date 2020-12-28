@@ -31,9 +31,6 @@ function getStyle(color, opacity, cornerRounding, borderColor, borderWidth, padd
 }
 
 
-//MAIN DEFAULT ELEMENTS
-
-//todo: ADD HTML EDITOR
 let text = (x,y, width, height) => {
     return {
         type: keys.TEXT_ELEMENT,
@@ -121,7 +118,7 @@ let mainboard = (x, y, width, height) => {
         name: 'Mainboard',
         //position (width, height)
         position: {...getPosition(
-            x, y, width ? width : 700, height ? height : 500, 'percent', 'percent'
+            x, y, width ? width : 400, height ? height : 600, 'percent', 'percent'
         )},
         //style (color, opacity, cornerRounding, borderColor, borderWidth)
         style: {
@@ -137,11 +134,11 @@ let mainboard = (x, y, width, height) => {
     }
 }
 
-let defaultStage = () => {
+let defaultBanner = () => {
     return {
-        name: '',
-        stageId: shortid.generate(),
+        name: 'Default Banner',
         elements: [
+            qr(100,100),
             box(0,0), 
             image(20,20),
             video(30,30),
@@ -152,5 +149,5 @@ let defaultStage = () => {
 }
 
 module.exports = {
-    text, image, box, video, mainboard, defaultStage
+    text, image, box, video, mainboard, defaultBanner
 }

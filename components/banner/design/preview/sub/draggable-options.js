@@ -23,10 +23,9 @@ class DraggableOptions extends React.Component {
     }
     
     getProperty(propertyType, property) {
-        const {stage, element} = this.props
+        const {element} = this.props
         return getProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
             propertyType,
             property
@@ -34,10 +33,9 @@ class DraggableOptions extends React.Component {
     }
     
     modifyProperty(propertyType, property, value) {
-        const {stage, element} = this.props
+        const {element} = this.props
         modifyProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
             propertyType, 
             property, 
@@ -46,19 +44,17 @@ class DraggableOptions extends React.Component {
     }
     
     getElement() {
-        const {stage, element} = this.props
+        const {element} = this.props
         return getElement({
             props:this.props, 
-            selectedStage:stage,
             selectedElement:element, 
         })
     }
     
     modifyElement(newElement) {
-        const {stage, element} = this.props
+        const {element} = this.props
         modifyElement({
             props: this.props, 
-            selectedStage:stage, 
             selectedElement:element, 
             element:newElement, 
         })
@@ -75,25 +71,23 @@ class DraggableOptions extends React.Component {
     
     handleDuplicate() {
         let newState = {...this.props.state}
-        let stageIndex = this.props.state.selectedStage
         let elementIndex = this.props.state.selectedElement
         if (elementIndex == null) return
         
-        let duplicateElement = {...newState.stages[stageIndex].elements[elementIndex]}
-        let newElements = [duplicateElement,...newState.stages[stageIndex].elements]
-        newState.stages[stageIndex].elements = newElements
+        let duplicateElement = {...newState.elements[elementIndex]}
+        let newElements = [duplicateElement,...newState.elements]
+        newState.elements = newElements
         this.props.setState(newState)
     }
     
     removeElement() {
         let newState = {...this.props.state}
-        let stageIndex = this.props.state.selectedStage
         let elementIndex = this.props.state.selectedElement
         if (elementIndex == null) return
         
-        let newElements = [...newState.stages[stageIndex].elements]
+        let newElements = [...newState.elements]
         newElements.splice(elementIndex, 1)
-        newState.stages[stageIndex].elements = newElements
+        newState.elements = newElements
         newState.selectedElement = null
         this.props.setState(newState)
     }

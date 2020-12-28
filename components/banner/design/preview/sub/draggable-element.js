@@ -84,18 +84,17 @@ class DraggableElement extends React.Component {
     }
     
     getElement() {
-        const {stage, element, sectionElement} = this.props
+        const {element, sectionElement} = this.props
         return getElement({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
             selectedSectionElement: sectionElement
         })
     }
     
     getParentElement() {
-        const {stage, element} = this.props
-        return getElement({props: this.props, selectedStage: stage, selectedElement: element})
+        const {element} = this.props
+        return getElement({props: this.props, selectedElement: element})
     }
     
     handlePropertyChange(propertyType, property, value) {
@@ -373,7 +372,7 @@ class DraggableElement extends React.Component {
     }
     
     render() {
-        let {children, stage, state, setState, element, sectionElement, rndScale} = this.props
+        let {children, state, setState, element, sectionElement, rndScale} = this.props
         const parent = this.props.getParentDimension()
         const { x, y, width, height, aspectRatio } = this.getPosition(parent)
         const {selectedSectionElement} = state
@@ -428,7 +427,6 @@ class DraggableElement extends React.Component {
             >
                 <DraggableOptions
                     state={state}
-                    stage={stage}
                     element={element}
                     sectionElement={sectionElement}
                     setState={setState}

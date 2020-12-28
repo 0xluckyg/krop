@@ -17,13 +17,8 @@ import TabBar from '../../components/banner/tab-bar';
 import MainEditor from '../../components/banner/design'
 import TemplateSelector from '../../components/banner/templates'
 import keys from '../../config/keys'
-import {defaultStage} from '../../components/banner/design/element-objects'
+import {defaultBanner} from '../../components/banner/design/element-objects'
 import {loadFonts} from '../../components/reusable/font-families'
-
-const defaultStages = [
-    {...defaultStage()}
-]
-defaultStages[0].name = 'Stage 1'
 
 class CreateBanner extends React.Component {
     constructor(props){
@@ -32,11 +27,12 @@ class CreateBanner extends React.Component {
         this.state = {
             domain: '',            
             //DESIGN STATE
-            stages: defaultStages,
+            elements: [...defaultBanner().elements],
+            mainboard: {...defaultBanner().mainboard}, 
             fonts: [],
+            name: defaultBanner().name,
             
             //UI STATES
-            selectedStage: 0,
             selectedElement: null,
             selectedSectionElement: null,
             animationMax: 0,
@@ -60,7 +56,6 @@ class CreateBanner extends React.Component {
             
             let banner = {...newBanner.template}
             let newState = {...this.state, ...banner}
-            newState.selectedStage = 0
             
             if (newBanner.template.fonts) {
                 newBanner.template.fonts.map(font => {
@@ -109,26 +104,16 @@ class CreateBanner extends React.Component {
     }
     
     validateSubmit() {
-        if (this.state.behaviors.name.length == 0) {
+        if (this.state.name.length == 0) {
             this.props.showToastAction(true, 'Please give your banner a name', 'error')
             this.setState({editor: 1})
             return false
         }
         return true
     }
-    
-    validatePreview() {
-        const domain = this.state.domain
-        if (!domain || domain == '') {
-            this.props.showToastAction(true, 'Please enter a website to preview on', 'error')
-            this.setState({editor: 1})
-            return false
-        }
-        return true
-    }
-    
+
     validateFonts() {
-        const bannerString = JSON.stringify(this.state.stages) + JSON.stringify(this.state.fixed)
+        const bannerString = JSON.stringify(this.state.elements)
         let fonts = []
         
         this.state.fonts.map((font, i) => {
@@ -144,32 +129,22 @@ class CreateBanner extends React.Component {
         try {
             if (!isPreview) { if (!this.validateSubmit()) return }
             
-            let {domain, behaviors, stages, fixed} = this.state
+            let {domain, behaviors, elements, mainboard, name, fixed} = this.state
             const fonts = this.validateFonts()
-            let data = {domain, behaviors, stages, fixed, fonts}
+            let data = {domain, behaviors, elements, mainboard, name, fixed, fonts}
             this.setState({isLoading: true})
             //if edit
             if (this.props.handleEdit) {
                 const _id = this.state._id
                 this.props.handleEdit({...data, _id}, () => this.setState({isLoading: false}))
-            } else if (isPreview) {
-                if (!this.validatePreview()) return
-                data.previewDomain = 'https://' + this.state.domain
-                axios.post(process.env.APP_URL + '/preview-banner', data)
-                .then(res => {
-                    this.setState({isLoading: false})
-                    window.open(res.data, '_blank')
-                }).catch(() => {
-                    this.setState({isLoading: false})
-                    this.props.showToastAction(true, `Couldn't create preview. Please try again later.`, 'error')
-                })   
             } else {
                 axios.post(process.env.APP_URL + '/create-banner', data)
                 .then(res => {
                     this.setState({isLoading: false})
                     this.props.showToastAction(true, 'Banner created!', 'success')
                     window.location.replace('/banners/browse')
-                }).catch(() => {
+                }).catch((err) => {
+                    console.log('er ', err)
                     this.props.showToastAction(true, `Couldn't create banner. Please try again later.`, 'error')
                     this.setState({isLoading: false})
                 })

@@ -65,13 +65,12 @@ class ElementEditor extends React.Component {
     
     removeElement() {
         let newState = {...this.props.state}
-        let stageIndex = this.props.state.selectedStage
         let elementIndex = this.props.state.selectedElement
         if (elementIndex == null) return
         
-        let newElements = [...newState.stages[stageIndex].elements]
+        let newElements = [...newState.elements]
         newElements.splice(elementIndex, 1)
-        newState.stages[stageIndex].elements = newElements
+        newState.elements = newElements
         newState.selectedElement = null
         this.props.setState(newState)
     }
@@ -157,14 +156,13 @@ class ElementEditor extends React.Component {
     
     renderEditorContent() {
         const {state, setState} = this.props
-        const {selectedStage, selectedElement} = state
+        const {selectedElement} = state
         const elm = this.getElement()
         const type = elm ? elm.type : null
 
         switch(type) {
             case(keys.TEXT_ELEMENT):
                 return <TextEditor
-                    stage={selectedStage}
                     element={selectedElement}
                     state={state}
                     setState={setState}
@@ -172,7 +170,6 @@ class ElementEditor extends React.Component {
                 />
             case(keys.IMAGE_ELEMENT):
                 return <ImageEditor
-                    stage={selectedStage}
                     element={selectedElement}
                     state={state}
                     setState={setState}
@@ -180,7 +177,6 @@ class ElementEditor extends React.Component {
                 />
             case(keys.BOX_ELEMENT):
                 return <BoxEditor
-                    stage={selectedStage}
                     element={selectedElement}
                     state={state}
                     setState={setState}
@@ -188,7 +184,6 @@ class ElementEditor extends React.Component {
                 />
             case(keys.VIDEO_ELEMENT):
                 return <VideoEditor
-                    stage={selectedStage}
                     element={selectedElement}
                     state={state}
                     setState={setState}
@@ -196,7 +191,6 @@ class ElementEditor extends React.Component {
                 />
             case(keys.MAINBOARD_ELEMENT):
                 return <MainboardEditor
-                    stage={selectedStage}
                     element={selectedElement}
                     state={state}
                     setState={setState}

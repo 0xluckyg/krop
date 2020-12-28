@@ -17,47 +17,39 @@ class VideoEditor extends React.Component {
     }
     
     getProperty(propertyType, property) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         return getProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
             propertyType, property, 
-            selectedSectionElement: sectionElement
         })
     }
     
     modifyProperty(propertyType, property, value) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         modifyProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
             propertyType, 
             property, 
             value, 
-            selectedSectionElement: sectionElement
         })
     }
     
     getElement() {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         return getElement({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element,
-            selectedSectionElement: sectionElement
         })
     }
     
     modifyElement(newElement) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         modifyElement({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
-            element: newElement,
-            selectedSectionElement: sectionElement
+            element: newElement
         })
     }
     
@@ -97,7 +89,7 @@ class VideoEditor extends React.Component {
     }
     
     render() {
-        const {state, setState, stage, element, getParentDimension, sectionElement} = this.props
+        const {state, setState, element, getParentDimension} = this.props
         return (
             <Fragment>
                 <SectionContainer title="Video url">
@@ -109,22 +101,16 @@ class VideoEditor extends React.Component {
                 </SectionContainer>
                 <Position
                     device={state.viewMode}
-                    stage={stage}
                     element={element}
                     state={state} 
                     setState={setState}
                     getParentDimension={getParentDimension}
-                    
-                    sectionElement={sectionElement}
                 />
                 <Style
                     disabled={['color']}
-                    stage={stage}
                     element={element}
                     state={state}
                     setState={setState}
-                    
-                    sectionElement={sectionElement}
                 />
             </Fragment>
         )

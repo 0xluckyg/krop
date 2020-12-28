@@ -11,26 +11,20 @@ class BoxEditor extends React.Component {
     }
     
     render() {
-        const {state, setState, stage, element, getParentDimension, sectionElement} = this.props
+        const {state, setState, element, getParentDimension} = this.props
         return (
             <Fragment>
                 <Position
                     device={state.viewMode}
-                    stage={stage}
                     element={element}
                     state={state}
                     setState={setState}
                     getParentDimension={getParentDimension}
-
-                    sectionElement={sectionElement}
                 />
                 <Style
-                    stage={stage}
                     element={element}
                     state={state}
-                    setState={setState}
-                    
-                    sectionElement={sectionElement}
+                    setState={setState}                    
                 />
             </Fragment>
         )

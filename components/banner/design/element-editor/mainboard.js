@@ -23,26 +23,22 @@ class MainboardEditor extends React.Component {
     }
     
     getProperty(propertyType, property) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         return getProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
-            propertyType, property, 
-            selectedSectionElement: sectionElement
+            propertyType, property
         })
     }
     
     modifyProperty(propertyType, property, value) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         modifyProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
             propertyType, 
             property, 
-            value, 
-            selectedSectionElement: sectionElement
+            value
         })
     }
     
@@ -59,12 +55,11 @@ class MainboardEditor extends React.Component {
     }
     
     render() {
-        const {state, setState, stage, element, getParentDimension} = this.props
+        const {state, setState, element, getParentDimension} = this.props
         return (
             <Fragment>
                 <Position
                     device={state.viewMode}
-                    stage={stage}
                     element={element}
                     state={state} 
                     setState={setState}
@@ -72,14 +67,12 @@ class MainboardEditor extends React.Component {
                 />
                 <Style
                     disabled={['borderColor', 'borderWidth']}
-                    stage={stage}
                     element={element}
                     state={state}
                     setState={setState}
                 />
                 <SectionContainer title="Image">
                     <ImageUploader 
-                        stage={stage}
                         element={element}
                         state={state} 
                         setState={setState}

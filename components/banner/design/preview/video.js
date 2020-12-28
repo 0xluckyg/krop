@@ -14,8 +14,8 @@ class VideoPreview extends React.Component {
     }
     
     getElement() {
-        let {stage, element} = this.props
-        return getElement({props: this.props, selectedStage: stage, selectedElement: element})
+        let {element} = this.props
+        return getElement({props: this.props, selectedElement: element})
     }
     
     getVideoEmptyView() {
@@ -33,7 +33,7 @@ class VideoPreview extends React.Component {
     }
     
     render() {
-        const {zIndex, state, setState, stage, element, setCenterRuler, getParentDimension, sectionElement, rndScale} = this.props
+        const {zIndex, state, setState, element, setCenterRuler, getParentDimension, sectionElement, rndScale} = this.props
         const {embedUrl} = this.getElement()
         let iframe
         if (embedUrl == '' || !embedUrl) {
@@ -45,7 +45,6 @@ class VideoPreview extends React.Component {
             <Draggable
                 state={state}
                 setState={setState}
-                stage={stage}
                 element={element}
                 sectionElement={sectionElement}
                 zIndex={zIndex}
@@ -63,8 +62,8 @@ class VideoPreview extends React.Component {
 //ALSO CREATE MOBILE ONLY OPTION
 
 function getElementFromProps(props) {
-    let {stage, element, sectionElement} = props
-    return getElement({props, selectedStage: stage, selectedElement: element, selectedSectionElement: sectionElement})
+    let {element} = props
+    return getElement({props, selectedElement: element})
 }
 
 function getVideoStyle(props) {

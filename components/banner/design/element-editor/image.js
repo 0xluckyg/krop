@@ -18,26 +18,22 @@ class ImageEditor extends React.Component {
     }
     
     getProperty(propertyType, property) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         return getProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
-            propertyType, property, 
-            selectedSectionElement: sectionElement
+            propertyType, property
         })
     }
     
     modifyProperty(propertyType, property, value) {
-        const {stage, element, sectionElement} = this.props
+        const {element} = this.props
         return modifyProperty({
             props: this.props, 
-            selectedStage: stage, 
             selectedElement: element, 
             propertyType, 
             property, 
-            value, 
-            selectedSectionElement: sectionElement
+            value
         })
     }
     
@@ -58,7 +54,7 @@ class ImageEditor extends React.Component {
     }
     
     render() {
-        const {state, setState, stage, element, getParentDimension, sectionElement} = this.props
+        const {state, setState, element, getParentDimension} = this.props
         let imageTypeValue = this.getImageTypeValue()
         return (
             <Fragment>
@@ -79,25 +75,19 @@ class ImageEditor extends React.Component {
                 {imageTypeValue == keys.IMAGE_PROPERTY ?
                     <SectionContainer title="Image">
                         <ImageUploader 
-                            stage={stage}
                             element={element}
                             state={state} 
-                            setState={setState}
-                            
-                            sectionElement={sectionElement}
+                            setState={setState}                            
                         /> 
                     </SectionContainer> :
                     <SectionContainer title="SVG Text">
                         <CodeEditor
-                            stage={stage}
                             element={element}
                             state={state} 
                             setState={setState}
                             label="SVG"
                             description="You can directly insert a svg text here"
-                            property={keys.SVG_PROPERTY}
-                            
-                            sectionElement={sectionElement}
+                            property={keys.SVG_PROPERTY}                            
                         />
                     </SectionContainer> 
                 }
@@ -110,22 +100,16 @@ class ImageEditor extends React.Component {
                 </SectionContainer>
                 <Position
                     device={state.viewMode}
-                    stage={stage}
                     element={element}
                     state={state} 
                     setState={setState}
-                    getParentDimension={getParentDimension}
-                    
-                    sectionElement={sectionElement}
+                    getParentDimension={getParentDimension}                    
                 />
                 <Style
                     disabled={["color"]}
-                    stage={stage}
                     element={element}
                     state={state}
-                    setState={setState}
-                    
-                    sectionElement={sectionElement}
+                    setState={setState}                    
                 />
             </Fragment>
         )

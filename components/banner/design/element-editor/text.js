@@ -14,36 +14,27 @@ class TextEditor extends React.Component {
     
     // TODO: ADD HTML EDITOR
     render() {
-        const {state, setState, stage, element, getParentDimension, sectionElement} = this.props
+        const {state, setState, element, getParentDimension} = this.props
         return (
             <Fragment>
                 <SectionContainer title="Text">
                 <Wysiwyg
-                    stage={stage}
                     element={element}
                     state={state}
                     setState={setState}
-                    
-                    sectionElement={sectionElement}
                 />
                 </SectionContainer>
                 <Position
                     device={state.viewMode}
-                    stage={stage}
                     element={element}
                     state={state} 
                     setState={setState}
                     getParentDimension={getParentDimension}
-                    
-                    sectionElement={sectionElement}
                 />
                 <Style
-                    stage={stage}
                     element={element}
                     state={state}
                     setState={setState}
-                    
-                    sectionElement={sectionElement}
                 />
             </Fragment>
         )

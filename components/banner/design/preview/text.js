@@ -13,8 +13,8 @@ class TextPreview extends React.Component {
     }
     
     getElement() {
-        let {stage, element, sectionElement} = this.props
-        return getElement({props: this.props, selectedStage: stage, selectedElement: element})
+        let {element} = this.props
+        return getElement({props: this.props, selectedElement: element})
     }
     
     handleSelect(html) {
@@ -35,14 +35,13 @@ class TextPreview extends React.Component {
     }
     
     render() {
-        const {zIndex, state, setState, stage, element, setCenterRuler, getParentDimension, sectionElement, rndScale} = this.props
+        const {zIndex, state, setState, element, setCenterRuler, getParentDimension, sectionElement, rndScale} = this.props
         const text = this.getElement()
         
         return (
             <Draggable
                 state={state}
                 setState={setState}
-                stage={stage}
                 element={element}
                 sectionElement={sectionElement}
                 zIndex={zIndex}
@@ -61,8 +60,8 @@ class TextPreview extends React.Component {
 }
 
 function getElementFromProps(props) {
-    let {stage, element} = props
-    return getElement({props, selectedStage: stage, selectedElement: element})
+    let {element} = props
+    return getElement({props, selectedElement: element})
 }
 
 function getTextStyle(props) {

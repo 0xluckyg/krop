@@ -21,8 +21,8 @@ class ImagePreview extends React.Component {
     }
     
     getElement() {
-        let {stage, element} = this.props
-        return getElement({props: this.props, selectedStage: stage, selectedElement: element})
+        let {element} = this.props
+        return getElement({props: this.props, selectedElement: element})
     }
     
     handlePropertyChange(propertyType, property, value) {
@@ -117,12 +117,11 @@ class ImagePreview extends React.Component {
     }
     
     render() {
-        const {zIndex, state, setState, stage, element, setCenterRuler, getParentDimension, sectionElement, rndScale} = this.props
+        const {zIndex, state, setState, element, setCenterRuler, getParentDimension, sectionElement, rndScale} = this.props
         return (
             <Draggable
                 state={state}
                 setState={setState}
-                stage={stage}
                 element={element}
                 sectionElement={sectionElement}
                 zIndex={zIndex}
@@ -137,8 +136,8 @@ class ImagePreview extends React.Component {
 }
 
 function getElementFromProps(props) {
-    let {stage, element, sectionElement} = props
-    return getElement({props, selectedStage: stage, selectedElement: element})
+    let {element} = props
+    return getElement({props, selectedElement: element})
 }
 
 function getImageStyle(props) {
