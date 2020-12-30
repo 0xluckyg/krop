@@ -9,7 +9,7 @@ import ImageUploader from './sub/image-uploader'
 import Switch from './sub/switch'
 import Tags from './sub/tags'
 import SectionTabs from './sub/section-tabs'
-import OptionsList from '../draggable-list'
+import OptionsList from '../../../reusable/draggable-list'
 import {setProperty, getProperty} from './sub/functions'
 
 class MultipleChoiceEditor extends React.Component {

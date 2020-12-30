@@ -57,6 +57,8 @@
 				"phone": "^2.4.17",
 				"postcss": "^8.2.1",
 				"postcss-input-range": "^4.0.0",
+				"qrcode": "^1.4.4",
+				"qrcode.react": "^1.0.0",
 				"react": "^16.8.3",
 				"react-autosize-textarea": "^7.1.0",
 				"react-beautiful-dnd": "^13.0.0",

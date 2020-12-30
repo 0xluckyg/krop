@@ -1,29 +1,28 @@
 import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
-import SectionIcon from '@material-ui/icons/SelectAll';
 import RightIcon from '@material-ui/icons/ChevronRight';
-import ButtonIcon from '@material-ui/icons/FontDownload';
 import BoxIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import ImageIcon from '@material-ui/icons/Image';
 import TextIcon from '@material-ui/icons/FormatShapes';
-import HtmlIcon from '@material-ui/icons/Code';
-import FormIcon from '@material-ui/icons/ContactMail';
 import AddIcon from '@material-ui/icons/Add';
 import VideoIcon from '@material-ui/icons/YouTube';
-import ShareIcon from '@material-ui/icons/Facebook';
+import QrIcon from '@material-ui/icons/CropFree';
 
 import keys from '../../../config/keys'
+import { Types } from 'aws-sdk/clients/batch';
 
 class ListElement extends React.Component {      
     constructor(props) {
         super(props)
     }
     
-    renderIcon() {
-        const {classes, elementType} = this.props
+    renderIcon(type) {
+        const {classes} = this.props
         
-        switch(elementType) {
+        switch(type) {
+            case keys.QR_ELEMENT:
+                return <QrIcon className={classes.icon} fontSize="small" />
             case keys.BOX_ELEMENT:
                 return <BoxIcon className={classes.icon} fontSize="small" />
             case keys.IMAGE_ELEMENT:
@@ -47,14 +46,15 @@ class ListElement extends React.Component {
     }
 
     render() {
-        const {classes, elementName, elementType, type, onClick} = this.props
-
+        const {classes, element, onClick} = this.props
+        console.log("E: ", element)
+        const {name, type} = element
         return (
             <div className={classes.elementContainer} onClick={onClick}>
                 <div className={classes.titleWrapper}>
-                    {this.renderIcon()}
+                    {this.renderIcon(type)}
                     <p className={classes.elementText}>{
-                        (elementName && elementName != '') ? elementName : elementType
+                        (name && name != '') ? name : type
                     }</p>
                 </div>
                 {this.renderSubIcon(type)}

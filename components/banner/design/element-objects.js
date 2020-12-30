@@ -30,6 +30,21 @@ function getStyle(color, opacity, cornerRounding, borderColor, borderWidth, padd
     }
 }
 
+let qr = (x,y, width, height, xAnchor, yAnchor) => {
+    width = width ? width : 200
+    height = height ? height : 200
+    xAnchor = xAnchor ? xAnchor : 'center'
+    yAnchor = yAnchor ? yAnchor : 'center'
+    return {
+        type: keys.QR_ELEMENT,
+        qrType: 'link',
+        name: 'QR Code',
+        value: `${process.env.APP_URL}/dev?domain=scott&path=`,
+        position: {...getPosition(x, y, width, height, xAnchor, yAnchor)},
+        style: {...getStyle('#000', 1, [10,10,10,10], '#fff', [0,0,0,0], [0,0,0,0])},
+        locked: false
+    }
+}
 
 let text = (x,y, width, height) => {
     return {
@@ -138,11 +153,8 @@ let defaultBanner = () => {
     return {
         name: 'Default Banner',
         elements: [
-            qr(100,100),
-            box(0,0), 
-            image(20,20),
-            video(30,30),
-            text(50, 50),
+            qr(50, 50, 200, 200, 'percent', 'percent'),
+            text(50, 50)
         ],
         mainboard: mainboard(50, 50)
     }

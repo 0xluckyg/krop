@@ -10,6 +10,7 @@ import {
 } from '@mdi/js';
 
 import keys from '../../../../config/keys'
+import QrEditor from './qr'
 import TextEditor from './text'
 import ImageEditor from './image'
 import BoxEditor from './box'
@@ -161,6 +162,13 @@ class ElementEditor extends React.Component {
         const type = elm ? elm.type : null
 
         switch(type) {
+            case(keys.QR_ELEMENT):
+                return <QrEditor
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                    getParentDimension={() => this.getMainboardDimension()}
+                />
             case(keys.TEXT_ELEMENT):
                 return <TextEditor
                     element={selectedElement}

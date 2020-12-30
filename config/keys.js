@@ -89,6 +89,7 @@ const SPACING_ELEMENT = 'spacing'
 const MAINBOARD_ELEMENT = 'mainboard'
 const BOX_ELEMENT = 'box'
 const TEXT_ELEMENT = 'text'
+const QR_ELEMENT = 'qr'
 
 const MEDIA_TEMPLATE = 'media_template'
 
@@ -197,6 +198,7 @@ module.exports = {
     MAINBOARD_ELEMENT,
     BOX_ELEMENT,
     TEXT_ELEMENT,
-    
+    QR_ELEMENT,
+
     MEDIA_TEMPLATE
 }

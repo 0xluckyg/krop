@@ -2,6 +2,7 @@ const jsdom = require("jsdom");
 
 const keys = require('../../../config/keys')
 const {compileMainboard} = require('./mainboard')
+const {compileQr} = require('./qr')
 const {compileText} = require('./text')
 const {compileBox} = require('./box')
 const {compileImage} = require('./image')
@@ -10,11 +11,13 @@ const CleanCSS = require('clean-css');
 const autoprefixer = require('autoprefixer')
 const postcss = require('postcss')
 
-function compileElement(options) {
+async function compileElement(options) {
     const {element, elementIndex} = options
     switch(element.type) {
         case(keys.MAINBOARD_ELEMENT):
             return compileMainboard({element})
+        case(keys.QR_ELEMENT):
+            return await compileQr({element, elementIndex})
         case(keys.TEXT_ELEMENT):
             return compileText({element, elementIndex})
         case(keys.IMAGE_ELEMENT):
@@ -29,23 +32,23 @@ function compileElement(options) {
 }
 
 
-function compileBanner(options) {    
+async function compileBanner(options) {    
     let css = ''
-    const compiledMainboard = compileElement({
+    const compiledMainboard = await compileElement({
         element: options.mainboard
     })
     css += compiledMainboard.css
     let mainboardHTML = compiledMainboard.html
     
-    options.elements.map((element, i) => {
+    await Promise.all(options.elements.map(async (element, i) => {
         const elementIndex = options.elements.length - i
-        const compiledElement = compileElement({
+        const compiledElement = await compileElement({
             element, 
             elementIndex
         })
         css += compiledElement.css
         mainboardHTML.appendChild(compiledElement.html)
-    })
+    }))
         
     return {css, html: mainboardHTML}
 }
@@ -54,7 +57,7 @@ async function compiler(widgetOptions) {
     let css = ''
     let html = ''
 
-    const compiledMainboard = compileBanner({...widgetOptions})
+    const compiledMainboard = await compileBanner({...widgetOptions})
     css = compiledMainboard.css
     html = compiledMainboard.html.outerHTML
     

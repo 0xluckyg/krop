@@ -20,7 +20,7 @@ import {
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import keys from '../../../config/keys'
-import ElementList from './draggable-list'
+import ElementList from '../../reusable/draggable-list'
 import ListElement from './list-element'
 import ElementEditor from './element-editor'
 import {elementsToPages, findElementPageIndex} from './element-editor/sub/functions'

@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import keys from '../../../../config/keys'
 import Mainboard from './mainboard'
 import Screen from './screen'
+import QR from './qr'
 import Text from './text'
 import Box from './box'
 import Image from './image'
@@ -95,6 +96,17 @@ class MainboardPreview extends React.Component {
                 {state.elements.map((element, i) => {
                     const zIndex = state.elements.length - i
                     switch(element.type) {
+                    case(keys.QR_ELEMENT):
+                        return <QR
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    element={i}
+                                    zIndex={zIndex}
+                                    setCenterRuler={setCenterRuler}
+                                    getParentDimension={getParentDimension}
+                                    rndScale={rndScale}
+                                />
                     case(keys.TEXT_ELEMENT):
                         return <Text
                                     key={element.type+i}

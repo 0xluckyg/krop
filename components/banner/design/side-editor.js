@@ -11,7 +11,7 @@ import DesktopIcon from '@material-ui/icons/DesktopMac';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import keys from '../../../config/keys'
-import ElementList from './draggable-list'
+import ElementList from '../../reusable/draggable-list'
 import ListElement from './list-element'
 import ElementEditor from './element-editor'
 import SectionHeader from  './element-editor/frame/section-header'
@@ -165,43 +165,13 @@ class StageBar extends React.Component {
                     newState.elements = newElements
                     setState(newState)
                 }}
-                wrapper={(type, name, index) => {
+                wrapper={(index, element) => {
                     return <ListElement 
                         onClick={() => this.handleElementSelect(index)} 
-                        elementType={type}
-                        elementName={name}
+                        element={element}
                     />  
                 }}
             />
-        )
-    }
-    
-    renderDeviceToggle() {
-        const {classes, state, setState} = this.props
-        const selected = classes.deviceToggleButton
-        const notSelected = clsx(classes.deviceToggleButton, classes.deviceToggleButtonGray)
-        this
-        return (
-            <div className={classes.deviceToggleContainer}>
-                {this.renderIconWithSubtitle(
-                    <IconButton  
-                        className={state.viewMode == keys.DESKTOP_PROPERTY ? selected : notSelected} 
-                        onClick={() => setState({viewMode: keys.DESKTOP_PROPERTY})} 
-                        size="small" variant="contained" color="secondary">
-                        <DesktopIcon fontSize="small" />
-                    </IconButton>,
-                    'Desktop'
-                )}
-                {this.renderIconWithSubtitle(
-                    <IconButton  
-                        className={state.viewMode == keys.PHONE_ELEMENT ? selected : notSelected} 
-                        onClick={() => setState({viewMode: keys.PHONE_ELEMENT})} 
-                        size="small" variant="contained" color="primary">
-                        <PhoneIcon fontSize="small" />
-                    </IconButton>,
-                    'Mobile'
-                )}
-            </div>
         )
     }
     
@@ -224,10 +194,6 @@ class StageBar extends React.Component {
                             {this.renderElementList()}
                         </div>
                     </div>
-                </div>
-                <div className={classes.sideEditorFooter}>
-                    <SectionHeader title="View as (Desktop or Mobile)"/>
-                    {this.renderDeviceToggle()}
                 </div>
             </div>
         )

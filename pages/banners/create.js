@@ -142,7 +142,7 @@ class CreateBanner extends React.Component {
                 .then(res => {
                     this.setState({isLoading: false})
                     this.props.showToastAction(true, 'Banner created!', 'success')
-                    window.location.replace('/banners/browse')
+                    // window.location.replace('/banners/browse')
                 }).catch((err) => {
                     console.log('er ', err)
                     this.props.showToastAction(true, `Couldn't create banner. Please try again later.`, 'error')

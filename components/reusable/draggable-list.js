@@ -2,8 +2,7 @@
 import { Component } from "react";
 import { DragDropContext, Droppable, Draggable, resetServerContext  } from "react-beautiful-dnd";
 
-import keys from '../../../config/keys'
-import ListElement from './list-element'
+import keys from '../../config/keys'
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {

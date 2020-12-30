@@ -7,7 +7,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
 
 import keys from '../../../config/keys'
-import ElementList from './draggable-list'
+import ElementList from '../../reusable/draggable-list'
 import SectionHeader from './element-editor/frame/section-container'
 
 
