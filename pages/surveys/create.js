@@ -31,6 +31,10 @@ class CreateSurvey extends React.Component {
         this.state = {
             _id: '',
             
+            //DEFAULT STATE
+            path: '',
+            enabled: true,
+
             //DESIGN STATE
             stages: defaultStages(),
             styles: defaultStyles(),
@@ -87,8 +91,8 @@ class CreateSurvey extends React.Component {
         try {
             if (!isPreview) { if (!this.validateSubmit()) return }
             
-            let {alertMessages, settings, stages, styles, alert} = this.state
-            let data = {alertMessages, settings, stages, styles, alert}
+            let {alertMessages, path, enabled, settings, stages, styles, alert} = this.state
+            let data = {alertMessages, path, enabled, settings, stages, styles, alert}
             this.setState({isLoading: true})
             //if edit
             if (this.props.handleEdit) {
@@ -100,9 +104,12 @@ class CreateSurvey extends React.Component {
                     this.setState({isLoading: false})
                     this.props.showToastAction(true, 'Survey created!', 'success')
                     window.location.replace('/surveys/browse')
-                }).catch(() => {
-                    this.props.showToastAction(true, `Couldn't create survey. Please try again later.`, 'error')
+                }).catch((err) => {
                     this.setState({isLoading: false})
+                    if (err.response && err.response.data) {
+                        return this.props.showToastAction(true, err.response.data)
+                    }
+                    this.props.showToastAction(true, `Couldn't create survey. Please try again later.`, 'error')
                 })
             }
         } catch(err) {

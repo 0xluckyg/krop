@@ -2,6 +2,7 @@ import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 import Card from './card'
 import {loadFonts} from '../../reusable/font-families'
@@ -20,6 +21,20 @@ class List extends React.Component {
         }
     }
     
+    orderCard() {
+        const {classes} = this.props
+        return <div onClick={() => {
+
+        }} className={classes.card}>
+            <div className={classes.cardWrapper}>
+                <div className={classes.iconContainer}>
+                    <AddShoppingCartIcon className={classes.mainIcon} fontSize="large" />
+                </div>
+                <p>Please select banners to order!</p>
+            </div>
+        </div>
+    }
+
     createCard() {
         const {classes} = this.props
         return <div onClick={() => {
@@ -37,9 +52,9 @@ class List extends React.Component {
     renderCards() {
         const {duplicate, edit, state, setState, admin} = this.props
         return <React.Fragment>
+            {this.orderCard()}
             {this.createCard()}
             {this.props.state.banners.map(banner => {
-                console.log("B: ", banner)
                 loadFonts(document, [...banner.fonts])
                 return (
                     <Card 

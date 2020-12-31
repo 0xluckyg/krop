@@ -8,8 +8,8 @@ const {SurveySession} = require('../db/survey-session');
 const keys = require('../../config/keys')
 
 function sendErrorMessage(ctx, message) {
-    ctx.status = 400
     ctx.body = message
+    ctx.status = 400
 }
 
 function cleanPhoneNumber(phone) {

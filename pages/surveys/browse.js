@@ -104,9 +104,12 @@ class BrowseSurveys extends React.Component {
             this.setState({isLoading:false})
             this.props.showToastAction(true, 'Survey edited!', 'success')
             this.updateSurvey(res.data)
-        }).catch(() => {
+        }).catch((err) => {
             callback()
             this.setState({isLoading:false})
+            if (err.response && err.response.data) {
+                return this.props.showToastAction(true, err.response.data)
+            }
             this.props.showToastAction(true, `Couldn't edit survey. Please try again later.`, 'error')
         })
     }

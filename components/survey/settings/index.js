@@ -63,31 +63,10 @@ class SettingsEditor extends React.Component {
         )
     }
     
-    renderShowOnExitIntent() {
-        const {classes, state, setState} = this.props
-        return (
-            <Paper className={classes.paper}>
-                <Typography variant="subtitle2" gutterBottom>
-                    Show on Exit Intent
-                </Typography>
-                <FormControlLabel
-                    control={
-                      <Switch checked={state.settings.onExit} onChange={() => {
-                          let newState = {...state}
-                          newState.settings.onExit = !state.settings.onExit
-                          setState(newState)
-                      }} />
-                    }
-                    label=" Show on Exit Intent"
-                />
-            </Paper>
-        )
-    }
-    
     renderpath() {
         const {classes, state, setState} = this.props
         const {pathError} = this.state
-        const path = state.settings.path
+        const path = state.path
         const appUrl = process.env.APP_URL.replace("https://", "")
         return (
             <Paper className={classes.paper}>
@@ -95,13 +74,13 @@ class SettingsEditor extends React.Component {
                     This survey's path:
                 </Typography>
                 <Typography variant="subtitle2" gutterBottom>
-                    {state.domain}.{appUrl}/{state.settings.path}
+                    {state.domain}.{appUrl}/{state.path}
                 </Typography>
                 <TextField
                     className={classes.textField}
                     onBlur={() => {
                         let newState = {...state}
-                        newState.settings.path = path
+                        newState.path = path
                         setState(newState)
                     }}
                     id="path"
@@ -110,7 +89,7 @@ class SettingsEditor extends React.Component {
                     onChange={(event) => {
                         const path = this.handleHttp(event.target.value)
                         let newState = {...state}
-                        newState.settings.path = path
+                        newState.path = path
                         setState(newState)
                     }}
                     placeholder="Please enter your website path"
@@ -118,6 +97,27 @@ class SettingsEditor extends React.Component {
                     helperText={pathError ? pathError : false}
                 />
             </Paper>    
+        )
+    }
+
+    renderEnabled() {
+        const {classes, state, setState} = this.props
+        return (
+            <Paper className={classes.paper}>
+                <Typography variant="subtitle2" gutterBottom>
+                    Enabled
+                </Typography>
+                <FormControlLabel
+                    control={
+                      <Switch checked={state.enabled} onChange={() => {
+                          let newState = {...state}
+                          newState.enabled = !state.enabled
+                          setState(newState)
+                      }} />
+                    }
+                    label="Survey enabled"
+                />
+            </Paper>
         )
     }
 
@@ -129,6 +129,7 @@ class SettingsEditor extends React.Component {
             <PageHeader title={headerText} modal={(this.props.edit) ? true : false}/>
             <Container maxWidth={keys.CONTAINER_SIZE}>
                 {this.renderNameInput()}
+                {this.renderEnabled()}
                 {this.renderpath()} 
                 <Device state={state} setState={setState}/>
                 <Duration state={state} setState={setState}/>
@@ -192,3 +193,11 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(useStyles)(SettingsEditor));
+
+
+
+
+
+
+
+

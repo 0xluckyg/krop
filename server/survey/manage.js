@@ -15,15 +15,35 @@ async function getCompiledSurvey(survey) {
     }
 }
 
+async function checkIfPathExists(ctx) {
+    const {id} = ctx.session
+    let body = JSON.parse(ctx.request.rawBody) 
+    let surveyInPath = await Survey.findOne({
+        accountId: id,
+        path: body.path,
+        _id: {
+            $ne: body._id
+        }
+    })
+    console.log(":PAH ", body.path)
+    console.log(":SU ", surveyInPath)
+    return surveyInPath
+}
+
+const pathError = 'There is already a campaign on this path.'
 async function createSurvey(ctx) {
     try {
+        if (await checkIfPathExists(ctx)) {
+            ctx.body = pathError
+            ctx.status = 400
+            return
+        }
+        
         const {id} = ctx.session       
-        let body = JSON.parse(ctx.request.rawBody)   
-        let {path, enabled} = body.settings
+        let body = JSON.parse(ctx.request.rawBody) 
+        
         let survey = new Survey({
             ...body,
-            path,
-            enabled,
             accountId: id
         })
     
@@ -45,20 +65,23 @@ async function createSurvey(ctx) {
 
 async function updateSurvey(ctx) {
     try {
+        if (await checkIfPathExists(ctx)) {
+            ctx.body = pathError
+            ctx.status = 400
+            return
+        }
+
         let body = JSON.parse(ctx.request.rawBody)
         
         const {surveyId, accountId, settings} = await Survey.findOne({
             _id: body._id}, {surveyId: 1, accountId: 1, settings: 1
         }).lean()
         body.surveyId = surveyId
-        let {path, enabled} = body.settings
         if (body.compile != false) {
             body.compiled = {...await getCompiledSurvey(body)}
         }
         const newSurvey = await Survey.findOneAndUpdate({_id:body._id}, {
             ...body,
-            path,
-            enabled
         }, {new: true})
         await updateSurveyQuestions({
             ...body, 

@@ -58,7 +58,7 @@ function parseToday() {
 }
 
 async function getSurvey(domain, path) {
-    
+    path = path ? path : ''
     const today = parseToday()
     const thisYear = new Date().getFullYear()
     const user = await User.findOne({domain})

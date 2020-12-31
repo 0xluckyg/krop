@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import axios from 'axios'
 
 import { withStyles } from '@material-ui/core/styles';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 import { showToastAction, isLoadingAction } from '../../redux/actions';
 import EditBanner from './create';
@@ -26,7 +28,8 @@ class BrowseBanners extends React.Component {
             hasNext: false,
             isLoading: true,
             isEditing: false,
-            currentEdit: undefined
+            currentEdit: undefined,
+            selectedType: 0
         }
     }
 
@@ -91,7 +94,7 @@ class BrowseBanners extends React.Component {
             this.fetchBanners(this.state.page)
             this.setState({isLoading: false})
             this.props.showToastAction(true, 'Banner copied!', 'success')
-        }).catch(() => {
+        }).catch((err) => {
             this.props.showToastAction(true, `Couldn't duplicate banner. Please try again later.`, 'error')
             this.setState({isLoading: false})
         })
@@ -109,6 +112,19 @@ class BrowseBanners extends React.Component {
             this.setState({isLoading:false})
             this.props.showToastAction(true, `Couldn't edit banner. Please try again later.`, 'error')
         })
+    }
+
+    getTitle() {
+        switch(this.state.selectedType) {
+            case(0):
+                return 'TABLE STAND BANNERS'
+            case(1):
+                return 'MOBILE BANNERS'
+            case(2):
+                return 'DESKTOP BANNERS'
+            default:
+                return ''
+        }
     }
     
     //if a row is edited, goes through the current page array and updates the edited item with the new item
@@ -157,6 +173,24 @@ class BrowseBanners extends React.Component {
         )
     }
 
+    renderTabs() {
+        const {classes, state} = this.props
+        return (<Tabs 
+            className={classes.tabs}
+            value={this.state.selectedType} 
+            onChange={(event, newValue) => {
+                this.setState({ selectedType: newValue })
+            }} 
+            aria-label="stage-bar"
+            variant="scrollable"
+            scrollButtons="auto"
+        >
+            <Tab label="Table Stand" id={0}/>
+            <Tab label="Mobile" id={1}/>
+            <Tab label="Desktop" id={2}/>
+        </Tabs>)
+    }
+
     render() {
         const {classes} = this.props
         
@@ -169,10 +203,11 @@ class BrowseBanners extends React.Component {
                 />
             )
         }
-        
+
         return (            
             <main className={classes.content}>
-                <PageHeader title='ALL SURVEYS' paddingTop/>
+                <PageHeader title={this.getTitle()} paddingTop/>
+                {this.renderTabs()}
                 {this.renderContent()}
             </main>
         )
@@ -221,7 +256,10 @@ const useStyles = theme => ({
     loading: {
         width: '100%',
         flexGrow: 1,
-    }
+    },
+    tabs: {
+        width: '100%'
+    },
 });
 
 function mapDispatchToProps(dispatch){

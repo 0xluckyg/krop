@@ -1,7 +1,6 @@
 const defaultSettings = {
     name: 'Survey',
     device: 'both',
-    path: '',
     schedule: {
         //always, repeat, schedule
         type: 'always',
