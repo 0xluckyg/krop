@@ -50,6 +50,23 @@ class CreateBanner extends React.Component {
             templateOptions: null
         }
     }
+
+    static getDerivedStateFromProps(nextProps, state) {
+        const editableBanner = nextProps.edit
+
+        if (editableBanner && editableBanner._id != state._id) {
+            loadFonts(document, [...editableBanner.fonts])
+            return editableBanner
+        } else {
+            const {getUserReducer} = nextProps
+            if (getUserReducer && getUserReducer.domain) {
+                if (!state.domain || state.domain == '') {
+                    return {domain: getUserReducer.domain}
+                } 
+            }
+            return {}
+        }
+    }
     
     initiateTemplateSelector() {
         const handleSelectBanner = (newBanner, name) => {
@@ -81,20 +98,6 @@ class CreateBanner extends React.Component {
     componentDidMount() {
         if (!this.props.handleEdit) {
             this.initiateTemplateSelector()   
-        }
-    }
-    
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.edit && this.props.edit._id != prevState._id) {
-            loadFonts(document, this.props.edit.fonts)
-            this.setState(this.props.edit)
-        } else {
-            const {getUserReducer} = this.props
-            if (getUserReducer && getUserReducer.domain) {
-                if (!this.state.domain || this.state.domain == '') {
-                    this.setState({domain: getUserReducer.domain})
-                }
-            }
         }
     }
     

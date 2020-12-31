@@ -30,7 +30,6 @@ function getQrStyle(style) {
     const paddingStyle = padding ? `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px` : null
     const cornerStyle = cornerRounding ? `${cornerRounding[0]}px ${cornerRounding[1]}px ${cornerRounding[2]}px ${cornerRounding[3]}px` : null
     const borderStyle = borderWidth ? `${borderWidth[0]}px ${borderWidth[1]}px ${borderWidth[2]}px ${borderWidth[3]}px` : null
-    const shadowStyle = (shadow && shadowColor) ? `${shadow[0]}px ${shadow[1]}px ${shadow[2]}px ${shadow[3]}px ${shadowColor}` : null
     return {
         "background-color": color,
         "border-radius": cornerStyle,
@@ -39,14 +38,13 @@ function getQrStyle(style) {
         "border-color": borderColor,
         "padding": paddingStyle,
         "opacity": opacity,
-        "box-shadow": shadowStyle
     }
 }
 
 function compileQrCSS(options) {
     const {element, elementIndex} = options
     const id = createId({
-        type: keys.BOX_ELEMENT, 
+        type: keys.QR_ELEMENT, 
         elementIndex,
     })
 

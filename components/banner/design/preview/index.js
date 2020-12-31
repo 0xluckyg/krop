@@ -10,7 +10,7 @@ import Text from './text'
 import Box from './box'
 import Image from './image'
 import Video from './video'
-import {getElement, getProperty} from '../element-editor/sub/functions'
+import {getElement} from '../element-editor/sub/functions'
 
 class MainboardPreview extends React.Component {
     constructor(props) {

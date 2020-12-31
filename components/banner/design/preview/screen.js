@@ -12,40 +12,9 @@ class Screen extends React.Component {
         this.desktopRef = React.createRef()
         this.mobileRef = React.createRef()
     }
-    
-    componentDidMount() {
-        this.updateBackgroundSize()
-        window.addEventListener('resize', this.updateBackgroundSize.bind(this));
-    }
-    
-    componentDidUpdate(prevProps) {
-        if (prevProps.state.viewMode != this.props.state.viewMode) {
-            this.updateBackgroundSize()    
-        }
-    }
-    
-    updateBackgroundSize() {
-        let backgroundWidth
-        let backgroundHeight
-        if (this.props.state.viewMode == keys.DESKTOP_PROPERTY) {
-            if (!this.desktopRef.current) return
-            const {offsetWidth, offsetHeight} = this.desktopRef.current
-            backgroundWidth = offsetWidth
-            backgroundHeight = offsetHeight
-        } else {
-            if (!this.mobileRef.current) return
-            const {offsetWidth, offsetHeight} = this.mobileRef.current
-            backgroundWidth = offsetWidth
-            backgroundHeight = offsetHeight
-        }
-        
-        this.props.setState({
-            backgroundWidth, backgroundHeight
-        })
-    }
 
     mobile() {
-        const {classes, children, state, setState} = this.props
+        const {classes, children} = this.props
         return (
         <div className={classes.mobileFrame}>
             <div className={classes.mobileDevice}>
@@ -54,10 +23,6 @@ class Screen extends React.Component {
                     {children}
                 </div>
             </div>
-            <Scaler
-                state={state}
-                setState={setState}
-            />
         </div>
         )
     }
@@ -69,42 +34,78 @@ class Screen extends React.Component {
         </div>)
     }
 
-    render() {
+    renderDevice() {
         if (this.props.state.viewMode == keys.DESKTOP_PROPERTY) {
             return this.desktop()   
         } else {
             return this.mobile()
         }
     }
+
+    renderControllers() {
+        const {classes, state, setState} = this.props
+        if (state.cardMode) return null
+        return <React.Fragment>
+            <Scaler
+                state={state}
+                setState={setState}
+            />
+        </React.Fragment>
+    }
+
+    render() {
+        const {classes, state, setState} = this.props
+        return (
+            <div className={classes.mainContainer}>
+                {this.renderControllers()}
+                {this.renderDevice()}
+            </div>
+        )
+    }
 }
 
-const useStyles = theme => ({    
+const useStyles = theme => ({   
+    mainContainer: {
+        height: '100%',
+        width:  '100%',
+        position: 'relative'
+    },
     mobileFrame: {
         height: '100%',
         width:  '100%',
-        position: 'relative',
+        overflowY: props => {
+            if (props.state.cardMode) return ''
+            return 'auto'
+        },
+        // position: 'relative',
         flex: 1,
         display: 'flex',
         justifyContent: 'center',
 
         backgroundColor: keys.APP_COLOR_GRAY_LIGHT
     },
-    desktopFrame: {
-        height: '100%',
-        width:  '100%',
-        position: 'relative',
-        flex: 1,
-        backgroundColor: keys.APP_COLOR_GRAY_LIGHT
+    desktopFrame: props => {
+        const scale = props.state.previewScale
+        const isCardMode = props.state.cardMode
+        return {
+            transform: isCardMode ? `scale(${scale})` : '',
+            transformOrigin: 'center',
+            height: '100%',
+            width:  '100%',
+            // position: 'relative',
+            flex: 1,
+            backgroundColor: keys.APP_COLOR_GRAY_LIGHT
+        }
     },
     mobileDevice: props => {
         const scale = props.state.previewScale
+        const isCardMode = props.state.cardMode
         return {
-            margin: 30,
-            transition: '0.2s',
+            margin: isCardMode ? -5 : 30,
             transform: `scale(${scale})`,
             transformOrigin: scale < 1 ? 'center 10%' : 'top center',
-            height: 782,
-            width: 395,
+            height: 750,
+            width: 363,
             padding: 10,
             borderRadius: 35,
             justifyContent: 'center',
@@ -126,8 +127,8 @@ const useStyles = theme => ({
     screen: {
         backgroundColor: keys.APP_COLOR_GRAY_LIGHT,
         borderRadius: 28,
-        height: 762,
-        width: 375,
+        height: 730,
+        width: 342,
         overflow: 'hidden',
         position: 'relative'
     }
