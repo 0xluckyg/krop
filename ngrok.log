@@ -302,3 +302,26 @@ t=2021-01-02T02:34:25+0900 lvl=info msg="join connections" obj=join id=572c12305
 t=2021-01-02T02:34:25+0900 lvl=info msg="join connections" obj=join id=85b3a2964b92 l=[::1]:3000 r=61.254.18.27:56181
 t=2021-01-02T02:34:25+0900 lvl=info msg="join connections" obj=join id=79bc5dffe6e9 l=[::1]:3000 r=61.254.18.27:56178
 t=2021-01-02T02:34:25+0900 lvl=info msg="join connections" obj=join id=9d68b7f32508 l=[::1]:3000 r=61.254.18.27:56180
+t=2021-01-02T02:36:51+0900 lvl=info msg="join connections" obj=join id=fc91fc13982b l=[::1]:3000 r=61.254.18.27:56180
+t=2021-01-02T02:40:00+0900 lvl=info msg="join connections" obj=join id=6da336578cfc l=[::1]:3000 r=61.254.18.27:56223
+t=2021-01-02T02:40:01+0900 lvl=info msg="join connections" obj=join id=e8152a284bec l=[::1]:3000 r=61.254.18.27:56225
+t=2021-01-02T02:40:12+0900 lvl=info msg="join connections" obj=join id=a7302b74e024 l=[::1]:3000 r=61.254.18.27:56227
+t=2021-01-02T02:40:12+0900 lvl=info msg="join connections" obj=join id=2fe3668be086 l=[::1]:3000 r=61.254.18.27:56228
+t=2021-01-02T02:40:12+0900 lvl=info msg="join connections" obj=join id=c0fc917b0a47 l=[::1]:3000 r=61.254.18.27:56229
+t=2021-01-02T02:40:12+0900 lvl=info msg="join connections" obj=join id=6cd5fb77f6cf l=[::1]:3000 r=61.254.18.27:56231
+t=2021-01-02T02:40:12+0900 lvl=info msg="join connections" obj=join id=9fd4c9981408 l=[::1]:3000 r=61.254.18.27:56232
+t=2021-01-02T02:40:12+0900 lvl=info msg="join connections" obj=join id=900eebcac356 l=[::1]:3000 r=61.254.18.27:56230
+t=2021-01-02T02:40:47+0900 lvl=info msg="join connections" obj=join id=664971b5b4d7 l=[::1]:3000 r=61.254.18.27:53286
+t=2021-01-02T02:40:48+0900 lvl=info msg="join connections" obj=join id=943b0422d612 l=[::1]:3000 r=61.254.18.27:49661
+t=2021-01-02T02:40:50+0900 lvl=info msg="join connections" obj=join id=a49964539740 l=[::1]:3000 r=61.254.18.27:56230
+t=2021-01-02T02:41:32+0900 lvl=info msg="join connections" obj=join id=24cf67034690 l=[::1]:3000 r=61.254.18.27:56230
+t=2021-01-02T02:41:44+0900 lvl=info msg="component stopped" obj=controller comp="signal handler" err=nil
+t=2021-01-02T02:41:44+0900 lvl=info msg="requesting shutdown" obj=controller
+t=2021-01-02T02:41:44+0900 lvl=info msg="session closing" obj=tunSess err=nil
+t=2021-01-02T02:41:44+0900 lvl=info msg="component stopped" obj=controller comp="Tunnel session" err=nil
+t=2021-01-02T02:41:44+0900 lvl=info msg="component stopped" obj=controller comp="memory storage" err=nil
+t=2021-01-02T02:41:44+0900 lvl=info msg="accept failed" obj=csess id=d5c0f662b4cc err="reconnecting session closed"
+t=2021-01-02T02:41:44+0900 lvl=info msg="tunnel session closing permanently" obj=tunSess err="not reconnecting, session closed by the client side"
+t=2021-01-02T02:41:44+0900 lvl=info msg="component stopped" obj=controller comp=updater err=nil
+t=2021-01-02T02:41:44+0900 lvl=info msg="component stopped" obj=controller comp=web err=nil
+t=2021-01-02T02:41:44+0900 lvl=info msg="all component stopped" obj=controller
