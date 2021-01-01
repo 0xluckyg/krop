@@ -60,6 +60,8 @@ const CHECKBOX_ELEMENT = 'checkbox'
 const DROPDOWN_ELEMENT = 'dropdown'
 const SLIDER_ELEMENT = 'slider'
 
+const REFERRAL_ELEMENT = 'referral'
+const SHARE_ELEMENT = 'share'
 const BUTTON_ELEMENT = 'button'
 const STAGE_ELEMENT = 'stage'
 const PAGE_ELEMENT = 'page'
@@ -169,6 +171,8 @@ module.exports = {
     ALERT_SETTINGS,
     LOGO_SETTINGS,
     
+    REFERRAL_ELEMENT,
+    SHARE_ELEMENT,
     BUTTON_ELEMENT,
     STAGE_ELEMENT,
     PAGE_ELEMENT,

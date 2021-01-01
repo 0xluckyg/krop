@@ -22,6 +22,8 @@ import {
     mdiArrowExpandVertical,
     mdiTrashCanOutline,
     mdiCircleEditOutline,
+    mdiShareAll,
+    mdiShareVariant,
     
     mdiPlusCircle
 } from '@mdi/js';
@@ -111,6 +113,10 @@ class ListElement extends React.Component {
         switch(element.type) {
             case keys.SPACING_ELEMENT:
                 return this.renderIcon(mdiArrowExpandVertical, classes.mainIcon)
+            case keys.REFERRAL_ELEMENT:
+                return this.renderIcon(mdiShareAll, classes.mainIcon)
+            case keys.SHARE_ELEMENT:
+                return this.renderIcon(mdiShareVariant, classes.mainIcon)
             case keys.MULTIPLE_CHOICE_ELEMENT:
                 return this.renderIcon(mdiCheckboxMarkedCircleOutline, classes.mainIcon)
             case keys.CHECKBOX_ELEMENT:

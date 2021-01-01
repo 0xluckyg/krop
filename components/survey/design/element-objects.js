@@ -5,6 +5,34 @@ function createId(type) {
     return type + "_" + shortid.generate()
 }
 
+const referral = (custom) => {
+    const {required, media, text, question, tags} = custom ? custom : {}
+    return {
+        id:  createId(keys.REFERRAL_ELEMENT),
+        type: keys.REFERRAL_ELEMENT,
+        name: 'Referral',
+        required: required ? required : true,
+        media: media ? media : null,
+        question: question ? question : 'Referral',
+        text: text ? text : 'Tell friends about this store!',
+        tags: tags ? tags : []
+    }
+}
+
+const share = (custom) => {
+    const {required, media, platforms, question, tags} = custom ? custom : {}
+    return {
+        id:  createId(keys.SHARE_ELEMENT),
+        type: keys.SHARE_ELEMENT,
+        name: 'Share',
+        required: required ? required : true,
+        media: media ? media : null,
+        question: question ? question : 'Share',
+        platforms: platforms ? platforms : ['facebook', 'instagram', 'twitter'],
+        tags: tags ? tags : []
+    }
+}
+
 const multipleChoice = (custom) => {
     const {required, media, hasOther, question, options, tags} = custom ? custom : {}
     return {
@@ -261,6 +289,8 @@ const defaultStages = () => [
         },
         elements: [
             spacing(),
+            referral(),
+            share(),
             heading(), 
             subheading(), 
             paragraph(), 
@@ -332,6 +362,8 @@ module.exports = {
     defaultStyles, 
     defaultAlert,
     multipleChoice, 
+    referral,
+    share,
     checkbox, 
     dropdown, 
     slider, 

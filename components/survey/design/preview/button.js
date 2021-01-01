@@ -50,7 +50,7 @@ function isDesktop(props) {
 
 function getStyle(props) {
     let {stage, element} = props
-    return getElement({props, selectedStage: stage, selectedElement: element})
+    return getElement({props, selectedStage: stage, selectedElement: keys.STYLE_SETTINGS})
 }
 
 const useStyles = theme => ({

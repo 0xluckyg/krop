@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import keys from '../../../../config/keys'
 import Background from './background'
+import Referral from './referral'
+import Share from './share'
 import Alert from './alert'
 import Screen from './screen'
 import Header from './header'
@@ -77,6 +79,22 @@ class SurveyPreview extends React.Component {
                         switch(element.type) {
                             case(keys.SPACING_ELEMENT):
                                 return <Spacing
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.REFERRAL_ELEMENT):
+                                return <Referral
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.SHARE_ELEMENT):
+                                return <Share
                                     key={element.type+i}
                                     state={state}
                                     setState={setState}

@@ -10,11 +10,6 @@ class TextPreview extends React.Component {
     constructor(props) {
         super(props)
     }
-    
-    getText() {
-        let {stage, element} = this.props
-        return getElement({props: this.props, selectedStage: stage, selectedElement: element})
-    }
 
     renderText() {
         let {stage, element, classes} = this.props

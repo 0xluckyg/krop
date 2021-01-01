@@ -28,7 +28,9 @@ import {
     mdiLink,
     mdiYoutube,
     mdiArrowExpandVertical,
-    mdiTableHeart
+    mdiTableHeart,
+    mdiShareAll,
+    mdiShareVariant,
 } from '@mdi/js';
 
 import keys from '../../../config/keys'
@@ -58,6 +60,16 @@ const designElements = [
     }, {
         type: keys.SPACING_ELEMENT,
         name: 'Spacing'
+    }
+]
+
+const shareElements = [
+    {
+        type: keys.REFERRAL_ELEMENT,
+        name: 'Referral'
+    }, {
+        type: keys.SHARE_ELEMENT,
+        name: 'Share'
     }
 ]
 
@@ -122,6 +134,10 @@ class AddElementModal extends React.Component {
                 return this.renderIcon(mdiTableHeart)
             case keys.SPACING_ELEMENT:
                 return this.renderIcon(mdiArrowExpandVertical)
+            case keys.REFERRAL_ELEMENT:
+                return this.renderIcon(mdiShareAll)
+            case keys.SHARE_ELEMENT:
+                return this.renderIcon(mdiShareVariant)
             case keys.MULTIPLE_CHOICE_ELEMENT:
                 return this.renderIcon(mdiCheckboxMarkedCircleOutline)
             case keys.CHECKBOX_ELEMENT:
@@ -163,6 +179,10 @@ class AddElementModal extends React.Component {
         switch(type) {
             case keys.SPACING_ELEMENT:
                 return elements.spacing()
+            case keys.REFERRAL_ELEMENT:
+                return elements.referral()
+            case keys.SHARE_ELEMENT:
+                return elements.share()
             case keys.MULTIPLE_CHOICE_ELEMENT:
                 return elements.multipleChoice()
             case keys.CHECKBOX_ELEMENT:
@@ -267,6 +287,10 @@ class AddElementModal extends React.Component {
                 {this.renderItem("Choose from templates", "template")}
                 <SectionHeader title="Design Elements"/>
                 {designElements.map(el => {
+                    return this.renderItem(el.name, el.type)
+                })}
+                <SectionHeader title="Share Elements"/>
+                {shareElements.map(el => {
                     return this.renderItem(el.name, el.type)
                 })}
                 <SectionHeader title="Survey Elements"/>
