@@ -4,6 +4,8 @@ const { JSDOM } = jsdom;
 const keys = require('../../../config/keys')
 const {compileFrameCSS, compileFrameHTML} = require('./frame')
 const {compilePageCSS, compilePageHTML} = require('./page')
+const {compileShareCSS, compileShareHTML} = require('./share')
+const {compileReferralCSS, compileReferralHTML} = require('./referral')
 const {compileButtonCSS, compileButtonHTML} = require('./button')
 const {compileAlertCSS, compileAlertTextCSS, compileAlertHTML, compileAlertTextHTML} = require('./alert')
 const {compileSpacingCSS, compileSpacingHTML} = require('./spacing')
@@ -69,6 +71,18 @@ async function compileCSS(options) {
             if (!types[element.type]) {
                 let elementCSS = ''
                 switch(element.type) {
+                    case(keys.SHARE_ELEMENT):
+                        elementCSS += compileShareCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                        break;
+                    case(keys.REFERRAL_ELEMENT):
+                        elementCSS += compileReferralCSS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
+                        break;
                     case(keys.SPACING_ELEMENT):
                         elementCSS += compileSpacingCSS({
                             stage, stageIndex, element, elementIndex,
@@ -169,6 +183,12 @@ async function compileCSS(options) {
 function compileElement(options) {
     const {element} = options
     switch(element.type) {
+        case(keys.SHARE_ELEMENT):
+            return compileShareHTML(options).outerHTML
+        case(keys.REFERRAL_ELEMENT):
+            return compileReferralHTML(options).outerHTML
+        case(keys.SPACING_ELEMENT):
+            return compileSpacingHTML(options).outerHTML
         case(keys.SPACING_ELEMENT):
             return compileSpacingHTML(options).outerHTML
         case(keys.IMAGE_ELEMENT):

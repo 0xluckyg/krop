@@ -11,7 +11,7 @@ const SHARE_CONTAINER_DESKTOP = {
 }
 
 const SHARE_TITLE = {
-    marginBottom: -5
+    marginBottom: '-5px'
 }
 
 const SHARE_TITLE_DESKTOP = {
@@ -27,10 +27,11 @@ const SHARE_BUTTON = {
     width: '100%',
     border: `none`,
     padding: '13px 25px',
-    borderRadius: 30,
-    fontSize: 14,
+    borderRadius: '30px',
+    fontSize: '14px',
     transition: '0.1s',
-    marginTop: 15,
+    marginTop: '15px',
+    outline: 'none',
     FOCUS: {
         border: 'none',
         transition: '0.1s'
@@ -50,12 +51,12 @@ const SHARE_BUTTON_DESKTOP = {
 }
 
 const SHARE_BUTTON_ICON = {
-    margin: 0,
+    margin: '0px',
     fill: 'white',
-    width: 20,
-    height: 20,
+    width: '20px',
+    height: '20px',
     display: 'inherit',
-    marginRight: 10
+    marginRight: '10px'
 }
 
 const SHARE_BUTTON_ICON_DESKTOP = {
@@ -64,7 +65,7 @@ const SHARE_BUTTON_ICON_DESKTOP = {
 
 const SHARE_BUTTON_TEXT = {
     display: 'inline-block',
-    margin: 0,
+    margin: '0px',
     color: 'white'
 }
 

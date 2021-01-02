@@ -38,6 +38,7 @@ class SharePreview extends React.Component {
         const {svg, color} = socialIcons[platform]
         return (
             <button 
+                key={platform}
                 style={{
                     backgroundColor: color
                 }}
@@ -76,11 +77,9 @@ function getStyle(props) {
 
 const useStyles = theme => ({
     containerStyle: props => {
-        const {backgroundColor, align} = getStyle(props)
         let style = isDesktop(props) ? shareStyles.SHARE_CONTAINER_DESKTOP : shareStyles.SHARE_CONTAINER
         
         return {
-            backgroundColor,
             ...style
         }  
     },
@@ -108,7 +107,6 @@ const useStyles = theme => ({
         
         return {
             textAlign,
-            color: 'rgba(0,0,0,0.9)',
             ...style,
             '&:focus:': {
                 ...style.FOCUS

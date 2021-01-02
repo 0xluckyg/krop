@@ -6,6 +6,7 @@ import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
 import referralStyles from '../../../../shared/survey-styles/referral'
 import elementStyle from '../../../../shared/survey-styles/reusable'
+import socialIcons from '../../../../static/survey/social-icons';
 
 class ReferralPreview extends React.Component {
     constructor(props) {
@@ -28,11 +29,13 @@ class ReferralPreview extends React.Component {
     renderReferButton() {
         const {classes} = this.props
         let referralElement = this.getElement()
+        const {svg} = socialIcons.share
         return (
             <button 
-                className={classes.referralStyle}
+                className={classes.referralButtonStyle}
             >
-                {referralElement.text}
+                <div className={classes.referralButtonIconStyle} dangerouslySetInnerHTML={{__html: svg}}/>
+                <p className={classes.referralButtonTextStyle}>{referralElement.text}</p>
             </button>
         )
     }
@@ -66,10 +69,7 @@ const useStyles = theme => ({
         
         return {
             backgroundColor,
-            ...style,
-            '&:hover': {
-                ...style.HOVER
-            }
+            ...style
         }  
     },
     questionStyle: props => {
@@ -81,7 +81,7 @@ const useStyles = theme => ({
             color: textColor
         }
     },
-    referralStyle: props => {
+    referralButtonStyle: props => {
         let style = isDesktop(props) ? referralStyles.REFERRAL_BUTTON_DESKTOP : referralStyles.REFERRAL_BUTTON
         const {primaryColor, align} = getStyle(props)
         
@@ -94,16 +94,30 @@ const useStyles = theme => ({
         
         return {
             textAlign,
-            color: 'rgba(0,0,0,0.9)',
             ...style,
             '&:focus:': {
                 ...style.FOCUS
             },
             '&:active': {
                 ...style.ACTIVE
+            },
+            '&:hover': {
+                ...style.HOVER
             }
         }
     },
+    referralButtonIconStyle: props => {
+        let style = isDesktop(props) ? referralStyles.REFERRAL_BUTTON_ICON_DESKTOP : referralStyles.REFERRAL_BUTTON_ICON
+        return {
+            ...style
+        }
+    },
+    referralButtonTextStyle: props => {
+        let style = isDesktop(props) ? referralStyles.REFERRAL_BUTTON_TEXT_DESKTOP : referralStyles.REFERRAL_BUTTON_TEXT
+        return {
+            ...style
+        }
+    }
 })
 
 export default withStyles(useStyles)(ReferralPreview)
