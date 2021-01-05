@@ -20,9 +20,9 @@ class ReferralPreview extends React.Component {
 
     renderQuestion() {
         const {classes} = this.props
-        const referral = this.getElement()
+        const referralElement = this.getElement()
         return <p className={classes.questionStyle}>
-            {referral.question}
+            {referralElement.question}
         </p>
     }
 
@@ -35,7 +35,7 @@ class ReferralPreview extends React.Component {
                 className={classes.referralButtonStyle}
             >
                 <div className={classes.referralButtonIconStyle} dangerouslySetInnerHTML={{__html: svg}}/>
-                <p className={classes.referralButtonTextStyle}>{referralElement.text}</p>
+                <p className={classes.referralButtonTextStyle}>{referralElement.buttonText}</p>
             </button>
         )
     }

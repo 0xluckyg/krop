@@ -6,6 +6,8 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import keys from '../../../../config/keys'
 import SpacingEditor from './spacing'
+import ShareEditor from './share'
+import ReferralEditor from './referral'
 import MultipleChoiceEditor from './multiple-choice'
 import CheckboxEditor from './checkbox'
 import DropdownEditor from './dropdown'
@@ -98,6 +100,20 @@ class ElementEditor extends React.Component {
         let type = elm ? elm.type : null
         type = type ? type : selectedElement
         switch(type) {
+            case(keys.REFERRAL_ELEMENT):
+                return <ReferralEditor           
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.SHARE_ELEMENT):
+                return <ShareEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
             case(keys.SPACING_ELEMENT):
                 return <SpacingEditor
                     stage={selectedStage}

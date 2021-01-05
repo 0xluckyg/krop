@@ -6,7 +6,8 @@ function createId(type) {
 }
 
 const referral = (custom) => {
-    const {required, media, text, question, tags} = custom ? custom : {}
+    const {required, media, buttonText, question, 
+        couponTitle, couponDescription, couponImage, storeAddress, couponDuration } = custom ? custom : {}
     return {
         id:  createId(keys.REFERRAL_ELEMENT),
         type: keys.REFERRAL_ELEMENT,
@@ -14,8 +15,13 @@ const referral = (custom) => {
         required: required ? required : true,
         media: media ? media : null,
         question: question ? question : 'Referral',
-        text: text ? text : 'Tell friends about this store!',
-        tags: tags ? tags : []
+        buttonText: buttonText ? buttonText : 'Tell friends about this store!',
+        
+        couponTitle: couponTitle ? couponTitle : '10% DISCOUNT COUPON AT UNDERDOG',
+        couponImage: couponImage ? couponImage : '',
+        couponDescription: couponDescription ? couponDescription : 'Show this coupon at the following Underdog branch below to get a 10% discount on your sandwich',
+        storeAddress: storeAddress ? storeAddress : '110 Broadway, NYC',
+        couponDuration:  couponDuration ? couponDuration : 10
     }
 }
 

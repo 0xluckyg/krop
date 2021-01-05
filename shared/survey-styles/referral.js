@@ -25,8 +25,7 @@ const REFERRAL_BUTTON = {
     marginTop: '15px',
     outline: 'none',
     FOCUS: {
-        border: 'none',
-        transition: '0.1s'
+    
     },
     ACTIVE: {
         opacity: 0.6,

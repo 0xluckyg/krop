@@ -5,10 +5,9 @@ import { withStyles } from '@material-ui/core/styles';
 
 import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
-import Input from './sub/input'
 import {setProperty, getProperty} from './sub/functions'
 
-class CheckboxEditor extends React.Component {
+class TextEditor extends React.Component {
     constructor(props) {
         super(props)
         
@@ -97,4 +96,4 @@ const useStyles = theme => ({
     }
 })
 
-export default withStyles(useStyles)(CheckboxEditor)
+export default withStyles(useStyles)(TextEditor)

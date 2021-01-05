@@ -5,7 +5,7 @@ const keys = require('../../../config/keys')
 const {compileFrameCSS, compileFrameHTML} = require('./frame')
 const {compilePageCSS, compilePageHTML} = require('./page')
 const {compileShareCSS, compileShareHTML} = require('./share')
-const {compileReferralCSS, compileReferralHTML} = require('./referral')
+const {compileReferralCSS, compileReferralHTML, compileReferralJS} = require('./referral')
 const {compileButtonCSS, compileButtonHTML} = require('./button')
 const {compileAlertCSS, compileAlertTextCSS, compileAlertHTML, compileAlertTextHTML} = require('./alert')
 const {compileSpacingCSS, compileSpacingHTML} = require('./spacing')
@@ -38,6 +38,11 @@ async function compileJS(options) {
                             ...options
                         })
                         break;
+                    case(keys.REFERRAL_ELEMENT):
+                        elementJS += compileReferralJS({
+                            stage, stageIndex, element, elementIndex,
+                            ...options
+                        })
                     default:
                         break;
                 }

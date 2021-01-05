@@ -39,7 +39,8 @@ function compileReferralHTML(options) {
 
     let buttonContainer = document.createElement('button')
     buttonContainer.setAttribute('class', referralButtonClass)
-    
+    buttonContainer.setAttribute('onclick', `refer('hi')`)
+
     let referralIcon = document.createElement('div')
     referralIcon.setAttribute('class', referralIconClass)
     referralIcon.innerHTML = socialIcons.share.svg
@@ -98,4 +99,13 @@ function compileReferralCSS(options) {
     +referralTextCSS
 }
 
-module.exports = {compileReferralHTML, compileReferralCSS}
+function compileReferralJS() {
+    function refer(data) {
+        if (navigator.share !== undefined){
+            navigator.share(data);
+        }
+    }
+    return refer.toString()
+}
+
+module.exports = {compileReferralHTML, compileReferralCSS, compileReferralJS}
