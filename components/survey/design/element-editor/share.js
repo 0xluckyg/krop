@@ -2,11 +2,13 @@ import React from 'react'
 import TextareaAutosize from 'react-autosize-textarea';
 
 import { withStyles } from '@material-ui/core/styles';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
-import Input from './sub/input'
 import {setProperty, getProperty} from './sub/functions'
+import socialIcons from '../../../../static/survey/social-icons';
 
 class ShareEditor extends React.Component {
     constructor(props) {
@@ -39,61 +41,107 @@ class ShareEditor extends React.Component {
             value
         })
     }
+
+    chooseShareButton(platforms) {
+        console.log("PLA: ", platforms)
+        this.setProperty(null, 'platforms', platforms)
+    }
     
-    getTextType() {
-        const type = this.getProperty(null, 'type')
-        switch(type) {
-            case(keys.HEADING_ELEMENT):
-                return 'Heading'
-            case(keys.SUBHEADING_ELEMENT):
-                return 'Subheading'
-            case(keys.PARAGRAPH_ELEMENT):
-                return 'Paragraph'
-            default:
-                return ''
-        }
+    createSocialIcon(name) {
+        const {svg, color} = socialIcons[name]
+        
+        if (!document) return null
+        let a = document.createElement('a')
+        a.style.display = 'inline-block'
+        a.style.textDecoration = 'none'
+        a.style.margin = '5px 7px'
+        
+        let innerDiv = document.createElement('div')
+        innerDiv.style.margin = '0'
+        innerDiv.style.verticalAlign = 'middle'
+        innerDiv.style.fill = 'white'
+        innerDiv.style.width = '30px'
+        innerDiv.style.height = '30px'
+        innerDiv.style.borderRadius = '5px'
+        innerDiv.style.padding = '3px'
+        innerDiv.style.display = 'inline-block'
+        innerDiv.style.backgroundColor = color
+        
+        innerDiv.innerHTML = svg
+        a.appendChild(innerDiv)
+        return <div dangerouslySetInnerHTML={{__html: a.outerHTML}}/>
+    }
+
+    renderShareButtonsSelector() {
+        const {classes} = this.props
+        return (
+            <div className={classes.selectorWrapper}>
+                <Typography variant="subtitle2" gutterBottom>
+                    Share Buttons
+                </Typography>  
+                {this.renderToggleButtons()}
+            </div>
+        )
+    }
+
+    renderToggleButtons() {
+        const {classes} = this.props
+        const chosenButtons = this.getProperty(null, 'platforms')
+        return (
+            <div className={classes.toggleButtonsWrapper}>
+                <StyledToggleButtonGroup
+                    size="small"
+                    value={chosenButtons}
+                    onChange={(event, newValue) => this.chooseShareButton(newValue)}
+                    aria-label="text formatting"
+                >
+                    <ToggleButton value="facebook" aria-label="facebook">
+                        {this.createSocialIcon("facebook")}
+                    </ToggleButton>
+                    <ToggleButton value="instagram" aria-label="instagram">
+                        {this.createSocialIcon("instagram")}
+                    </ToggleButton>
+                    <ToggleButton value="twitter" aria-label="twitter">
+                        {this.createSocialIcon("twitter")}
+                    </ToggleButton>
+                </StyledToggleButtonGroup>
+            </div>
+        )
     }
     
     render() {
         const {classes} = this.props
-        const label = this.getTextType()
         return (
-            <SectionContainer title={label + ' content'}>
-                <p className={classes.textTitle}>Text</p>
-                <TextareaAutosize
-                    onChange={e => {
-                        this.setProperty(null, 'text', e.target.value)
-                    }}
-                    className={classes.inputStyle}
-                    value={this.getProperty(null, 'text')}
-                />
+            <SectionContainer title='Share buttons'>
+                {this.renderToggleButtons()}
             </SectionContainer>
         )
     }
 }
 
-const useStyles = theme => ({    
-    textTitle: {
-        margin: 0,
-        fontSize: 10,
-        color: keys.APP_COLOR_GRAY_DARK
-    },
-    inputStyle: {
+const StyledToggleButtonGroup = withStyles(theme => ({
+    grouped: {
+        margin: theme.spacing(0.5),
         border: 'none',
-        background: 'transparent',
-        fontFamily: '"Roboto", "Helvetica", "Arial", "sans-serif"',
-        color: 'rgba(0, 0, 0, 0.87)',
-        fontWeight: 400,
-        lineHeight: 1.43,
-        letterSpacing: '0.01071em',
-        resize: 'none',
-        fontSize: 15,
-        whiteSpace: "pre-wrap",
-        overflowY: 'auto',
-        cursor: 'text',
-        '&:focus': {
-            outline: 'none'
-        }
+        padding: theme.spacing(0, 1),
+        '&:not(:first-child)': {
+            borderRadius: theme.shape.borderRadius,
+        },
+        '&:first-child': {
+            borderRadius: theme.shape.borderRadius,
+        },
+    },
+  }))(ToggleButtonGroup);
+
+const useStyles = theme => ({    
+    toggleButtonsWrapper: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    selectorWrapper: {
+        width: '100%',
+        marginBottom: 10
     }
 })
 
