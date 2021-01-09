@@ -294,9 +294,9 @@ const defaultStages = () => [
             isSinglePage: true
         },
         elements: [
+            // referral(),
+            // share(),
             spacing(),
-            referral(),
-            share(),
             heading(), 
             subheading(), 
             paragraph(), 

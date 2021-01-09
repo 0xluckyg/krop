@@ -43,6 +43,7 @@ const {receiveSurvey} = require('./server/survey/receive');
 const {getProfiles, removeProfile} = require('./server/responses/profiles');
 const {getSurveySessions} = require('./server/responses/sessions');
 const {getSurveyResponses, deleteSurveyResponse} = require('./server/responses/responses');
+const {createReferralCoupon} = require('./server/referral');
 
 const whitelist = [    
     '/_next',
@@ -159,6 +160,8 @@ app.prepare().then(() => {
     router.get('/get-sessions', getSurveySessions)
     router.get('/get-responses', getSurveyResponses)
     router.post('/remove-profile', removeProfile)
+
+    router.post('/create-referral-coupon', createReferralCoupon)
 
     server.use(handleRender);    
 

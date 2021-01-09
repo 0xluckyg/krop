@@ -108,7 +108,7 @@
         var surveyOptionsUrl = appUrl + "/survey-options";
         // var domain = Host.domain || location.host;
         var device = detectMobile()
-        JSONPostRequest(surveyOptionsUrl, {
+        JSONRequest(surveyOptionsUrl, {
             domain: domain,
             path: path,
             device: device,
@@ -254,6 +254,28 @@
         
     }
     
+    /// ========= REFERRAL ================================================
+
+    // this.shareReferralCoupon() {
+    //     JSONRequest(appUrl + "/create-referral-coupon", {
+    //         clientId: clientId,
+    //         sessionId: sessionId,
+    //         surveyId: surveyId,
+    //         accountId: accountId
+    //     }, 
+    //     function(response) {
+    //         if (navigator.share !== undefined){
+    //             navigator.share(response).then(function() {
+                    
+    //             }).catch(function() {
+
+    //             });
+    //         }
+    //     }, function(error) {
+            
+    //     });
+    // }
+
     /// ========= SURVEY RESPONSE ================================================
     
     function submit(callback) {
@@ -267,7 +289,7 @@
             return callback()
         }
         
-        JSONPostRequest(appUrl+"/survey-receive", {
+        JSONRequest(appUrl+"/survey-receive", {
             sessionId: sessionId,
             clientId: clientId,
             surveyId: surveyId,
@@ -553,7 +575,7 @@
     
     /// ========= HELPERS ===============================================
     
-    function JSONPostRequest(url, params, callback, errorCallback) {
+    function JSONRequest(url, params, callback, errorCallback) {
         params = JSON.stringify(params)
 
         /// Form and send POST request.
@@ -596,16 +618,6 @@
         document.head.appendChild(link);
     }
 
-    function evaluateScripts(html) {
-        var evaluator = document.createElement('div');
-        evaluator.innerHTML = html
-        var scripts = evaluator.getElementsByTagName("script");
-        for (var i = 0; i < scripts.length; ++i) {
-            var script = scripts[i];
-            eval('eval')(script.innerHTML);
-        }
-    }
-    
     // https://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device
     function detectMobile() {
         if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {

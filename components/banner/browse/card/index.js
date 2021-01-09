@@ -10,6 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FileCopy from '@material-ui/icons/FileCopy';
 import IconButton from '@material-ui/core/IconButton';
 import CheckIcon from '@material-ui/icons/CheckCircleOutline';
+import CartIcon from '@material-ui/icons/ShoppingCart';
 
 import { showToastAction, isLoadingAction } from '../../../../redux/actions';
 import keys from '../../../../config/keys';
@@ -30,6 +31,12 @@ class Card extends React.Component {
             isEditing: true,
             currentEdit: {...banner}
         })  
+    }
+
+    handleAddToCart() {
+        this.props.setState({
+            currentAdd: {...this.props.banner}
+        })
     }
     
     handleDelete() {
@@ -62,9 +69,33 @@ class Card extends React.Component {
             </div>
         )
     }
+
+    renderButtons() {
+        const {classes, banner} = this.props
+        return <React.Fragment>
+            <Button 
+                disabled={this.state.isLoading}
+                className={classes.editButton} 
+                startIcon={<EditIcon/>} 
+                variant="outlined"
+                onClick={this.handleEdit.bind(this)}
+            >
+                Edit
+            </Button> 
+            <Button 
+                disabled={this.state.isLoading}
+                className={classes.cartButton} 
+                startIcon={<CartIcon/>} 
+                variant="outlined"
+                onClick={this.handleAddToCart.bind(this)}
+            >
+                Add To Cart
+            </Button> 
+        </React.Fragment>
+    }
     
     render() {
-        const {classes, banner, admin} = this.props
+        const {classes, banner} = this.props
 
         return (
             <div className={classes.card}>
@@ -80,23 +111,14 @@ class Card extends React.Component {
                                 size="small" variant="contained" color="primary">
                                 <DeleteIcon className={classes.trashIcon}/>
                             </IconButton>
-                            {admin ? null :<IconButton
+                            <IconButton
                                 className={classes.iconButton} 
                                 onClick={() => this.handleDuplicate()}
                                 size="small" variant="contained" color="primary">
                                 <FileCopy className={classes.copyIcon}/>
-                            </IconButton> }
+                            </IconButton>
                         </div>
-                        {admin ? null :
-                        <Button 
-                            disabled={this.state.isLoading}
-                            className={classes.editButton} 
-                            startIcon={<EditIcon/>} 
-                            variant="outlined"
-                            onClick={this.handleEdit.bind(this)}
-                        >
-                            Edit
-                        </Button> }
+                        {this.renderButtons()}
                         {this.renderActiveStatus()}
                     </div>
                 </div>
@@ -104,10 +126,10 @@ class Card extends React.Component {
                     <p className={classes.cardTitle}>
                         {banner.settings ? banner.settings.name : banner.name}
                     </p>
-                    {admin ? null :<p className={classes.cardViews}>
+                    <p className={classes.cardViews}>
                         Path: 
                         <span className={classes.viewCount}> /{banner.path}</span>
-                    </p> }
+                    </p>
                 </div>
             </div>
         );
@@ -172,6 +194,11 @@ const useStyles = theme => ({
     editButton: {
         color: 'white',
         border: '2px solid white'
+    },
+    cartButton: {
+        color: 'white',
+        border: '2px solid white',
+        marginLeft: 10
     },
     activeStatus: {
         position: 'absolute',

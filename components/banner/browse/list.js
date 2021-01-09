@@ -50,7 +50,7 @@ class List extends React.Component {
     }
 
     renderCards() {
-        const {duplicate, edit, state, setState, admin} = this.props
+        const {duplicate, edit, state, setState} = this.props
         return <React.Fragment>
             {this.orderCard()}
             {this.createCard()}
@@ -58,7 +58,6 @@ class List extends React.Component {
                 loadFonts(document, [...banner.fonts])
                 return (
                     <Card 
-                        admin={admin}
                         key={banner._id}
                         delete={this.props.delete} 
                         edit={edit} 

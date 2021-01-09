@@ -289,10 +289,10 @@ class AddElementModal extends React.Component {
                 {designElements.map(el => {
                     return this.renderItem(el.name, el.type)
                 })}
-                <SectionHeader title="Share Elements"/>
+                {/* <SectionHeader title="Share Elements"/>
                 {shareElements.map(el => {
                     return this.renderItem(el.name, el.type)
-                })}
+                })} */}
                 <SectionHeader title="Survey Elements"/>
                 {surveyElements.map(el => {
                     return this.renderItem(el.name, el.type)

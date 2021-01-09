@@ -9,6 +9,8 @@ import Tab from '@material-ui/core/Tab';
 
 import { showToastAction, isLoadingAction } from '../../redux/actions';
 import EditBanner from './create';
+import AddOrder from '../../components/banner/browse/order/add';
+import CartPreview from '../../components/banner/browse/order/cart';
 import List from '../../components/banner/browse/list'
 import PageHeader from '../../components/reusable/page-header'
 import NoContent from '../../components/reusable/no-content'
@@ -29,7 +31,12 @@ class BrowseBanners extends React.Component {
             isLoading: true,
             isEditing: false,
             currentEdit: undefined,
-            selectedType: 0
+            currentAdd: undefined,
+            selectedType: 0,
+
+            orders: {
+
+            }
         }
     }
 
@@ -119,9 +126,7 @@ class BrowseBanners extends React.Component {
             case(0):
                 return 'TABLE STAND BANNERS'
             case(1):
-                return 'MOBILE BANNERS'
-            case(2):
-                return 'DESKTOP BANNERS'
+                return 'STICKER BANNERS'
             default:
                 return ''
         }
@@ -151,8 +156,8 @@ class BrowseBanners extends React.Component {
                     <NoContent
                         iconPath="../../static/banner/add-image.svg"
                         text='Hey there,'
-                        subText="It looks like you don't have a banner or a webpage set up yet. Let's create one now!"
-                        actionText='Set up a Campaign'
+                        subText="It looks like you don't have a banner set up yet. Let's create one now!"
+                        actionText='Set up a Banner'
                         footerText="Your campaigns wil show up here after creation."
                         action={() => {
                             window.location.replace(`${process.env.APP_URL}/banners/create`)
@@ -186,8 +191,7 @@ class BrowseBanners extends React.Component {
             scrollButtons="auto"
         >
             <Tab label="Table Stand" id={0}/>
-            <Tab label="Mobile" id={1}/>
-            <Tab label="Desktop" id={2}/>
+            <Tab label="Table Sticker" id={1}/>
         </Tabs>)
     }
 
@@ -207,7 +211,15 @@ class BrowseBanners extends React.Component {
         return (            
             <main className={classes.content}>
                 <PageHeader title={this.getTitle()} paddingTop/>
-                {this.renderTabs()}
+                {/* {this.renderTabs()} */}
+                <AddOrder
+                    state={this.state}
+                    setState={(state) => this.setState(state)}
+                />
+                {/* <CartPreview
+                    state={this.state} 
+                    setState={(state) => this.setState(state)}
+                /> */}
                 {this.renderContent()}
             </main>
         )

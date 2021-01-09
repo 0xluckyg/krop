@@ -9,9 +9,23 @@ const keys = require('../../config/keys')
 
 const UserSchema = new mongoose.Schema({
     type: {
-        //shopify, woocommerce, bigcommerce, organic, etc
+        //google, organic, etc
         type: String,
         default: "organic"
+    },
+    admin: {
+        type: Boolean,
+        default: false
+    },
+    privilege: {
+        //0~100 in discount. Free users get 100 privilege 
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 100
+    },
+    referredBy: {
+        type: String
     },
     verified: {
         type: Boolean,

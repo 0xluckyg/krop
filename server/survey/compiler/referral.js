@@ -31,7 +31,6 @@ function compileReferralHTML(options) {
     let container = compileElementContainerHTML()
     container.setAttribute('id', element.id)
     container.setAttribute('type', keys.REFERRAL_ELEMENT)
-    container.setAttribute('tags', element.tags.join(','))
     
     let question = compileQuestionHTML()
     question.innerHTML = element.question
@@ -39,7 +38,7 @@ function compileReferralHTML(options) {
 
     let buttonContainer = document.createElement('button')
     buttonContainer.setAttribute('class', referralButtonClass)
-    buttonContainer.setAttribute('onclick', `refer('hi')`)
+    buttonContainer.setAttribute('onclick', 'shareReferralCoupon()')
 
     let referralIcon = document.createElement('div')
     referralIcon.setAttribute('class', referralIconClass)
@@ -47,7 +46,7 @@ function compileReferralHTML(options) {
 
     let referralText = document.createElement('p')
     referralText.setAttribute('class', referralTextClass)
-    referralText.innerHTML = 'Refer your friends!'
+    referralText.innerHTML = element.buttonText
     
     buttonContainer.appendChild(referralIcon)
     buttonContainer.appendChild(referralText)
@@ -99,13 +98,4 @@ function compileReferralCSS(options) {
     +referralTextCSS
 }
 
-function compileReferralJS() {
-    function refer(data) {
-        if (navigator.share !== undefined){
-            navigator.share(data);
-        }
-    }
-    return refer.toString()
-}
-
-module.exports = {compileReferralHTML, compileReferralCSS, compileReferralJS}
+module.exports = {compileReferralHTML, compileReferralCSS}
