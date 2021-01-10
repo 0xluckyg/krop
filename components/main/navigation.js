@@ -28,11 +28,11 @@ const widgets = [
         text: 'Survey',
         Icon: PhoneIphoneIcon
     },
-    {
-        route: '/banners/browse',
-        text: 'QR Banner',
-        Icon: CropFreeIcon
-    },
+    // {
+    //     route: '/banners/browse',
+    //     text: 'QR Banner',
+    //     Icon: CropFreeIcon
+    // },
 ]
 const responses = [
     {
@@ -137,7 +137,7 @@ class Navigation extends React.Component {
                 {this.renderList(responses)}  
                 <Typography className={classes.menuLabel}>Settings</Typography>
                 {this.renderList(settings)}  
-                <a style={{
+                {/* <a style={{
                     color: keys.APP_COLOR_GRAY_DARK,
                     textDecoration: 'none'
                 }} passhref='true'>
@@ -151,7 +151,7 @@ class Navigation extends React.Component {
                         <ListItemIcon className={classes.listItemIcon}><StoreIcon/></ListItemIcon>
                         <ListItemText primary='Plans'/>
                     </ListItem>
-                </a>
+                </a> */}
             </div>
         )
     }

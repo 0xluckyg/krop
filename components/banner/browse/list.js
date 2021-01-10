@@ -3,6 +3,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import Button from '@material-ui/core/Button';
 
 import Card from './card'
 import {loadFonts} from '../../reusable/font-families'
@@ -22,15 +23,25 @@ class List extends React.Component {
     }
     
     orderCard() {
-        const {classes} = this.props
-        return <div onClick={() => {
+        const {classes, state, setState} = this.props
+        const {orders} = state
 
+        const ordersLength = Object.keys(orders).length
+
+        return <div onClick={() => {
+            console.log("OOO: ", ordersLength)
+            if (ordersLength > 0) {
+                setState({previewOrders: true})
+            }
         }} className={classes.card}>
             <div className={classes.cardWrapper}>
                 <div className={classes.iconContainer}>
                     <AddShoppingCartIcon className={classes.mainIcon} fontSize="large" />
                 </div>
-                <p>Please select banners to order!</p>
+                {ordersLength > 0 ? 
+                    <p>{ordersLength} banners in cart. Click to order!</p> : 
+                    <p>Please select banners to order!</p>
+                }
             </div>
         </div>
     }
@@ -64,7 +75,7 @@ class List extends React.Component {
                         duplicate={duplicate} 
                         state={state} 
                         setState={setState} 
-                        banner={banner}
+                        banner={{...banner}}
                     />
                 )
             })}
@@ -113,6 +124,16 @@ const useStyles = theme => ({
     iconContainer: {
         display:'flex',
         justifyContent: 'center'
+    },
+    button: {
+        '&:focus': {
+            outline: 'none'
+        },
+        color: 'white',
+        margin: 'auto',
+        marginTop: theme.spacing(4),
+        fontSize: '13px',
+        width: 200,        
     }
 });
 

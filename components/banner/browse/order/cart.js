@@ -2,8 +2,6 @@ import React, {Fragment} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { GoogleLogin } from 'react-google-login';
-const emailValidator = require("email-validator");
 
 import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -11,7 +9,6 @@ import Button from '@material-ui/core/Button';
 
 import Preview from './card-preview'
 import {showToastAction} from '../../../../redux/actions';
-import keys from '../../../../config/keys'
 
 //A pop up to ask users to login or signup
 class CartModal extends React.Component {
@@ -19,14 +16,38 @@ class CartModal extends React.Component {
         super(props)
 
         this.state = {
-            count: 1
+            count: 1,
+            isLoading: false
         }
     }
 
     orderBanners() {
         let { setState, state } = this.props;
-        let {orders} = state
-        setState({orders})
+        let orders = {...state.orders}
+        const params = { orders }
+        this.setState({isLoading: true})
+        axios.post(process.env.APP_URL + '/create-banner-orders', params, {
+            withCredentials: true
+        })
+        .then(() => {
+            this.setState({isLoading:false})
+            callback()
+        }).catch(() => {
+            this.props.showToastAction(true, `Couldn't send validation email. Please try again later.`, 'error')
+            this.setState({isLoading:false})
+            setState({orders: {}, previewOrders: false})
+        })
+
+        setState({previewOrders: false})
+    }
+
+    incrementCount(order, key, count) {
+        if (count < 1) return
+        order = {...order}
+        order.count = Number(count)
+        let orders = {...this.props.state.orders}
+        orders[key] = order
+        this.props.setState({orders})
     }
 
     render() {
@@ -42,25 +63,43 @@ class CartModal extends React.Component {
                 }}
             >
                 <div className={classes.paper}>
-                    {orders.map(order => {
-                        return (
-                            <Preview
-                                state={state} 
-                                setState={setState} 
-                                banner={order.banner}
-                            />
-                        )
-                    })}
+                    <div className={classes.previewContainer}>
+                        {Object.keys(orders).map(key => {
+                            const order = orders[key]
+                            return (
+                                <div style={{margin: '0px 20px'}}>
+                                    <Preview
+                                        state={state} 
+                                        setState={setState} 
+                                        banner={order.banner}
+                                        count={order.count}
+                                        setCount={count => this.incrementCount(order, key, count)}
+                                    />
+                                </div>
+                            )
+                        })}
+                        <br/>
+                    </div>
                     <div className={classes.buttonContainer}>          
                         <Button 
                             disabled={this.state.isLoading}
                             onClick={() => this.orderBanners()} 
                             variant="contained" 
                             size="large" 
+                            color="primary"
+                            style={{color: 'white'}}
+                            className={classes.button}
+                        >
+                                Order Now
+                        </Button>
+                        <Button 
+                            onClick={() => setState({orders: {}, previewOrders: false})} 
+                            variant="outlined" 
+                            size="large" 
                             color="primary" 
                             className={classes.button}
                         >
-                                ADD TO CART
+                                RESET
                         </Button>
                     </div>
                 </div>
@@ -72,7 +111,8 @@ class CartModal extends React.Component {
 const useStyles = theme => ({
     buttonContainer: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'column'
     },
     paper: {
         top: `50%`,
@@ -96,11 +136,16 @@ const useStyles = theme => ({
 		},
 		
     },
+    previewContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        overflow: 'auto',
+    },
     button: {
         '&:focus': {
             outline: 'none'
         },
-        color: 'white',
+        // color: 'white',
         margin: 'auto',
         marginTop: theme.spacing(4),
         fontSize: '13px',
@@ -115,4 +160,4 @@ function mapDispatchToProps(dispatch){
     );
 }
 
-export default connect(mapDispatchToProps)(withStyles(useStyles)(CartModal));
+export default connect(null, mapDispatchToProps)(withStyles(useStyles)(CartModal));

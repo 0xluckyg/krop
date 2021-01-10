@@ -38,10 +38,7 @@ async function createBanner(ctx) {
 
 async function updateBanner(ctx) {
     try {
-        let body = JSON.parse(ctx.request.rawBody)        
-        
-        const widgetToUpdate = await Banner.findById(body._id, {widgetId: 1})
-        body.widgetId = widgetToUpdate.widgetId
+        let body = JSON.parse(ctx.request.rawBody)
         if (body.compile != false) {
             body.compiled = {...await getCompiledBanner(body)}   
         }
@@ -55,8 +52,8 @@ async function updateBanner(ctx) {
 
 async function getBanner(ctx) {
     try {
-        const widget = await Banner.findById(ctx.query._id)
-        ctx.body = widget
+        const order = await Banner.findById(ctx.query._id)
+        ctx.body = order
     } catch (err) {
         console.log('Failed getBanners: ', err)
         ctx.status = 400
@@ -66,16 +63,16 @@ async function getBanner(ctx) {
 async function getBanners(ctx) {
     try {        
         const limit = 30
-        const key = ctx.session.key
+        const id = ctx.session.id
         let page = parseInt(ctx.query.page)
         let hasPrevious = true; let hasNext = true
 
-        const total = await Banner.countDocuments({key, expiresAt: null})
+        const total = await Banner.countDocuments({accountId: id, expiresAt: null})
         const totalPages = Math.ceil(total / limit)
         if (page == totalPages || totalPages == 0) hasNext = false
         if (page == 1) hasPrevious = false
         
-        const banners = await Banner.find({key, expiresAt: null})
+        const banners = await Banner.find({accountId: id, expiresAt: null})
         .sort({from: -1})
         .skip((page * limit) - limit)
         .limit(limit)

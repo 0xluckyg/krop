@@ -78,8 +78,8 @@ class Settings extends React.Component {
             <main className={classes.content}>
                 <PageHeader title='SETTINGS' paddingTop/>
                 <Container className={classes.container} maxWidth={keys.CONTAINER_SIZE}>
-                    <Integrations/>
-                    <br/>
+                    {/* <Integrations/> */}
+                    {/* <br/> */}
                     <AppColors/>
                     <br/>
                     <Branding/>

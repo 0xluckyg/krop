@@ -25,25 +25,27 @@ class CardPreview extends React.Component {
     }
 
     render() {
-        const { classes, state, setState, banner, setCount } = this.props;
+        const { classes, state, setState, banner, count, setCount } = this.props;
 
         return(
-            <div>
-                <div className={classes.container}>
+            <div className={classes.container}>
+                <div className={classes.wrapper}>
                     <Card
+                        interactionDisabled
                         state={state} 
                         setState={setState} 
                         banner={banner}
                     />
                 </div>
-                <div className={classes.container}>
+                <div className={classes.wrapper}>
                     <TextField
+                        type="number"
                         className={classes.textField}
                         id="count"
                         label="Count"
-                        value={1}
+                        value={count}
                         onChange={(event) => {
-                            this.setCount(event.target.value)
+                            setCount(event.target.value)
                         }}
                         margin="normal"
                         placeholder="How many would you like to order?"
@@ -56,11 +58,10 @@ class CardPreview extends React.Component {
 }
 
 const useStyles = theme => ({
-    buttonContainer: {
-        display: 'flex',
-        justifyContent: 'center'
-    },
     container: {
+        
+    },
+    wrapper: {
         display: 'flex',
         justifyContent: 'center'
     },

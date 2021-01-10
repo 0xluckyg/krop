@@ -34,6 +34,7 @@ class BrowseBanners extends React.Component {
             currentAdd: undefined,
             selectedType: 0,
 
+            previewOrders: false,
             orders: {
 
             }
@@ -216,10 +217,10 @@ class BrowseBanners extends React.Component {
                     state={this.state}
                     setState={(state) => this.setState(state)}
                 />
-                {/* <CartPreview
+                <CartPreview
                     state={this.state} 
                     setState={(state) => this.setState(state)}
-                /> */}
+                />
                 {this.renderContent()}
             </main>
         )

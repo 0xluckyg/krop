@@ -37,6 +37,7 @@ const {uploadImage} = require('./server/helper/image')
 const {getMediaTemplates, getPexelsTemplates} = require('./server/admin/templates')
 const {createSurvey, getSurveys, getSurvey, updateSurvey, deleteSurvey} = require('./server/survey/manage');
 const {createBanner, getBanners, getBanner, updateBanner, deleteBanner} = require('./server/banner/manage');
+const {createBannerOrders, getBannerOrders, updateBannerOrder, deleteBannerOrder} = require('./server/banner/order');
 const {getSurveyScript, getSurveyOptions} = require('./server/survey/serve');
 const {receiveSurvey} = require('./server/survey/receive');
 
@@ -162,6 +163,11 @@ app.prepare().then(() => {
     router.post('/remove-profile', removeProfile)
 
     router.post('/create-referral-coupon', createReferralCoupon)
+
+    router.post('/create-banner-orders', createBannerOrders)
+    router.get('/get-banner-orders', getBannerOrders)
+    router.put('/update-banner-order', updateBannerOrder)
+    router.post('/delete-banner-order', deleteBannerOrder)
 
     server.use(handleRender);    
 

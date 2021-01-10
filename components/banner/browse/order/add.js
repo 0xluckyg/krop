@@ -1,9 +1,6 @@
 import React, {Fragment} from 'react';
-import axios from 'axios';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { GoogleLogin } from 'react-google-login';
-const emailValidator = require("email-validator");
 
 import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -11,7 +8,6 @@ import Button from '@material-ui/core/Button';
 
 import Preview from './card-preview'
 import {showToastAction} from '../../../../redux/actions';
-import keys from '../../../../config/keys'
 
 //A pop up to ask users to login or signup
 class AddModal extends React.Component {
@@ -31,7 +27,12 @@ class AddModal extends React.Component {
             count: this.state.count,
             banner: currentAdd
         }
-        setState({orders})
+        setState({orders, currentAdd: undefined})
+    }
+
+    incrementCount(count) {
+        if (count < 1) return
+        this.setState({count})
     }
 
     render() {
@@ -51,6 +52,8 @@ class AddModal extends React.Component {
                         state={state} 
                         setState={setState} 
                         banner={currentAdd}
+                        count={this.state.count}
+                        setCount={count => this.incrementCount(count)}
                     />
                     <div className={classes.buttonContainer}>          
                         <Button 
@@ -116,4 +119,4 @@ function mapDispatchToProps(dispatch){
     );
 }
 
-export default connect(mapDispatchToProps)(withStyles(useStyles)(AddModal));
+export default connect(null, mapDispatchToProps)(withStyles(useStyles)(AddModal));

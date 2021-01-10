@@ -94,6 +94,30 @@ class Card extends React.Component {
         </React.Fragment>
     }
     
+    renderInteraction() {
+        if (this.props.interactionDisabled) return null
+        const {classes} = this.props
+
+        return <div className={classes.cardHover}>
+            <div className={classes.iconButtons}>
+                <IconButton
+                    className={classes.iconButton} 
+                    onClick={() => this.handleDelete()}
+                    size="small" variant="contained" color="primary">
+                    <DeleteIcon className={classes.trashIcon}/>
+                </IconButton>
+                <IconButton
+                    className={classes.iconButton} 
+                    onClick={() => this.handleDuplicate()}
+                    size="small" variant="contained" color="primary">
+                    <FileCopy className={classes.copyIcon}/>
+                </IconButton>
+            </div>
+            {this.renderButtons()}
+            {this.renderActiveStatus()}
+        </div>
+    }
+
     render() {
         const {classes, banner} = this.props
 
@@ -103,24 +127,7 @@ class Card extends React.Component {
                     <div className={classes.bannerView}>
                         <BannerPreview banner={{...banner}}/>
                     </div>
-                    <div className={classes.cardHover}>
-                        <div className={classes.iconButtons}>
-                            <IconButton
-                                className={classes.iconButton} 
-                                onClick={() => this.handleDelete()}
-                                size="small" variant="contained" color="primary">
-                                <DeleteIcon className={classes.trashIcon}/>
-                            </IconButton>
-                            <IconButton
-                                className={classes.iconButton} 
-                                onClick={() => this.handleDuplicate()}
-                                size="small" variant="contained" color="primary">
-                                <FileCopy className={classes.copyIcon}/>
-                            </IconButton>
-                        </div>
-                        {this.renderButtons()}
-                        {this.renderActiveStatus()}
-                    </div>
+                    {this.renderInteraction()}
                 </div>
                 <div className={classes.cardFooter}>
                     <p className={classes.cardTitle}>
