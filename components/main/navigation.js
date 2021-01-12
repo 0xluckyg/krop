@@ -210,12 +210,13 @@ const useStyles = theme => ({
     },
     logo: {
         // width: keys.NAV_WIDTH - 50,
-        width: '100%',
+        height: '100%',
         padding: '0px 8px',
         
     },
     logoWrapper: {        
-        height: 48,
+        height: 45,
+        marginTop: 5,
         
         display: 'flex',
         alignItems: 'flex-end'

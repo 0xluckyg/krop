@@ -14,7 +14,7 @@ const noAuth = [
     '/settings/terms-of-service'
 ]
 
-class UnderdogDocument extends Document {    
+class KropDocument extends Document {    
     
     renderHead() {
         return (
@@ -51,7 +51,7 @@ class UnderdogDocument extends Document {
     }
 }
 
-UnderdogDocument.getInitialProps = async ctx => {
+KropDocument.getInitialProps = async ctx => {
     // Resolution order
     //
     // On the server:
@@ -92,4 +92,4 @@ UnderdogDocument.getInitialProps = async ctx => {
     };
 };
 
-export default UnderdogDocument;
+export default KropDocument;

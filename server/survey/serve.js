@@ -132,7 +132,7 @@ async function getSurveyScript(ctx) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>${keys.APP_NAME}</title>
-            <meta name="host" content="Underdog">
+            <meta name="host" content="Krop">
             <script type="text/javascript" async>${script}</script>
         </head>
         <body>

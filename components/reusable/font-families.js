@@ -4599,7 +4599,7 @@ export const fontFamilies = [
 		]
 	},
 	{
-		"family": "Underdog",
+		"family": "Krop",
 		"variants": [
 			"regular"
 		]

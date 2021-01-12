@@ -166,7 +166,7 @@ async function handleStripeSubscription(ctx) {
 }
 
 // to test
-// stripe listen --forward-to underdog.ngrok.io/webhooks/stripe-webhook
+// stripe listen --forward-to krop.ngrok.io/webhooks/stripe-webhook
 // Ready! Your webhook signing secret is '{{WEBHOOK_SIGNING_SECRET}}'
 // test with 4242 4242 4242 4242
 async function handleStripeWebhook(ctx) {

@@ -166,7 +166,7 @@ class OnboardingModal extends React.Component {
                 <TextField
                     className={classes.textField}
                     id="website"
-                    label="Do you have a domain? (e.g. underdog.com)"
+                    label="Do you have a domain? (e.g. krop.com)"
                     value={domain}
                     onChange={(event) => {
                         const domain = this.handleHttp(event.target.value)

@@ -1,14 +1,14 @@
-const APP_NAME = 'Underdog'
-const APP_FULL_NAME = 'Underdog'
-const APP_COLOR = '#13a89e';
-const APP_COLOR_RGB = 'rgb(19,168,158)';
+const APP_NAME = 'Krop'
+const APP_FULL_NAME = 'Krop'
+const APP_COLOR = '#ffb24a';
+const APP_COLOR_RGB = 'rgb(255,178,74)';
 const APP_COLOR_2 = '#ef3e36';
 const APP_COLOR_3 = '#000';
 const APP_COLOR_4 = '#f7941e';
 //prev app color: #a13fc4
 const APP_WHITE = '#fff'
-const APP_COLOR_LIGHT = '#1bddd0';
-const APP_COLOR_DARK = '#80329c';
+const APP_COLOR_LIGHT = '#ffdf98';
+const APP_COLOR_DARK = '#ff8900';
 
 const APP_COLOR_GRAY = '#e0e0e0';
 const APP_COLOR_GRAY_LIGHT = '#fafafa'
@@ -28,7 +28,7 @@ const APP_ZIP = '07310'
 const PAGE_SIZE = 50
 
 const LOGO = '../static/logo-white.svg'
-const APP_EMAIL = 'info@underdog.com'
+const APP_EMAIL = 'info@krop.com'
 const NAV_WIDTH = 200
 const NAV_COLOR = '#151b26'
 const HEADER_HEIGHT = 45

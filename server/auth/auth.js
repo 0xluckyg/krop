@@ -132,7 +132,7 @@ async function sendValidationEmail(ctx) {
         
         sendEmail({
             to: body.email,
-            subject: 'Please verify your email at underdog.com',
+            subject: 'Please verify your email at krop.com',
             html: validationEmail
         })
         

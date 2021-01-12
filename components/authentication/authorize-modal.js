@@ -154,7 +154,7 @@ class AuthorizeModal extends React.Component {
                         this.setState({logInEmail:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Email (e.g. underdog@gmail.com)"
+                    placeholder="Email (e.g. krop@gmail.com)"
                     error={logInEmailError ? true : false}
                     helperText={logInEmailError ? logInEmailError : false}
                     fullWidth
@@ -192,7 +192,7 @@ class AuthorizeModal extends React.Component {
                         this.setState({signUpEmail:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Email (e.g. underdog@gmail.com)"
+                    placeholder="Email (e.g. krop@gmail.com)"
                     error={signUpEmailError ? true : false}
                     helperText={signUpEmailError ? signUpEmailError : false}
                     fullWidth

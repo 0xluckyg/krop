@@ -70,7 +70,7 @@ class ValidateEmail extends React.Component {
                     Please take a moment to verify your email address.
                 </h3>
                 <p className={classes.p}>
-                    We have sent an email to {this.getQuery().email} with a confirmation link to get access to Underdog.
+                    We have sent an email to {this.getQuery().email} with a confirmation link to get access to Krop.
                 </p>
             </div>
             <div className={classes.buttonContainer}>

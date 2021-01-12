@@ -1,6 +1,6 @@
 [
     {
-        "name": "underdog-container",
-        "imageUri": "838823345115.dkr.ecr.us-east-1.amazonaws.com/underdog-ecr:latest"
+        "name": "krop-container",
+        "imageUri": "838823345115.dkr.ecr.us-east-1.amazonaws.com/krop-ecr:latest"
     }
 ]

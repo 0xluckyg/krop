@@ -46,7 +46,7 @@ const noAuth = [
 
 //_app file overrides Next.js App file.
 // Next.js uses an App component to pass down classes to the other files in your app. This saves us from having to add imports to each file
-function Underdog(props) {
+function Krop(props) {
     const { Component, pageProps, router } = props;
     
     React.useEffect(() => {
@@ -82,4 +82,4 @@ function Underdog(props) {
     );
 }
 
-export default Underdog;
+export default Krop;

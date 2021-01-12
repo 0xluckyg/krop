@@ -71,7 +71,7 @@ async function handlePaymentUpgradeEmail(ctx, user) {
         
         await sendEmail({
             to: user.email,
-            subject: 'URGENT! Please upgrade your plan at underdog.com',
+            subject: 'URGENT! Please upgrade your plan at krop.com',
             html: planUpgradeEmail
         })
         

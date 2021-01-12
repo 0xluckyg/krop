@@ -19,7 +19,7 @@ const referral = (custom) => {
         
         couponTitle: couponTitle ? couponTitle : '10% DISCOUNT COUPON AT UNDERDOG',
         couponImage: couponImage ? couponImage : '',
-        couponDescription: couponDescription ? couponDescription : 'Show this coupon at the following Underdog branch below to get a 10% discount on your sandwich',
+        couponDescription: couponDescription ? couponDescription : 'Show this coupon at the following Krop branch below to get a 10% discount on your sandwich',
         storeAddress: storeAddress ? storeAddress : '110 Broadway, NYC',
         couponDuration:  couponDuration ? couponDuration : 10
     }
