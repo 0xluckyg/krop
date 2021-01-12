@@ -17,7 +17,7 @@ import NoContent from '../../components/reusable/no-content'
 import keys from '../../config/keys'
 import Spinner from '../../components/reusable/spinner'
 
-class SurveyQuestions extends React.Component {
+class CampaignQuestions extends React.Component {
     constructor(props){
         super(props)
 
@@ -25,12 +25,12 @@ class SurveyQuestions extends React.Component {
             page: 1,
             total: 0,
             totalPages: 0,
-            surveys: [],
+            campaigns: [],
             hasPrevious: false,
             hasNext: false,
             isLoading: true,
             isEditing: false,
-            currentSurvey: undefined,
+            currentCampaign: undefined,
             
             searchType: 'email',
             filter: 'question'
@@ -39,10 +39,10 @@ class SurveyQuestions extends React.Component {
 
     componentDidMount() {
         this.props.isLoadingAction(false)    
-        this.fetchSurveyQuestions(1)
+        this.fetchCampaignQuestions(1)
     }
 
-    fetchSurveyQuestions(page, params) {
+    fetchCampaignQuestions(page, params) {
         if (!params) {
             const { filter, searchText, searchType } = this.state
             params = { filter, searchText, searchType }
@@ -58,7 +58,7 @@ class SurveyQuestions extends React.Component {
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get survey results. Please try again later.")
+            this.props.showToastAction(true, "Couldn't get campaign results. Please try again later.")
             return err
         })
     }
@@ -117,30 +117,30 @@ class SurveyQuestions extends React.Component {
             return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`        
         }
         const {classes} = this.props
-        const {surveys, isLoading} = this.state
+        const {campaigns, isLoading} = this.state
         
         const handleEdit = (row) => {
             this.setState({
                 isEditing: true,
-                currentSurvey: {...row}
+                currentCampaign: {...row}
             })
         }
         
-        if (!isLoading && surveys.length <= 0) {
+        if (!isLoading && campaigns.length <= 0) {
             return this.renderNoContent()
         }
         return (
             <Table className={classes.table}>
                 {this.renderTableHeader()}
                 <TableBody>
-                    {surveys.map((row, i) => {
-                    let {name, views, submits, surveyCount, enabled, device, updatedAt} = row
+                    {campaigns.map((row, i) => {
+                    let {name, views, submits, campaignCount, enabled, device, updatedAt} = row
                     return (
                         <TableRow onClick={() => handleEdit(row)} className={classes.tableRow} key={i}>
                             <TableCell size="small">{name}</TableCell>
                             <TableCell size="small">{views}</TableCell>
                             <TableCell size="small">{submits}</TableCell>
-                            <TableCell size="small">{surveyCount}</TableCell>
+                            <TableCell size="small">{campaignCount}</TableCell>
                             <TableCell size="small">{enabled ? 'true' : 'false'}</TableCell>
                             <TableCell size="small">{device}</TableCell>
                             <TableCell size="small">{formatDate(updatedAt)}</TableCell>
@@ -156,7 +156,7 @@ class SurveyQuestions extends React.Component {
                             {(i >= 50 && i == row.length - 1) ? 
                                 <Waypoint
                                     onEnter={() => {
-                                        this.fetchSurveyQuestions(this.state.page + 1)
+                                        this.fetchCampaignQuestions(this.state.page + 1)
                                     }}
                                 />
                                 : null
@@ -201,4 +201,4 @@ function mapDispatchToProps(dispatch){
     );
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(useStyles)(SurveyQuestions));
+export default connect(null, mapDispatchToProps)(withStyles(useStyles)(CampaignQuestions));

@@ -1,7 +1,7 @@
-const {SurveyResponse} = require('../db/survey-response');
+const {CampaignResponse} = require('../db/campaign-response');
 const keys = require('../../config/keys')
 
-function formatSurveyResponseQuery(ctx) {
+function formatCampaignResponseQuery(ctx) {
     const {id} = ctx.session
     let { filter } = ctx.query
     filter ? filter = JSON.parse(filter) : filter = {}
@@ -10,7 +10,7 @@ function formatSurveyResponseQuery(ctx) {
     return filter
 }
 
-async function getSurveyResponses(ctx) {
+async function getCampaignResponses(ctx) {
     try {        
         const limit = keys.PAGE_SIZE
 
@@ -19,22 +19,22 @@ async function getSurveyResponses(ctx) {
             
         let hasPrevious = true; let hasNext = true
 
-        const query = formatSurveyResponseQuery(ctx)
-        const total = await SurveyResponse.countDocuments(query)        
+        const query = formatCampaignResponseQuery(ctx)
+        const total = await CampaignResponse.countDocuments(query)        
         const totalPages = Math.ceil(total / limit)
         if (page == totalPages || totalPages == 0) hasNext = false
         if (page == 1) hasPrevious = false
         
-        const responses = await SurveyResponse.find(query)
+        const responses = await CampaignResponse.find(query)
         .sort({from: -1})
         .skip((page * limit) - limit)
         .limit(limit)
 
         ctx.body = {responses, page, hasPrevious, hasNext, totalPages, total}
     } catch (err) {
-        console.log('Failed getSurveyResponses: ', err)
+        console.log('Failed getCampaignResponses: ', err)
         ctx.status = 400
     }       
 }
 
-module.exports = {getSurveyResponses}
+module.exports = {getCampaignResponses}

@@ -35,15 +35,15 @@ const {contactUs, contactUsUnauthorized} = require('./server/helper/contact-us')
 const {googleAuth} = require('./server/auth/google-auth');
 const {uploadImage} = require('./server/helper/image')
 const {getMediaTemplates, getPexelsTemplates} = require('./server/admin/templates')
-const {createSurvey, getSurveys, getSurvey, updateSurvey, deleteSurvey} = require('./server/survey/manage');
+const {createCampaign, getCampaigns, getCampaign, updateCampaign, deleteCampaign} = require('./server/campaign/manage');
 const {createBanner, getBanners, getBanner, updateBanner, deleteBanner} = require('./server/banner/manage');
 const {createBannerOrders, getBannerOrders, updateBannerOrder, deleteBannerOrder} = require('./server/banner/order');
-const {getSurveyScript, getSurveyOptions} = require('./server/survey/serve');
-const {receiveSurvey} = require('./server/survey/receive');
+const {getCampaignScript, getCampaignOptions} = require('./server/campaign/serve');
+const {receiveCampaign} = require('./server/campaign/receive');
 
 const {getProfiles, removeProfile} = require('./server/responses/profiles');
-const {getSurveySessions} = require('./server/responses/sessions');
-const {getSurveyResponses, deleteSurveyResponse} = require('./server/responses/responses');
+const {getCampaignSessions} = require('./server/responses/sessions');
+const {getCampaignResponses, deleteCampaignResponse} = require('./server/responses/responses');
 const {createReferralCoupon} = require('./server/referral');
 
 const whitelist = [    
@@ -91,10 +91,10 @@ app.prepare().then(() => {
     const routerUnauthorized = new Router();
     server.use(routerUnauthorized.routes());
     
-    routerUnauthorized.get('/dev', getSurveyScript);
-    routerUnauthorized.post('/survey-options', getSurveyOptions);
-    routerUnauthorized.post('/survey-receive', receiveSurvey);
-    // routerUnauthorized.post('/survey-validate', validateSurveyResponse);
+    routerUnauthorized.get('/dev', getCampaignScript);
+    routerUnauthorized.post('/campaign-options', getCampaignOptions);
+    routerUnauthorized.post('/campaign-receive', receiveCampaign);
+    // routerUnauthorized.post('/campaign-validate', validateCampaignResponse);
     
     routerUnauthorized.get('/log-in', logIn)
     routerUnauthorized.post('/sign-up', signUp)
@@ -141,11 +141,11 @@ app.prepare().then(() => {
     
     router.post('/contact-us', contactUs);        
     
-    router.post('/create-survey', createSurvey);
-    router.put('/update-survey', updateSurvey);
-    router.post('/delete-survey', deleteSurvey);
-    router.get('/get-surveys', getSurveys);
-    router.get('/get-survey', getSurvey);
+    router.post('/create-campaign', createCampaign);
+    router.put('/update-campaign', updateCampaign);
+    router.post('/delete-campaign', deleteCampaign);
+    router.get('/get-campaigns', getCampaigns);
+    router.get('/get-campaign', getCampaign);
 
     router.post('/create-banner', createBanner);
     router.put('/update-banner', updateBanner);
@@ -158,8 +158,8 @@ app.prepare().then(() => {
     router.get('/get-pexels-templates', getPexelsTemplates)
 
     router.get('/get-profiles', getProfiles)
-    router.get('/get-sessions', getSurveySessions)
-    router.get('/get-responses', getSurveyResponses)
+    router.get('/get-sessions', getCampaignSessions)
+    router.get('/get-responses', getCampaignResponses)
     router.post('/remove-profile', removeProfile)
 
     router.post('/create-referral-coupon', createReferralCoupon)

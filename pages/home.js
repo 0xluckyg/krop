@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Create from './surveys/create'
+import Create from './campaigns/create'
 
 //Shows settings on index as default
 class Home extends React.Component {

@@ -74,7 +74,7 @@ Operate, evaluate and improve our business, our websites, and other products and
 Invoice and collect payment for our services
 Establish and maintain an individual’s profile in our service
 Tailor the content we display in our communications, in our services and in mobile apps
-Administer surveys and other market research
+Administer campaigns and other market research
 Comply with legal requirements, judicial process, and our company policies (including to verify users’ identity in connection with access or correction requests)
 Protect against, identify, investigate, and respond to fraud, illegal activity (such as incidents of hacking or misuse of our websites and mobile applications), and claims and other liabilities, including by enforcing the terms and conditions that govern the services we provide
 Process employment applications
@@ -92,7 +92,7 @@ INFORMATION WE SHARE
 
 We may share personal information for the purposes set out in this Privacy Notice with:
 Service providers that perform services on our behalf, such as technology providers (including providers of payment processing, technology support, web hosting, and email communications)
-Survey and market research providers
+Campaign and market research providers
 Advertising and marketing partners
 Analytics organizations
 Unless prohibited by applicable law, we reserve the right to transfer the information we maintain in the event we sell or transfer all or a portion of our business or assets. If we engage in such a sale or transfer, we will – where required by applicable law – make reasonable efforts to direct the recipient to use your personal information in a manner that is consistent with this Privacy Notice. After such a sale or transfer, you may contact the recipient with any inquiries concerning the processing of your personal information.

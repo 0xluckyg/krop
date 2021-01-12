@@ -28,7 +28,7 @@ const APP_ZIP = '07310'
 const PAGE_SIZE = 50
 
 const LOGO = '../static/logo-white.svg'
-const APP_EMAIL = 'info@krop.com'
+const APP_EMAIL = 'info@krop.io'
 const NAV_WIDTH = 200
 const NAV_COLOR = '#151b26'
 const HEADER_HEIGHT = 45
@@ -60,6 +60,7 @@ const CHECKBOX_ELEMENT = 'checkbox'
 const DROPDOWN_ELEMENT = 'dropdown'
 const SLIDER_ELEMENT = 'slider'
 
+const LOYALTY_ELEMENT = 'loyalty'
 const REFERRAL_ELEMENT = 'referral'
 const SHARE_ELEMENT = 'share'
 const BUTTON_ELEMENT = 'button'
@@ -171,6 +172,7 @@ module.exports = {
     ALERT_SETTINGS,
     LOGO_SETTINGS,
     
+    LOYALTY_ELEMENT,
     REFERRAL_ELEMENT,
     SHARE_ELEMENT,
     BUTTON_ELEMENT,

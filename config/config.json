@@ -2,7 +2,7 @@
     "development" : {
         "PORT": 3000,
         "APP_URL": "https://vivelop.ngrok.io",
-        "APP_EMAIL": "info@krop.com",
+        "APP_EMAIL": "info@krop.io",
         "MONGODB_URI": "mongodb://localhost:27017/krop",
         "S3_BUCKET": "vivelop-images",
         "GOOGLE_API_CLIENT_ID":"230936750545-7v2qm20fiovmavpnb2fn2ut1ffl4u0bt.apps.googleusercontent.com",
@@ -11,7 +11,7 @@
     "test": {
         "PORT": 3000,
         "APP_URL": "https://vivelop.ngrok.io",
-        "APP_EMAIL": "info@krop.com",
+        "APP_EMAIL": "info@krop.io",
         "SHOPIFY_API_KEY": "cc70f60501318eedd43ebaae753aeb96",
         "MONGODB_URI":"mongodb+srv://krop-admin:zpnKDnRPl4KkHLwS@krop-cluster.ncf5u.mongodb.net/krop?retryWrites=true&w=majority",
         "S3_BUCKET": "vivelop-images",
@@ -19,8 +19,8 @@
         "STRIPE_API_KEY": "pk_test_51H1uBRBI9q0ktHJ5vE0SFWsNWFQkMjZGXXIZuJB6tVzDWX1pc4DsJwWX5pLY3J5DjLWAqmWWQV7SefD4rREf5Mzo00uUoTN6Hw"
     },
     "production": {
-        "APP_URL": "https://krop.com",
-        "APP_EMAIL": "info@krop.com",
+        "APP_URL": "https://krop.io",
+        "APP_EMAIL": "info@krop.io",
         "SHOPIFY_API_KEY": "a5a6f83ab61b669d0a1d1cd6924eb713",
         "S3_BUCKET": "vivelop-images",
         "GOOGLE_API_CLIENT_ID":"230936750545-7v2qm20fiovmavpnb2fn2ut1ffl4u0bt.apps.googleusercontent.com",

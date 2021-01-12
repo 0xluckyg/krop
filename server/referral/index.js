@@ -1,8 +1,8 @@
-const {Survey} = require('../db/survey');
+const {Campaign} = require('../db/campaign');
 
 async function createReferralCoupon(ctx) {
     let body = JSON.parse(ctx.request.rawBody) 
-    const {clientId, sessionId, surveyId, accountId} = body
+    const {clientId, sessionId, campaignId, accountId} = body
 
 }
 

@@ -17,7 +17,7 @@ class List extends React.Component {
     renderNoContent() {        
         return (
             <NoContent
-                iconPath="../../../static/survey/edit-tools.svg"
+                iconPath="../../../static/campaign/edit-tools.svg"
                 text='Hey there,'
                 subText="It looks like there isn't any template matching your search!"
                 actionText='Reset Search'

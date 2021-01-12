@@ -1,11 +1,11 @@
-const {SurveySession} = require('../db/survey-session');
+const {CampaignSession} = require('../db/campaign-session');
 const keys = require('../../config/keys')
 
 async function updateProfile(ctx) {
     try {
         const body = JSON.parse(ctx.request.rawBody)        
         
-        const newSession = await SurveySession.findByIdAndUpdate(body._id, {...body}, {new: true})
+        const newSession = await CampaignSession.findByIdAndUpdate(body._id, {...body}, {new: true})
 
         ctx.body = newSession
     } catch (err) {
@@ -59,12 +59,12 @@ async function getProfiles(ctx) {
         let hasPrevious = true; let hasNext = true
 
         const query = formatProfileQuery(ctx)
-        const total = await SurveySession.countDocuments(query)        
+        const total = await CampaignSession.countDocuments(query)        
         const totalPages = Math.ceil(total / limit)
         if (page == totalPages || totalPages == 0) hasNext = false
         if (page == 1) hasPrevious = false
         
-        const profiles = await SurveySession.find(query)
+        const profiles = await CampaignSession.find(query)
         .sort({from: -1})
         .skip((page * limit) - limit)
         .limit(limit)
@@ -80,7 +80,7 @@ async function removeProfile(ctx) {
     try {
         const body = JSON.parse(ctx.request.rawBody)      
         const _id = body._id
-        await SurveySession.findByIdAndUpdate(_id, {
+        await CampaignSession.findByIdAndUpdate(_id, {
             hasProfile: false
         })
 

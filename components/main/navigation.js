@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ContactIcon from '@material-ui/icons/Mail';
 import ProfileIcon from '@material-ui/icons/PersonPin';
-import SurveyIcon from '@material-ui/icons/DonutSmall';
+import CampaignIcon from '@material-ui/icons/DonutSmall';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 
@@ -24,8 +24,8 @@ import keys from '../../config/keys'
 
 const widgets = [
     {
-        route: '/surveys/browse',
-        text: 'Survey',
+        route: '/campaigns/browse',
+        text: 'Campaign',
         Icon: PhoneIphoneIcon
     },
     // {
@@ -41,9 +41,9 @@ const responses = [
         Icon: ProfileIcon
     },
     {
-        route: '/responses/surveys',
-        text: 'Surveys',
-        Icon: SurveyIcon
+        route: '/responses/campaigns',
+        text: 'Campaigns',
+        Icon: CampaignIcon
     },
 ]
 const settings = [

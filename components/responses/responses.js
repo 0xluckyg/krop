@@ -19,7 +19,7 @@ import {
     mdiFormTextarea
 } from '@mdi/js';
 
-class SurveyResponses extends React.Component {
+class CampaignResponses extends React.Component {
     constructor(props){
         super(props)
 
@@ -32,7 +32,7 @@ class SurveyResponses extends React.Component {
             hasNext: false,
             isLoading: true,
             isEditing: false,
-            currentSurvey: undefined,            
+            currentCampaign: undefined,            
         }
     }
 
@@ -44,15 +44,15 @@ class SurveyResponses extends React.Component {
 
     componentDidMount() {
         this.props.isLoadingAction(false)    
-        this.fetchSurveyResponses(1)
+        this.fetchCampaignResponses(1)
     }
 
-    fetchSurveyResponses(page) {
+    fetchCampaignResponses(page) {
         let params = {
             filter: {}
         }
-        const {surveyId, sessionId} = this.props
-        surveyId ? params.filter.surveyId = surveyId : null
+        const {campaignId, sessionId} = this.props
+        campaignId ? params.filter.campaignId = campaignId : null
         sessionId ? params.filter.sessionId = sessionId : null
 
         params.page = page
@@ -67,7 +67,7 @@ class SurveyResponses extends React.Component {
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get survey results. Please try again later.")
+            this.props.showToastAction(true, "Couldn't get campaign results. Please try again later.")
             return err
         })
     }
@@ -224,7 +224,7 @@ class SurveyResponses extends React.Component {
                         {(i >= 50 && i == row.length - 1) ? 
                             <Waypoint
                                 onEnter={() => {
-                                    this.fetchSurveyResponses(this.state.page + 1)
+                                    this.fetchCampaignResponses(this.state.page + 1)
                                 }}
                             />
                             : null
@@ -280,4 +280,4 @@ function mapDispatchToProps(dispatch){
     );
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(useStyles)(SurveyResponses));
+export default connect(null, mapDispatchToProps)(withStyles(useStyles)(CampaignResponses));

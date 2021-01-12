@@ -17,9 +17,9 @@ import NoContent from '../../components/reusable/no-content'
 import keys from '../../config/keys'
 import Spinner from '../../components/reusable/spinner'
 import DetailModal from './detail-modal'
-import SurveyResponses from './responses'
+import CampaignResponses from './responses'
 
-class SurveySessions extends React.Component {
+class CampaignSessions extends React.Component {
     constructor(props){
         super(props)
 
@@ -38,15 +38,15 @@ class SurveySessions extends React.Component {
 
     componentDidMount() {
         this.props.isLoadingAction(false)    
-        this.fetchSurveySessions(1)
+        this.fetchCampaignSessions(1)
     }
 
-    fetchSurveySessions(page) {
+    fetchCampaignSessions(page) {
         let params = {
             filter: {}
         }
-        const {surveyId} = this.props
-        surveyId ? params.filter.surveyId = surveyId : null
+        const {campaignId} = this.props
+        campaignId ? params.filter.campaignId = campaignId : null
 
         this.setState({isLoading: true})
         axios.get(process.env.APP_URL + '/get-sessions', {
@@ -58,7 +58,7 @@ class SurveySessions extends React.Component {
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get survey sessions. Please try again later.")
+            this.props.showToastAction(true, "Couldn't get campaign sessions. Please try again later.")
             return err
         })
     }
@@ -85,7 +85,7 @@ class SurveySessions extends React.Component {
             <TableHead>
                 <TableRow>
                     <TableCell size="small">Date</TableCell>
-                    <TableCell size="small">SurveyName</TableCell>
+                    <TableCell size="small">CampaignName</TableCell>
                     <TableCell size="small">Browser</TableCell>
                     <TableCell size="small">Contact</TableCell>
                     <TableCell align="right" size="small">View</TableCell>
@@ -133,13 +133,13 @@ class SurveySessions extends React.Component {
                 {this.renderTableHeader()}
                 <TableBody>
                     {sessions.map((row, i) => {
-                    let {_id, email, phone, browser, surveyName, createdAt} = row
+                    let {_id, email, phone, browser, campaignName, createdAt} = row
                     const contact = email ? email : phone ? phone : 'N/A'
                     const created = formatDate(createdAt)
                     return (
                         <TableRow key={i}>
                             <TableCell size="small">{created}</TableCell>
-                            <TableCell size="small">{surveyName}</TableCell>
+                            <TableCell size="small">{campaignName}</TableCell>
                             <TableCell size="small">{browser}</TableCell>
                             <TableCell size="small">{contact}</TableCell>
                             <TableCell align="right">
@@ -154,7 +154,7 @@ class SurveySessions extends React.Component {
                             {(i >= 50 && i == row.length - 1) ? 
                                 <Waypoint
                                     onEnter={() => {
-                                        this.fetchSurveySessions(this.state.page + 1)
+                                        this.fetchCampaignSessions(this.state.page + 1)
                                     }}
                                 />
                                 : null
@@ -181,8 +181,8 @@ class SurveySessions extends React.Component {
             detail={currentSession}
             tabs={['Responses']}
         >
-            <SurveyResponses
-                surveyId={this.props.surveyId}
+            <CampaignResponses
+                campaignId={this.props.campaignId}
                 sessionId={currentSession.sessionId}
             />
         </DetailModal>)
@@ -232,4 +232,4 @@ function mapDispatchToProps(dispatch){
     );
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(useStyles)(SurveySessions));
+export default connect(null, mapDispatchToProps)(withStyles(useStyles)(CampaignSessions));

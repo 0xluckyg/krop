@@ -93,7 +93,7 @@ class StageBar extends React.Component {
                 onSelect: (newWidget, name) => handleSelectElement(newWidget, name)
             }, 
             // {
-            //     templateType: keys.SURVEY_ELEMENT_TEMPLATE,
+            //     templateType: keys.CAMPAIGN_ELEMENT_TEMPLATE,
             //     onSelect: (newWidget, name) => handleSelectElement(newWidget, name)
             // }, 
             {

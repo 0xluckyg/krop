@@ -31,7 +31,7 @@ import keys from '../../config/keys'
 import ProfileDetail from '../../components/responses/profile';
 import Spinner from '../../components/reusable/spinner'
 import DetailModal from '../../components/responses/detail-modal'
-import SurveyResponses from '../../components/responses/responses'
+import CampaignResponses from '../../components/responses/responses'
 
 class BrowseProfiles extends React.Component {
     constructor(props){
@@ -369,7 +369,7 @@ class BrowseProfiles extends React.Component {
                 handleEdit={this.handleEdit.bind(this)}
                 backAction={() => this.setState({isEditing: false, currentProfile: undefined})}
             />
-            <SurveyResponses
+            <CampaignResponses
                 sessionId={currentProfile.sessionId}
             />
         </DetailModal>)

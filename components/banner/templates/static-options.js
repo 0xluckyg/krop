@@ -336,13 +336,13 @@ const holidayTags = [
     'bfcm', 
     'christmas'
 ]
-const surveyTags = [
+const campaignTags = [
     'b2b',
     'b2c',
     'customer satisfaction',
     'market research',
     'service',
-    'design survey',
+    'design campaign',
 ]
 const formTags = [
     'mixed',
@@ -425,11 +425,11 @@ const media = {
     ]
 }
 
-const surveyElement = {
+const campaignElement = {
     tags: [
-        ...surveyTags
+        ...campaignTags
     ],
-    name: "Surveys",
+    name: "Campaigns",
     options: [
         {
             query: templateQuery,
@@ -571,12 +571,12 @@ const widget = {
     options: [
         // {
         //     tags: [
-        //         ...surveyTags  
+        //         ...campaignTags  
         //     ],
         //     query: templateQuery,
-        //     category: keys.SURVEY_WIDGET_CAREGORY,
+        //     category: keys.CAMPAIGN_WIDGET_CAREGORY,
         //     templateType: keys.WIDGET,
-        //     text: 'Surveys',
+        //     text: 'Campaigns',
         //     render: WidgetPreview
         // },
         {
@@ -605,7 +605,7 @@ const widget = {
 let templateOptionsExport = {}
 templateOptionsExport[keys.WIDGET_TEMPLATE] = widget
 templateOptionsExport[keys.ELEMENT_TEMPLATE] = element
-templateOptionsExport[keys.SURVEY_ELEMENT_TEMPLATE] = surveyElement
+templateOptionsExport[keys.CAMPAIGN_ELEMENT_TEMPLATE] = campaignElement
 templateOptionsExport[keys.MEDIA_TEMPLATE] = media
 
 export default templateOptionsExport
