@@ -60,6 +60,14 @@ class StageSettingsEditor extends React.Component {
                     title='Show one question per page'
                     property="questionPerPage"
                 />
+                <Switch 
+                    stage={stage}
+                    element={element}
+                    state={state} 
+                    setState={setState}
+                    title='Save this stage for the next visit'
+                    property="saveStage"
+                />
             </SectionContainer>
         )
     }

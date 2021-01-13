@@ -1,6 +1,11 @@
+const { stubTrue } = require('lodash');
 const mongoose = require('mongoose');
 
 const CampaignSessionSchema = new mongoose.Schema({
+    customerId: {
+        type: String,
+        index: true
+    },
     accountId: {
         type: String,
         required: true,

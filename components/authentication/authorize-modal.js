@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { GoogleLogin } from 'react-google-login';
 const emailValidator = require("email-validator");
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -46,12 +47,12 @@ class AuthorizeModal extends React.Component {
         const {signUpPassword} = this.state
 
         if (signUpPassword.length < 8) {
-            this.props.showToastAction(true, `Please make your password at least 8 characters`, 'error')
+            this.props.showToastAction(true, strings.pwTooShort, 'error')
             return false
         }
         
         if (signUpPassword.length > 30) {
-            this.props.showToastAction(true, `Your password is too long`, 'error')
+            this.props.showToastAction(true, strings.pwTooLong, 'error')
             return false
         }
         
@@ -60,12 +61,12 @@ class AuthorizeModal extends React.Component {
         const number = /[0-9]/
 
         if (!upper.test(signUpPassword) || !lower.test(signUpPassword)) {
-            this.props.showToastAction(true, `Please include a upper and a lower case letter`, 'error')
+            this.props.showToastAction(true, strings.pwCaseError, 'error')
             return false
         }
         
         if (!number.test(signUpPassword)) {
-            this.props.showToastAction(true, `Please include a number`, 'error')
+            this.props.showToastAction(true, strings.pwNumberError, 'error')
             return false
         }
         
@@ -81,16 +82,16 @@ class AuthorizeModal extends React.Component {
             this.setState({isLoading:false})
             callback()
         }).catch(() => {
-            this.props.showToastAction(true, `Couldn't send validation email. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.validationEmailError, 'error')
             this.setState({isLoading:false})            
         })
     }
     
     handleSignUp() {
         let valid = this.validateEmail(this.state.signUpEmail)
-        if (!valid) return this.setState({signUpEmailError: "Please enter a valid email"})
+        if (!valid) return this.setState({signUpEmailError: strings.emailError})
         valid = this.checkPassword()
-        if (!valid) return this.setState({signUpPasswordError: "Please enter a valid password"})
+        if (!valid) return this.setState({signUpPasswordError: strings.pwError})
         
         const {signUpName, signUpEmail, signUpPassword} = this.state
         const params = { name: signUpName, email: signUpEmail, password: signUpPassword }
@@ -105,9 +106,9 @@ class AuthorizeModal extends React.Component {
             })
         }).catch((err) => {
             if (err.response && err.response.data) {
-                this.props.showToastAction(true, `Email exists. Please try another email`, 'error')
+                this.props.showToastAction(true, strings.emailExists, 'error')
             } else {
-                this.props.showToastAction(true, `Couldn't sign up. Please try again later.`, 'error')   
+                this.props.showToastAction(true, strings.signupError, 'error')   
             }
             this.setState({isLoading:false})            
         })
@@ -115,7 +116,7 @@ class AuthorizeModal extends React.Component {
     
     handleLogIn() {
         let valid = this.validateEmail(this.state.logInEmail)
-        if (!valid) return this.setState({logInEmailError: "Please enter a valid email"})
+        if (!valid) return this.setState({logInEmailError: strings.emailError})
         
         this.setState({isLoading: true})
         
@@ -130,11 +131,11 @@ class AuthorizeModal extends React.Component {
             window.location.replace(`${process.env.APP_URL}/home`)
         }).catch(err => {
             if (err.response && err.response.data == 'no user') {
-                this.props.showToastAction(true, `Couldn't log in. Please check your email or password.`, 'error')
+                this.props.showToastAction(true, strings.noUserError, 'error')
             } else if (err.response && err.response.data == 'wrong password') {
-                this.props.showToastAction(true, `Couldn't log in. Forgot your password?`, 'error')   
+                this.props.showToastAction(true, strings.wrongPwError, 'error')   
             } else {
-                this.props.showToastAction(true, `Couldn't log in. Please try again later`, 'error')   
+                this.props.showToastAction(true, strings.unknownLoginError, 'error')   
             }
             this.setState({isLoading:false})            
         })
@@ -148,13 +149,13 @@ class AuthorizeModal extends React.Component {
                 <TextField
                     className={classes.textField}
                     id="email"
-                    label="Email"
+                    label={strings.emailLabel}
                     value={logInEmail}
                     onChange={(event) => {
                         this.setState({logInEmail:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Email (e.g. krop@gmail.com)"
+                    placeholder={strings.emailPlaceholder}
                     error={logInEmailError ? true : false}
                     helperText={logInEmailError ? logInEmailError : false}
                     fullWidth
@@ -163,13 +164,13 @@ class AuthorizeModal extends React.Component {
                     className={classes.textField}
                     id="pw"
                     type="password"
-                    label="Password"
+                    label={strings.pwLabel}
                     value={logInPassword}
                     onChange={(event) => {
                         this.setState({logInPassword:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Password"
+                    placeholder={strings.pwPlaceholder}
                     error={logInPasswordError ? true : false}
                     helperText={logInPasswordError ? logInPasswordError : false}
                     fullWidth
@@ -186,13 +187,13 @@ class AuthorizeModal extends React.Component {
                 <TextField
                     className={classes.textField}
                     id="email"
-                    label="Email"
+                    label={strings.emailLabel}
                     value={signUpEmail}
                     onChange={(event) => {
                         this.setState({signUpEmail:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Email (e.g. krop@gmail.com)"
+                    placeholder={strings.emailPlaceholder}
                     error={signUpEmailError ? true : false}
                     helperText={signUpEmailError ? signUpEmailError : false}
                     fullWidth
@@ -200,14 +201,14 @@ class AuthorizeModal extends React.Component {
                 <TextField
                     className={classes.textField}
                     id="password"
-                    label="Password"
+                    label={strings.pwLabel}
                     type="password"
                     value={signUpPassword}
                     onChange={(event) => {
                         this.setState({signUpPassword:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Password"
+                    placeholder={strings.pwPlaceholder}
                     error={signUpPasswordError ? true : false}
                     helperText={signUpPasswordError ? signUpPasswordError : false}
                     fullWidth
@@ -215,13 +216,13 @@ class AuthorizeModal extends React.Component {
                 <TextField
                     className={classes.textField}
                     id="name"
-                    label="Name"
+                    label={strings.nameLabel}
                     value={signUpName}
                     onChange={(event) => {
                         this.setState({signUpName:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Your Name"
+                    placeholder={strings.namePlaceholder}
                     error={signUpNameError ? true : false}
                     helperText={signUpNameError ? signUpNameError : false}
                     fullWidth
@@ -233,8 +234,8 @@ class AuthorizeModal extends React.Component {
     renderAuthFooter() {
         const {classes} = this.props
         let showType = this.props.showAuthorizeModalReducer
-        const authExplainer = showType=='login' ? null : "Don't have an account?"
-        const authActionText = showType=='signup' ? "Back to Log In" : "Sign Up!"
+        const authExplainer = showType=='login' ? null : strings.noAccountButton
+        const authActionText = showType=='signup' ? strings.backToLoginButton : strings.signupText
         return (
             <div className={classes.footerWrapper}>
                 <div>
@@ -259,7 +260,7 @@ class AuthorizeModal extends React.Component {
             'email'
         ]
         let showType = this.props.showAuthorizeModalReducer
-        let googleText = showType=='signup' ? 'Sign up with Google' : 'Use Google Account'
+        let googleText = showType=='signup' ? strings.googleSignupText : strings.googleLoginText
         
         return (
             <GoogleLogin
@@ -283,12 +284,12 @@ class AuthorizeModal extends React.Component {
                         params: {code: authResult.code}
                     })
                     this.setState({isLoading: false})
-                    this.props.showToastAction(true, "Authorized gmail!")
+                    this.props.showToastAction(true, strings.googleAuthSuccess)
                     window.location.replace(`${process.env.APP_URL}`)
                 }}
                 onFailure={err => {
                     this.setState({isLoading: false})
-                    console.log('Failed Google Login: ', err)
+                    this.props.showToastAction(true, strings.googleAuthFailure)
                 }}
                 cookiePolicy='single_host_origin'
                 prompt='consent'
@@ -299,7 +300,7 @@ class AuthorizeModal extends React.Component {
     render() {
         const { classes } = this.props;
         let showType = this.props.showAuthorizeModalReducer
-        let headerText = showType ? 'Get started with our FREE trial' : 'Log in and get designing!'
+        let headerText = showType ? strings.signupText : strings.loginText
         return(
             <Modal 
                 style={{zIndex: 9999999}}
@@ -340,7 +341,7 @@ class AuthorizeModal extends React.Component {
                                 color="primary" 
                                 className={classes.button}
                             >
-                                    {showType == 'signup' ? 'GET STARTED' : 'LOG IN'}
+                                    {showType == 'signup' ? strings.signupButtonText : strings.loginButtonText}
                             </Button>
                         </div>
                         {this.renderAuthFooter()}
@@ -478,3 +479,68 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(useStyles)(AuthorizeModal));
+
+let strings = new LocalizedStrings({
+    en:{
+        pwTooShort:"Please make your password at least 8 characters",
+        pwTooLong: 'Your password is too long',
+        pwCaseError: 'Please include a upper and a lower case letter',
+        pwNumberError: 'Please include a number',
+        validationEmailError: "Couldn't send validation email. Please try again later.",
+        emailError: 'Please enter a valid email',
+        pwError: 'Please enter a valid password',
+        emailExists: 'Email exists. Please try another email',
+        signupError: "Couldn't sign up. Please try again later.",
+        noUserError: "Couldn't log in. Please check your email or password.",
+        wrongPwError: "Couldn't log in. Forgot your password?",
+        unknownLoginError: "Couldn't log in. Please try again later",
+        emailLabel: 'Email',
+        pwLabel: 'Password',
+        emailPlaceholder: 'Email (e.g. krop@gmail.com)',
+        pwPlaceholder: 'Password (Please make it longer than 8 characters)',
+        nameLabel: 'Name',
+        namePlaceholder: 'Your name',
+        noAccountButton: "Don't have an account?",
+        backToLoginButton: "Back to Log In",
+        signupText: "Sign Up!",
+        googleSignupText: 'Sign up with Google',
+        googleLoginText: 'Use Google Account',
+        googleAuthSuccess: 'Authorized gmail!',
+        googleAuthFailure: 'Failed google login. Please try again later.',
+        signupText: 'Get started with our FREE trial',
+        loginText: 'Log in and get designing!',
+        signupButtonText: 'GET STARTED',
+        loginButtonText: 'LOG IN'
+    },
+    kr: {
+        pwTooShort:"비밀번호가 너무 짧아요. 8글자 이상으로 만들어주세요!",
+        pwTooLong: "비밀번호가 너무 길어요",
+        pwCaseError: "비밀번호에 대문자와 소문자를 포함해 주세요!",
+        pwNumberError: '비밀번호에 숫자도 추가해 주세요!',
+        validationEmailError: '확인 이메일 전송을 실패했어요. 조금 있다가 다시 시도해 주세요!',
+        emailError: '제대로된 이메일을 입력해 주세요!',
+        pwError: '제대로된 비밀번호를 입력해 주세요!',
+        emailExists: '이 이메일은 이미 사용중이에요.',
+        signupError: '계정을 만드는데 실패 하였습니다. 족므 있다가 다시 시도해 주세요!',
+        noUserError: '이 계정은 존재하지 않아요.',
+        wrongPwError: '로그인에 실패 하였어요. 계정을 까먹으셨나요?',
+        unknownLoginError: '로그인에 실패 하였어요. 조금 있다가 다시 시도해 주세요!',
+        emailLabel: '이메일',
+        pwLabel: '비밀번호',
+        emailPlaceholder: '이메일 (예시: krop@naver.com)',
+        pwPlaceholder: '비밀번호 (8글자 이상으로 만들어 주세요)',
+        nameLabel: '이름',
+        namePlaceholder: '성함',
+        noAccountButton: "계정이 없으시다구요?",
+        backToLoginButton: "로그인 하기",
+        signupText: "계정 만들기!",
+        googleSignupText: '구글로 시작하기',
+        googleLoginText: '구글로 로그인 하기',
+        googleAuthSuccess: '구글로 로그인에 성공하였어요!',
+        googleAuthFailure: '구글로 로그인에 실패하였어요.',
+        signupText: '당장 공짜 체험 시작하기!',
+        loginText: '로그인',
+        signupButtonText: '계정 만들기',
+        loginButtonText: '로그인'
+    }
+});

@@ -2,7 +2,7 @@
 // Dom handlers and event handlers like document or onClick can't be added to this file
 
 // ./pages/_document.js
-
+require('../config/config');
 import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 

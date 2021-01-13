@@ -333,7 +333,8 @@ const defaultStages = () => [
         settings: {
             id: createId(keys.STAGE_ELEMENT),
             name: 'Thank you',
-            questionPerPage: true
+            questionPerPage: true,
+            saveStage: false
         },
         elements: [
             heading(),

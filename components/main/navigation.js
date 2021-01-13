@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import clsx from 'clsx';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -21,11 +22,34 @@ import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 
 import {showPaymentPlanAction} from '../../redux/actions';
 import keys from '../../config/keys'
+require('../../config/config');
+
+
+let strings = new LocalizedStrings({
+    en:{
+        campaignLabel: "Campaigns",
+        profileLabel: "Profiles",
+        settingsLabel: "Settings",
+        contactUsLabel: "Contact Us",
+        responsesLabel: "Responses",
+        
+    },
+    kr: {
+        campaignLabel: "캠페인",
+        profileLabel: "프로필들",
+        settingsLabel: "설정",
+        contactUsLabel: "문의",
+        responsesLabel: "답변들",
+        
+    }
+});
+console.log("EN: ", process.env.LANGUAGE)
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 const widgets = [
     {
         route: '/campaigns/browse',
-        text: 'Campaign',
+        text: strings.campaignLabel,
         Icon: PhoneIphoneIcon
     },
     // {
@@ -37,24 +61,24 @@ const widgets = [
 const responses = [
     {
         route: '/responses/profiles',
-        text: 'Profiles',
+        text: strings.profileLabel,
         Icon: ProfileIcon
     },
     {
         route: '/responses/campaigns',
-        text: 'Campaigns',
+        text: strings.campaignLabel,
         Icon: CampaignIcon
     },
 ]
 const settings = [
     {
         route: '/settings/settings',
-        text: 'Settings',
+        text: strings.settingsLabel,
         Icon: SettingsIcon
     },
     {
         route: '/settings/contact-us',
-        text: 'Contact Us',
+        text: strings.contactUsLabel,
         Icon: ContactIcon
     }
 ]
@@ -131,11 +155,11 @@ class Navigation extends React.Component {
         const {classes} = this.props
         return (
             <div>
-                <Typography className={classes.menuLabel}>Campaigns</Typography>
+                <Typography className={classes.menuLabel}>{strings.campaignLabel}</Typography>
                 {this.renderList(widgets)}  
-                <Typography className={classes.menuLabel}>Responses</Typography>
+                <Typography className={classes.menuLabel}>{strings.responsesLabel}</Typography>
                 {this.renderList(responses)}  
-                <Typography className={classes.menuLabel}>Settings</Typography>
+                <Typography className={classes.menuLabel}>{strings.settingsLabel}</Typography>
                 {this.renderList(settings)}  
                 {/* <a style={{
                     color: keys.APP_COLOR_GRAY_DARK,

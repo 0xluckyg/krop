@@ -6,6 +6,10 @@ const CampaignSchema = new mongoose.Schema({
     campaignId: Number,
     campaignCount: Number,
     stages: Array,
+    isTemplate: {
+        type: Boolean,
+        default: false
+    },
     enabled: {
         type: Boolean,
         default: true
