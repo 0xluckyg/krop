@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,6 +14,22 @@ import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import ColorPicker from '../../../reusable/color-picker'
 import {getElement, setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        colorLabel: "Color",
+        primaryColorLabel: "Primary app color",
+        secondaryColorLabel: "Secondary app color",
+        alignLabel: "Align"
+    },
+    kr: {
+        colorLabel: "색",
+        primaryColorLabel: "메인 색",
+        secondaryColorLabel: "보조 색",
+        alignLabel: "정렬"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class StyleSettingsEditor extends React.Component {
     constructor(props) {
@@ -102,20 +119,20 @@ class StyleSettingsEditor extends React.Component {
 
         return (
             <Fragment>
-                <SectionContainer title="Color">
+                <SectionContainer title={strings.colorLabel}>
                     <ColorPicker
-                        text="Primary app color"
+                        text={strings.primaryColorLabel}
                         color={primaryColor}
                         onChange={primaryColor => this.setProperty(null, 'primaryColor', primaryColor)}
                     /><br/>
                     <ColorPicker
-                        text="Secondary app color"
+                        text={strings.secondaryColorLabel}
                         color={secondaryColor}
                         onChange={secondaryColor => this.setProperty(null, 'secondaryColor', secondaryColor)}
                     /><br/>
     
                 </SectionContainer>
-                <SectionContainer title="View">
+                <SectionContainer title={strings.alignLabel}>
                     {this.renderAnchorPicker()}
                 </SectionContainer>
             </Fragment>

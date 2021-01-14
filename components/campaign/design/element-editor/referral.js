@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -8,6 +9,37 @@ import Input from './sub/input'
 import ImageUploader from './sub/image-uploader'
 import SectionTabs from './sub/section-tabs'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        titleLabel: "Title",
+        couponTitleLabel: "Coupon title",
+        descriptionLabel: "Description",
+        couponTextLabel: "Coupon text",
+        couponImageLabel: "Coupon image",
+        storeAddressLabel: "Store address",
+        expirationLabel: "Expiration",
+        expirationDescriptionLabel: "Coupon valid for (days) after receiving",
+        buttonTextLabel: "Button text",
+        couponTabLabel: "Referral coupon",
+        couponButtonLabel: "Referral button",
+        
+    },
+    kr: {
+        titleLabel: "제목",
+        couponTitleLabel: "쿠폰 제목",
+        descriptionLabel: "설명",
+        couponTextLabel: "쿠폰 설명",
+        couponImageLabel: "쿠폰 이미지",
+        storeAddressLabel: "가게 주소",
+        expirationLabel: "사용 기간",
+        expirationDescriptionLabel: "쿠폰이 유효한 기간 (일 수)",
+        buttonTextLabel: "버튼 제목",
+        couponTabLabel: "추천 쿠폰",
+        couponButtonLabel: "추천 쿠폰 버튼",
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ReferralEditor extends React.Component {
     constructor(props) {
@@ -46,25 +78,25 @@ class ReferralEditor extends React.Component {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Title">
+                <SectionContainer title={strings.titleLabel}>
                     <Input
-                        label='Coupon Title'
+                        label={strings.couponTitleLabel}
                         onChange={value => {
                             this.setProperty(null, 'couponTitle', value)
                         }}
                         value={this.getProperty(null, 'couponTitle')}
                     />
                 </SectionContainer>
-                <SectionContainer title="Description">
+                <SectionContainer title={strings.descriptionLabel}>
                     <Input
-                        label='Coupon Text'
+                        label={strings.couponTextLabel}
                         onChange={value => {
                             this.setProperty(null, 'couponDescription', value)
                         }}
                         value={this.getProperty(null, 'couponDescription')}
                     />
                 </SectionContainer>
-                <SectionContainer title="Coupon Image">
+                <SectionContainer title={strings.couponImageLabel}>
                     <ImageUploader 
                         property='couponImage'
                         stage={stage}
@@ -73,18 +105,18 @@ class ReferralEditor extends React.Component {
                         setState={setState}
                     />
                 </SectionContainer>
-                <SectionContainer title="Store Address">
+                <SectionContainer title={strings.storeAddressLabel}>
                     <Input
-                        label='Store Address'
+                        label={strings.storeAddressLabel}
                         onChange={value => {
                             this.setProperty(null, 'couponAddress', value)
                         }}
                         value={this.getProperty(null, 'couponAddress')}
                     />
                 </SectionContainer>
-                <SectionContainer title="Expiration">
+                <SectionContainer title={strings.expirationLabel}>
                     <Input
-                        label='Coupon valid for (days) after receiving'
+                        label={strings.expirationDescriptionLabel}
                         onChange={value => {
                             if (isNaN(value) || value < 0) return
                             this.setProperty(null, 'couponDuration', value)
@@ -99,9 +131,9 @@ class ReferralEditor extends React.Component {
     renderButtonEditor() {
         const {classes} = this.props
         return (
-            <SectionContainer title="Button Text">
+            <SectionContainer title={strings.buttonTextLabel}>
                 <Input
-                    label='Button Text'
+                    label={strings.buttonTextLabel}
                     onChange={value => {
                         this.setProperty(null, 'buttonText', value)
                     }}
@@ -122,10 +154,10 @@ class ReferralEditor extends React.Component {
                         this.setState({editorType: newValue})
                     }}
                     tabs={[{
-                        name: "Referral Coupon",
+                        name: strings.couponTitleLabel,
                         value: 0
                     }, {
-                        name: "Referral Button",
+                        name: strings.couponButtonLabel,
                         value: 1
                     }]}
                 />

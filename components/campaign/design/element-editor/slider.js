@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -10,6 +11,30 @@ import Switch from './sub/switch'
 import Tags from './sub/tags'
 import SectionTabs from './sub/section-tabs'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        sliderSettingsLabel: "Slider settings",
+        requiredLabel: "Required",
+        lowestValueLabel: "Lowest value",
+        highestValueLabel: "Highest value",
+        tagsLabel: "Tags",
+        questionLabel: "Question",
+        settingsTabLabel: "Settings",
+        contentTabLabel: "Content"
+    },
+    kr: {
+        sliderSettingsLabel: "슬라이더 설정",
+        requiredLabel: "필수",
+        lowestValueLabel: "가장 낮은 값",
+        highestValueLabel: "가장 높은 값",
+        tagsLabel: "태그들",
+        questionLabel: "질문",
+        settingsTabLabel: "설정",
+        contentTabLabel: "내용"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class SliderEditor extends React.Component {
     constructor(props) {
@@ -47,17 +72,17 @@ class SliderEditor extends React.Component {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Slider settings">
+                <SectionContainer title={strings.sliderSettingsLabel}>
                     <Switch 
                         stage={stage}
                         element={element}
                         state={state} 
                         setState={setState}
-                        title="Required"
+                        title={strings.requiredLabel}
                         property="required"
                     />
                     <Input
-                        label='Lowest value'
+                        label={strings.lowestValueLabel}
                         onChange={value => {
                             this.setProperty(null, 'min', event.target.value)
                         }}
@@ -65,7 +90,7 @@ class SliderEditor extends React.Component {
                         numOnly
                     />
                     <Input
-                        label='Highest value'
+                        label={strings.highestValueLabel}
                         onChange={value => {
                             this.setProperty(null, 'max', event.target.value)
                         }}
@@ -73,15 +98,7 @@ class SliderEditor extends React.Component {
                         numOnly
                     />
                 </SectionContainer>
-                <SectionContainer title="Explainer image">
-                    <ImageUploader 
-                        stage={stage}
-                        element={element}
-                        state={state} 
-                        setState={setState}
-                    />
-                </SectionContainer>
-                <SectionContainer title="Tags">
+                <SectionContainer title={strings.tagsLabel}>
                     <Tags 
                         stage={stage}
                         element={element}
@@ -97,9 +114,9 @@ class SliderEditor extends React.Component {
         const {classes} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Question">
+                <SectionContainer title={strings.questionLabel}>
                     <Input
-                        label='Question'
+                        label={strings.questionLabel}
                         onChange={value => {
                             this.setProperty(null, 'question', value)
                         }}
@@ -121,10 +138,10 @@ class SliderEditor extends React.Component {
                         this.setState({editorType: newValue})
                     }}
                     tabs={[{
-                        name: "Settings",
+                        name: strings.settingsTabLabel,
                         value: 0
                     }, {
-                        name: "Content",
+                        name: strings.contentTabLabel,
                         value: 1
                     }]}
                 />

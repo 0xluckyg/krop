@@ -1,5 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -9,6 +10,30 @@ import addressStyle from '../../../../shared/campaign-styles/address'
 import formStyle from '../../../../shared/campaign-styles/form'
 import alertStyle from '../../../../shared/campaign-styles/alert'
 import keys from '../../../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        title: "Address",
+        address1Label: "Address Line 1",
+        address2Label: "Address Line 2",
+        cityLabel: "City",
+        stateLabel: "State",
+        countryLabel: "Country",
+        zipLabel: "Zip Code",
+        alertLabel: "Please insert a valid address"
+    },
+    kr: {
+        title: "주소",
+        address1Label: "주소",
+        address2Label: "상세 주소",
+        cityLabel: "구/군/시",
+        stateLabel: "도",
+        countryLabel: "국가",
+        zipLabel: "우편번호",
+        alertLabel: "올바른 주소를 입력해 주세요!"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class NAMEPreview extends React.Component {
     constructor(props) {
@@ -24,7 +49,7 @@ class NAMEPreview extends React.Component {
         const {classes} = this.props
         return (
             <p className={classes.titleStyle}>
-                Address
+                {strings.title}
             </p>
         )
     }
@@ -36,7 +61,7 @@ class NAMEPreview extends React.Component {
         return (
             <input 
                 className={classes.addressStyle}
-                placeholder="Address Line 1"
+                placeholder={strings.address1Label}
             />
         )
     }
@@ -48,7 +73,7 @@ class NAMEPreview extends React.Component {
         return (
             <input 
                 className={classes.addressStyle}
-                placeholder="Address Line 2"
+                placeholder={strings.address2Label}
             />
         )
     }
@@ -60,7 +85,7 @@ class NAMEPreview extends React.Component {
         return (
             <input 
                 className={clsx(stateEnabled ? classes.frontAddressStyle : null, classes.addressStyle)}
-                placeholder="City"
+                placeholder={strings.cityLabel}
             />
         )
     }
@@ -72,7 +97,7 @@ class NAMEPreview extends React.Component {
         return (
             <input 
                 className={classes.addressStyle}
-                placeholder="State"
+                placeholder={strings.stateLabel}
             />
         )
     }
@@ -84,7 +109,7 @@ class NAMEPreview extends React.Component {
         return (
             <input 
                 className={clsx(zipEnabled ? classes.frontAddressStyle : null, classes.addressStyle)}
-                placeholder="Country"
+                placeholder={strings.countryLabel}
             />
         )
     }
@@ -96,7 +121,7 @@ class NAMEPreview extends React.Component {
         return (
             <input 
                 className={classes.addressStyle}
-                placeholder="Zip Code"
+                placeholder={strings.zipLabel}
             />
         )
     }
@@ -105,7 +130,7 @@ class NAMEPreview extends React.Component {
         const {classes, state} = this.props
         if (state.selectedElement != keys.ALERT_SETTINGS) return null
         return (
-            <p className={classes.alertStyle}>* Please insert a valid address</p>
+            <p className={classes.alertStyle}>{strings.alertLabel}</p>
         )
     }
     

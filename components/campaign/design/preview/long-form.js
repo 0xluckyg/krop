@@ -1,5 +1,6 @@
 import React from 'react'
 import TextareaAutosize from 'react-autosize-textarea';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -8,6 +9,18 @@ import elementStyle from '../../../../shared/campaign-styles/reusable'
 import formStyle from '../../../../shared/campaign-styles/form'
 import keys from '../../../../config/keys'
 import alertStyle from '../../../../shared/campaign-styles/alert'
+
+let strings = new LocalizedStrings({
+    en:{
+        alertLabel: "* Please type an answer",
+        placeholderLabel: "Press enter for a new line"
+    },
+    kr: {
+        alertLabel: "* 답변을 입력해 주세요!",
+        placeholderLabel: "엔터를 누르면 띄어져요"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class LongFormPreview extends React.Component {
     constructor(props) {
@@ -38,7 +51,7 @@ class LongFormPreview extends React.Component {
         const {classes, state} = this.props
         if (state.selectedElement != keys.ALERT_SETTINGS) return null
         return (
-            <p className={classes.alertStyle}>* Please type an answer</p>
+            <p className={classes.alertStyle}>{strings.alertLabel}</p>
         )
     }
     
@@ -48,7 +61,7 @@ class LongFormPreview extends React.Component {
             <div className={classes.containerStyle}>
                 {this.renderQuestion()}
                 <TextareaAutosize
-                    placeholder={'Please put your answer here'} 
+                    placeholder={strings.placeholderLabel} 
                     type="text"
                     className={classes.formStyle}
                 />

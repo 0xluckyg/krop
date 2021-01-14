@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -6,6 +7,22 @@ import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import ColorPicker from '../../../reusable/color-picker'
 import {getElement, setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        colorLabel: "color",
+        messageColorLabel: "Alert message color",
+        backgroundColorLabel: "Alert popup color",
+        popupTextColorLabel: "Alert popup text color"
+    },
+    kr: {
+        colorLabel: "색",
+        messageColorLabel: "알림 글자 색",
+        backgroundColorLabel: "알림 팝업 바탕 색",
+        popupTextColorLabel: "알림 팝업 글자 색"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class AlertSettingsEditor extends React.Component {
     constructor(props) {
@@ -53,19 +70,19 @@ class AlertSettingsEditor extends React.Component {
 
         return (
             <Fragment>
-                <SectionContainer title="Color">
+                <SectionContainer title={strings.colorLabel}>
                     <ColorPicker
-                        text="Alert message color"
+                        text={strings.messageColorLabel}
                         color={textColor}
                         onChange={textColor => this.setProperty(null, 'textColor', textColor)}
                     /><br/>
                     <ColorPicker
-                        text="Alert popup background color"
+                        text={strings.backgroundColorLabel}
                         color={backgroundColor}
                         onChange={backgroundColor => this.setProperty(null, 'backgroundColor', backgroundColor)}
                     /><br/>
                     <ColorPicker
-                        text="Alert popup text color"
+                        text={strings.popupTextColorLabel}
                         color={popupTextColor}
                         onChange={popupTextColor => this.setProperty(null, 'popupTextColor', popupTextColor)}
                     /><br/>

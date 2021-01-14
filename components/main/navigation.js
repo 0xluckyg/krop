@@ -22,8 +22,7 @@ import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 
 import {showPaymentPlanAction} from '../../redux/actions';
 import keys from '../../config/keys'
-require('../../config/config');
-
+require('../../config/config')
 
 let strings = new LocalizedStrings({
     en:{
@@ -43,7 +42,7 @@ let strings = new LocalizedStrings({
         
     }
 });
-console.log("EN: ", process.env.LANGUAGE)
+console.log("WHAL ", process.env.LANGUAGE)
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 const widgets = [

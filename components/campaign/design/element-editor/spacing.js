@@ -1,12 +1,24 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import SliderField from './sub/slider-field'
-import Switch from './sub/switch'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        spacingUnitLabel: "Spacing unit",
+        heightLabel: "Height"
+    },
+    kr: {
+        spacingUnitLabel: "공간 수",
+        heightLabel: "공간 높이"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class SpacingEditor extends React.Component {
     getProperty(propertyType, property) {
@@ -41,14 +53,14 @@ class SpacingEditor extends React.Component {
         const space = this.getProperty(null, 'space')
         return (
             <Fragment>
-                <SectionContainer title="Spacing unit">
+                <SectionContainer title={strings.spacingUnitLabel}>
                     <SliderField
                         textChange={event => {
                             this.handleSpaceChange(event.target.value)
                         }}
                         sliderChange={(event, value) => this.handleSpaceChange(value)}
                         value={space}
-                        label='Alert Duration'
+                        label={strings.heightLabel}
                         min={1}
                         max={30}
                     />

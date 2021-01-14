@@ -7,8 +7,19 @@ import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import { FixedSizeList } from 'react-window';
 import { withStyles, createStyles } from '@material-ui/core/styles';
+import LocalizedStrings from 'react-localization';
 
 import { fontFamilies, insertGoogleFont } from '../../../../reusable/font-families';
+
+let strings = new LocalizedStrings({
+    en:{
+        searchLabel: "Search..."
+    },
+    kr: {
+        searchLabel: "찾기..."
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 const fontListStyles = () => {
     createStyles({
@@ -71,7 +82,7 @@ function FontList({ classes, className, onFontSelected, searchable }) {
                     <TextField
                         value={query}
                         style={styles.searchTextField}
-                        placeholder="Search..."
+                        placeholder={strings.searchLabel}
                         onChange={(event) => {
                             const value = event.target.value || '';
                             setQuery(value);

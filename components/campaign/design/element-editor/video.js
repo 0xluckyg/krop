@@ -2,6 +2,7 @@ import React, {Fragment} from 'react'
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
 var embed = require("embed-video")
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -11,6 +12,24 @@ import Input from './sub/input'
 import Switch from './sub/switch'
 import {setProperty, getProperty} from './sub/functions'
 import { showToastAction } from '../../../../redux/actions';
+
+let strings = new LocalizedStrings({
+    en:{
+        urlError: "Please enter a valid url",
+        videoUrlLabel: "Video url",
+        videoLinkLabel: "Video url (Link)",
+        displaySettingsLabel: "Display settings",
+        cornerRoundingLabel: "Corner rounding"
+    },
+    kr: {
+        urlError: "올바른 Url 을 입력해 주세요",
+        videoUrlLabel: "비디오 Url",
+        videoLinkLabel: "비디오 Url (링크)",
+        displaySettingsLabel: "디스프레이 설정",
+        cornerRoundingLabel: "모서리 각"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class VideoEditor extends React.Component {
     constructor(props) {
@@ -53,7 +72,7 @@ class VideoEditor extends React.Component {
             const iframeElement = wrapper.firstChild;
             return iframeElement.src
         } catch (err) {
-            this.props.showToastAction(true, 'Please enter a valid url', 'error')
+            this.props.showToastAction(true, strings.urlError, 'error')
         }
     }
     
@@ -66,23 +85,23 @@ class VideoEditor extends React.Component {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Video url">
+                <SectionContainer title={strings.videoUrlLabel}>
                 <Input
                     error={this.state.urlError}
-                    label='Video url (Link)'
+                    label={strings.videoLinkLabel}
                     onChange={value => {
                         this.handleLinkChange(value)
                     }}
                     value={this.getProperty(null, 'url')}
                 />
                 </SectionContainer>
-                <SectionContainer title="Display settings">
+                <SectionContainer title={strings.displaySettingsLabel}>
                     <Switch 
                         stage={stage}
                         element={element}
                         state={state} 
                         setState={setState}
-                        title="Corner rounding"
+                        title={strings.cornerRoundingLabel}
                         property="rounding"
                     />
                 </SectionContainer>

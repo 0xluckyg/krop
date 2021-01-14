@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -7,6 +8,18 @@ import SectionContainer from './frame/section-container'
 import ColorPicker from '../../../reusable/color-picker'
 import {getElement, setProperty, getProperty} from './sub/functions'
 import ImageUploader from './sub/image-uploader'
+
+let strings = new LocalizedStrings({
+    en:{
+        backgroundColorLabel: "Background color",
+        backgroundImageLabel: "Background image" 
+    },
+    kr: {
+        backgroundColorLabel: "배경 색",
+        backgroundImageLabel: "배경 이미지" 
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class BackgroundSettingsEditor extends React.Component {
     constructor(props) {
@@ -55,14 +68,14 @@ class BackgroundSettingsEditor extends React.Component {
 
         return (
             <Fragment>
-                <SectionContainer title="Color">
+                <SectionContainer title={strings.backgroundColorLabel}>
                     <ColorPicker
-                        text="Background color"
+                        text={strings.backgroundColorLabel}
                         color={backgroundColor}
                         onChange={backgroundColor => this.setProperty(null, 'backgroundColor', backgroundColor)}
                     />
                 </SectionContainer>
-                <SectionContainer title="Background image">
+                <SectionContainer title={strings.backgroundImageLabel}>
                     <ImageUploader 
                         stage={stage}
                         element={element}

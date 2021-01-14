@@ -1,4 +1,5 @@
 import React from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -7,6 +8,18 @@ import keys from '../../../../config/keys'
 import elementStyle from '../../../../shared/campaign-styles/reusable'
 import dropdownStyle from '../../../../shared/campaign-styles/dropdown'
 import alertStyle from '../../../../shared/campaign-styles/alert'
+
+let strings = new LocalizedStrings({
+    en:{
+        placeholderLabel: "* Please select an option",
+        defaultOptionLabel: "Please select one",
+    },
+    kr: {
+        placeholderLabel: "* 항목을 선택해 주세요",
+        placeholderLabel: "항목을 선택해 주세요"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class SelectorPreview extends React.Component {
     constructor(props) {
@@ -31,7 +44,7 @@ class SelectorPreview extends React.Component {
         const dropdown = this.getElement()
         return <div className={classes.dropdownWrapperStyle}>
             <select className={classes.dropdownStyle}>
-                <option className={classes.optionStyle}>Please select one</option>
+                <option className={classes.optionStyle}>{strings.defaultOptionLabel}</option>
                 {
                     dropdown.options.map((o, i)=> {
                         return <option className={classes.optionStyle} key={o + i}>{o.text}</option>
@@ -45,7 +58,7 @@ class SelectorPreview extends React.Component {
         const {classes, state} = this.props
         if (state.selectedElement != keys.ALERT_SETTINGS) return null
         return (
-            <p className={classes.alertStyle}>* Please select an option</p>
+            <p className={classes.alertStyle}>{strings.placeholderLabel}</p>
         )
     }
     

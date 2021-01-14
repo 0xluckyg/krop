@@ -1,6 +1,7 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import axios from 'axios'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -8,6 +9,26 @@ import Button from '@material-ui/core/Button';
 import {setProperty, getProperty, getElement, modifyElement} from './functions'
 import Input from './input'
 import keys from '../../../../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        uploadError: "Couldn't upload image. Please try again later.",
+        selectImageLabel: "Select image",
+        removeImageLabel: "Remove image",
+        uploadInstruction: "Drag 'n' drop some files here, or click to select files. (Only .svg, .jpeg/jpg, or .png)",
+        photoLibraryLabel: "Photo library",
+        imageLabel: "Image or gif url"
+    },
+    kr: {
+        uploadError: "이미지를 업로드 하는데 실패했습니다. 잠시후 다시 시도해 주세요.",
+        selectImageLabel: "이미지 선택",
+        removeImageLabel: "이미지 지우기",
+        uploadInstruction: "여기로 이미지를 드레그 하세요. 클릭해서 선택할수도 있어요! (.svg, .jpeg/jpg, .png 만 허용돼요)",
+        photoLibraryLabel: "디자인 모음집",
+        imageLabel: "이미지나 gif 주소"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class BannerDropzone extends React.Component {
     constructor(props){
@@ -68,7 +89,7 @@ class BannerDropzone extends React.Component {
             if (err.response.data) {
                 this.props.showToastAction(true, err.response.data, 'error')
             } else {
-                this.props.showToastAction(true, `Couldn't upload image. Please try again later.`, 'error')
+                this.props.showToastAction(true, strings.uploadError, 'error')
             }
             this.setState({isLoading: false})
         })   
@@ -84,7 +105,7 @@ class BannerDropzone extends React.Component {
             };
             reader.onerror = (error) => {
                 this.setState({isLoading: false})
-                this.props.showToastAction("Couldn't upload image. Please try again later", "error")
+                this.props.showToastAction(strings.uploadError, "error")
             };
         }
     }
@@ -131,10 +152,10 @@ class BannerDropzone extends React.Component {
                 >
                     {({getRootProps, getInputProps, open, acceptedFiles}) => {
                         let imageUrl = this.getUrlValue()
-                        let buttonText = 'Remove image'
+                        let buttonText = strings.removeImageLabel
                         let imageSelectorAction = () => this.onChange('')
                         if (!imageUrl || imageUrl == '') {
-                            buttonText = 'Select image'
+                            buttonText = strings.selectImageLabel
                             imageSelectorAction = open
                         }
                         return (
@@ -142,7 +163,7 @@ class BannerDropzone extends React.Component {
                                 className={classes.mainContainer} {...getRootProps()}>
                                 <input {...getInputProps()} />
                                 <div className={classes.dropzoneContainer}>
-                                    <p>Drag 'n' drop some files here, or click to select files. (Only .svg, .jpeg/jpg, or .png)</p>
+                                    <p>{strings.uploadInstruction}</p>
                                 </div>
                                 <div className={classes.bannerEditButtonsContainer}>
                                     <Button 
@@ -152,7 +173,7 @@ class BannerDropzone extends React.Component {
                                         className={classes.firstButton}     
                                         disabled={this.state.isLoading}                       
                                     >
-                                        Photo Library
+                                        {strings.photoLibraryLabel}
                                     </Button>
                                     <Button 
                                         onClick={() => imageSelectorAction()}
@@ -169,7 +190,7 @@ class BannerDropzone extends React.Component {
                     }}
                 </Dropzone>
                 <Input
-                    label='Image or gif url'
+                    label={strings.imageLabel}
                     onChange={this.onChange.bind(this)}
                     value={this.getImageUrl()}
                 />

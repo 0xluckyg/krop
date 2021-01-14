@@ -1,12 +1,31 @@
 import React from 'react'
 
 import { withStyles } from '@material-ui/core/styles';
+import LocalizedStrings from 'react-localization';
 
 import {getElement} from '../element-editor/sub/functions'
 import elementStyle from '../../../../shared/campaign-styles/reusable'
 import formStyle from '../../../../shared/campaign-styles/form'
 import keys from '../../../../config/keys'
 import alertStyle from '../../../../shared/campaign-styles/alert'
+
+let strings = new LocalizedStrings({
+    en:{
+        emailLabel: "Email",
+        phoneLabel: "Phone",
+        phoneNumberLabel: "Phone number",
+        answerLabel: "Please put your answer here",
+        alertLabel: "* Error preview"
+    },
+    kr: {
+        emailLabel: "이메일",
+        phoneLabel: "번호",
+        phoneNumberLabel: "전화번호",
+        answerLabel: "답변을 입력해 주세요!",
+        alertLabel: "* 오류 입니다"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class FormPreview extends React.Component {
     constructor(props) {
@@ -20,9 +39,9 @@ class FormPreview extends React.Component {
     
     getPlaceholder() {
         const placeholders = {}
-        placeholders[keys.EMAIL_ELEMENT] = 'Email'
-        placeholders[keys.PHONE_ELEMENT] = 'Phone number'
-        placeholders[keys.FORM_ELEMENT] = 'Please put your answer here'
+        placeholders[keys.EMAIL_ELEMENT] = strings.emailLabel
+        placeholders[keys.PHONE_ELEMENT] = strings.phoneLabel
+        placeholders[keys.FORM_ELEMENT] = strings.answerLabel
 
         const form = this.getElement()
         return placeholders[form.type]
@@ -32,8 +51,8 @@ class FormPreview extends React.Component {
         const form = this.getElement()
         
         const titles = {}
-        titles[keys.EMAIL_ELEMENT] = 'Email'
-        titles[keys.PHONE_ELEMENT] = 'Number'
+        titles[keys.EMAIL_ELEMENT] = strings.emailLabel
+        titles[keys.PHONE_ELEMENT] = strings.phoneNumberLabel
         titles[keys.FORM_ELEMENT] = form.question
 
         return titles[form.type]
@@ -58,7 +77,7 @@ class FormPreview extends React.Component {
         const {classes, state} = this.props
         if (state.selectedElement != keys.ALERT_SETTINGS) return null
         return (
-            <p className={classes.alertStyle}>* Please type an answer</p>
+            <p className={classes.alertStyle}>{strings.alertLabel}</p>
         )
     }
     

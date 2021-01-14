@@ -1,3 +1,4 @@
+require('./config/config')
 const withCSS = require('@zeit/next-css');
 
 //Writing on next.config.js file overrides the default next.js config settings

@@ -1,10 +1,21 @@
 import React from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
 import alertStyles from '../../../../shared/campaign-styles/alert'
+
+let strings = new LocalizedStrings({
+    en:{
+        alertLabel: "Please fix the errors above!"
+    },
+    kr: {
+        alertLabel: "위에 있는 오류들을 수정해 주세요!"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class AlertPreview extends React.Component {
     constructor(props) {
@@ -15,7 +26,7 @@ class AlertPreview extends React.Component {
         let {state, stage, element, classes} = this.props
         if (state.selectedElement != keys.ALERT_SETTINGS) return null
         return <div className={classes.containerStyle}>
-            <p className={classes.textStyle}>Please fix the errors above!</p>
+            <p className={classes.textStyle}>{strings.alertLabel}</p>
         </div>
     }
 }

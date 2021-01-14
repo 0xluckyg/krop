@@ -1,11 +1,26 @@
 import React from 'react'
 import TextareaAutosize from 'react-autosize-textarea';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        headingLabel: "Heading",
+        subheadingLabel: "Subheading",
+        paragraphLabel: "Paragraph"
+    },
+    kr: {
+        headingLabel: "큰 글자 (h1)",
+        subheadingLabel: "중간 글자 (h2)",
+        paragraphLabel: "작은 글자 (p)"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class TextEditor extends React.Component {
     constructor(props) {
@@ -43,11 +58,11 @@ class TextEditor extends React.Component {
         const type = this.getProperty(null, 'type')
         switch(type) {
             case(keys.HEADING_ELEMENT):
-                return 'Heading'
+                return strings.headingLabel
             case(keys.SUBHEADING_ELEMENT):
-                return 'Subheading'
+                return strings.subheadingLabel
             case(keys.PARAGRAPH_ELEMENT):
-                return 'Paragraph'
+                return strings.paragraphLabel
             default:
                 return ''
         }

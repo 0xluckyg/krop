@@ -1,16 +1,40 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import Input from './sub/input'
-import ImageUploader from './sub/image-uploader'
 import Switch from './sub/switch'
 import Tags from './sub/tags'
 import SectionTabs from './sub/section-tabs'
 import OptionsList from '../../../reusable/draggable-list'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        checkboxSettingsLabel: "Checkbox settings",
+        requiredLabel: "Required",
+        otherOptionLabel: "Has 'Other' option",
+        tagsLabel: "Tags",
+        questionLabel: "Question",
+        optionsLabel: "Options",
+        settingsTabLabel: "Settings",
+        contentTabLabel: "Content"
+    },
+    kr: {
+        checkboxSettingsLabel: "체크박스 설정",
+        requiredLabel: "필수",
+        otherOptionLabel: "'기타' 옵션 추가",
+        tagsLabel: "태그들",
+        questionLabel: "질문",
+        optionsLabel: "선택 사항",
+        settingsTabLabel: "설정",
+        contentTabLabel: "내용"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class CheckboxEditor extends React.Component {
     constructor(props) {
@@ -48,13 +72,13 @@ class CheckboxEditor extends React.Component {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Checkbox settings">
+                <SectionContainer title={strings.checkboxSettingsLabel}>
                     <Switch 
                         stage={stage}
                         element={element}
                         state={state} 
                         setState={setState}
-                        title="Required"
+                        title={strings.requiredLabel}
                         property="required"
                     />
                     <Switch 
@@ -62,19 +86,11 @@ class CheckboxEditor extends React.Component {
                         element={element}
                         state={state} 
                         setState={setState}
-                        title='Has "Other" option'
+                        title={strings.otherOptionLabel}
                         property="hasOther"
                     />
                 </SectionContainer>
-                <SectionContainer title="Explainer image">
-                    <ImageUploader 
-                        stage={stage}
-                        element={element}
-                        state={state} 
-                        setState={setState}
-                    />
-                </SectionContainer>
-                <SectionContainer title="Tags">
+                <SectionContainer title={strings.tagsLabel}>
                     <Tags 
                         stage={stage}
                         element={element}
@@ -90,16 +106,16 @@ class CheckboxEditor extends React.Component {
         const {classes} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Question">
+                <SectionContainer title={strings.questionLabel}>
                     <Input
-                        label='Question'
+                        label={strings.questionLabel}
                         onChange={value => {
                             this.setProperty(null, 'question', value)
                         }}
                         value={this.getProperty(null, 'question')}
                     />
                 </SectionContainer>
-                <SectionContainer title="Options">
+                <SectionContainer title={strings.optionsLabel}>
                     <OptionsList 
                         customKey={this.getProperty(null, 'id')}
                         elements={this.getProperty(null, 'options')}
@@ -138,10 +154,10 @@ class CheckboxEditor extends React.Component {
                         this.setState({editorType: newValue})
                     }}
                     tabs={[{
-                        name: "Settings",
+                        name: strings.settingsTabLabel,
                         value: 0
                     }, {
-                        name: "Content",
+                        name: strings.contentTabLabel,
                         value: 1
                     }]}
                 />

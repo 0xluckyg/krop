@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -14,6 +15,22 @@ import CheckIcon from '@material-ui/icons/CheckCircleOutline';
 import { showToastAction, isLoadingAction } from '../../../../redux/actions';
 import keys from '../../../../config/keys';
 import CampaignPreview from './preview'
+
+let strings = new LocalizedStrings({
+    en:{
+        activeLabel: "ACTIVE",
+        inactiveLabel: "INACTIVE",
+        editLabel: "Edit",
+        pathLabel: "Path:"
+    },
+    kr: {
+        activeLabel: "실행중",
+        inactiveLabel: "중지됨",
+        editLabel: "편집하기",
+        pathLabel: "경로:"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class Card extends React.Component {      
     constructor(props) {
@@ -58,7 +75,7 @@ class Card extends React.Component {
                 onClick={() => this.handleToggleActive()}
             >
                 <CheckIcon className={classes.checkIcon}/>
-                <span className={classes.activeText}>{enabled ? 'ACTIVE' : 'INACTIVE'}</span>
+                <span className={classes.activeText}>{enabled ? strings.activeLabel : strings.inactiveLabel}</span>
             </div>
         )
     }
@@ -95,7 +112,7 @@ class Card extends React.Component {
                             variant="outlined"
                             onClick={this.handleEdit.bind(this)}
                         >
-                            Edit
+                            {strings.editLabel}
                         </Button> }
                         {this.renderActiveStatus()}
                     </div>
@@ -105,7 +122,7 @@ class Card extends React.Component {
                         {campaign.settings ? campaign.settings.name : campaign.name}
                     </p>
                     {admin ? null :<p className={classes.cardViews}>
-                        Path: 
+                        {strings.pathLabel} 
                         <span className={classes.viewCount}> /{campaign.path}</span>
                     </p> }
                 </div>

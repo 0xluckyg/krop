@@ -1,15 +1,41 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import Input from './sub/input'
-import ImageUploader from './sub/image-uploader'
 import Switch from './sub/switch'
 import Tags from './sub/tags'
 import SectionTabs from './sub/section-tabs'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        longformSettings: "Long form settings",
+        requiredLabel: "Required",
+        minLengthLabel: "Mininum length",
+        maxLengthLabel: "Maximum length",
+        placeholderLabel: "Placeholder",
+        tagsLabel: "Tags",
+        questionLabel: "Question",
+        settingsTabLabel: "Settings",
+        contentTabLabel: "Content"
+    },
+    kr: {
+        longformSettings: "긴 양식 설정",
+        requiredLabel: "필수",
+        minLengthLabel: "최소 글자 수",
+        maxLengthLabel: "최대 글자 수",
+        placeholderLabel: "설명",
+        tagsLabel: "태그들",
+        questionLabel: "질문",
+        settingsTabLabel: "설정",
+        contentTabLabel: "내용"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class LongForm extends React.Component {
     constructor(props) {
@@ -47,17 +73,17 @@ class LongForm extends React.Component {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
-                <SectionContainer title={"Long form settings"}>
+                <SectionContainer title={strings.longformSettings}>
                     <Switch 
                         stage={stage}
                         element={element}
                         state={state} 
                         setState={setState}
-                        title="Required"
+                        title={strings.requiredLabel}
                         property="required"
                     />
                     <Input
-                        label='Minimum length'
+                        label={strings.minLengthLabel}
                         onChange={value => {
                             this.setProperty(null, 'minChar', event.target.value)
                         }}
@@ -65,7 +91,7 @@ class LongForm extends React.Component {
                         numOnly
                     />
                     <Input
-                        label='Maximum length'
+                        label={strings.maxLengthLabel}
                         onChange={value => {
                              this.setProperty(null, 'maxChar', event.target.value)
                         }}
@@ -73,15 +99,7 @@ class LongForm extends React.Component {
                         numOnly
                     />
                 </SectionContainer>
-                <SectionContainer title="Explainer image">
-                    <ImageUploader 
-                        stage={stage}
-                        element={element}
-                        state={state} 
-                        setState={setState}
-                    />
-                </SectionContainer>
-                <SectionContainer title="Tags">
+                <SectionContainer title={strings.tagsLabel}>
                     <Tags 
                         stage={stage}
                         element={element}
@@ -96,16 +114,16 @@ class LongForm extends React.Component {
     renderOptionsEditor() {
         return (
             <Fragment>
-                <SectionContainer title="Question">
+                <SectionContainer title={strings.questionLabel}>
                     <Input
-                        label='Question'
+                        label={strings.questionLabel}
                         onChange={value => {
                             this.setProperty(null, 'question', value)
                         }}
                         value={this.getProperty(null, 'question')}
                     />
                     <Input
-                        label='Placeholder'
+                        label={strings.placeholderLabel}
                         onChange={value => {
                              this.setProperty(null, 'placeholder', event.target.value)
                         }}
@@ -127,10 +145,10 @@ class LongForm extends React.Component {
                         this.setState({editorType: newValue})
                     }}
                     tabs={[{
-                        name: "Settings",
+                        name: strings.settingsTabLabel,
                         value: 0
                     }, {
-                        name: "Content",
+                        name: strings.contentTabLabel,
                         value: 1
                     }]}
                 />

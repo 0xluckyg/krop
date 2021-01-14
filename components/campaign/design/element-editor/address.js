@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -10,6 +11,50 @@ import Switch from './sub/switch'
 import Tags from './sub/tags'
 import SectionTabs from './sub/section-tabs'
 import {getElement, setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        addressSettingsLabel: "Address settings",
+        address1EnabledLabel: "Address 1 Enabled",
+        address1RequiredLabel: "Address 1 Required",
+        address2EnabledLabel: "Address 2 Enabled",
+        address2RequiredLabel: "Address 2 Required",
+        countryEnabledLabel: "Country Enabled",
+        countryRequiredLabel: "Country Required",
+        stateEnabledLabel: "State Enabled",
+        stateRequiredLabel: "State Required",
+        cityEnabledLabel: "City Enabled",
+        cityRequiredLabel: "City Required",
+        zipEnabledLabel: "Zip Enabled",
+        zipRequiredLabel: "Zip Required",
+        tagsLabel: "Tags",
+        questionLabel: "Question",
+        placeholderLabel: "Placeholder",
+        settingsTabLabel: "Settings",
+        contentTabLabel: "Content"
+    },
+    kr: {
+        addressSettingsLabel: "주소 설정",
+        address1EnabledLabel: "주소 1 추가",
+        address1RequiredLabel: "주소 1 필수요소",
+        address2EnabledLabel: "주소 2 추가",
+        address2RequiredLabel: "주소 2 필수요소",
+        countryEnabledLabel: "나라 추가",
+        countryRequiredLabel: "나라 필수요소",
+        stateEnabledLabel: "도 (예.경기도) 추가",
+        stateRequiredLabel: "도 필수요소",
+        cityEnabledLabel: "도시 추가",
+        cityRequiredLabel: "도시 필수요소",
+        zipEnabledLabel: "우편주소 추가",
+        zipRequiredLabel: "우편주소 필수요소",
+        tagsLabel: "태그들",
+        questionLabel: "질문",
+        placeholderLabel: "설명",
+        settingsTabLabel: "설정",
+        contentTabLabel: "내용"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class AddressEditor extends React.Component {
     constructor(props) {
@@ -73,34 +118,26 @@ class AddressEditor extends React.Component {
         } = this.getElement()
         return (
             <Fragment>
-                <SectionContainer title={"Address settings"}>
-                    {this.renderSwitch("Address 1 Enabled", "address1Enabled")}
-                    {address1Enabled ? this.renderSwitch("Address 1 Required", "address1Required") : null}
+                <SectionContainer title={strings.addressSettingsLabel}>
+                    {this.renderSwitch(strings.address1EnabledLabel, "address1Enabled")}
+                    {address1Enabled ? this.renderSwitch(strings.address1RequiredLabel, "address1Required") : null}
                     
-                    {this.renderSwitch("Address 2 Enabled", "address2Enabled")}
-                    {address2Enabled ? this.renderSwitch("Address 2 Required", "address2Required") : null}
+                    {this.renderSwitch(strings.address2EnabledLabel, "address2Enabled")}
+                    {address2Enabled ? this.renderSwitch(strings.address2RequiredLabel, "address2Required") : null}
                     
-                    {this.renderSwitch("Country Enabled", "countryEnabled")}
-                    {countryEnabled ? this.renderSwitch("Country Required", "countryRequired") : null}
+                    {this.renderSwitch(strings.countryEnabledLabel, "countryEnabled")}
+                    {countryEnabled ? this.renderSwitch(strings.countryRequiredLabel, "countryRequired") : null}
                     
-                    {this.renderSwitch("State Enabled", "stateEnabled")}
-                    {stateEnabled ? this.renderSwitch("State Required", "stateRequired") : null}
+                    {this.renderSwitch(strings.stateEnabledLabel, "stateEnabled")}
+                    {stateEnabled ? this.renderSwitch(strings.stateRequiredLabel, "stateRequired") : null}
                     
-                    {this.renderSwitch("City Enabled", "cityEnabled")}
-                    {cityEnabled ? this.renderSwitch("City Required", "cityRequired") : null}
+                    {this.renderSwitch(strings.cityEnabledLabel, "cityEnabled")}
+                    {cityEnabled ? this.renderSwitch(strings.cityRequiredLabel, "cityRequired") : null}
                     
-                    {this.renderSwitch("Zip Code Enabled", "zipEnabled")}
-                    {zipEnabled ? this.renderSwitch("Zip Code Required", "zipRequired") : null}
+                    {this.renderSwitch(strings.zipEnabledLabel, "zipEnabled")}
+                    {zipEnabled ? this.renderSwitch(strings.zipRequiredLabel, "zipRequired") : null}
                 </SectionContainer>
-                <SectionContainer title="Explainer image">
-                    <ImageUploader 
-                        stage={stage}
-                        element={element}
-                        state={state} 
-                        setState={setState}
-                    />
-                </SectionContainer>
-                <SectionContainer title="Tags">
+                <SectionContainer title={strings.tagsLabel}>
                     <Tags 
                         stage={stage}
                         element={element}
@@ -115,9 +152,9 @@ class AddressEditor extends React.Component {
     renderOptionsEditor() {
         return (
             <Fragment>
-                <SectionContainer title="Question">
+                <SectionContainer title={strings.questionLabel}>
                     <Input
-                        label='Question'
+                        label={strings.questionLabel}
                         onChange={value => {
                             this.setProperty(null, 'question', value)
                         }}
@@ -125,7 +162,7 @@ class AddressEditor extends React.Component {
                     />
                     {this.getProperty(null, 'type') != keys.FORM_ELEMENT ? null : 
                         <Input
-                            label='Placeholder'
+                            label={strings.placeholderLabel}
                             onChange={value => {
                                  this.setProperty(null, 'placeholder', event.target.value)
                             }}
@@ -148,10 +185,10 @@ class AddressEditor extends React.Component {
                         this.setState({editorType: newValue})
                     }}
                     tabs={[{
-                        name: "Settings",
+                        name: strings.settingsTabLabel,
                         value: 0
                     }, {
-                        name: "Content",
+                        name: strings.contentTabLabel,
                         value: 1
                     }]}
                 />

@@ -1,15 +1,31 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import ColorPicker from '../../../reusable/color-picker'
 import PopoverWrapper from '../../../reusable/popover'
 
 import FontPicker from './sub/font-picker'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        colorLabel: "Color",
+        textColorLabel: "Text color",
+        fontLabel: "Font",
+        styleLabel: "Style"
+    },
+    kr: {
+        colorLabel: "색",
+        textColorLabel: "글자 색",
+        fontLabel: "폰트",
+        styleLabel: "스타일"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class TextSettingsEditor extends React.Component {
     constructor(props) {
@@ -53,22 +69,22 @@ class TextSettingsEditor extends React.Component {
         const {classes} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Color">
+                <SectionContainer title={strings.colorLabel}>
                     <ColorPicker
-                        text="Text color"
+                        text={strings.textColorLabel}
                         color={textColor}
                         onChange={textColor => this.setProperty(null, 'textColor', textColor)}
                     />
                 </SectionContainer>
-                <SectionContainer title="Font">
-                    <PopoverWrapper name="Style" style={classes}
+                <SectionContainer title={strings.fontLabel}>
+                    <PopoverWrapper name={strings.styleLabel} style={classes}
                         customSelector={(onClick) =>
                             <TextField   
                                 onClick={onClick}
                                 onChange={() => {}}
                                 value={this.getProperty(null, 'font')}
                                 className={classes.fontPickerStyle}
-                                label={"Font"}
+                                label={strings.fontLabel}
                             />
                         }
                     >

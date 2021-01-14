@@ -1,4 +1,5 @@
 import React from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -7,6 +8,20 @@ import keys from '../../../../config/keys'
 import shareStyles from '../../../../shared/campaign-styles/share'
 import elementStyle from '../../../../shared/campaign-styles/reusable'
 import socialIcons from '../../../../static/campaign/social-icons';
+
+let strings = new LocalizedStrings({
+    en:{
+        facebookShareLabel: "Share on Facebook!",
+        instagramShareLabel: "Share on Instagram!",
+        twitterShareLabel: "Share on Twitter!"
+    },
+    kr: {
+        facebookShareLabel: "페이스북에 공유하기!",
+        instagramShareLabel: "인스타그램에 공유하기!",
+        twitterShareLabel: "트위터에 공유하기!!"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class SharePreview extends React.Component {
     constructor(props) {
@@ -30,9 +45,9 @@ class SharePreview extends React.Component {
         const {classes} = this.props
 
         const platformText = {
-            'facebook': 'Share on Facebook!',
-            'instagram': 'Share on Instagram!',
-            'twitter': 'Share on Twitter!'
+            'facebook': strings.facebookShareLabel,
+            'instagram': strings.instagramShareLabel,
+            'twitter': strings.twitterShareLabel
         }
 
         const {svg, color} = socialIcons[platform]

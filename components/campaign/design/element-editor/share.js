@@ -1,5 +1,5 @@
 import React from 'react'
-import TextareaAutosize from 'react-autosize-textarea';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import ToggleButton from '@material-ui/lab/ToggleButton';
@@ -9,6 +9,16 @@ import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import {setProperty, getProperty} from './sub/functions'
 import socialIcons from '../../../../static/campaign/social-icons';
+
+let strings = new LocalizedStrings({
+    en:{
+        shareButtonsLabel: "Share buttons"
+    },
+    kr: {
+        shareButtonsLabel: "공유 버튼"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ShareEditor extends React.Component {
     constructor(props) {
@@ -43,7 +53,6 @@ class ShareEditor extends React.Component {
     }
 
     chooseShareButton(platforms) {
-        console.log("PLA: ", platforms)
         this.setProperty(null, 'platforms', platforms)
     }
     
@@ -77,7 +86,7 @@ class ShareEditor extends React.Component {
         return (
             <div className={classes.selectorWrapper}>
                 <Typography variant="subtitle2" gutterBottom>
-                    Share Buttons
+                    {strings.shareButtonsLabel}
                 </Typography>  
                 {this.renderToggleButtons()}
             </div>
@@ -112,7 +121,7 @@ class ShareEditor extends React.Component {
     render() {
         const {classes} = this.props
         return (
-            <SectionContainer title='Share buttons'>
+            <SectionContainer title={strings.shareButtonsLabel}>
                 {this.renderToggleButtons()}
             </SectionContainer>
         )

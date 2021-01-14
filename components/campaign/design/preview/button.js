@@ -1,4 +1,5 @@
 import React from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -6,6 +7,16 @@ import {getElement} from '../element-editor/sub/functions'
 import keys from '../../../../config/keys'
 import buttonStyles from '../../../../shared/campaign-styles/button'
 import {elementsToPages} from '../element-editor/sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        buttonLabel: "Continue"
+    },
+    kr: {
+        buttonLabel: "다음"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ButtonPreview extends React.Component {
     constructor(props) {
@@ -27,7 +38,7 @@ class ButtonPreview extends React.Component {
             <button 
                 className={classes.buttonStyle}
             >
-                Continue
+                {strings.buttonLabel}
             </button>
         )
     }

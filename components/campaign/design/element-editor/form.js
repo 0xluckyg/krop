@@ -1,15 +1,49 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import Input from './sub/input'
-import ImageUploader from './sub/image-uploader'
 import Switch from './sub/switch'
 import Tags from './sub/tags'
 import SectionTabs from './sub/section-tabs'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        nameLabel: "Name",
+        formLabel: "Form",
+        emailLabel: "Email",
+        phoneLabel: "Phone",
+        requiredLabel: "Required",
+        numberOnlyLabel: "Num only",
+        minLengthLabel: "Mininum length",
+        maxLengthLabel: "Maximum length",
+        placeholderLabel: "Placeholder",
+        tagsLabel: "Tags",
+        questionLabel: "Question",
+        settingsTabLabel: "Settings",
+        contentTabLabel: "Content"
+    },
+    kr: {
+        nameLabel: "이름",
+        formLabel: "양식",
+        emailLabel: "이메일",
+        phoneLabel: "핸드폰 번호",
+        requiredLabel: "필수",
+        numberOnlyLabel: "숫자만 허용",
+        minLengthLabel: "최소 글자 수",
+        maxLengthLabel: "최대 글자 수",
+        placeholderLabel: "설명",
+        tagsLabel: "태그들",
+        questionLabel: "질문",
+        settingsTabLabel: "설정",
+        contentTabLabel: "내용"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class FormEditor extends React.Component {
     constructor(props) {
@@ -47,13 +81,13 @@ class FormEditor extends React.Component {
         const type = this.getProperty(null, 'type')
         switch(type) {
             case(keys.NAME_ELEMENT):
-                return 'Name'
+                return strings.nameLabel
             case(keys.FORM_ELEMENT):
-                return 'Form'
+                return strings.formLabel
             case(keys.EMAIL_ELEMENT):
-                return 'Email'
+                return strings.emailLabel
             case(keys.PHONE_ELEMENT):
-                return 'Phone'
+                return strings.phoneLabel
             default:
                 return ''
         }
@@ -69,7 +103,7 @@ class FormEditor extends React.Component {
                         element={element}
                         state={state} 
                         setState={setState}
-                        title="Required"
+                        title={strings.requiredLabel}
                         property="required"
                     />
                     <Switch 
@@ -77,11 +111,11 @@ class FormEditor extends React.Component {
                         element={element}
                         state={state} 
                         setState={setState}
-                        title="Number only"
+                        title={strings.numberOnlyLabel}
                         property="numOnly"
                     />
                     <Input
-                        label='Minimum length'
+                        label={strings.minLengthLabel}
                         onChange={value => {
                             this.setProperty(null, 'minChar', event.target.value)
                         }}
@@ -89,7 +123,7 @@ class FormEditor extends React.Component {
                         numOnly
                     />
                     <Input
-                        label='Maximum length'
+                        label={strings.maxLengthLabel}
                         onChange={value => {
                              this.setProperty(null, 'maxChar', event.target.value)
                         }}
@@ -97,15 +131,7 @@ class FormEditor extends React.Component {
                         numOnly
                     />
                 </SectionContainer>
-                <SectionContainer title="Explainer image">
-                    <ImageUploader 
-                        stage={stage}
-                        element={element}
-                        state={state} 
-                        setState={setState}
-                    />
-                </SectionContainer>
-                <SectionContainer title="Tags">
+                <SectionContainer title={strings.tagsLabel}>
                     <Tags 
                         stage={stage}
                         element={element}
@@ -120,9 +146,9 @@ class FormEditor extends React.Component {
     renderOptionsEditor() {
         return (
             <Fragment>
-                <SectionContainer title="Question">
+                <SectionContainer title={strings.questionLabel}>
                     <Input
-                        label='Question'
+                        label={strings.questionLabel}
                         onChange={value => {
                             this.setProperty(null, 'question', value)
                         }}
@@ -130,7 +156,7 @@ class FormEditor extends React.Component {
                     />
                     {this.getProperty(null, 'type') != keys.FORM_ELEMENT ? null : 
                         <Input
-                            label='Placeholder'
+                            label={strings.placeholderLabel}
                             onChange={value => {
                                  this.setProperty(null, 'placeholder', event.target.value)
                             }}
@@ -153,10 +179,10 @@ class FormEditor extends React.Component {
                         this.setState({editorType: newValue})
                     }}
                     tabs={[{
-                        name: "Settings",
+                        name: strings.settingsTabLabel,
                         value: 0
                     }, {
-                        name: "Content",
+                        name: settings.contentTabLabel,
                         value: 1
                     }]}
                 />

@@ -16,6 +16,72 @@ import CloseIcon from '@material-ui/icons/Close';
 import {showAuthorizeModalAction, showToastAction} from '../../redux/actions';
 import keys from '../../config/keys'
 
+let strings = new LocalizedStrings({
+    en:{
+        pwTooShort:"Please make your password at least 8 characters",
+        pwTooLong: 'Your password is too long',
+        pwCaseError: 'Please include a upper and a lower case letter',
+        pwNumberError: 'Please include a number',
+        validationEmailError: "Couldn't send validation email. Please try again later.",
+        emailError: 'Please enter a valid email',
+        pwError: 'Please enter a valid password',
+        emailExists: 'Email exists. Please try another email',
+        signupError: "Couldn't sign up. Please try again later.",
+        noUserError: "Couldn't log in. Please check your email or password.",
+        wrongPwError: "Couldn't log in. Forgot your password?",
+        unknownLoginError: "Couldn't log in. Please try again later",
+        emailLabel: 'Email',
+        pwLabel: 'Password',
+        emailPlaceholder: 'Email (e.g. krop@gmail.com)',
+        pwPlaceholder: 'Password (Please make it longer than 8 characters)',
+        nameLabel: 'Name',
+        namePlaceholder: 'Your name',
+        noAccountButton: "Don't have an account?",
+        backToLoginButton: "Back to Log In",
+        signupText: "Sign Up!",
+        googleSignupText: 'Sign up with Google',
+        googleLoginText: 'Use Google Account',
+        googleAuthSuccess: 'Authorized gmail!',
+        googleAuthFailure: 'Failed google login. Please try again later.',
+        signupText: 'Get started with our FREE trial',
+        loginText: 'Log in and get designing!',
+        signupButtonText: 'GET STARTED',
+        loginButtonText: 'LOG IN'
+    },
+    kr: {
+        pwTooShort:"비밀번호가 너무 짧아요. 8글자 이상으로 만들어주세요!",
+        pwTooLong: "비밀번호가 너무 길어요",
+        pwCaseError: "비밀번호에 대문자와 소문자를 포함해 주세요!",
+        pwNumberError: '비밀번호에 숫자도 추가해 주세요!',
+        validationEmailError: '확인 이메일 전송을 실패했어요. 조금 있다가 다시 시도해 주세요!',
+        emailError: '제대로된 이메일을 입력해 주세요!',
+        pwError: '제대로된 비밀번호를 입력해 주세요!',
+        emailExists: '이 이메일은 이미 사용중이에요.',
+        signupError: '계정을 만드는데 실패 하였습니다. 족므 있다가 다시 시도해 주세요!',
+        noUserError: '이 계정은 존재하지 않아요.',
+        wrongPwError: '로그인에 실패 하였어요. 계정을 까먹으셨나요?',
+        unknownLoginError: '로그인에 실패 하였어요. 조금 있다가 다시 시도해 주세요!',
+        emailLabel: '이메일',
+        pwLabel: '비밀번호',
+        emailPlaceholder: '이메일 (예시: krop@naver.com)',
+        pwPlaceholder: '비밀번호 (8글자 이상으로 만들어 주세요)',
+        nameLabel: '이름',
+        namePlaceholder: '성함',
+        noAccountButton: "계정이 없으시다구요?",
+        backToLoginButton: "로그인 하기",
+        signupText: "계정 만들기!",
+        googleSignupText: '구글로 시작하기',
+        googleLoginText: '구글로 로그인 하기',
+        googleAuthSuccess: '구글로 로그인에 성공하였어요!',
+        googleAuthFailure: '구글로 로그인에 실패하였어요.',
+        signupText: '당장 공짜 체험 시작하기!',
+        loginText: '로그인',
+        signupButtonText: '계정 만들기',
+        loginButtonText: '로그인'
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
 //A pop up to ask users to login or signup
 class AuthorizeModal extends React.Component {
     constructor(props){
@@ -479,68 +545,3 @@ function mapDispatchToProps(dispatch){
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(useStyles)(AuthorizeModal));
-
-let strings = new LocalizedStrings({
-    en:{
-        pwTooShort:"Please make your password at least 8 characters",
-        pwTooLong: 'Your password is too long',
-        pwCaseError: 'Please include a upper and a lower case letter',
-        pwNumberError: 'Please include a number',
-        validationEmailError: "Couldn't send validation email. Please try again later.",
-        emailError: 'Please enter a valid email',
-        pwError: 'Please enter a valid password',
-        emailExists: 'Email exists. Please try another email',
-        signupError: "Couldn't sign up. Please try again later.",
-        noUserError: "Couldn't log in. Please check your email or password.",
-        wrongPwError: "Couldn't log in. Forgot your password?",
-        unknownLoginError: "Couldn't log in. Please try again later",
-        emailLabel: 'Email',
-        pwLabel: 'Password',
-        emailPlaceholder: 'Email (e.g. krop@gmail.com)',
-        pwPlaceholder: 'Password (Please make it longer than 8 characters)',
-        nameLabel: 'Name',
-        namePlaceholder: 'Your name',
-        noAccountButton: "Don't have an account?",
-        backToLoginButton: "Back to Log In",
-        signupText: "Sign Up!",
-        googleSignupText: 'Sign up with Google',
-        googleLoginText: 'Use Google Account',
-        googleAuthSuccess: 'Authorized gmail!',
-        googleAuthFailure: 'Failed google login. Please try again later.',
-        signupText: 'Get started with our FREE trial',
-        loginText: 'Log in and get designing!',
-        signupButtonText: 'GET STARTED',
-        loginButtonText: 'LOG IN'
-    },
-    kr: {
-        pwTooShort:"비밀번호가 너무 짧아요. 8글자 이상으로 만들어주세요!",
-        pwTooLong: "비밀번호가 너무 길어요",
-        pwCaseError: "비밀번호에 대문자와 소문자를 포함해 주세요!",
-        pwNumberError: '비밀번호에 숫자도 추가해 주세요!',
-        validationEmailError: '확인 이메일 전송을 실패했어요. 조금 있다가 다시 시도해 주세요!',
-        emailError: '제대로된 이메일을 입력해 주세요!',
-        pwError: '제대로된 비밀번호를 입력해 주세요!',
-        emailExists: '이 이메일은 이미 사용중이에요.',
-        signupError: '계정을 만드는데 실패 하였습니다. 족므 있다가 다시 시도해 주세요!',
-        noUserError: '이 계정은 존재하지 않아요.',
-        wrongPwError: '로그인에 실패 하였어요. 계정을 까먹으셨나요?',
-        unknownLoginError: '로그인에 실패 하였어요. 조금 있다가 다시 시도해 주세요!',
-        emailLabel: '이메일',
-        pwLabel: '비밀번호',
-        emailPlaceholder: '이메일 (예시: krop@naver.com)',
-        pwPlaceholder: '비밀번호 (8글자 이상으로 만들어 주세요)',
-        nameLabel: '이름',
-        namePlaceholder: '성함',
-        noAccountButton: "계정이 없으시다구요?",
-        backToLoginButton: "로그인 하기",
-        signupText: "계정 만들기!",
-        googleSignupText: '구글로 시작하기',
-        googleLoginText: '구글로 로그인 하기',
-        googleAuthSuccess: '구글로 로그인에 성공하였어요!',
-        googleAuthFailure: '구글로 로그인에 실패하였어요.',
-        signupText: '당장 공짜 체험 시작하기!',
-        loginText: '로그인',
-        signupButtonText: '계정 만들기',
-        loginButtonText: '로그인'
-    }
-});

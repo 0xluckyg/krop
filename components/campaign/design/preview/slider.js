@@ -1,5 +1,5 @@
 import React from 'react'
-import clsx from 'clsx'
+import LocalizedStrings from 'react-localization';
 import Slider from 'react-input-slider'
 
 import { withStyles } from '@material-ui/core/styles';
@@ -9,6 +9,16 @@ import keys from '../../../../config/keys'
 import sliderStyle from '../../../../shared/campaign-styles/slider'
 import elementStyle from '../../../../shared/campaign-styles/reusable'
 import alertStyle from '../../../../shared/campaign-styles/alert'
+
+let strings = new LocalizedStrings({
+    en:{
+        alertLabel: "* Please move the slider"
+    },
+    kr: {
+        alertLabel: "* 슬라이더를 움직여 주세요"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class SliderPreview extends React.Component {
     constructor(props) {
@@ -72,7 +82,7 @@ class SliderPreview extends React.Component {
         const {classes, state} = this.props
         if (state.selectedElement != keys.ALERT_SETTINGS) return null
         return (
-            <p className={classes.alertStyle}>* Please move the slider</p>
+            <p className={classes.alertStyle}>{strings.alertLabel}</p>
         )
     }
     

@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import TextareaAutosize from 'react-autosize-textarea';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -8,6 +8,20 @@ import SectionContainer from './frame/section-container'
 import ImageUploader from './sub/image-uploader'
 import {setProperty, getProperty} from './sub/functions'
 import Input from './sub/input'
+
+let strings = new LocalizedStrings({
+    en:{
+        loyaltyResetLabel: "Reset loyalty after",
+        visitsLabel: "Number of visits",
+        stampImageLabel: "Stamp image (30px x 30px)"
+    },
+    kr: {
+        loyaltyResetLabel: "로열티 초기화 횟수",
+        visitsLabel: "스캔 횟수",
+        stampImageLabel: "스탬프 이미지 (30px x 30px)"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class LoyaltyEditor extends React.Component {
     getProperty(propertyType, property) {
@@ -37,9 +51,9 @@ class LoyaltyEditor extends React.Component {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Reset loyalty after">
+                <SectionContainer title={strings.loyaltyResetLabel}>
                     <Input
-                        label='Number of visits'
+                        label={strings.visitsLabel}
                         onChange={value => {
                             if (value < 1) return
                             this.setProperty(null, 'stamp', value)
@@ -48,7 +62,7 @@ class LoyaltyEditor extends React.Component {
                         numOnly
                     />
                 </SectionContainer>
-                <SectionContainer title="Stamp Image (30px x 30px)">
+                <SectionContainer title={strings.stampImageLabel}>
                     <ImageUploader 
                         stage={stage}
                         element={element}

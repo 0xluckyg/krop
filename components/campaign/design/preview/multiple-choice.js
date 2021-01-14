@@ -1,5 +1,5 @@
 import React from 'react'
-import clsx from 'clsx'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -9,6 +9,16 @@ import keys from '../../../../config/keys'
 import mcStyle from '../../../../shared/campaign-styles/multiple-choice'
 import elementStyle from '../../../../shared/campaign-styles/reusable'
 import alertStyle from '../../../../shared/campaign-styles/alert'
+
+let strings = new LocalizedStrings({
+    en:{
+        alertLabel: "* Please select an option"
+    },
+    kr: {
+        alertLabel: "* 옵션을 선택해 주세요"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class MultipleChoicePreview extends React.Component {
     constructor(props) {
@@ -55,7 +65,7 @@ class MultipleChoicePreview extends React.Component {
         const {classes, state} = this.props
         if (state.selectedElement != keys.ALERT_SETTINGS) return null
         return (
-            <p className={classes.alertStyle}>* Please select an option</p>
+            <p className={classes.alertStyle}>{strings.alertLabel}</p>
         )
     }
     

@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -7,6 +8,20 @@ import SectionContainer from './frame/section-container'
 import Input from './sub/input'
 import Switch from './sub/switch'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        linkUrlLabel: "Link url",
+        linkSettingsLabel: "Link settings",
+        newWindowLabel: "Open link in a new window"
+    },
+    kr: {
+        linkUrlLabel: "링크 Url",
+        linkSettingsLabel: "링크 설정",
+        newWindowLabel: "링크가 새 창에서 열리게 하기"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class LinkEditor extends React.Component {
     getProperty(propertyType, property) {
@@ -36,22 +51,22 @@ class LinkEditor extends React.Component {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Link url">
+                <SectionContainer title={strings.linkUrlLabel}>
                 <Input
-                    label='Link url'
+                    label={strings.linkUrlLabel}
                     onChange={value => {
                         this.setProperty(null, 'url', value)
                     }}
                     value={this.getProperty(null, 'url')}
                 />
             </SectionContainer>
-                <SectionContainer title="Link settings">
+                <SectionContainer title={strings.linkSettingsLabel}>
                     <Switch 
                         stage={stage}
                         element={element}
                         state={state} 
                         setState={setState}
-                        title="Open link in new window"
+                        title={strings.newWindowLabel}
                         property="newWindow"
                     />
                 </SectionContainer>

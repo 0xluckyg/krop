@@ -1,4 +1,5 @@
 import React from 'react';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -10,6 +11,19 @@ import IconButton from '@material-ui/core/IconButton';
 
 import {setProperty, getProperty} from './functions'
 import keys from '../../../../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        addTagLabel: "Add Tag",
+        tagHelperTextLabel: "Ex. Subscribers",
+    },
+    kr: {
+        addTagLabel: "태그 추가",
+        tagHelperTextLabel: "예시. 크리스마스 방문객",
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
 
 class ShowAfter extends React.Component {
     constructor(props){
@@ -82,7 +96,7 @@ class ShowAfter extends React.Component {
             <div>
                 <div className={classes.locationInputContainer}>
                     <TextField      
-                        label="Add Tag"
+                        label={strings.addTagLabel}
                         style={{marginBottom: '2px'}}
                         value={this.state.tag}
                         onChange={(event) => {
@@ -94,7 +108,7 @@ class ShowAfter extends React.Component {
                                 this.handleAddTag()
                             } 
                         }}
-                        helperText="Ex. subscribers"
+                        helperText={strings.tagHelperTextLabel}
                         className={classes.formControl}
                     />
                     <IconButton  className={classes.addButton}  onClick={() => this.handleAddTag()} 

@@ -1,10 +1,21 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
 import ImageUploader from './sub/image-uploader'
+
+let strings = new LocalizedStrings({
+    en:{
+        logoImageLabel: "Logo image"
+    },
+    kr: {
+        logoImageLabel: "로고 이미지"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class LogoSettingsEditor extends React.Component {
     constructor(props) {
@@ -20,7 +31,7 @@ class LogoSettingsEditor extends React.Component {
 
         return (
             <Fragment>
-                <SectionContainer title="Logo image">
+                <SectionContainer title={strings.logoImageLabel}>
                     <ImageUploader 
                         stage={stage}
                         element={element}

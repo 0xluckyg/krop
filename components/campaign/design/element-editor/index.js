@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -28,6 +29,26 @@ import AlertSettingsEditor from './alert-settings'
 import LogoSettingsEditor from './logo-settings'
 
 import {getElement} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        stageSettingsLabel: "Stage Settings",
+        styleSettingsLabel: "Style Settings",
+        backgroundSettingsLabel: "Background Settings",
+        textSettingsLabel: "Text Settings",
+        logoSettingsLabel: "Logo Settings",
+        alertSettingsLabel: "Alert Settings"
+    },
+    kr: {
+        stageSettingsLabel: "스테이지 설정",
+        styleSettingsLabel: "스타일 설정",
+        backgroundSettingsLabel: "배경 설정",
+        textSettingsLabel: "글자 설정",
+        logoSettingsLabel: "로고 설정",
+        alertSettingsLabel: "알람 설정"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ElementEditor extends React.Component {
     constructor(props) {
@@ -269,12 +290,12 @@ class ElementEditor extends React.Component {
             return headerName
         } else {
             let nameMap = {}
-            nameMap[keys.STAGE_SETTINGS] = 'Stage Settings', 
-            nameMap[keys.STYLE_SETTINGS] = 'Style Settings', 
-            nameMap[keys.BACKGROUND_SETTINGS] = 'Background Settings', 
-            nameMap[keys.TEXT_SETTINGS] = 'Text Settings', 
-            nameMap[keys.LOGO_SETTINGS] = 'Logo Settings', 
-            nameMap[keys.ALERT_SETTINGS] = 'Alert Settings'
+            nameMap[keys.STAGE_SETTINGS] = strings.stageSettingsLabel, 
+            nameMap[keys.STYLE_SETTINGS] = strings.styleSettingsLabel, 
+            nameMap[keys.BACKGROUND_SETTINGS] = strings.backgroundSettingsLabel, 
+            nameMap[keys.TEXT_SETTINGS] = strings.textSettingsLabel, 
+            nameMap[keys.LOGO_SETTINGS] = strings.logoSettingsLabel, 
+            nameMap[keys.ALERT_SETTINGS] = strings.alertSettingsLabel
             
             return nameMap[this.props.state.selectedElement]
         }

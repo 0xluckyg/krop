@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import TextareaAutosize from 'react-autosize-textarea';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -8,6 +8,20 @@ import SectionContainer from './frame/section-container'
 import ImageUploader from './sub/image-uploader'
 import Switch from './sub/switch'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        imageLabel: "Image",
+        displaySettingsLabel: "Display settings",
+        cornerRoundingLabel: "Corner rounding"
+    },
+    kr: {
+        imageLabel: "이미지",
+        displaySettingsLabel: "이미지 설정",
+        cornerRoundingLabel: "모서리 각 설정"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ImageEditor extends React.Component {
     getProperty(propertyType, property) {
@@ -37,7 +51,7 @@ class ImageEditor extends React.Component {
         const {state, setState, stage, element} = this.props
         return (
             <Fragment>
-                <SectionContainer title="Image">
+                <SectionContainer title={strings.imageLabel}>
                     <ImageUploader 
                         stage={stage}
                         element={element}
@@ -46,13 +60,13 @@ class ImageEditor extends React.Component {
                         property="url"
                     />
                 </SectionContainer>
-                <SectionContainer title="Display settings">
+                <SectionContainer title={strings.displaySettingsLabel}>
                     <Switch 
                         stage={stage}
                         element={element}
                         state={state} 
                         setState={setState}
-                        title="Corner rounding"
+                        title={strings.cornerRoundingLabel}
                         property="rounding"
                     />
                 </SectionContainer>

@@ -1,17 +1,11 @@
 import React, {Fragment} from 'react';
-import axios from 'axios';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import { GoogleLogin } from 'react-google-login';
+import LocalizedStrings from 'react-localization';
+
 const emailValidator = require("email-validator");
 import clsx from 'clsx';
 
 import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@mdi/react';
 import { 
@@ -37,6 +31,16 @@ import keys from '../../../config/keys'
 import SectionHeader from './element-editor/frame/section-header'
 import {setProperty, findElementPageIndex, elementsToPages} from './element-editor/sub/functions'
 import elements from './element-objects'
+
+let strings = new LocalizedStrings({
+    en:{
+        alertLabel: "Please fix the errors above!"
+    },
+    kr: {
+        alertLabel: "위에 있는 오류들을 수정해 주세요!"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 const designElements = [
     {

@@ -1,5 +1,6 @@
 import React from 'react'
 import clsx from 'clsx'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -9,6 +10,22 @@ import elementStyle from '../../../../shared/campaign-styles/reusable'
 import formStyle from '../../../../shared/campaign-styles/form'
 import alertStyle from '../../../../shared/campaign-styles/alert'
 import keys from '../../../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        nameLabel: "Name",
+        alertLabel: "* Please give a valid name",
+        firstNameLabel: "First name",
+        lastNameLabel: "Last name"
+    },
+    kr: {
+        nameLabel: "이름",
+        alertLabel: "* 올바른 이름을 적어 주세요",
+        firstNameLabel: "이름",
+        lastNameLabel: "성"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class NamePreview extends React.Component {
     constructor(props) {
@@ -24,7 +41,7 @@ class NamePreview extends React.Component {
         const {classes} = this.props
         return (
             <p className={classes.titleStyle}>
-                Name
+                {strings.nameLabel}
             </p>
         )
     }
@@ -33,7 +50,7 @@ class NamePreview extends React.Component {
         const {classes, state} = this.props
         if (state.selectedElement != keys.ALERT_SETTINGS) return null
         return (
-            <p className={classes.alertStyle}>* Please give a valid name</p>
+            <p className={classes.alertStyle}>{strings.alertLabel}</p>
         )
     }
     
@@ -45,11 +62,11 @@ class NamePreview extends React.Component {
                 <div className={classes.nameWrapperStyle}>
                     <input 
                         className={clsx(classes.frontNameStyle, classes.nameStyle)}
-                        placeholder="First name"
+                        placeholder={strings.firstNameLabel}
                     />
                     <input 
                         className={classes.nameStyle}
-                        placeholder="Last name"
+                        placeholder={strings.lastNameLabel}
                     />
                 </div>
                 {this.renderAlert()}

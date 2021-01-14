@@ -1,4 +1,5 @@
 import React from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -7,6 +8,22 @@ import SectionContainer from './frame/section-container'
 import Input from './sub/input'
 import Switch from './sub/switch'
 import {setProperty, getProperty} from './sub/functions'
+
+let strings = new LocalizedStrings({
+    en:{
+        stageSettingsLabel: "Stage settings",
+        stageNameLabel: "Stage name",
+        questionPerPageLabel: "Show one question per page",
+        saveStageLabel: "Save progress to this stage for the next visit"
+    },
+    kr: {
+        stageSettingsLabel: "스테이지 설정",
+        stageNameLabel: "스테이지 이름",
+        questionPerPageLabel: "질문 하나당 한 페이지에 보여주기",
+        saveStageLabel: "재방문자를 위한 진도 저장"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class StageSettingsEditor extends React.Component {
     constructor(props) {
@@ -44,9 +61,9 @@ class StageSettingsEditor extends React.Component {
         const {state, setState, stage, element} = this.props
 
         return (
-            <SectionContainer title="Stage Settings">
+            <SectionContainer title={strings.stageSettingsLabel}>
                 <Input
-                    label='Stage Name'
+                    label={strings.stageNameLabel}
                     onChange={value => {
                         this.setProperty(null, 'name', value)
                     }}
@@ -57,7 +74,7 @@ class StageSettingsEditor extends React.Component {
                     element={element}
                     state={state} 
                     setState={setState}
-                    title='Show one question per page'
+                    title={strings.questionPerPageLabel}
                     property="questionPerPage"
                 />
                 <Switch 
@@ -65,7 +82,7 @@ class StageSettingsEditor extends React.Component {
                     element={element}
                     state={state} 
                     setState={setState}
-                    title='Save this stage for the next visit'
+                    title={strings.saveStageLabel}
                     property="saveStage"
                 />
             </SectionContainer>

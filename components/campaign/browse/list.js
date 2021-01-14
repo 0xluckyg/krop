@@ -2,9 +2,20 @@ import React from 'react';
 
 import { withStyles } from '@material-ui/core/styles';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import LocalizedStrings from 'react-localization';
 
 import Card from './card'
 import {loadFonts} from '../../reusable/font-families'
+
+let strings = new LocalizedStrings({
+    en:{
+        createLabel: "Create a new campaign!"
+    },
+    kr: {
+        createLabel: "새로운 캠페인 만들기!"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class List extends React.Component {      
     constructor(props) {
@@ -29,7 +40,7 @@ class List extends React.Component {
                 <div className={classes.iconContainer}>
                     <AddCircleOutlineIcon className={classes.mainIcon} fontSize="large" />
                 </div>
-                <p>Create a new campaign!</p>
+                <p>{strings.createLabel}</p>
             </div>
         </div>
     }
