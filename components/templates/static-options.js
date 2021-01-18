@@ -1,8 +1,30 @@
 const keys = require('../../config/keys')
+import LocalizedStrings from 'react-localization';
 
 import MediaPreview from './media-preview'
 const mediaQuery = '/get-media-templates'
 const pexelsQuery = '/get-pexels-templates'
+
+let strings = new LocalizedStrings({
+    en:{
+        designLabel: "Design / Media",
+        badgeLabel: "Badges",
+        photosLabel: "Photos (Pexels)",
+        illustrationsLabel: "Illustrations",
+        shapesLabel: "Shapes",
+        iconsLabel: "Icons"
+    },
+    kr: {
+        designLabel: "디자인 / 미디어",
+        badgeLabel: "뱃지",
+        photosLabel: "사진 (Pexels)",
+        illustrationsLabel: "일러스트",
+        shapesLabel: "모양",
+        iconsLabel: "아이콘"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
 
 const iconTags = [
     "arrow",
@@ -314,14 +336,14 @@ const media = {
     tags: [
         ...mediaTags
     ],
-    name: "Deesign / Media",
+    name: strings.designLabel,
     options: [
         {
             tags: badgeTags,
             query: mediaQuery,
             category: keys.BADGE_CATEGORY,
             templateType: keys.MEDIA_TEMPLATE,
-            text: 'Badges / Icons',
+            text: strings.badgeLabel,
             render: MediaPreview,
             width: 10,
             padding: 25
@@ -331,7 +353,7 @@ const media = {
             query: pexelsQuery,
             category: keys.PHOTOGRAPH_CATEGORY,
             templateType: keys.MEDIA_TEMPLATE,
-            text: 'Photos (Pexels)',
+            text: strings.photosLabel,
             render: MediaPreview,
             width: 25,
             padding: 10
@@ -341,7 +363,7 @@ const media = {
             query: mediaQuery,
             category: keys.ILLUSTRATION_CATEGORY,
             templateType: keys.MEDIA_TEMPLATE,
-            text: 'Illustrations',
+            text: strings.illustrationsLabel,
             render: MediaPreview,
             width: 25,
             padding: 40
@@ -351,7 +373,7 @@ const media = {
             query: mediaQuery,
             category: keys.SHAPE_CATEGORY,
             templateType: keys.MEDIA_TEMPLATE,
-            text: 'Shapes',
+            text: strings.shapesLabel,
             render: MediaPreview,
             width: 10,
             padding: 25
@@ -361,7 +383,7 @@ const media = {
             query: mediaQuery,
             category: keys.ICON_CATEGORY,
             templateType: keys.MEDIA_TEMPLATE,
-            text: 'Icons',
+            text: strings.iconsLabel,
             render: MediaPreview,
             width: 10,
             padding: 25

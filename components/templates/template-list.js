@@ -1,10 +1,27 @@
 import React from 'react';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import keys from '../../config/keys'
 import Spinner from '../reusable/spinner';
 import NoContent from '../reusable/no-content';
+
+let strings = new LocalizedStrings({
+    en:{
+        noContentTitle: "Hey there,",
+        noContentSub: "It looks like there isn't any template matching your search!",
+        noContentActionText: "Reset search",
+        noContentFooterText: "We're constantly designing new contents, so keep updated!",
+    },
+    kr: {
+        noContentTitle: "흐음,",
+        noContentSub: "서치에 알맞는 템플릿을 찾지 못했어요!",
+        noContentActionText: "초기화",
+        noContentFooterText: "저희 팀은 항상 새로운 디자인을 준비하도록 노력하겠습니다.",
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class List extends React.Component {      
     constructor(props) {
@@ -15,10 +32,10 @@ class List extends React.Component {
         return (
             <NoContent
                 iconPath="../../../../static/app/edit-tools.svg"
-                text='Hey there,'
-                subText="It looks like there isn't any template matching your search!"
-                actionText='Reset Search'
-                footerText="We're constantly designing new contents, so keep updated!"
+                text={strings.noContentTitle}
+                subText={strings.noContentSub}
+                actionText={strings.noContentActionText}
+                footerText={strings.noContentFooterText}
                 action={() => {
                     this.props.setState({searchText: ''})
                     this.props.fetchTemplates({page: 1})

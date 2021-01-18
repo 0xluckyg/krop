@@ -29,15 +29,61 @@ import {
 
 import keys from '../../../config/keys'
 import SectionHeader from './element-editor/frame/section-header'
-import {setProperty, findElementPageIndex, elementsToPages} from './element-editor/sub/functions'
+import {findElementPageIndex, elementsToPages} from './element-editor/sub/functions'
 import elements from './element-objects'
 
 let strings = new LocalizedStrings({
     en:{
-        alertLabel: "Please fix the errors above!"
+        loyaltyLabel: "Loyalty",
+        paragraphLabel: "Paragraph",
+        headingLabel: "Heading",
+        subheadingLabel: "Subheading",
+        imageLabel: "Image",
+        videoLabel: "Video",
+        linkLabel: "Link",
+        spacingLabel: "Spacing",
+        referralLabel: "Referral",
+        shareLabel: "Share",
+        multipleChoiceLabel: "Multiple Choice",
+        checkboxLabel: "Checkbox",
+        formLabel: "Form",
+        longFormLabel: "Long Form",
+        emailLabel: "Email",
+        phoneLabel: "Phone",
+        nameLabel: "Name",
+        addressLabel: "Address",
+        sliderLabel: "Slider",
+        dropdownLabel: "Dropdown",
+        premadeElementsLabel: "Premade elements",
+        chooseFromTemplatesLabel: "Choose from templates",
+        designElementsLabel: "Design elements",
+        campaignElementsLabel: "Campaign elements",
     },
     kr: {
-        alertLabel: "위에 있는 오류들을 수정해 주세요!"
+        loyaltyLabel: "로열티 쿠폰",
+        paragraphLabel: "작은 텍스트 (p)",
+        headingLabel: "큰 텍스트 (h1)",
+        subheadingLabel: "중간 텍스트 (h2)",
+        imageLabel: "이미지",
+        videoLabel: "비디오",
+        linkLabel: "링크",
+        spacingLabel: "공간",
+        referralLabel: "추천",
+        shareLabel: "공유",
+        multipleChoiceLabel: "객관식 (멀티플 초이스)",
+        checkboxLabel: "체크박스",
+        formLabel: "양식",
+        longFormLabel: "긴 양식",
+        emailLabel: "이메일",
+        phoneLabel: "핸드폰 번호",
+        nameLabel: "이름",
+        addressLabel: "주소",
+        sliderLabel: "슬라이더",
+        dropdownLabel: "드랍다운 메뉴",
+        premadeElementsLabel: "템플릿",
+        chooseFromTemplatesLabel: "템플릿 에서 고르기",
+        designElementsLabel: "디자인 요소들",
+        campaignElementsLabel: "캠페인 요소들",
     }
 });
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
@@ -45,69 +91,72 @@ strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 const designElements = [
     {
         type: keys.PARAGRAPH_ELEMENT,
-        name: 'Paragraph'
+        name: strings.paragraphLabel
     }, {
         type: keys.HEADING_ELEMENT,
-        name: 'Heading'
+        name: strings.headingLabel
     }, {
         type: keys.SUBHEADING_ELEMENT,
-        name: 'Subheading'
+        name: strings.subheadingLabel
     }, {
         type: keys.IMAGE_ELEMENT,
-        name: 'Image'
+        name: strings.imageLabel
     }, {
         type: keys.VIDEO_ELEMENT,
-        name: 'Video'
+        name: strings.videoLabel
     }, {
         type: keys.LINK_ELEMENT,
-        name: 'Link'
+        name: strings.linkLabel
     }, {
         type: keys.SPACING_ELEMENT,
-        name: 'Spacing'
+        name: strings.spacingLabel
     }
 ]
 
 const shareElements = [
     {
         type: keys.REFERRAL_ELEMENT,
-        name: 'Referral'
+        name: strings.referralLabel
     }, {
         type: keys.SHARE_ELEMENT,
-        name: 'Share'
+        name: strings.shareLabel
     }
 ]
 
 const campaignElements = [
     {
+        type: keys.LOYALTY_ELEMENT,
+        name: strings.loyaltyLabel
+    }, {
         type: keys.MULTIPLE_CHOICE_ELEMENT,
-        name: 'Multiple Choice'
+        name: strings.multipleChoiceLabel
     }, {
         type: keys.CHECKBOX_ELEMENT,
-        name: 'Checkbox'
+        name: strings.checkboxLabel
     }, {
         type: keys.FORM_ELEMENT,
-        name: 'Form'
+        name: strings.formLabel
     }, {
         type: keys.LONG_FORM_ELEMENT,
-        name: 'Long Form'
+        name: strings.longFormLabel
     }, {
         type: keys.EMAIL_ELEMENT,
-        name: 'Email'
+        name: strings.emailLabel
     }, {
         type: keys.PHONE_ELEMENT,
-        name: 'Phone'
+        name: strings.phoneLabel
     }, {
         type: keys.NAME_ELEMENT,
-        name: 'Name'
+        name: strings.nameLabel
     }, {
         type: keys.ADDRESS_ELEMENT,
-        name: 'Address'
+        name: strings.addressLabel
     }, {
         type: keys.SLIDER_ELEMENT,
-        name: 'Slider'
+        name: strings.sliderLabel
     }, {
         type: keys.DROPDOWN_ELEMENT,
-        name: 'Dropdown'
+        name: strings.dropdownLabel
     }
 ]
 
@@ -287,9 +336,9 @@ class AddElementModal extends React.Component {
     renderDesignElements() {
         return (
             <React.Fragment>
-                <SectionHeader title="Premade elements"/>
-                {this.renderItem("Choose from templates", "template")}
-                <SectionHeader title="Design Elements"/>
+                <SectionHeader title={strings.premadeElementsLabel}/>
+                {this.renderItem(strings.chooseFromTemplatesLabel, "template")}
+                <SectionHeader title={strings.designElementsLabel}/>
                 {designElements.map(el => {
                     return this.renderItem(el.name, el.type)
                 })}
@@ -297,7 +346,7 @@ class AddElementModal extends React.Component {
                 {shareElements.map(el => {
                     return this.renderItem(el.name, el.type)
                 })} */}
-                <SectionHeader title="Campaign Elements"/>
+                <SectionHeader title={strings.campaignElementsLabel}/>
                 {campaignElements.map(el => {
                     return this.renderItem(el.name, el.type)
                 })}

@@ -43,7 +43,7 @@ import CampaignSessions from '../../components/responses/sessions';
 // import CampaignResponses from '../../components/responses/responses';
 import Spinner from '../../components/reusable/spinner'
 
-class Campaigns extends React.Component {
+class CampaignResponses extends React.Component {
     constructor(props){
         super(props)
 
@@ -183,4 +183,4 @@ function mapDispatchToProps(dispatch){
     );
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(useStyles)(Campaigns));
+export default connect(null, mapDispatchToProps)(withStyles(useStyles)(CampaignResponses));

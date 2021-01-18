@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Waypoint } from "react-waypoint";
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import { showToastAction, isLoadingAction, showPaymentPlanAction } from '../../redux/actions';
@@ -18,6 +19,38 @@ import {
     mdiFormTextbox,
     mdiFormTextarea
 } from '@mdi/js';
+
+let strings = new LocalizedStrings({
+    en:{
+        fetchError: "Couldn't get campaign responses. Please try again later",
+        noContentTitle: "Hey there,",
+        noContentSub: "It looks like you don't have responses yet!",
+        noContentFooterText: "Your responses will show up here after you create a campaign.",
+        noContentActionText: "Create a campaign",
+        emailLabel: "Email",
+        phoneLabel: "Phone",
+        outOfLabel: "Out of",
+        toLabel: "to",
+        addressLabel: "Address",
+        nameLabel: "Name"
+    },
+    kr: {
+        fetchError: "답변들을 찾을수 없었어요. 나중에 다시 시도해 주세요",
+        noContentTitle: "흐음,",
+        noContentSub: "아직 결과가 없네요!",
+        noContentFooterText: "캠페인을 만든 후 조금만 기다리시면 답변들이 여기에 기록될 꺼에요.",
+        noContentActionText: "캠페인 만들기",
+
+        emailLabel: "이메일",
+        phoneLabel: "번호",
+        outOfLabel: "부터",
+        toLabel: "중",
+        addressLabel: "주소",
+        nameLabel: "이름"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
 
 class CampaignResponses extends React.Component {
     constructor(props){
@@ -37,7 +70,7 @@ class CampaignResponses extends React.Component {
     }
 
     formatDate(ISO) {
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        const months = ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12"]
         let date = new Date(Date.parse(ISO))
         return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`        
     }
@@ -67,7 +100,7 @@ class CampaignResponses extends React.Component {
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get campaign results. Please try again later.")
+            this.props.showToastAction(true, strings.fetchError)
             return err
         })
     }
@@ -77,9 +110,10 @@ class CampaignResponses extends React.Component {
             <div className={this.props.classes.emptyContainer}>
                 <NoContent
                     iconPath="../../static/responses/market.svg"
-                    text='Hey there,'
-                    subText="It looks like you don't have a profile in your contacts!"
-                    footerText="Your contacts will show up here after people register with your campaigns."
+                    text={strings.noContentTitle}
+                    subText={strings.noContentSub}
+                    actionText={strings.noContentActionText}
+                    footerText={strings.noContentFooterText}
                     action={() => {
                         window.location.replace(`${process.env.APP_URL}/widgets/create`)
                     }}
@@ -109,13 +143,13 @@ class CampaignResponses extends React.Component {
         let {question, value, min, max} = row
         return <div>
             <p className={this.props.classes.question}>{question}</p>
-            <p className={this.props.classes.answer}><b>{value}</b> out of {min} to {max}</p>
+            <p className={this.props.classes.answer}><b>{value}</b> ({min} {strings.toLabel} {max})</p>
         </div>
     }
 
     renderFormResponse(row) {
         let {question, value, type} = row
-        question = type == keys.EMAIL_ELEMENT ? 'Email' : type == keys.PHONE_ELEMENT ? 'Phone' : question
+        question = type == keys.EMAIL_ELEMENT ? strings.emailLabel : type == keys.PHONE_ELEMENT ? strings.phoneLabel : question
         return <div>
             <p className={this.props.classes.question}>{question}</p>
             <p className={this.props.classes.answer}>{value}</p>
@@ -139,7 +173,7 @@ class CampaignResponses extends React.Component {
         let {value} = row
         let address = this.formatAddress(value)
         return <div>
-            <p className={this.props.classes.question}>Address</p>
+            <p className={this.props.classes.question}>{strings.addressLabel}</p>
             <p className={this.props.classes.answer}>{address}</p>
         </div>
     }
@@ -148,7 +182,7 @@ class CampaignResponses extends React.Component {
         let {value} = row
         const {firstName, lastName} = value
         return <div>
-            <p className={this.props.classes.question}>Name</p>
+            <p className={this.props.classes.question}>{strings.nameLabel}</p>
             <p className={this.props.classes.answer}>{firstName ? firstName + ' ': ''}{lastName ? lastName : ''}</p>
         </div>
     }   

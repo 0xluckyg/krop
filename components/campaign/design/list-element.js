@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import TextareaAutosize from 'react-autosize-textarea';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
@@ -28,9 +29,22 @@ import {
     mdiPlusCircle
 } from '@mdi/js';
 
-import {dropdown} from './element-objects'
 import {setProperty, findElementPageIndex, elementsToPages} from './element-editor/sub/functions'
 import keys from '../../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        questionLabel: "Question",
+        textLabel: "Text",
+        optionsLabel: "Options"
+    },
+    kr: {
+        questionLabel: "질문",
+        textLabel: "글",
+        optionsLabel: "옵션들"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ListElement extends React.Component {      
     constructor(props) {
@@ -197,7 +211,7 @@ class ListElement extends React.Component {
         if (!questionElements.includes(element.type)) return
         const {text, question} = element
         const mainText = question ? question : text
-        const placeholder = question ? "Question" : "Text"
+        const placeholder = question ? strings.questionLabel : strings.textLabel
         return (
             <TextareaAutosize
                 placeholder={placeholder}
@@ -219,7 +233,7 @@ class ListElement extends React.Component {
         if (!options) options = []
         return (
             <TextareaAutosize
-                placeholder="Options"
+                placeholder={strings.optionsLabel}
                 type="text"
                 onChange={e => {
                     this.handleOptionsChange(e.target.value)  

@@ -1,5 +1,17 @@
+import LocalizedStrings from 'react-localization';
+
+let strings = new LocalizedStrings({
+    en:{
+        campaignLabel: "Campaign"
+    },
+    kr: {
+        campaignLabel: "캠페인"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
 const defaultSettings = {
-    name: 'Campaign',
+    name: strings.campaignLabel,
     device: 'both',
     schedule: {
         //always, repeat, schedule

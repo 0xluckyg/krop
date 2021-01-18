@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 const emailValidator = require("email-validator");
 const validUrl = require('valid-url')
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -12,7 +13,38 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
 import {getUserResolveAction, getUserAction, showToastAction, isLoadingAction } from '../../redux/actions';
-import keys from '../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        submitError: "Couldn't submit. Please try refreshing the app",
+        validityError: "Please enter a valid email",
+        nameError: "Please enter your name",
+        domainError: "Please enter a valid domain name",
+        updatedAlert: "Info updated!",
+        emailExistsError: "Email exists. Please try another email",
+        saveError: "Couldn't save your info. Please try again later",
+        nameLabel: "Name",
+        emailLabel: "Email",
+        domainLabel: "Domain",
+        aboutYouLabel: "About you",
+        changeLabel: "Change"
+    },
+    kr: {
+        submitError: "저장에 실패했어요. 잠시후 다시 시도해 주세요",
+        validityError: "올바른 이메일을 입력해 주세요",
+        nameError: "이름을 입력해 주세요",
+        domainError: "올바른 도메인 이름을 입력해 주세요",
+        updatedAlert: "저장 했어요!",
+        emailExistsError: "이메일이 사용중 이에요. 다른 이메일을 시도해 보세요!",
+        saveError: "저장에 실패했어요. 잠시후 다시 시도해 주세요",
+        nameLabel: "이름",
+        emailLabel: "이메일",
+        domainLabel: "도메인",
+        aboutYouLabel: "나에관해",
+        changeLabel: "바꾸기"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ChangeUserInfo extends React.Component {
     constructor(props){
@@ -63,7 +95,7 @@ class ChangeUserInfo extends React.Component {
     
     validate() {
         if (!this.props.getUserReducer._id) {
-            this.props.showToastAction(true, `Couldn't submit. Please try refreshing the app`, 'error')
+            this.props.showToastAction(true, strings.submitError, 'error')
             return false
         }
         
@@ -71,13 +103,13 @@ class ChangeUserInfo extends React.Component {
         if (!domain.includes('https://') || !domain.includes('http://')) domain = 'https://' + domain
         
         if (!emailValidator.validate(email)) {
-            this.setState({emailError: "Please enter a valid email"})
+            this.setState({emailError: strings.validityError})
             return false
         } else if (!name || name == '') {
-            this.setState({nameError: "Please enter your name"})
+            this.setState({nameError: strings.nameError})
             return false
         } else if (this.state.domain != '' && !validUrl.isWebUri(domain)) {
-            this.setState({domainError: "Please enter a valid domain or leave it blank"})
+            this.setState({domainError: strings.domainError})
             return false
         } else {
             return true
@@ -97,14 +129,14 @@ class ChangeUserInfo extends React.Component {
         })
         .then((res) => {
             this.props.getUserResolveAction(res.data)
-            this.props.showToastAction(true, `Info updated!`, 'success')
+            this.props.showToastAction(true, strings.updatedAlert, 'success')
             this.setState({isLoading:false, isOpen: false})
         }).catch((err) => {
             console.log('err: ', err)
             if (err.response && err.response.data) {
-                this.props.showToastAction(true, `Email exists. Please try another email`, 'error')
+                this.props.showToastAction(true, strings.emailExistsError, 'error')
             } else {
-                this.props.showToastAction(true, `Couldn't save your info. Please try again later.`, 'error')   
+                this.props.showToastAction(true, strings.saveError, 'error')   
             }
             this.setState({isLoading:false})            
         })
@@ -119,13 +151,13 @@ class ChangeUserInfo extends React.Component {
                     autoFocus
                     className={classes.textFieldTop}
                     id="name"
-                    label="Name"
+                    label={strings.nameLabel}
                     value={name}
                     onChange={(event) => {
                         this.setState({name:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Name"
+                    placeholder={strings.nameLabel}
                     error={nameError ? true : false}
                     helperText={nameError ? nameError : false}
                     fullWidth
@@ -133,13 +165,13 @@ class ChangeUserInfo extends React.Component {
                 <TextField
                     className={classes.textField}
                     id="email"
-                    label="Email"
+                    label={strings.emailLabel}
                     value={email}
                     onChange={(event) => {
                         this.setState({email:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Email"
+                    placeholder={strings.emailLabel}
                     error={emailError ? true : false}
                     helperText={emailError ? emailError : false}
                     fullWidth
@@ -147,14 +179,14 @@ class ChangeUserInfo extends React.Component {
                 <TextField
                     className={classes.textField}
                     id="website"
-                    label="Domain"
+                    label={strings.domainLabel}
                     value={domain}
                     onChange={(event) => {
                         const domain = this.handleHttp(event.target.value)
                         this.setState({domain})
                     }}
                     margin="normal"
-                    placeholder="Domain"
+                    placeholder={strings.domainLabel}
                     error={domainError ? true : false}
                     helperText={domainError ? domainError : false}
                     fullWidth
@@ -168,7 +200,7 @@ class ChangeUserInfo extends React.Component {
         return (            
             <Paper className={classes.paper}>
                 <Typography variant="subtitle2" gutterBottom>
-                    About You
+                    {strings.aboutYouLabel}
                 </Typography><br/>     
                 {this.renderUserInfo()}
                 <Button 
@@ -179,7 +211,7 @@ class ChangeUserInfo extends React.Component {
                     className={classes.button}
                     disabled={this.state.isLoading}
                 >
-                    Change
+                    {strings.changeLabel}
                 </Button> 
             </Paper>
         )

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Waypoint } from "react-waypoint";
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -16,6 +17,43 @@ import { showToastAction, isLoadingAction, showPaymentPlanAction } from '../../r
 import NoContent from '../../components/reusable/no-content'
 import keys from '../../config/keys'
 import Spinner from '../../components/reusable/spinner'
+
+let strings = new LocalizedStrings({
+    en:{
+        fetchError: "Couldn't get questions. Please try again later",
+        noContentTitle: "Hey there,",
+        noContentSub: "It looks like you don't have questions yet!",
+        noContentActionText: "Set up a campaign",
+        noContentFooterText: "Your question will show up here after you create a survey campaign.",
+        campaignNameLabel: "Campaign name",
+        viewsLabel: "Views",
+        submitsLabel: "Submits",
+        questionsLabel: "Questions",
+        enabledLabel: "Enabled",
+        devicesLabel: "Devices",
+        updatedAtLabel: "Updated at",
+        viewLabel: "View",
+        editLabel: "Edit"
+    },
+    kr: {
+        fetchError: "질문들을 가져올수 없었어요. 잠시후 다시 시도해 주세요.",
+        noContentTitle: "흐음,",
+        noContentSub: "아직 질문들을 만들지 않으셨네요!",
+        noContentActionText: "캠페인 만들으러 가기",
+        noContentFooterText: "설문 캠페인을 만드시면 여기서 질문들을 보실수 있어요.",
+        campaignNameLabel: "캠페인 이름",
+        viewsLabel: "조회수",
+        submitsLabel: "작성수",
+        questionsLabel: "질문",
+        enabledLabel: "활성화",
+        devicesLabel: "기기",
+        updatedAtLabel: "수정 날짜",
+        viewLabel: "보기",
+        editLabel: "수정"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
 
 class CampaignQuestions extends React.Component {
     constructor(props){
@@ -58,7 +96,7 @@ class CampaignQuestions extends React.Component {
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get campaign results. Please try again later.")
+            this.props.showToastAction(true, strings.fetchError)
             return err
         })
     }
@@ -68,10 +106,10 @@ class CampaignQuestions extends React.Component {
             <div className={this.props.classes.emptyContainer}>
                 <NoContent
                     iconPath="../../static/responses/market.svg"
-                    text='Hey there,'
-                    subText="It looks like you don't have a profile in your contacts!"
-                    actionText='Set up a Campaign'
-                    footerText="Your contacts will show up here after people register with your campaigns."
+                    text={strings.noContentTitle}
+                    subText={strings.noContentSub}
+                    actionText={strings.noContentActionText}
+                    footerText={strings.noContentFooterText}
                     action={() => {
                         window.location.replace(`${process.env.APP_URL}/widgets/create`)
                     }}
@@ -84,14 +122,14 @@ class CampaignQuestions extends React.Component {
         return (
             <TableHead>
                 <TableRow>
-                    <TableCell size="small">Campaign Name</TableCell>
-                    <TableCell size="small">Views</TableCell>
-                    <TableCell size="small">Submits</TableCell>
-                    <TableCell size="small">Questions</TableCell>
-                    <TableCell size="small">Enabled</TableCell>
-                    <TableCell size="small">Devices</TableCell>
-                    <TableCell size="small">Updated At</TableCell>
-                    <TableCell align="right">View</TableCell>
+                    <TableCell size="small">{strings.campaignNameLabel}</TableCell>
+                    <TableCell size="small">{strings.viewsLabel}</TableCell>
+                    <TableCell size="small">{strings.submitsLabel}</TableCell>
+                    <TableCell size="small">{strings.questionsLabel}</TableCell>
+                    <TableCell size="small">{strings.enabledLabel}</TableCell>
+                    <TableCell size="small">{strings.devicesLabel}</TableCell>
+                    <TableCell size="small">{strings.updatedAtLabel}</TableCell>
+                    <TableCell align="right">{strings.viewLabel}</TableCell>
                 </TableRow>
             </TableHead>
         )
@@ -112,7 +150,7 @@ class CampaignQuestions extends React.Component {
     render() {
          //formats ISO date into a prettier format
         const formatDate = (ISO) => {
-            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            const months = ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12"]
             let date = new Date(Date.parse(ISO))
             return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`        
         }
@@ -148,7 +186,7 @@ class CampaignQuestions extends React.Component {
                                 <IconButton
                                     onClick={() => handleEdit(row)}
                                     disabled={isLoading}
-                                    aria-label="Edit"
+                                    aria-label={strings.editLabel}
                                 >                    
                                     <ViewIcon/>
                                 </IconButton>

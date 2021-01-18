@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Waypoint } from "react-waypoint";
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -18,6 +19,38 @@ import keys from '../../config/keys'
 import Spinner from '../../components/reusable/spinner'
 import DetailModal from './detail-modal'
 import CampaignResponses from './responses'
+
+let strings = new LocalizedStrings({
+    en:{
+        fetchError: "Couldn't get campaign sessions. Please try again later",
+        noContentTitle: "Hey there,",
+        noContentSub: "It looks like you don't have sessions yet!",
+        noContentFooterText: "Your sessions will show up here after you create a campaign.",
+        noContentActionText: "Create a campaign",
+        dateLabel: "Date",
+        campaignNameLabel: "Campaign name",
+        browserLabel: "Browser",
+        contactLabel: "Contact",
+        viewLabel: "View",
+        NALabel: "N/A",
+        responsesTab: "Responses"
+    },
+    kr: {
+        fetchError: "세션을 찾을수 없었어요. 나중에 다시 시도해 주세요",
+        noContentTitle: "흐음,",
+        noContentSub: "아직 결과가 없네요!",
+        noContentFooterText: "캠페인을 만든 후 조금만 기다리시면 세션이 여기에 기록될 꺼에요.",
+        noContentActionText: "캠페인 만들기",
+        dateLabel: "날짜",
+        campaignNameLabel: "캠페인 이름",
+        browserLabel: "브라우저",
+        contactLabel: "연락처",
+        viewLabel: "보기",
+        NALabel: "없음",
+        responsesTab: "답변"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class CampaignSessions extends React.Component {
     constructor(props){
@@ -58,7 +91,7 @@ class CampaignSessions extends React.Component {
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get campaign sessions. Please try again later.")
+            this.props.showToastAction(true, strings.fetchError)
             return err
         })
     }
@@ -68,10 +101,10 @@ class CampaignSessions extends React.Component {
             <div className={this.props.classes.emptyContainer}>
                 <NoContent
                     iconPath="../../static/responses/market.svg"
-                    text='Hey there,'
-                    subText="It looks like you don't have a profile in your contacts!"
-                    actionText='Set up a Campaign'
-                    footerText="Your contacts will show up here after people register with your campaigns."
+                    text={strings.noContentTitle}
+                    subText={strings.noContentSub}
+                    actionText={strings.noContentActionText}
+                    footerText={strings.noContentFooterText}
                     action={() => {
                         window.location.replace(`${process.env.APP_URL}/widgets/create`)
                     }}
@@ -84,11 +117,11 @@ class CampaignSessions extends React.Component {
         return (
             <TableHead>
                 <TableRow>
-                    <TableCell size="small">Date</TableCell>
-                    <TableCell size="small">CampaignName</TableCell>
-                    <TableCell size="small">Browser</TableCell>
-                    <TableCell size="small">Contact</TableCell>
-                    <TableCell align="right" size="small">View</TableCell>
+                    <TableCell size="small">{strings.dateLabel}</TableCell>
+                    <TableCell size="small">{strings.campaignNameLabel}</TableCell>
+                    <TableCell size="small">{strings.browserLabel}</TableCell>
+                    <TableCell size="small">{strings.contactLabel}</TableCell>
+                    <TableCell align="right" size="small">{strings.viewLabel}</TableCell>
                 </TableRow>
             </TableHead>
         )
@@ -109,7 +142,7 @@ class CampaignSessions extends React.Component {
     renderTable() {
         //formats ISO date into a prettier format
         const formatDate = (ISO) => {
-            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            const months = ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12"]
             let date = new Date(Date.parse(ISO))
             return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`        
         }
@@ -134,7 +167,7 @@ class CampaignSessions extends React.Component {
                 <TableBody>
                     {sessions.map((row, i) => {
                     let {_id, email, phone, browser, campaignName, createdAt} = row
-                    const contact = email ? email : phone ? phone : 'N/A'
+                    const contact = email ? email : phone ? phone : strings.NALabel
                     const created = formatDate(createdAt)
                     return (
                         <TableRow key={i}>
@@ -179,7 +212,7 @@ class CampaignSessions extends React.Component {
                 })
             }} 
             detail={currentSession}
-            tabs={['Responses']}
+            tabs={[strings.responsesTab]}
         >
             <CampaignResponses
                 campaignId={this.props.campaignId}

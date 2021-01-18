@@ -1,4 +1,5 @@
 import React from 'react';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -15,6 +16,30 @@ import {
 } from '@material-ui/pickers';
 
 import MomentUtils from '@date-io/moment';
+
+let strings = new LocalizedStrings({
+    en:{
+        monthLabel: "Month",
+        dayLabel: "Day",
+        fromLabel: "From",
+        dateError: "'From' date cannot be greater than the 'To' date",
+        showDurationLabel: "Campaign duration",
+        alwaysLabel: "Always",
+        annualLabel: "Annual",
+        scheduledLabel: "Scheduled"
+    },
+    kr: {
+        monthLabel: "월",
+        dayLabel: "일",
+        fromLabel: "부터",
+        dateError: "끝나는 날짜는 시작하는 날짜보다 전 일수 없어요!",
+        showDurationLabel: "캠페인 기간",
+        alwaysLabel: "항상",
+        annualLabel: "매년",
+        scheduledLabel: "일시적"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ShowAfter extends React.Component {
     constructor(props){
@@ -160,7 +185,7 @@ class ShowAfter extends React.Component {
                 <TextField       
                     type="number"
                     className={classes.durationForm}
-                    label="Month"
+                    label={strings.monthLabel}
                     style={{marginBottom: '2px'}}
                     value={fromMonth}
                     onChange={(event) => this.handleMonthDurationChange(event.target.value, 'from')}
@@ -169,7 +194,7 @@ class ShowAfter extends React.Component {
                 <TextField                                            
                     type="number"
                     className={classes.durationForm}
-                    label="Day"
+                    label={strings.dayLabel}
                     style={{marginBottom: '2px'}}
                     value={fromDay}
                     onChange={(event) => this.handleDayDurationChange(event.target.value, 'from')}
@@ -178,7 +203,7 @@ class ShowAfter extends React.Component {
                 <TextField       
                     type="number"
                     className={classes.durationForm}
-                    label="Month"
+                    label={strings.monthLabel}
                     style={{marginBottom: '2px'}}
                     value={toMonth}
                     onChange={(event) => this.handleMonthDurationChange(event.target.value, 'to')}
@@ -187,7 +212,7 @@ class ShowAfter extends React.Component {
                 <TextField             
                     type="number"
                     className={classes.durationForm}
-                    label="Day"
+                    label={strings.dayLabel}
                     style={{marginBottom: '2px'}}
                     value={toDay}
                     onChange={(event) => this.handleDayDurationChange(event.target.value, 'to')}
@@ -209,7 +234,7 @@ class ShowAfter extends React.Component {
                             onYearChange={() => {}}
                             className={classes.datePicker}
                             margin="normal"
-                            label="From"
+                            label={strings.fromLabel}
                             value={this.parseFromDuration()}
                             onChange={date => {                                    
                                 const newDate = new Date(date._d)
@@ -233,14 +258,14 @@ class ShowAfter extends React.Component {
                         <KeyboardDatePicker
                             className={classes.datePicker}
                             margin="normal"
-                            label="To"
+                            label={strings.toLabel}
                             value={this.parseToDuration()}
                             onChange={date => {
                                 const fromDate = new Date(state.from)
                                 const newDate = new Date(date._d)     
 
                                 if (fromDate > newDate.getTime()) {
-                                    return this.props.showToastAction(true, '"To" date cannot be greater than the "From" date', 'error')
+                                    return this.props.showToastAction(true, strings.dateError, 'error')
                                 }
                                 
                                 const newState = {...JSON.parse(JSON.stringify(state))}
@@ -271,15 +296,15 @@ class ShowAfter extends React.Component {
         return (          
             <Paper className={classes.paper}>     
                 <Typography variant="subtitle2" gutterBottom>
-                    Show Duration
+                    {strings.showDurationLabel}
                 </Typography>
                 <FormControl component="fieldset" className={classes.formControl}>
                     <RadioGroup aria-label="type" name="type" 
                         value={state.settings.schedule.type} 
                         onChange={(event) => this.handleSwitchOption(event.target.value)} row>
-                        <FormControlLabel value="always" control={<Radio />} label="Always" />
-                        <FormControlLabel value="repeat" control={<Radio />} label="Annual" />
-                        <FormControlLabel value="schedule" control={<Radio />} label="Scheduled" />
+                        <FormControlLabel value="always" control={<Radio />} label={strings.alwaysLabel} />
+                        <FormControlLabel value="repeat" control={<Radio />} label={strings.annualLabel} />
+                        <FormControlLabel value="schedule" control={<Radio />} label={strings.scheduledLabel} />
                     </RadioGroup>
                 </FormControl><br/>
                 {this.renderDatePicker()}

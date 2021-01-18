@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -12,6 +13,17 @@ import TextField from '@material-ui/core/TextField';
 
 import {getUserAction, getUserResolveAction, showToastAction, isLoadingAction } from '../../redux/actions';
 import keys from '../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        
+    },
+    kr: {
+        
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
 
 const apiKeyHelp = {
     mailchimp: 'https://mailchimp.com/help/about-api-keys/',
@@ -24,6 +36,7 @@ const apiKeyGet = {
     klaviyo:  'https://www.klaviyo.com/account#api-keys-tab',
     hubspot: 'https://app.hubspot.com/api-key/7989792/call-log'
 }
+
 
 class ChangePassword extends React.Component {
     constructor(props){

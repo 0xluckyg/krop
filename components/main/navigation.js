@@ -10,14 +10,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import WidgetBrowseIcon from '@material-ui/icons/WebAsset';
-import StoreIcon from '@material-ui/icons/Store';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ContactIcon from '@material-ui/icons/Mail';
 import ProfileIcon from '@material-ui/icons/PersonPin';
 import CampaignIcon from '@material-ui/icons/DonutSmall';
-import CropFreeIcon from '@material-ui/icons/CropFree';
 import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 
 import {showPaymentPlanAction} from '../../redux/actions';
@@ -27,6 +24,7 @@ require('../../config/config')
 let strings = new LocalizedStrings({
     en:{
         campaignLabel: "Campaigns",
+        qrBannerLabel: "QR Banner",
         profileLabel: "Profiles",
         settingsLabel: "Settings",
         contactUsLabel: "Contact Us",
@@ -35,6 +33,7 @@ let strings = new LocalizedStrings({
     },
     kr: {
         campaignLabel: "캠페인",
+        qrBannerLabel: "QR 표지판",
         profileLabel: "프로필들",
         settingsLabel: "설정",
         contactUsLabel: "문의",
@@ -42,7 +41,6 @@ let strings = new LocalizedStrings({
         
     }
 });
-console.log("WHAL ", process.env.LANGUAGE)
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 const widgets = [
@@ -53,7 +51,7 @@ const widgets = [
     },
     // {
     //     route: '/banners/browse',
-    //     text: 'QR Banner',
+    //     text: strings.qrBannerLabel,
     //     Icon: CropFreeIcon
     // },
 ]

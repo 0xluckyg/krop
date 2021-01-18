@@ -3,6 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 const emailValidator = require("email-validator");
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -13,6 +14,46 @@ import HeaderIcon from '@material-ui/icons/PermIdentity';
 import {getUserResolveAction, getUserAction, showToastAction} from '../../redux/actions';
 import keys from '../../config/keys'
 import ColorPicker from '../reusable/color-picker'
+
+let strings = new LocalizedStrings({
+    en:{
+        submitError: "Coulnd not submit. Please try refreshing the app",
+        emailError: "Please enter a valid email",
+        nameError: "Please enter your name",
+        emailExistsError: "Email exists. Please try another email",
+        saveError: "Couldn't save your info. Please try again later",
+        nameLabel: "What's your name?",
+        namePlaceholder: "Name",
+        emailLabel: "What's your email?",
+        emailPlaceholder: "Email",
+        domainLabel: "Do you have a doamin name in mind?",
+        domainPlaceholder: "Domain",
+        primaryAppColor: "Primary app color",
+        secondaryAppColor: "Secondary app color",
+        footerLabel: "Please tell us more about you",
+        headerLabel: "ONE LAST STEP!",
+        buttonLabel: "GET STARTED"
+    },
+    kr: {
+        submitError: "리로딩 후 다시 시도해 주세요",
+        emailError: "올바른 이메일을 입력해 주세요",
+        nameError: "올바른 이름을 입력해 주세요",
+        emailExistsError: "이미 사용중인 이메일 이에요. 다른 이메일을 사용해 주세요",
+        saveError: "저장 오류입니다. 잠시후 다시 시도해 주세요",
+        nameLabel: "이름",
+        namePlaceholder: "이름",
+        emailLabel: "이메일",
+        emailPlaceholder: "이메일",
+        domainLabel: "회사 이름이 있으신가요?",
+        domainPlaceholder: "도메인",
+        primaryAppColor: "메인 컬러",
+        secondaryAppColor: "보조 컬러",
+        footerLabel: "조금만 더 알려 주세요",
+        headerLabel: "거의다 끝났어요!",
+        buttonLabel: "시작하기"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 //A pop up to ask users to login or signup
 class OnboardingModal extends React.Component {
@@ -87,17 +128,17 @@ class OnboardingModal extends React.Component {
     
     validate() {
         if (!this.props.user._id) {
-            this.props.showToastAction(true, `Couldn't submit. Please try refreshing the app`, 'error')
+            this.props.showToastAction(true, strings.submitError, 'error')
             return false
         }
         
         let {name, email, domain} = this.state
         
         if (!emailValidator.validate(email)) {
-            this.setState({emailError: "Please enter a valid email"})
+            this.setState({emailError: strings.emailError})
             return false
         } else if (!name || name == '') {
-            this.setState({nameError: "Please enter your name"})
+            this.setState({nameError: strings.nameError})
             return false
         } else {
             return true
@@ -122,9 +163,9 @@ class OnboardingModal extends React.Component {
             this.setState({isLoading:false, isOpen: false})
         }).catch((err) => {
             if (err.response && err.response.data) {
-                this.props.showToastAction(true, `Email exists. Please try another email`, 'error')
+                this.props.showToastAction(true, strings.emailExistsError, 'error')
             } else {
-                this.props.showToastAction(true, `Couldn't save your info. Please try again later.`, 'error')   
+                this.props.showToastAction(true, strings.saveError, 'error')   
             }
             this.setState({isLoading:false})            
         })
@@ -138,13 +179,13 @@ class OnboardingModal extends React.Component {
                 <TextField
                     className={classes.textField}
                     id="name"
-                    label="What's your name?"
+                    label={strings.nameLabel}
                     value={name}
                     onChange={(event) => {
                         this.setState({name:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Name"
+                    placeholder={strings.namePlaceholder}
                     error={nameError ? true : false}
                     helperText={nameError ? nameError : false}
                     fullWidth
@@ -152,13 +193,13 @@ class OnboardingModal extends React.Component {
                 <TextField
                     className={classes.textField}
                     id="email"
-                    label="What's your email?"
+                    label={strings.emailLabel}
                     value={email}
                     onChange={(event) => {
                         this.setState({email:event.target.value})
                     }}
                     margin="normal"
-                    placeholder="Email"
+                    placeholder={strings.emailPlaceholder}
                     error={emailError ? true : false}
                     helperText={emailError ? emailError : false}
                     fullWidth
@@ -166,14 +207,14 @@ class OnboardingModal extends React.Component {
                 <TextField
                     className={classes.textField}
                     id="website"
-                    label="Do you have a domain? (e.g. krop.io)"
+                    label={strings.domainLabel}
                     value={domain}
                     onChange={(event) => {
                         const domain = this.handleHttp(event.target.value)
                         this.setState({domain})
                     }}
                     margin="normal"
-                    placeholder="Domain"
+                    placeholder={strings.domainPlaceholder}
                     error={domainError ? true : false}
                     helperText={domainError ? domainError : false}
                     fullWidth
@@ -188,12 +229,12 @@ class OnboardingModal extends React.Component {
         return (
             <div className={classes.colorPickerContainer}>
                 <ColorPicker
-                    text="Primary app color"
+                    text={strings.primaryAppColor}
                     color={primaryColor}
                     onChange={primaryColor => this.setState({primaryColor})}
                 /><br/>
                 <ColorPicker
-                    text="Secondary app color"
+                    text={strings.secondaryAppColor}
                     color={secondaryColor}
                     onChange={secondaryColor => this.setState({secondaryColor})}
                 />
@@ -207,7 +248,7 @@ class OnboardingModal extends React.Component {
         return (
             <div className={classes.footerWrapper}>
                 <div>
-                    <p className={classes.footerText}>Please tell us more about yourself!</p>
+                    <p className={classes.footerText}>{strings.footerLabel}</p>
                 </div>
             </div>    
         )
@@ -227,7 +268,7 @@ class OnboardingModal extends React.Component {
                             <HeaderIcon className={classes.headerIcon}/>
                         </div>
                         <p className={classes.mainText}>
-                            ONE LAST STEP!
+                            {strings.headerLabel}
                         </p>
                         {this.renderInfoCollector()}
                         {this.renderColorPicker()}
@@ -240,7 +281,7 @@ class OnboardingModal extends React.Component {
                                 color="primary" 
                                 className={classes.button}
                             >
-                                    GET STARTED
+                                {strings.buttonLabel}
                             </Button>
                         </div>
                         {this.renderAuthFooter()}

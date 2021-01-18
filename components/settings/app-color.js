@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {Fragment} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -11,6 +12,28 @@ import ColorPicker from '../reusable/color-picker'
 
 import {getUserResolveAction, getUserAction, showToastAction, isLoadingAction } from '../../redux/actions';
 import keys from '../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        selectError: "Please select your app colors!",
+        updatedAlert: "Colors updated!",
+        saveError: "Couldn't save your colors. Please try again later",
+        primaryColorLabel: "Primary app color",
+        secondaryColorLabel: "Secondary app color",
+        appColorsLabel: "App colors",
+        changeLabel: "Change"
+    },
+    kr: {
+        selectError: "컬러를 골라주세요!",
+        updatedAlert: "컬러를 수정했어요!",
+        saveError: "컬러를 수정할수 없어요. 잠시후 다시 시도해 주세요",
+        primaryColorLabel: "메인 컬러",
+        secondaryColorLabel: "보조 컬러",
+        appColorsLabel: "앱 컬러",
+        changeLabel: "바꾸기"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ChangeAppColor extends React.Component {
     constructor(props){
@@ -46,7 +69,7 @@ class ChangeAppColor extends React.Component {
     submitInfo() {
         const {primaryColor, secondaryColor} = this.state
         if (primaryColor == '' || secondaryColor == '') {
-            this.props.showToastAction(true, `Please select your app colors!`, 'error')
+            this.props.showToastAction(true, strings.selectError, 'error')
             return
         }
         const {_id} = this.props.getUserReducer
@@ -57,10 +80,10 @@ class ChangeAppColor extends React.Component {
         })
         .then((res) => {
             this.props.getUserResolveAction(res.data)
-            this.props.showToastAction(true, `Colors updated!`, 'success')
+            this.props.showToastAction(true, strings.updatedAlert, 'success')
             this.setState({isLoading:false, isOpen: false})
         }).catch(() => {
-            this.props.showToastAction(true, `Couldn't save your colors. Please try again later.`, 'error')   
+            this.props.showToastAction(true, strings.saveError, 'error')   
             this.setState({isLoading:false})            
         })
     }
@@ -79,12 +102,12 @@ class ChangeAppColor extends React.Component {
         return (
             <div className={classes.colorPickerContainer}>
                 <ColorPicker
-                    text="Primary app color"
+                    text={strings.primaryColorLabel}
                     color={primaryColor}
                     onChange={primaryColor => this.setState({primaryColor})}
                 /><br/>
                 <ColorPicker
-                    text="Secondary app color"
+                    text={strings.secondaryColorLabel}
                     color={secondaryColor}
                     onChange={secondaryColor => this.setState({secondaryColor})}
                 />
@@ -97,7 +120,7 @@ class ChangeAppColor extends React.Component {
         return (            
             <Paper className={classes.paper}>
                 <Typography variant="subtitle2" gutterBottom>
-                    App Colors
+                    {strings.appColorsLabel}
                 </Typography><br/>     
                 {this.renderColorPicker()}
                 <Button 
@@ -108,7 +131,7 @@ class ChangeAppColor extends React.Component {
                     className={classes.button}
                     disabled={this.state.isLoading}
                 >
-                    Change
+                    {strings.changeLabel}
                 </Button> 
             </Paper>
         )

@@ -1,9 +1,21 @@
 import React from 'react';
 import clsx from 'clsx'
 import Masonry from 'react-masonry-component'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import keys from '../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        templateLabel: "Template"
+    },
+    kr: {
+        templateLabel: "템플렛"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
 
 class CompiledElement extends React.Component {      
     constructor(props) {
@@ -19,7 +31,7 @@ class CompiledElement extends React.Component {
         } else {
             this.props.setState({
                 selectedCard: i,
-                name: this.props.state.templates[i].name ? this.props.state.templates[i].name : 'Template'
+                name: this.props.state.templates[i].name ? this.props.state.templates[i].name : strings.templateLabel
             })
         }
     }

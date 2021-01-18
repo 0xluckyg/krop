@@ -8,6 +8,7 @@ import React from 'react';
 import keys from '../../config/keys'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -15,8 +16,43 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 
 import {getUserAction, showToastAction, isLoadingAction} from '../../redux/actions';
-import PageHeader from '../reusable/page-header'
-import PageFooter from '../reusable/page-footer';
+
+let strings = new LocalizedStrings({
+    en:{
+        emailLabel: "Email",
+        noEmailLabel: "No email",
+        phoneNumberLabel: "Phone number",
+        phoneLabel: "Phone",
+        noNumberLabel: "No Number",
+        profileLabel: "Profile",
+        attributesLabel: "Attributes",
+        NALabel: "N/A",
+        browserLabel: "Browser",
+        deviceLabel: "Device",
+        nameLabel: "Name",
+        addressLabel: "Address",
+        createdAtLabel: "Created at"
+
+    },
+    kr: {
+        emailLabel: "이메일",
+        noEmailLabel: "이메일 없음",
+        phoneNumberLabel: "전화번호",
+        phoneLabel: "번호",
+        noNumberLabel: "번호 없음",
+        profileLabel: "프로필",
+        attributesLabel: "속성",
+        NALabel: "없음",
+        browserLabel: "브라우저",
+        deviceLabel: "기기",
+        nameLabel: "이름",
+        addressLabel: "주소",
+        createdAtLabel: "날짜"
+
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
 
 class NoContent extends React.Component {   
     constructor(props) {
@@ -39,10 +75,10 @@ class NoContent extends React.Component {
         return (
             <React.Fragment>
                  <Typography variant="h5" gutterBottom>
-                    Email
+                    {strings.emailLabel}
                 </Typography> 
                 <Paper className={classes.paper}>
-                    {this.renderProperty('Email', email ? email : "No Email")}
+                    {this.renderProperty(strings.emailLabel, email ? email : strings.noEmailLabel)}
                 </Paper>    
             </React.Fragment>
         )
@@ -54,10 +90,10 @@ class NoContent extends React.Component {
         return (
             <React.Fragment>
                  <Typography variant="h5" gutterBottom>
-                    Phone number
+                    {strings.phoneNumberLabel}
                 </Typography> 
                 <Paper className={classes.paper}>
-                    {this.renderProperty('Phone', phone ? phone : "No Number")}
+                    {this.renderProperty(strings.phoneLabel, phone ? phone : strings.noNumberLabel)}
                 </Paper>    
             </React.Fragment>
         )
@@ -67,14 +103,14 @@ class NoContent extends React.Component {
         const {firstName, lastName} = profile.name
         const first = firstName ? firstName : ''
         const last = lastName ? ' ' + lastName : ''
-        if (!first && !last) return 'N/A'
+        if (!first && !last) return strings.NALabel
         return first + last
     }
     
     formatAddress(profile) {
         let {address1, address2, city, state, country, zip} = profile.address
         
-        if (!address1 && !address2 && !city && !state && !country && !zip) return 'N/A'
+        if (!address1 && !address2 && !city && !state && !country && !zip) return strings.NALabel
         
         address1 = address1 ? address1 : ''
         address2 = address2 ? ' ' + address2 + ',': ''
@@ -86,8 +122,8 @@ class NoContent extends React.Component {
     }
     
     formatDate(ISO) {
-        if (!ISO) return 'N/A'
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        if (!ISO) return strings.NALabel
+        const months = ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12"]
         let date = new Date(Date.parse(ISO))
         var time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
         return `${time} ${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`        
@@ -99,12 +135,12 @@ class NoContent extends React.Component {
         return (
             <React.Fragment>
                  <Typography variant="h5" gutterBottom>
-                    Profile
+                    {strings.profileLabel}
                 </Typography> 
                 <Paper className={classes.paper}>
 
-                    {this.renderProperty('Name', this.formatName(profile))}
-                    {this.renderProperty('Address', this.formatAddress(profile))}
+                    {this.renderProperty(strings.nameLabel, this.formatName(profile))}
+                    {this.renderProperty(strings.addressLabel, this.formatAddress(profile))}
                 </Paper>    
             </React.Fragment>
         )
@@ -115,12 +151,12 @@ class NoContent extends React.Component {
         return (
             <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                    Attributes
+                    {strings.attributesLabel}
                 </Typography> 
                 <Paper className={classes.paper}>
-                    {this.renderProperty('Browser', profile.browser ? profile.browser : "N/A")}
-                    {this.renderProperty('Device', profile.device ? profile.device : "N/A")}
-                    {this.renderProperty('Created At', this.formatDate(profile.createdAt))}
+                    {this.renderProperty(strings.browserLabel, profile.browser ? profile.browser : strings.NALabel)}
+                    {this.renderProperty(strings.deviceLabel, profile.device ? profile.device : strings.NALabel)}
+                    {this.renderProperty(strings.createdAtLabel, this.formatDate(profile.createdAt))}
                 </Paper> 
             </React.Fragment>        
         )

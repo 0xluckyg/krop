@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import clsx from 'clsx';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -26,7 +26,36 @@ import ElementEditor from './element-editor'
 import {elementsToPages, findElementPageIndex} from './element-editor/sub/functions'
 import StageEditor from './stage-editor'
 import SectionHeader from  './element-editor/frame/section-header'
-import {image} from './element-objects'
+
+let strings = new LocalizedStrings({
+    en:{
+        elementsLabel: "Elements",
+        noElementsLabel: "No elements",
+        addElementLabel: "Press the plus icon to add an element",
+        settingsLabel: "Settings",
+        styleLabel: "Style",
+        backgroundLabel: "Background",
+        textLabel: "Text",
+        alertLabel: "Alert",
+        logoLabel: "Logo",
+        elementLabel: "Campaign elements (Drag to reorder)",
+        viewAsLabel: "View as (Desktop or mobile)"
+    },
+    kr: {
+        elementsLabel: "아이템들",
+        noElementsLabel: "컨텐트가 없어요",
+        addElementLabel: "더하기 아이콘을 눌러서 컨텐트를 추가하세요!",
+        settingsLabel: "설정",
+        styleLabel: "스타일",
+        backgroundLabel: "배경",
+        textLabel: "글자",
+        alertLabel: "알람",
+        logoLabel: "로고",
+        elementLabel: "캠페인 아이템 (끌어당겨서 순서를 바꿔요)",
+        viewAsLabel: "기기 (모바일 / 데스크탑)"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class StageBar extends React.Component {
     constructor(props) {
@@ -66,7 +95,7 @@ class StageBar extends React.Component {
         const {classes} = this.props
         return (
             <div className={classes.elementsHeader}>
-                <p className={classes.elementsHeaderText}>Elements</p>
+                <p className={classes.elementsHeaderText}>{strings.elementsLabel}</p>
                 {this.renderAddButton()}
             </div>    
         )
@@ -92,8 +121,8 @@ class StageBar extends React.Component {
             return <div onClick={() => this.toggleElementMenu()} className={classes.noContentContainer}>
                 <div className={classes.noContentWrapper}>
                     <AddCircleIcon className={classes.noContentIcon}/>
-                    <p className={classes.noContentText}>No Elements</p>
-                    <p className={classes.noContentSubtext}>Press the plus icon to add an element</p>
+                    <p className={classes.noContentText}>{strings.noElementsLabel}</p>
+                    <p className={classes.noContentSubtext}>{strings.addElementLabel}</p>
                 </div>
             </div>
         }
@@ -136,7 +165,7 @@ class StageBar extends React.Component {
                             color={keys.APP_COLOR_GRAY_DARKEST}
                         />
                     </IconButton >,
-                    'Settings'
+                    strings.settingsLabel
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
@@ -148,7 +177,7 @@ class StageBar extends React.Component {
                             color={keys.APP_COLOR_GRAY_DARKEST}
                         />
                     </IconButton >,
-                    'Style'
+                    strings.styleLabel
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
@@ -160,7 +189,7 @@ class StageBar extends React.Component {
                             color={keys.APP_COLOR_GRAY_DARKEST}
                         />
                     </IconButton >,
-                    'Background'
+                    strings.backgroundLabel
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
@@ -172,7 +201,7 @@ class StageBar extends React.Component {
                             color={keys.APP_COLOR_GRAY_DARKEST}
                         />
                     </IconButton >,
-                    'Text'
+                    strings.textLabel
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
@@ -184,7 +213,7 @@ class StageBar extends React.Component {
                             color={keys.APP_COLOR_GRAY_DARKEST}
                         />
                     </IconButton >,
-                    'Alert'
+                    strings.alertLabel
                 )}
                 {this.renderIconWithSubtitle(
                     <IconButton  
@@ -196,7 +225,7 @@ class StageBar extends React.Component {
                             color={keys.APP_COLOR_GRAY_DARKEST}
                         />
                     </IconButton >,
-                    'Logo'
+                    strings.logoLabel
                 )}
             </div>
         )
@@ -223,14 +252,14 @@ class StageBar extends React.Component {
                     </Slide>
                     <div className={classes.sideEditor}>
                         {this.renderMainHeader()}
-                        <SectionHeader title="Campaign Elements (Drag to Reorder)"/>
+                        <SectionHeader title={strings.elementsLabel}/>
                         <div className={classes.elementsList}>
                             {this.renderElementList()}
                         </div>
                     </div>
                 </div>
                 <div className={classes.sideEditorFooter}>
-                    <SectionHeader title="View as (Desktop or Mobile)"/>
+                    <SectionHeader title={strings.viewAsLabel}/>
                     {this.renderSettingsEditor()}
                 </div>
             </div>

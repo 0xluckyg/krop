@@ -3,9 +3,10 @@ import axios from 'axios'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import shortid from 'shortid'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
-import { Modal, Button, TextField, Chip, ListItem } from '@material-ui/core'
+import { Modal, Button, Chip, ListItem } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 
 import {
@@ -19,6 +20,26 @@ import keys from '../../config/keys';
 import Templates from './template-list'
 import staticTemplateOptions from './static-options'
 import ColorPicker from '../reusable/color-picker'
+
+let strings = new LocalizedStrings({
+    en:{
+        fetchError: "Couldn't get templates. Please try again later",
+        chooseTemplateLabel: "Choose a template from our gallery",
+        primaryColorLabel: "Primary",
+        secondaryColorLabel: "Secondary",
+        searchLabel: "Search",
+        selectLabel: "Select"
+    },
+    kr: {
+        fetchError: "템플릿을 가져오지 못했어요. 잠시후 다시 시도해 주세요",
+        chooseTemplateLabel: "저희 갤러리에서 템플릿을 골라주세요!",
+        primaryColorLabel: "주",
+        secondaryColorLabel: "보조",
+        searchLabel: "찾기",
+        selectLabel: "선택"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 const defaultState = {
     name: '',
@@ -51,16 +72,15 @@ class TemplateModal extends React.Component {
         const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
         const {hasNext, page, searchText} = this.state
         if (bottom && hasNext) {
-            // this.fetchTemplates({
-            //     page: page + 1, search: searchText
-            // })
+            this.fetchTemplates({
+                page: page + 1, search: searchText
+            })
         }
     }
     
     componentDidUpdate(prevProps, prevState) {
         const templateOptions = this.props.templateOptions
         if (JSON.stringify(prevProps.templateOptions) != JSON.stringify(templateOptions)) {
-            console.log("wtf")
             this.fetchTemplates({
                 page: 1
             })
@@ -98,9 +118,6 @@ class TemplateModal extends React.Component {
     
     handleFinishSelect() {
         const {selectedCard, templates, name} = this.state
-        if (!name || name == '') {
-            return this.props.showToastAction(true, "Please give a name")
-        }
         
         const option = this.getOption()
         
@@ -168,7 +185,7 @@ class TemplateModal extends React.Component {
             }
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get templates. Please try again later.")
+            this.props.showToastAction(true, strings.fetchError)
             return err
         })
     }
@@ -234,7 +251,7 @@ class TemplateModal extends React.Component {
     renderHeader() {
         const { classes, type } = this.props;
         return (
-                <p className={classes.templateHeader}>Choose a template from our gallery!</p>
+                <p className={classes.templateHeader}>{strings.chooseTemplateLabel}</p>
         )
     }
     
@@ -280,7 +297,7 @@ class TemplateModal extends React.Component {
             <div className={classes.colorPickerContainer}>
                 <ColorPicker
                     textDisabled
-                    text="Primary"
+                    text={strings.primaryColorLabel}
                     color={primaryColor}
                     onChange={primaryColor => this.changePrimaryColor(primaryColor)}
                     handleClose={() => {
@@ -292,7 +309,7 @@ class TemplateModal extends React.Component {
                 <div style={{width: 15}}></div>
                 <ColorPicker
                     textDisabled
-                    text="Secondary"
+                    text={strings.secondaryColorLabel}
                     color={secondaryColor}
                     onChange={secondaryColor => this.changeSecondaryColor(secondaryColor)}
                     handleClose={() => {
@@ -339,7 +356,7 @@ class TemplateModal extends React.Component {
                     className={classes.searchBar} 
                     value={searchText} 
                     onChange={event => this.handleSearch(event.target.value)}
-                    placeholder="Search" 
+                    placeholder={strings.searchLabel} 
                     type={keys.TEXT_PROPERTY}
                 />
             </div>
@@ -352,25 +369,13 @@ class TemplateModal extends React.Component {
         if (selectedCard == null) return null
         return (
             <div className={classes.footer}>
-                <TextField
-                    className={classes.footerTextField}
-                    id="name"
-                    label="Choose a name"
-                    value={name}
-                    onChange={(event) => {
-                        this.setState({name:event.target.value})
-                    }}
-                    margin="normal"
-                    placeholder="Please enter a name"
-                    fullWidth
-                />
                 <Button 
                     onClick={() => this.handleFinishSelect()} 
                     color="secondary"
                     variant="outlined"
                     className={classes.footerButton}
                 >
-                        {type == keys.WIDGET ? 'GET STARTED' : 'SELECT'}
+                        {strings.selectLabel}
                 </Button>
             </div>
         )

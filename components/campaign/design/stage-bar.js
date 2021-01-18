@@ -1,4 +1,5 @@
 import React from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -13,7 +14,22 @@ import shortid from 'shortid'
 
 import keys from '../../../config/keys'
 import Dialog from '../../reusable/dialog'
-const stageQuota = 10
+
+let strings = new LocalizedStrings({
+    en:{
+        dialogTitle: "Too many slides",
+        dialogDescription: "You can only add up to 100 stages",
+        dialogButtonLabel: "Okay"
+    },
+    kr: {
+        dialogTitle: "스테이지가 너무 많아요",
+        dialogDescription: "100개의 스테이지 이상은 안돼요!",
+        dialogButtonLabel: "확인"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
+const stageQuota = 100
 
 class StageBar extends React.Component {
     constructor(props) {
@@ -122,9 +138,9 @@ class StageBar extends React.Component {
                 <Dialog
                     open={dialogOpen}
                     handleClose={() => this.setState({dialogOpen: false})}
-                    title="Too many slides!"
-                    description="You can only add up to 10 stages."
-                    yesText="Okay"
+                    title={strings.dialogTitle}
+                    description={strings.dialogDescription}
+                    yesText={strings.dialogButtonLabel}
                 />
                 {this.renderTabs()}
                 <div className={classes.buttonWrapper}>

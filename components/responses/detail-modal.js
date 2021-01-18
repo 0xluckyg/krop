@@ -36,7 +36,6 @@ class DetailModal extends React.Component {
 
     render() {
         const { classes, detail, close, children } = this.props;
-        console.log("C: ", children)
         return(
             <Modal 
                 style={{zIndex: 9999999}}

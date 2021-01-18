@@ -1,7 +1,24 @@
 import React from 'react';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+
+let strings = new LocalizedStrings({
+    en:{
+        daysLabel: "Days",
+        hoursLabel: "Hours",
+        minutesLabel: "Minutes",
+        secondsLabel: "Seconds"
+    },
+    kr: {
+        daysLabel: "일",
+        hoursLabel: "시간",
+        minutesLabel: "분",
+        secondsLabel: "초"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ShowAfter extends React.Component {
     constructor(props){
@@ -44,14 +61,14 @@ class ShowAfter extends React.Component {
             <div>
                 <TextField       
                     className={classes.formControl}
-                    label="Days"
+                    label={strings.daysLabel}
                     style={{marginBottom: '2px'}}
                     value={duration.d}
                     onChange={(event) => this.handleDayChange(event.target.value)}
                 />
                 <TextField                                            
                     className={classes.formControl}
-                    label="Hours"
+                    label={strings.hoursLabel}
                     style={{marginBottom: '2px'}}
                     value={duration.h}
                     onChange={(event) => this.handleHourChange(event.target.value)}
@@ -59,7 +76,7 @@ class ShowAfter extends React.Component {
                 />
                 <TextField                   
                     className={classes.formControl}
-                    label="Minutes"
+                    label={strings.minutesLabel}
                     style={{marginBottom: '2px'}}
                     value={duration.m}
                     onChange={(event) => this.handleMinuteChange(event.target.value)}
@@ -67,7 +84,7 @@ class ShowAfter extends React.Component {
                 />
                 <TextField
                     className={classes.formControl}
-                    label="Seconds"
+                    label={strings.secondsLabel}
                     style={{marginBottom: '2px'}}
                     value={duration.s}
                     onChange={(event) => this.handleSecondChange(event.target.value)}

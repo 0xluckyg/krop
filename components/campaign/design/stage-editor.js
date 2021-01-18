@@ -1,4 +1,5 @@
 import React, {Fragment} from 'react'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,6 +11,19 @@ import keys from '../../../config/keys'
 import ElementList from '../../reusable/draggable-list'
 import SectionHeader from './element-editor/frame/section-container'
 
+let strings = new LocalizedStrings({
+    en:{
+        stageNameLabel: "Stage name",
+        stagesLabel: "Stages (Drag to reorder)",
+        editStageLabel: "Edit stages"
+    },
+    kr: {
+        stageNameLabel: "스테이지 이름",
+        stagesLabel: "스테이지들 (끌어당겨서 순서를 바꿉니다)",
+        editStageLabel: "스테이지들 수정"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class StageEditor extends React.Component {
     constructor(props) {
@@ -47,7 +61,7 @@ class StageEditor extends React.Component {
             <div className={classes.stageItemContainer}>
                 <TextField
                     className={classes.stageItemTextField}
-                    label="Stage Name"
+                    label={strings.stageNameLabel}
                     value={element.settings.name}
                     onChange={event => this.handleStageNameChange(event.target.value, index)}
                 /><br/>
@@ -76,7 +90,7 @@ class StageEditor extends React.Component {
         const {classes} = this.props
         return (
             <div className={classes.elementsHeader}>
-                <p className={classes.elementsHeaderText}>Edit Stages</p>
+                <p className={classes.elementsHeaderText}>{strings.editStageLabel}</p>
                 {this.renderExitButton()}
             </div>    
         )
@@ -96,7 +110,7 @@ class StageEditor extends React.Component {
         return (
             <div className={classes.sideEditor}>
                 {this.renderMainHeader()}
-                <SectionHeader title="Stages (Drag to Reorder)"/>
+                <SectionHeader title={strings.stagesLabel}/>
                 <div className={classes.elementsList}>
                     <ElementList 
                         customKey="Stage"

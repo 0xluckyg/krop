@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Waypoint } from "react-waypoint";
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -21,7 +22,39 @@ import DetailModal from './detail-modal'
 import CampaignSessions from './sessions'
 import CampaignResponses from './responses'
 
-class Campaigns extends React.Component {
+let strings = new LocalizedStrings({
+    en:{
+        fetchCampaignError: "Couldn't get campaign results. Please try again later",
+        noContentTitle: "Hey there,",
+        noContentSub: "It looks like you don't have a campaign yet!",
+        noContentActionText: "Set up a campaign",
+        noContentFooterText: "Your campaigns will show up here after you create one.",
+        campaignNameColumn: "Campaign name",
+        viewsColumn: "Views",
+        submitsColumn: "Submits",
+        updatedAtColumn: "Updated at",
+        viewColumn: "View",
+        responsesTab: "Responses",
+        sessionsTab: "Sessions"
+    },
+    kr: {
+        fetchCampaignError: "캠페인들을 가져오지 못했어요. 나중에 다시 시도해 주세요",
+        noContentTitle: "흐음,",
+        noContentSub: "캠페인을 아직 안만드신것 같네요!",
+        noContentActionText: "캠페인 만들으러 가기",
+        noContentFooterText: "캠페인을 만든후 이곳에서 볼수 있어요.",
+        campaignNameColumn: "캠페인 이름",
+        viewsColumn: "캠페인 조회수",
+        submitsColumn: "캠페인 작성수",
+        updatedAtColumn: "업데이트 날짜",
+        viewColumn: "보기",
+        responsesTab: "답변",
+        sessionsTab: "세션"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+
+class BrowseCampaigns extends React.Component {
     constructor(props){
         super(props)
 
@@ -57,7 +90,7 @@ class Campaigns extends React.Component {
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get campaign results. Please try again later.")
+            this.props.showToastAction(true, strings.fetchCampaignError)
             return err
         })
     }
@@ -67,10 +100,10 @@ class Campaigns extends React.Component {
             <div className={this.props.classes.emptyContainer}>
                 <NoContent
                     iconPath="../../static/responses/market.svg"
-                    text='Hey there,'
-                    subText="It looks like you don't have a profile in your contacts!"
-                    actionText='Set up a Campaign'
-                    footerText="Your contacts will show up here after people register with your campaigns."
+                    text={strings.noContentTitle}
+                    subText={strings.noContentSub}
+                    actionText={strings.noContentActionText}
+                    footerText={strings.noContentFooterText}
                     action={() => {
                         window.location.replace(`${process.env.APP_URL}/widgets/create`)
                     }}
@@ -83,11 +116,11 @@ class Campaigns extends React.Component {
         return (
             <TableHead>
                 <TableRow>
-                    <TableCell size="small">Campaign Name</TableCell>
-                    <TableCell size="small">Views</TableCell>
-                    <TableCell size="small">Submits</TableCell>
-                    <TableCell size="small">Updated At</TableCell>
-                    <TableCell align="right">View</TableCell>
+                    <TableCell size="small">{strings.campaignNameColumn}</TableCell>
+                    <TableCell size="small">{strings.viewsColumn}</TableCell>
+                    <TableCell size="small">{strings.submitsColumn}</TableCell>
+                    <TableCell size="small">{strings.updatedAtColumn}</TableCell>
+                    <TableCell align="right">{strings.viewColumn}</TableCell>
                 </TableRow>
             </TableHead>
         )
@@ -116,7 +149,7 @@ class Campaigns extends React.Component {
                 })
             }} 
             detail={currentCampaign}
-            tabs={['Responses', 'Sessions']}
+            tabs={[strings.responsesTab, strings.sessionsTab]}
         >
             <CampaignResponses
                 campaignId={currentCampaign._id}
@@ -130,7 +163,7 @@ class Campaigns extends React.Component {
     render() {
          //formats ISO date into a prettier format
         const formatDate = (ISO) => {
-            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            const months = ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12"]
             let date = new Date(Date.parse(ISO))
             return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`        
         }
@@ -225,4 +258,4 @@ function mapDispatchToProps(dispatch){
     );
 }
 
-export default connect(null, mapDispatchToProps)(withStyles(useStyles)(Campaigns));
+export default connect(null, mapDispatchToProps)(withStyles(useStyles)(BrowseCampaigns));

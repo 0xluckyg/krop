@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
@@ -16,6 +16,28 @@ import PageHeader from '../../../components/reusable/page-header';
 import Device from './device'
 import Duration from './duration'
 import keys from '../../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        campaignNameLabel: "Campaign name",
+        campaignNameDescription: "Give your campaign a name",
+        pathLabel: "This campaign's path: ",
+        pathDescription: "Please enter your campaign path",
+        enabledLabel: "Enabled",
+        campaignEnabledLabel: "Campaign enabled",
+        campaignSettingsLabel: "Campaign settings"
+    },
+    kr: {
+        campaignNameLabel: "캠페인 이름",
+        campaignNameDescription: "캠페인의 이름을 정해주세요",
+        pathLabel: "이 캠페인의 경로: ",
+        pathDescription: "캠페인의 경로를 정해주세요: ",
+        enabledLabel: "캠페인 켜기",
+        campaignEnabledLabel: "캠페인 활성화",
+        campaignSettingsLabel: "캠페인 설정"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class SettingsEditor extends React.Component {
     constructor(props){
@@ -45,7 +67,7 @@ class SettingsEditor extends React.Component {
         return (
             <Paper className={classes.paper}>
                 <Typography variant="subtitle2" gutterBottom>
-                    Widget Name
+                    {strings.campaignNameLabel}
                 </Typography>
                 <TextField          
                     className={classes.textField}
@@ -57,7 +79,7 @@ class SettingsEditor extends React.Component {
                         newState.settings.name = event.target.value
                         setState(newState)
                     }}
-                    helperText="Give your widget a name"
+                    helperText={strings.campaignNameDescription}
                 />
             </Paper>    
         )
@@ -71,7 +93,7 @@ class SettingsEditor extends React.Component {
         return (
             <Paper className={classes.paper}>
                 <Typography variant="subtitle2" gutterBottom>
-                    This campaign's path:
+                    {strings.pathLabel}
                 </Typography>
                 <Typography variant="subtitle2" gutterBottom>
                     {state.domain}.{appUrl}/{state.path}
@@ -92,7 +114,7 @@ class SettingsEditor extends React.Component {
                         newState.path = path
                         setState(newState)
                     }}
-                    placeholder="Please enter your website path"
+                    placeholder={strings.pathDescription}
                     error={pathError ? true : false}
                     helperText={pathError ? pathError : false}
                 />
@@ -105,7 +127,7 @@ class SettingsEditor extends React.Component {
         return (
             <Paper className={classes.paper}>
                 <Typography variant="subtitle2" gutterBottom>
-                    Enabled
+                    {strings.enabledLabel}
                 </Typography>
                 <FormControlLabel
                     control={
@@ -115,7 +137,7 @@ class SettingsEditor extends React.Component {
                           setState(newState)
                       }} />
                     }
-                    label="Campaign enabled"
+                    label={strings.campaignEnabledLabel}
                 />
             </Paper>
         )
@@ -123,7 +145,7 @@ class SettingsEditor extends React.Component {
 
     render() {
         const {classes, state, setState} = this.props       
-        const headerText = 'Widget Settings' 
+        const headerText = strings.campaignSettingsLabel
         return (            
             <main className={classes.content}>
             <PageHeader title={headerText} modal={(this.props.edit) ? true : false}/>
