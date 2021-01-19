@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 const emailValidator = require("email-validator");
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +15,40 @@ import { showToastAction, isLoadingAction } from '../../redux/actions';
 import PageHeader from '../../components/reusable/page-header'
 import Spinner from '../../components/reusable/spinner';
 import keys from '../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        subjectError: "Please enter more than 3 characters",
+        bodyError: "Please enter more than 10 characers",
+        emailError: "Please enter a valid email",
+        sentAlert: "Email sent!",
+        sendError: "We're having trouble sending your email. Please try again later",
+        contactUsTitle: "CONTACT US",
+        subjectLabel: "Subject",
+        subjectPlaceholder: "E.g. Save button is not working!",
+        emailLabel: "Email",
+        emailPlaceholder: "E.g. youremail@example.com",
+        bodyLabel: "Body",
+        bodyPlaceholder: 'Any technical issues? &#10;Any feedback? &#10;Want to get in touch? &#10;Please fill out the form and shoot us an email!',
+        buttonLabel: "Send email"
+    },
+    kr: {
+        subjectError: "제목을 3자리 이상 써주세요",
+        bodyError: "본문을 10자리 이상 써주세요",
+        emailError: "올바른 이메일을 적어주세요",
+        sentAlert: "이메일을 보냈어요!",
+        sendError: "이메일을 보내지 못했어요. 잠시후 다시 시도해 주세요",
+        contactUsTitle: "연락",
+        subjectLabel: "주제",
+        subjectPlaceholder: "예시: 저장 버튼이 안먹혀요!",
+        emailLabel: "이메일",
+        emailPlaceholder: "예시: abc@krop.io",
+        bodyLabel: "본문",
+        bodyPlaceholder: '저희와 소통해요!',
+        buttonLabel: "보내기"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ContactUs extends React.Component {
     constructor(props){
@@ -41,21 +76,21 @@ class ContactUs extends React.Component {
     validator() {
         let valid = true
         if (this.state.subjectValue.length < 3) {
-            this.setState({subjectError:"Please enter more than 3 characters"})            
+            this.setState({subjectError: strings.subjectError})            
             valid = false
         } else {
             this.setState({subjectError:""})                        
         }   
 
         if (this.state.bodyValue.length < 10) {
-            this.setState({bodyError:"Please enter more than 10 characters"})
+            this.setState({bodyError: strings.bodyError})
             valid = false
         } else {
             this.setState({bodyError:""})
         }
 
         if (!emailValidator.validate(this.state.emailValue)) {
-            this.setState({emailError:"Please enter a valid email address"})            
+            this.setState({emailError: strings.emailError})            
             valid = false
         } else {
             this.setState({emailError:""})
@@ -78,7 +113,7 @@ class ContactUs extends React.Component {
             this.setState({isLoading: true})
             axios.post(process.env.APP_URL + '/contact-us', emailContent, headers)
             .then(res => {
-                this.props.showToastAction(true, 'Email Sent!')
+                this.props.showToastAction(true, strings.sentAlert)
                 this.setState({
                     subjectValue: "",
                     emailValue: "",
@@ -89,7 +124,7 @@ class ContactUs extends React.Component {
                     isLoading: false
                 })
             }).catch(err => {
-                this.props.showToastAction(true, 'Having Trouble.. Please Try Again Later ):', 'error')
+                this.props.showToastAction(true, strings.sendError, 'error')
                 this.setState({isLoading: false})
                 return err
             })
@@ -102,43 +137,43 @@ class ContactUs extends React.Component {
 
         return (           
             <main className={classes.content}>
-            <PageHeader title='CONTACT US' paddingTop/>
+            <PageHeader title={strings.contactUsTitle}paddingTop/>
             <Container maxWidth={keys.CONTAINER_SIZE}>
                 <Paper className={classes.paper}>                                    
                     <TextField
                         id="subject"
-                        label={subjectError ? subjectError : "Subject"}                        
+                        label={subjectError ? subjectError : strings.subjectLabel}                        
                         value={subjectValue}
                         onChange={(event) => {
                             this.setState({subjectValue:event.target.value})
                         }}
                         margin="normal"
-                        placeholder="e.g. Save button not working!"
+                        placeholder={strings.subjectPlaceholder}
                         error={subjectError ? true : false}
                         fullWidth
                     />
                     <TextField
                         id="email"
-                        label={emailError ? emailError : "Email"}                        
+                        label={emailError ? emailError : strings.emailLabel}                        
                         value={emailValue}
                         onChange={(event) => {                            
                             this.setState({emailValue:event.target.value})
                         }}
                         margin="normal"
-                        placeholder="e.g. youremail@example.com"
+                        placeholder={strings.emailPlaceholder}
                         error={emailError ? true : false}
                         fullWidth
                     />                    
                     <TextField
                         id="body"
-                        label={bodyError ? bodyError : "Body"}
+                        label={bodyError ? bodyError : strings.bodyLabel}
                         multiline                        
                         value={bodyValue}
                         onChange={(event) => {                            
                             this.setState({bodyValue:event.target.value})
                         }}
                         margin="normal"
-                        placeholder='Any technical issues? &#10;Any feedback? &#10;Want to get in touch? &#10;Please fill out the form and shoot us an email!'
+                        placeholder={strings.bodyPlaceholder}
                         error={bodyError ? true : false}
                         fullWidth
                     />
@@ -151,7 +186,7 @@ class ContactUs extends React.Component {
                             className={classes.button}     
                             disabled={this.state.isLoading}                       
                         >
-                            Send Email
+                            {strings.buttonLabel}
                         </Button>
                     </div>                    
                 </Paper>                         

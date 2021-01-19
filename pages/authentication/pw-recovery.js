@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { useRouter } from 'next/router'
+import LocalizedStrings from 'react-localization';
 const URL = require('url');
 
 import { withStyles } from '@material-ui/core/styles';
@@ -12,6 +12,35 @@ import TextField from '@material-ui/core/TextField';
 
 import {getUserAction, showToastAction, isLoadingAction} from '../../redux/actions';
 import Toast from '../../components/reusable/toast'
+
+let strings = new LocalizedStrings({
+    en:{
+        sentEmailAlert: "Sent email!",
+        findError: "We couldn't find the email. Are you sure this is the right one?",
+        sendError: "We couldn't send the email. Please try again later",
+        recoveryEmailLabel: "We'll send you a recovery email.",
+        enterEmailLabel: "Please enter your email you signed up with to change your password",
+        emailLabel: "Email",
+        emailPlaceholder: "Email (e.g. krop@gmail.com)",
+        sendLabel: "Send email",
+        loginLabel: "Take me to login",
+        noteLabel: "Note: make sure you check your spam or junk folder too if you have trouble finding the password recovery link."
+    },
+    kr: {
+        sentEmailAlert: "이메일을 보냈어요!",
+        findError: "이메일을 찾을수 없었어요. 이 이메일이 확실 하신가요?",
+        sendError: "이메일을 보낼수 없었어요. 잠시후 다시 시도해 주세요",
+        recoveryEmailLabel: "비밀번호 복구 이메일을 보내드릴꼐요.",
+        enterEmailLabel: "계정의 이메일을 입력해 주세요.",
+        emailLabel: "이메일",
+        emailPlaceholder: "이메일 (예시. krop@gmail.com)",
+        sendLabel: "보내기",
+        loginLabel: "로그인 창으로 가기",
+        noteLabel: "만약 이메일을 받지 못하셨다면 스팸 폴더를 확인해 주세요."
+
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ValidateEmail extends React.Component {   
     constructor(props) {
@@ -32,13 +61,13 @@ class ValidateEmail extends React.Component {
             withCredentials: true
         })
         .then(() => {
-            this.props.showToastAction(true, 'Sent Email!', 'success')
+            this.props.showToastAction(true, strings.sentEmailAlert, 'success')
             this.setState({isLoading:false})
         }).catch((err) => {
             if (err.response && err.response.data == 'no user') {
-                this.props.showToastAction(true, `We couldn't find the email. Are you sure this is the right one?`, 'error')    
+                this.props.showToastAction(true, strings.findError, 'error')    
             } else {
-                this.props.showToastAction(true, `We couldn't send the email. Please try again later.`, 'error')   
+                this.props.showToastAction(true, strings.sendError, 'error')   
             }
             this.setState({isLoading:false})            
         })
@@ -55,22 +84,22 @@ class ValidateEmail extends React.Component {
             <img className={classes.emailIcon} src='../../static/authenticate/rocket.svg'/>
             <div className={classes.mainText}>
                 <h3 className={classes.h2}> 
-                    We'll send you a password recovery email.
+                    {strings.recoveryEmailLabel}
                 </h3>
                 <p className={classes.p}>
-                    Please enter your email you signed up with to change your password.
+                    {strings.enterEmailLabel}
                 </p>
             </div>
             <TextField
                 className={classes.textField}
                 id="email"
-                label="Email"
+                label={strings.emailLabel}
                 value={recoveryEmail}
                 onChange={(event) => {
                     this.setState({recoveryEmail:event.target.value})
                 }}
                 margin="normal"
-                placeholder="Email (e.g. krop@gmail.com)"
+                placeholder={strings.emailPlaceholder}
                 error={recoveryEmailError ? true : false}
                 helperText={recoveryEmailError ? recoveryEmailError : false}
                 fullWidth
@@ -84,7 +113,7 @@ class ValidateEmail extends React.Component {
                     color="primary" 
                     className={classes.button}
                 >
-                        Send email
+                        {strings.sendLabel}
                 </Button>
                 <Button 
                     disabled={this.state.isLoading}
@@ -96,11 +125,11 @@ class ValidateEmail extends React.Component {
                     size="medium" 
                     className={classes.button}
                 >
-                        Take me to login
+                        {strings.loginLabel}
                 </Button>
             </div>
             <p className={classes.subText}>
-                Note: Make sure you check your spam or junk folder too if you have trouble finding the password recovery link.
+                {strings.noteLabel}
             </p>  
         </div>
     );

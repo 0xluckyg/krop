@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { useRouter } from 'next/router'
 const URL = require('url');
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,42 @@ import TextField from '@material-ui/core/TextField';
 
 import {getUserAction, showToastAction, isLoadingAction} from '../../redux/actions';
 import Toast from '../../components/reusable/toast'
+
+let strings = new LocalizedStrings({
+    en:{
+        matchError: "Your passwords do not match",
+        shortError: "Please make your password at least 8 characters",
+        longError: "Please keep your password shorter than 9 characters",
+        caseError: "Please include an upper and a lower case letter",
+        loginError: "Couldn't log in. Please try again later",
+        changeAlert: "Changed password!",
+        resetError: "We couldn't reset the password. Please try again later",
+        changePasswordLabel: "Change password",
+        recoveryEmailLabel: "We'll send you a recovery email.",
+        enterEmailLabel: "Please enter your email you signed up with to change your password",
+        passwordLabel: "Password",
+        passwordTochangeLabel: "Password to change",
+        repeatPasswordLabel: "Repeat password",
+        changeLabel: "Change"
+    },
+    kr: {
+        matchError: "비밀번호들이 일치하지 않아요",
+        shortError: "비밀번호를 8자 이상으로 만들어주세요",
+        longError: "비밀번호를 8자 이하로 만들어주세요",
+        caseError: "비밀번호에 영문 대문자와 소문자를 포함해 주세요",
+        loginError: "로그인에 실패했어요. 잠시후 다시 시도해 주세요",
+        changeAlert: "비밀번호를 바꿨어요!",
+        resetError: "비밀번호를 바꾸지 못했어요. 잠시후 다시 시도해 주세요",
+        changePasswordLabel: "비밀번호 바꾸기",
+        recoveryEmailLabel: "비밀번호 변경 이메일을 보내드릴께요.",
+        enterEmailLabel: "계정의 이메일을 입력해 주세요.",
+        passwordLabel: "비밀번호",
+        passwordTochangeLabel: "바꿀 비밀번호",
+        repeatPasswordLabel: "바꿀 비밀번호 반복",
+        changeLabel: "바꾸기"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ValidateEmail extends React.Component {   
     constructor(props) {
@@ -39,17 +75,17 @@ class ValidateEmail extends React.Component {
     checkPassword() {
         const {password, repeatPassword} = this.state
         if (password !== repeatPassword) {
-            this.props.showToastAction(true, `Your passwords do not match.`, 'error')
+            this.props.showToastAction(true, strings.matchError, 'error')
             return false
         }
         
         if (password.length < 8) {
-            this.props.showToastAction(true, `Please make your password at least 8 characters`, 'error')
+            this.props.showToastAction(true, strings.shortError, 'error')
             return false
         }
         
         if (password.length > 15) {
-            this.props.showToastAction(true, `Your password is too long`, 'error')
+            this.props.showToastAction(true, strings.longError, 'error')
             return false
         }
         
@@ -59,15 +95,10 @@ class ValidateEmail extends React.Component {
         const special = /[^A-Za-z0-9]/
         
         if (!upper.test(password) || !lower.test(password)) {
-            this.props.showToastAction(true, `Please include a upper and a lower case letter`, 'error')
+            this.props.showToastAction(true, strings.caseError, 'error')
             return false
         }
-        
-        if (!number.test(password) || !special.test(password)) {
-            this.props.showToastAction(true, `Please include a number and a special character`, 'error')
-            return false
-        }
-        
+
         return true
     }
     
@@ -84,7 +115,7 @@ class ValidateEmail extends React.Component {
             this.setState({isLoading:false})
             window.location.replace(`${process.env.APP_URL}`)
         }).catch(() => {
-            this.props.showToastAction(true, `Couldn't log in. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.loginError, 'error')
             this.setState({isLoading:false})            
         })
     }
@@ -107,10 +138,10 @@ class ValidateEmail extends React.Component {
             withCredentials: true
         })
         .then(() => {
-            this.props.showToastAction(true, 'Changed Password!', 'success')
+            this.props.showToastAction(true, strings.changeAlert, 'success')
             this.handleLogin()
         }).catch(() => {
-            this.props.showToastAction(true, `We couldn't reset the password. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.resetError, 'error')
             this.setState({isLoading:false})            
         })
     }
@@ -126,36 +157,36 @@ class ValidateEmail extends React.Component {
             <img className={classes.emailIcon} src='../../static//authenticate/rocket.svg'/>
             <div className={classes.mainText}>
                 <h3 className={classes.h2}> 
-                    We'll send you a password recovery email.
+                    {strings.recoveryEmailLabel}
                 </h3>
                 <p className={classes.p}>
-                    Please enter your email you signed up with to change your password.
+                    {strings.enterEmailLabel}
                 </p>
             </div>
             <TextField
                 className={classes.password1}
                 type="password"
                 id="password"
-                label="Password"
+                label={strings.passwordLabel}
                 value={password}
                 onChange={(event) => {
                     this.setState({password:event.target.value})
                 }}
                 margin="normal"
-                placeholder="Password to change"
+                placeholder={strings.passwordTochangeLabel}
                 fullWidth
             />
             <TextField
                 className={classes.password2}
                 type="password"
                 id="repeat"
-                label="Repeat password"
+                label={strings.repeatPasswordLabel}
                 value={repeatPassword}
                 onChange={(event) => {
                     this.setState({repeatPassword:event.target.value})
                 }}
                 margin="normal"
-                placeholder="Repeat password"
+                placeholder={strings.repeatPasswordLabel}
                 fullWidth
             />
             <div className={classes.buttonContainer}>
@@ -167,7 +198,7 @@ class ValidateEmail extends React.Component {
                     color="primary" 
                     className={classes.button}
                 >
-                        Change Password
+                        {strings.changeLabel}
                 </Button>
             </div>
         </div>

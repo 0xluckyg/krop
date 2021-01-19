@@ -2,9 +2,29 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import { withStyles } from '@material-ui/core/styles';
+import LocalizedStrings from 'react-localization';
 
 import {showAuthorizeModalAction} from '../redux/actions';
 import keys from '../config/keys'
+
+// “We see our customers as invited guests to a party, and we are the hosts. It’s our job to make the customer experience a little bit better.” – Jeff Bezos, Founder Amazon
+let strings = new LocalizedStrings({
+    en:{
+        title: "QR Code based customer check-ins and surveys",
+        subtitle: "START HEARING YOUR CUSTOMERS",
+        description: "Add questions, referral coupons, loyalties, promotions and much more. Survey editor limited only by our imagination.",
+        buttonLabel: "Create a campaign",
+        integrationLabel: "Compatible with the following and more"
+    },
+    kr: {
+        title: "QR 코드를 이용한 고객 체크인과 설문조사!",
+        subtitle: "고객의 목소리를 들으세요",
+        description: "설문조사, 체크인, 친구 추천 기능 등등 쉬운 고객관리를 체험해 보세요!",
+        buttonLabel: "캠페인 만들기",
+        integrationLabel: "아래의 서비스들과 연동 됩니다"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class Main extends React.Component {
     constructor(props) {
@@ -20,16 +40,16 @@ class Main extends React.Component {
                 </div>
                 <div className={classes.textContainer}>
                     <h1 className={classes.title}>
-                        The Online Popup Designer
+                        {strings.title}
                     </h1>
                     <p className={classes.subtitle}>
-                        START COLLECTING CUSTOMERS FROM YOUR WEBSITE
+                        {strings.subtitle}
                     </p>
                     <p className={classes.subText}>
-                        Add a gif, animate your text and colors, experiment with different shapes and create a lead generator limited only by your imagination.
+                        {strings.description}
                     </p>
                     <button onClick={() => this.props.showAuthorizeModalAction(true)} className={classes.button}>
-                        Create a popup
+                        {strings.buttonLabel}
                     </button>
                 </div>
             </div>
@@ -42,7 +62,7 @@ class Main extends React.Component {
             <div className={classes.bottomContainer}>
                 <div className={classes.compatibleContainerFiller}/>
                 <div className={classes.compatibleContainer}>
-                    <p className={classes.compatibleText}>Compatible with the following and more</p>
+                    <p className={classes.compatibleText}>{strings.integrationLabel}</p>
                     <div className={classes.compatibleLogoContainer}>
                         <img className={classes.compatibleLogo1} src="../static/landing/shopify.svg"/>
                         <img className={classes.compatibleLogo2} src="../static/landing/hubspot.svg"/>
@@ -58,7 +78,7 @@ class Main extends React.Component {
         return (
             <div className={classes.mainContainer}>
                 {this.renderTopPart()}
-                {this.renderBottomPart()}
+                {/* {this.renderBottomPart()} */}
             </div>
         );
     }

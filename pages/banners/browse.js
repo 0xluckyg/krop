@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -16,6 +17,45 @@ import PageHeader from '../../components/reusable/page-header'
 import NoContent from '../../components/reusable/no-content'
 import Spinner from '../../components/reusable/spinner'
 import keys from '../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        fetchError: "Couldn't get banners. Please try again later",
+        deletedAlert: "Banner deleted!",
+        deleteError: "Couldn't delete banner. Please try again later",
+        copiedAlert: "Banner copied!",
+        duplicateError: "Couldn't duplicate banner. Please try again later",
+        editedAlert: "Banner edited!",
+        editError: "Couldn't edit banner. Please try again later",
+        tableStandBannerLabel: "TABLE STAND BANNERS",
+        stickerBannerLabel: "STICKER BANNERES",
+        noContentTitle: "Hey there,",
+        noContentSub: "It looks like you don't have a banner set up yet. Let's create one now!",
+        noContentAction: "Set up a banner",
+        noContentFooter: "Your campaigns will show up here after creation",
+        tableStandLabel: "Table stand",
+        stickerLabel: "Sticker"
+    },
+    kr: {
+        fetchError: "배너들을 가지고 오지 못했어요. 잠시후 다시 시도해 주세요",
+        deletedAlert: "배너를 지웠어요!",
+        deleteError: "배너를 지우지 못했어요. 잠시후 다시 시도해 주세요",
+        copiedAlert: "배너를 복사했어요!",
+        duplicateError: "배너를 복사하지 못했어요. 잠시후 다시 시도해 주세요",
+        editedAlert: "배너를 수정했어요!",
+        editError: "배너를 수정하지 못했어요. 잠시후 다시 시도해 주세요",
+        tableStandBannerLabel: "테이블 스탠딩 배너",
+        stickerBannerLabel: "스티커 배너",
+        noContentTitle: "흐음,",
+        noContentSub: "아직 배너를 만들지 않으셨네요.",
+        noContentAction: "배너 만들기",
+        noContentFooter: "배너를 만드신 후 이곳에서 보실수 있어요",
+        tableStandLabel: "스탠딩 배너",
+        stickerLabel: "스티커"
+
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class BrowseBanners extends React.Component {
     constructor(props){
@@ -61,7 +101,7 @@ class BrowseBanners extends React.Component {
             }
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get banners. Please try again later.")
+            this.props.showToastAction(true, strings.fetchError)
             return err
         })
     }
@@ -73,11 +113,11 @@ class BrowseBanners extends React.Component {
             withCredentials: true
         })
         .then(() => {
-            this.props.showToastAction(true, 'Banner deleted!', 'success')
+            this.props.showToastAction(true, strings.deletedAlert, 'success')
             this.setState({isLoading:false})
             this.fetchBanners(this.state.page)
         }).catch(() => {
-            this.props.showToastAction(true, `Couldn't delete banner. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.deleteError, 'error')
             this.setState({isLoading:false})            
         })
     }
@@ -101,9 +141,9 @@ class BrowseBanners extends React.Component {
         .then(res => {
             this.fetchBanners(this.state.page)
             this.setState({isLoading: false})
-            this.props.showToastAction(true, 'Banner copied!', 'success')
+            this.props.showToastAction(true, strings.copiedAlert, 'success')
         }).catch((err) => {
-            this.props.showToastAction(true, `Couldn't duplicate banner. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.duplicateError, 'error')
             this.setState({isLoading: false})
         })
     }
@@ -113,21 +153,21 @@ class BrowseBanners extends React.Component {
         .then(res => {
             callback()
             this.setState({isLoading:false})
-            this.props.showToastAction(true, 'Banner edited!', 'success')
+            this.props.showToastAction(true, strings.editedAlert, 'success')
             this.updateBanner(res.data)
         }).catch(() => {
             callback()
             this.setState({isLoading:false})
-            this.props.showToastAction(true, `Couldn't edit banner. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.editError, 'error')
         })
     }
 
     getTitle() {
         switch(this.state.selectedType) {
             case(0):
-                return 'TABLE STAND BANNERS'
+                return strings.tableStandBannerLabel
             case(1):
-                return 'STICKER BANNERS'
+                return strings.stickerBannerLabel
             default:
                 return ''
         }
@@ -156,10 +196,10 @@ class BrowseBanners extends React.Component {
                 <div className={classes.noContentWrapper}>
                     <NoContent
                         iconPath="../../static/banner/add-image.svg"
-                        text='Hey there,'
-                        subText="It looks like you don't have a banner set up yet. Let's create one now!"
-                        actionText='Set up a Banner'
-                        footerText="Your campaigns wil show up here after creation."
+                        text={strings.noContentTitle}
+                        subText={strings.noContentSub}
+                        actionText={strings.noContentAction}
+                        footerText={strings.noContentFooter}
                         action={() => {
                             window.location.replace(`${process.env.APP_URL}/banners/create`)
                         }}
@@ -191,8 +231,8 @@ class BrowseBanners extends React.Component {
             variant="scrollable"
             scrollButtons="auto"
         >
-            <Tab label="Table Stand" id={0}/>
-            <Tab label="Table Sticker" id={1}/>
+            <Tab label={strings.tableStandLabel} id={0}/>
+            <Tab label={strings.stickerLabel} id={1}/>
         </Tabs>)
     }
 

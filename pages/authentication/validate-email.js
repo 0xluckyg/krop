@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import { useRouter } from 'next/router'
+import LocalizedStrings from 'react-localization';
 const URL = require('url');
 
 import { withStyles } from '@material-ui/core/styles';
@@ -11,6 +11,27 @@ import Button from '@material-ui/core/Button';
 
 import {getUserAction, showToastAction, isLoadingAction} from '../../redux/actions';
 import Toast from '../../components/reusable/toast'
+
+let strings = new LocalizedStrings({
+    en:{
+        sentEmailAlert: "Sent email!",
+        sendError: "We couldn't send the email. Please try again later",
+        verifyLabel: "Please take a moment to verify your email address",
+        resendLabel: "Resend email",
+        loginLabel: "Take me to login",
+        noteLabel: "Note: make sure you check your spam or junk folder too if you have trouble finding the password recovery link."
+    },
+    kr: {
+        sentEmailAlert: "이메일을 보냈어요!",
+        sendError: "이메일을 보낼수 없었어요. 잠시후 다시 시도해 주세요",
+        verifyLabel: "이메일을 인증해 주세요",
+        resendLabel: "이메일 재전송",
+        loginLabel: "로그인 하기",
+        noteLabel: "만약 이메일을 받지 못하셨다면 스팸 폴더를 확인해 주세요."
+
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class ValidateEmail extends React.Component {   
     constructor(props) {
@@ -48,14 +69,15 @@ class ValidateEmail extends React.Component {
             withCredentials: true
         })
         .then(() => {
-            this.props.showToastAction(true, 'Sent Email!', 'success')
+            this.props.showToastAction(true, strings.sentEmailAlert, 'success')
             this.setState({isLoading:false})
         }).catch((err) => {
-            console.log("err: ", err)
-            this.props.showToastAction(true, `Couldn't send email. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.sendError, 'error')
             this.setState({isLoading:false})            
         })
     }
+
+
 
     render() {
     const { classes} = this.props;
@@ -67,10 +89,14 @@ class ValidateEmail extends React.Component {
             <img className={classes.emailIcon} src='../../static/authenticate/mail.svg'/>
             <div className={classes.mainText}>
                 <h3 className={classes.h2}> 
-                    Please take a moment to verify your email address.
+                    {strings.verifyLabel}
                 </h3>
                 <p className={classes.p}>
-                    We have sent an email to {this.getQuery().email} with a confirmation link to get access to Krop.
+                    {
+                        process.env.LANGUAGE == 'en' ? 
+                        `We have sent an email to ${this.getQuery().email} with a confirmation link to get access to Krop.` :
+                        `${this.getQuery().email} 로 이메일을 보냈습니다. 이메일을 인증해 주세요.`
+                    }
                 </p>
             </div>
             <div className={classes.buttonContainer}>
@@ -82,7 +108,7 @@ class ValidateEmail extends React.Component {
                     color="primary" 
                     className={classes.leftButton}
                 >
-                        Resend email
+                        {strings.resendLabel}
                 </Button>
                 <Button 
                     disabled={this.state.isLoading}
@@ -94,11 +120,11 @@ class ValidateEmail extends React.Component {
                     size="medium" 
                     className={classes.rightButton}
                 >
-                        Take me to login
+                        {strings.loginLabel}
                 </Button>
             </div>
             <p className={classes.subText}>
-                Note: Make sure you check your spam or junk folder too if you have trouble finding the confirmation link.
+                {strings.noteLabel}
             </p>  
         </div>
     );

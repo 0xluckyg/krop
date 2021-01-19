@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {Fragment} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -15,8 +16,23 @@ import ChangePassword from '../../components/settings/change-password'
 import UserInfo from '../../components/settings/user-info'
 import Branding from '../../components/settings/branding'
 import AppColors from '../../components/settings/app-color'
-import Integrations from '../../components/settings/integrations'
 import keys from '../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        loggedOutAlert: "Logged out!",
+        logoutError: "Couldn't logout. Please try again later",
+        logoutLabel: "Logout",
+        settingsTitle: "SETTINGS"
+    },
+    kr: {
+        loggedOutAlert: "로그아웃 되었어요!",
+        logoutError: "로그아웃에 실패 하였어요. 잠시후 다시 시도해 주세요",
+        logoutLabel: "로그아웃",
+        settingsTitle: "설정"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 //Lets users customize app settings.
 class Settings extends React.Component {
@@ -39,12 +55,12 @@ class Settings extends React.Component {
         this.setState({isLoading: true})        
         axios.post(process.env.APP_URL + '/log-out')
         .then(() => {            
-            this.props.showToastAction(true, 'Logged out!', 'success')
+            this.props.showToastAction(true, strings.loggedOutAlert, 'success')
             this.setState({isLoading: false})
             window.location.reload()
         }).catch(() => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, `Couldn't logout. Please try again later.`, 'error')            
+            this.props.showToastAction(true, strings.logoutError, 'error')            
         })  
     }
 
@@ -55,7 +71,7 @@ class Settings extends React.Component {
         return (
             <Paper className={classes.paper}>
                 <Typography variant="subtitle2" gutterBottom>
-                    Logout
+                    {strings.logoutLabel}
                 </Typography><br/>                 
                 <Button 
                     onClick={() => this.handleLogout()}
@@ -65,7 +81,7 @@ class Settings extends React.Component {
                     className={classes.button}
                     disabled={isLoading}
                 >
-                    Logout
+                    {strings.logoutLabel}
                 </Button>
             </Paper>    
         )
@@ -76,7 +92,7 @@ class Settings extends React.Component {
 
         return (            
             <main className={classes.content}>
-                <PageHeader title='SETTINGS' paddingTop/>
+                <PageHeader title={strings.settingsTitle} paddingTop/>
                 <Container className={classes.container} maxWidth={keys.CONTAINER_SIZE}>
                     {/* <Integrations/> */}
                     {/* <br/> */}

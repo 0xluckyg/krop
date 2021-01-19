@@ -1,47 +1,40 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import TextField from '@material-ui/core/TextField';
-import SearchIcon from '@material-ui/icons/Search';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 import { showToastAction, isLoadingAction, showPaymentPlanAction } from '../../redux/actions';
-import NoContent from '../../components/reusable/no-content'
 import PageHeader from '../../components/reusable/page-header'
 import keys from '../../config/keys'
 import Campaigns from '../../components/responses/campaigns';
 import CampaignSessions from '../../components/responses/sessions';
 // import CampaignQuestions from '../../components/responses/questions';
 // import CampaignResponses from '../../components/responses/responses';
-import Spinner from '../../components/reusable/spinner'
+
+let strings = new LocalizedStrings({
+    en:{
+        shoByLabel: "Show by",
+        campaignsLabel: "Campaigns",
+        sessionsLabel: "Sessions",
+        campaignsTitle: "CAMPAIGNS"
+    },
+    kr: {
+        shoByLabel: "종류",
+        campaignsLabel: "캠페인",
+        sessionsLabel: "세션",
+        campaignsTitle: "캠페인"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class CampaignResponses extends React.Component {
     constructor(props){
@@ -77,10 +70,10 @@ class CampaignResponses extends React.Component {
         return(
             <div className={classes.filterContainer}>
                 <FormControl>
-                    <FormLabel component="legend">Show by</FormLabel>
+                    <FormLabel component="legend">{strings.shoByLabel}</FormLabel>
                     <RadioGroup value={filter} onChange={(event) => this.handleFilterSwitch(event.target.value)}>
-                        <FormControlLabel value="campaign" control={<Radio />} label="Campaigns" />
-                        <FormControlLabel value="session" control={<Radio />} label="Sessions" />
+                        <FormControlLabel value="campaign" control={<Radio />} label={strings.campaignsLabel} />
+                        <FormControlLabel value="session" control={<Radio />} label={strings.sessionsLabel} />
                     </RadioGroup>
                 </FormControl>
             </div>
@@ -93,7 +86,7 @@ class CampaignResponses extends React.Component {
         return (            
             <main className={classes.content}>   
                 <PageHeader 
-                    title='CAMPAIGNS'
+                    title={strings.campaignsTitle}
                     paddingTop
                 />
                 <Container className={classes.container} maxWidth={keys.CONTAINER_SIZE}>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Waypoint } from "react-waypoint";
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -32,6 +33,77 @@ import ProfileDetail from '../../components/responses/profile';
 import Spinner from '../../components/reusable/spinner'
 import DetailModal from '../../components/responses/detail-modal'
 import CampaignResponses from '../../components/responses/responses'
+
+let strings = new LocalizedStrings({
+    en:{
+        fetchError: "Couldn't get profiles. Please try again later",
+        deletedAlert: "Profile deleted!",
+        deleteError: "Couldn't delete profile. Please try again later",
+        copiedAlert: "Profile copied!",
+        duplicateError: "Couldn't duplicate profile. Please try again later",
+        editedAlert: "Profile edited!",
+        editError: "Couldn't edit profile. Please try again later",
+        noContentTitle: "Hey there,",
+        noContentSub: "It looks like you don't have any profile yet.",
+        noContentAction: "Set up a campaign",
+        noContentFooter: "Your profiles will show up here",
+        
+        emailLabel: "Email",
+        phoneLabel: "Phone",
+        nameLabel: "Name",
+        dateLabel: "Signup date",
+        viewLabel: "View / Delete",
+        firstNameLabel: "First name",
+        lastNameLabel: "Last name",
+        countryLabel: "Country",
+        stateLabel: "State",
+        cityLabel: "City",
+        zipLabel: "Zip",
+        address1Label: "Address 1",
+        address2Label: "Address 2",
+        searchLabel: "Search",
+        filterLabel: "Filter",
+        addressLabel: "Address",
+        profileLabel: "Profile",
+        responsesLabel: "Responses",
+        profilesTitle: "PROFILES"
+    },
+    kr: {
+        fetchError: "프로필들을 가지고 오지 못했어요. 잠시후 다시 시도해 주세요",
+        deletedAlert: "프로필를 지웠어요!",
+        deleteError: "프로필를 지우지 못했어요. 잠시후 다시 시도해 주세요",
+        copiedAlert: "프로필를 복사했어요!",
+        duplicateError: "프로필를 복사하지 못했어요. 잠시후 다시 시도해 주세요",
+        editedAlert: "프로필를 수정했어요!",
+        editError: "프로필를 수정하지 못했어요. 잠시후 다시 시도해 주세요",
+        noContentTitle: "흐음,",
+        noContentSub: "아직 프로필이 없어요.",
+        noContentAction: "캠페인 만들기",
+        noContentFooter: "캠페인을 만드신 후 이곳에서 보실수 있어요",
+        profileLabel: "모든 프로필",
+
+        emailLabel: "이메일",
+        phoneLabel: "전화번호",
+        nameLabel: "이름",
+        dateLabel: "가입 날짜",
+        viewLabel: "보기 / 지우기",
+        firstNameLabel: "이름",
+        lastNameLabel: "성",
+        countryLabel: "국가",
+        stateLabel: "도",
+        cityLabel: "도시",
+        zipLabel: "우편번호",
+        address1Label: "주소",
+        address2Label: "상세주소",
+        searchLabel: "찾기",
+        filterLabel: "필터",
+        addressLabel: "주소",
+        profileLabel: "프로필",
+        responsesLabel: "답변",
+        profilesTitle: "프로필"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class BrowseProfiles extends React.Component {
     constructor(props){
@@ -77,7 +149,7 @@ class BrowseProfiles extends React.Component {
             this.setState({...result, ...{ isLoading: false }})
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get profiles. Please try again later.")
+            this.props.showToastAction(true, strings.fetchError)
             return err
         })
     }
@@ -89,11 +161,11 @@ class BrowseProfiles extends React.Component {
             withCredentials: true
         })
         .then(() => {
-            this.props.showToastAction(true, 'Profile deleted!', 'success')
+            this.props.showToastAction(true, strings.deleteAlert, 'success')
             this.setState({isLoading:false})
             this.fetchProfiles(this.state.page)
         }).catch(() => {
-            this.props.showToastAction(true, `Couldn't delete profile. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.deleteError, 'error')
             this.setState({isLoading:false})            
         })
     }
@@ -106,17 +178,16 @@ class BrowseProfiles extends React.Component {
             //this callback stops button spinner
             callback()
             if (res.data == 'ineligible') {
-                this.setState({isLoading:false})
-                return this.props.showPaymentPlanAction(true, 'Please subscribe to our special plan to edit profiles!')
+                
             } 
             
             this.setState({isLoading:false, isEditing: false, currentProfile: undefined})
-            this.props.showToastAction(true, 'Profile edited!', 'success')
+            this.props.showToastAction(true, strings.editedAlert, 'success')
             this.updateProfile(data)
         }).catch(() => {
             callback()
             this.setState({isLoading:false})
-            this.props.showToastAction(true, `Couldn't edit profile. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.editError, 'error')
             this.updateProfile(data)
         })
     }
@@ -157,10 +228,10 @@ class BrowseProfiles extends React.Component {
             <div className={this.props.classes.emptyContainer}>
                 <NoContent
                     iconPath="../../static/responses/market.svg"
-                    text='Hey there,'
-                    subText="It looks like you don't have a profile in your contacts!"
-                    actionText='Set up a Campaign'
-                    footerText="Your contacts will show up here after people register with your campaigns."
+                    text={strings.noContentTitle}
+                    subText={strings.noContentSub}
+                    actionText={strings.noContentAction}
+                    footerText={strings.noContentFooter}
                     action={() => {
                         window.location.replace(`${process.env.APP_URL}/widgets/create`)
                     }}
@@ -173,11 +244,11 @@ class BrowseProfiles extends React.Component {
         return (
             <TableHead>
                 <TableRow>
-                    <TableCell size="small">Email</TableCell>
-                    <TableCell size="small">Phone</TableCell>
-                    <TableCell size="small">Name</TableCell>
-                    <TableCell size="small">Signup Date</TableCell>
-                    <TableCell align="right">View / Delete</TableCell>                    
+                    <TableCell size="small">{strings.emailLabel}</TableCell>
+                    <TableCell size="small">{strings.phoneLabel}</TableCell>
+                    <TableCell size="small">{strings.nameLabel}</TableCell>
+                    <TableCell size="small">{strings.dateLabel}</TableCell>
+                    <TableCell align="right">{strings.viewLabel}</TableCell>                    
                 </TableRow>
             </TableHead>
         )
@@ -198,7 +269,7 @@ class BrowseProfiles extends React.Component {
     renderTable() {
         //formats ISO date into a prettier format
         const formatDate = (ISO) => {
-            const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            const months = ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12"]
             let date = new Date(Date.parse(ISO))
             return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`        
         }
@@ -270,22 +341,22 @@ class BrowseProfiles extends React.Component {
     renderSearch() {
         const {classes} = this.props
         const searchTypes = [
-            { value: keys.EMAIL_ELEMENT, label: "Email" },
-            { value: keys.PHONE_ELEMENT, label: "Phone" },
+            { value: keys.EMAIL_ELEMENT, label: strings.emailLabel },
+            { value: keys.PHONE_ELEMENT, label: strings.phoneLabel },
             
-            { value: "name.firstName", label: "First Name"},
-            { value: "name.lastName", label: "Last Name"},
+            { value: "name.firstName", label: strings.firstNameLabel},
+            { value: "name.lastName", label: strings.lastNameLabel},
             
-            { value: "address.country", label: "Country"},
-            { value: "address.state", label: "State"},
-            { value: "address.city", label: "City"},
-            { value: "address.zip", label: "Zip"},
-            { value: "address.address1", label: "Address 1"},
-            { value: "address.address2", label: "Address 2"},
+            { value: "address.country", label: strings.countryLabel},
+            { value: "address.state", label: strings.stateLabel},
+            { value: "address.city", label: strings.cityLabel},
+            { value: "address.zip", label: strings.zipLabel},
+            { value: "address.address1", label: strings.address1Label},
+            { value: "address.address2", label: strings.address2Label},
         ]
         return (
             <div className={classes.searchContainer}>
-                <InputLabel>Search</InputLabel>
+                <InputLabel>{strings.searchLabel}</InputLabel>
                 <Select
                     className={classes.searchType}
                     value={this.state.searchType}
@@ -308,7 +379,7 @@ class BrowseProfiles extends React.Component {
                         onChange={event => this.handleSearchTextChange(event.target.value)}
                         value={this.state.searchText}
                         className={classes.textFieldStyle}
-                        label="Search"
+                        label={strings.searchLabel}
                     />
                     <IconButton  
                         className={classes.iconButton} 
@@ -326,7 +397,7 @@ class BrowseProfiles extends React.Component {
         const filter = this.state.filter
         return(
             <div className={classes.filterContainer}>
-                <InputLabel className={classes.filterLabel}>Filter</InputLabel>
+                <InputLabel className={classes.filterLabel}>{strings.filterLabel}</InputLabel>
                 <FormGroup aria-label="type" name="type" 
                     value={filter.email} 
                     onChange={(event) => this.handleFilterSwitch("email")} row>
@@ -362,7 +433,7 @@ class BrowseProfiles extends React.Component {
                 })
             }} 
             detail={currentProfile}
-            tabs={['Profile', 'Responses']}
+            tabs={[strings.profileLabel, strings.responsesLabel]}
         >
             <ProfileDetail 
                 profile={this.state.currentProfile}
@@ -381,7 +452,7 @@ class BrowseProfiles extends React.Component {
             <main className={classes.content}>   
                 {this.renderProfileDetail()}
                 <PageHeader 
-                    title='PROFILES'
+                    title={strings.profilesTitle}
                     paddingTop
                 />
                 <Container className={classes.container} maxWidth={keys.CONTAINER_SIZE}>

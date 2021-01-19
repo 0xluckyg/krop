@@ -8,6 +8,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -23,6 +24,26 @@ import SettingsEditor from '../../components/campaign/settings'
 import {defaultSettings} from '../../components/campaign/settings/settings-objects'
 import {defaultStages, defaultStyles, defaultAlert, defaultAlertMessages} from '../../components/campaign/design/element-objects'
 import ElementMenu from '../../components/campaign/design/element-menu'
+
+let strings = new LocalizedStrings({
+    en:{
+        nameError: "Please give your campaign a name",
+        createdAlert: "Campaign created!",
+        createError: "Couldn't create the campaign. Please try again later",
+        createLabel: "Create",
+        discardLabel: "Discard",
+        saveLabel: "Save"
+    },
+    kr: {
+        nameError: "캠페인에 이름을 지어 주세요",
+        createdAlert: "캠페인를 만들었습니다!",
+        createError: "캠페인를 만드는데 실패했어요. 잠시후 다시 시도해 주세요",
+        createLabel: "만들기",
+        discardLabel: "취소",
+        saveLabel: "저장"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class CreateCampaign extends React.Component {
     constructor(props){
@@ -80,7 +101,7 @@ class CreateCampaign extends React.Component {
     
     validateSubmit() {
         if (this.state.settings.name.length == 0) {
-            this.props.showToastAction(true, 'Please give your campaign a name', 'error')
+            this.props.showToastAction(true, strings.nameError, 'error')
             this.setState({selectedEditor: 1})
             return false
         }
@@ -102,19 +123,19 @@ class CreateCampaign extends React.Component {
                 axios.post(process.env.APP_URL + '/create-campaign', data)
                 .then(res => {
                     this.setState({isLoading: false})
-                    this.props.showToastAction(true, 'Campaign created!', 'success')
+                    this.props.showToastAction(true, strings.createdAlert, 'success')
                     window.location.replace('/campaigns/browse')
                 }).catch((err) => {
                     this.setState({isLoading: false})
                     if (err.response && err.response.data) {
                         return this.props.showToastAction(true, err.response.data)
                     }
-                    this.props.showToastAction(true, `Couldn't create campaign. Please try again later.`, 'error')
+                    this.props.showToastAction(true, strings.createError, 'error')
                 })
             }
         } catch(err) {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't create campaign. Please try again later.", '')
+            this.props.showToastAction(true, strings.createError, '')
         }
     }
     
@@ -137,8 +158,8 @@ class CreateCampaign extends React.Component {
             return (
                 <PageFooter
                     isLoading={this.state.isLoading}
-                    saveLabel="Create"
-                    discardLabel="Discard"
+                    saveLabel={strings.createLabel}
+                    discardLabel={strings.discardLabel}
                     showSave={true}
                     showDiscard={false}
                     saveAction={() => this.handleSubmit()}
@@ -151,8 +172,8 @@ class CreateCampaign extends React.Component {
             return (
                 <PageFooter
                     isLoading={this.state.isLoading}
-                    saveLabel="Save"
-                    discardLabel="Discard"
+                    saveLabel={strings.saveLabel}
+                    discardLabel={strings.discardLabel}
                     showSave={true}
                     showDiscard={true}
                     saveAction={() => this.handleSubmit()}

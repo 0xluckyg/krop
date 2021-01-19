@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios'
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -12,6 +13,39 @@ import PageHeader from '../../components/reusable/page-header'
 import NoContent from '../../components/reusable/no-content'
 import Spinner from '../../components/reusable/spinner'
 import keys from '../../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        fetchError: "Couldn't get campaigns. Please try again later",
+        deletedAlert: "Campaign deleted!",
+        deleteError: "Couldn't delete campaign. Please try again later",
+        copiedAlert: "Campaign copied!",
+        duplicateError: "Couldn't duplicate campaign. Please try again later",
+        editedAlert: "Campaign edited!",
+        editError: "Couldn't edit campaign. Please try again later",
+        noContentTitle: "Hey there,",
+        noContentSub: "It looks like you don't have a campaign set up yet. Let's create one now!",
+        noContentAction: "Set up a campaign",
+        noContentFooter: "Your campaigns will show up here after creation",
+        campaignLabel: "All campaigns"
+    },
+    kr: {
+        fetchError: "캠페인들을 가지고 오지 못했어요. 잠시후 다시 시도해 주세요",
+        deletedAlert: "캠페인를 지웠어요!",
+        deleteError: "캠페인를 지우지 못했어요. 잠시후 다시 시도해 주세요",
+        copiedAlert: "캠페인를 복사했어요!",
+        duplicateError: "캠페인를 복사하지 못했어요. 잠시후 다시 시도해 주세요",
+        editedAlert: "캠페인를 수정했어요!",
+        editError: "캠페인를 수정하지 못했어요. 잠시후 다시 시도해 주세요",
+        noContentTitle: "흐음,",
+        noContentSub: "아직 캠페인를 만들지 않으셨네요.",
+        noContentAction: "캠페인 만들기",
+        noContentFooter: "캠페인를 만드신 후 이곳에서 보실수 있어요",
+        campaignLabel: "모든 캠페인"
+
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class BrowseCampaigns extends React.Component {
     constructor(props){
@@ -50,7 +84,7 @@ class BrowseCampaigns extends React.Component {
             }
         }).catch(err => {
             this.setState({isLoading: false})
-            this.props.showToastAction(true, "Couldn't get campaigns. Please try again later.")
+            this.props.showToastAction(true, strings.fetchError, "error")
             return err
         })
     }
@@ -62,11 +96,11 @@ class BrowseCampaigns extends React.Component {
             withCredentials: true
         })
         .then(() => {
-            this.props.showToastAction(true, 'Campaign deleted!', 'success')
+            this.props.showToastAction(true, strings.deletedAlert, 'success')
             this.setState({isLoading:false})
             this.fetchCampaigns(this.state.page)
         }).catch(() => {
-            this.props.showToastAction(true, `Couldn't delete campaign. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.deleteError, 'error')
             this.setState({isLoading:false})            
         })
     }
@@ -90,9 +124,9 @@ class BrowseCampaigns extends React.Component {
         .then(res => {
             this.fetchCampaigns(this.state.page)
             this.setState({isLoading: false})
-            this.props.showToastAction(true, 'Campaign copied!', 'success')
+            this.props.showToastAction(true, strings.copiedAlert, 'success')
         }).catch(() => {
-            this.props.showToastAction(true, `Couldn't duplicate campaign. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.duplicateError, 'error')
             this.setState({isLoading: false})
         })
     }
@@ -102,7 +136,7 @@ class BrowseCampaigns extends React.Component {
         .then(res => {
             callback()
             this.setState({isLoading:false})
-            this.props.showToastAction(true, 'Campaign edited!', 'success')
+            this.props.showToastAction(true, strings.editedAlert, 'success')
             this.updateCampaign(res.data)
         }).catch((err) => {
             callback()
@@ -110,7 +144,7 @@ class BrowseCampaigns extends React.Component {
             if (err.response && err.response.data) {
                 return this.props.showToastAction(true, err.response.data)
             }
-            this.props.showToastAction(true, `Couldn't edit campaign. Please try again later.`, 'error')
+            this.props.showToastAction(true, strings.editError, 'error')
         })
     }
     
@@ -137,10 +171,10 @@ class BrowseCampaigns extends React.Component {
                 <div className={classes.noContentWrapper}>
                     <NoContent
                         iconPath="../../static/campaign/add-image.svg"
-                        text='Hey there,'
-                        subText="It looks like you don't have a campaign or a webpage set up yet. Let's create one now!"
-                        actionText='Set up a Campaign'
-                        footerText="Your campaigns wil show up here after creation."
+                        text={strings.noContentTitle}
+                        subText={strings.noContentSub}
+                        actionText={strings.noContentAction}
+                        footerText={strings.noContentFooter}
                         action={() => {
                             window.location.replace(`${process.env.APP_URL}/campaigns/create`)
                         }}
@@ -175,7 +209,7 @@ class BrowseCampaigns extends React.Component {
         
         return (            
             <main className={classes.content}>
-                <PageHeader title='ALL CAMPAIGNS' paddingTop/>
+                <PageHeader title={strings.campaignsLabel} paddingTop/>
                 {this.renderContent()}
             </main>
         )

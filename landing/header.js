@@ -1,11 +1,24 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import LocalizedStrings from 'react-localization';
 
 import { withStyles } from '@material-ui/core/styles';
 
 import {showAuthorizeModalAction} from '../redux/actions';
 import keys from '../config/keys'
+
+let strings = new LocalizedStrings({
+    en:{
+        loginLabel: "Login",
+        signupLabel: "Sign up for free"
+    },
+    kr: {
+        loginLabel: "로그인",
+        signupLabel: "회원가입"
+    }
+});
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
 
 class Header extends React.Component {
     constructor(props) {
@@ -28,8 +41,8 @@ class Header extends React.Component {
         
         return (
             <div className={classes.buttonsContainer}>
-				<button className={classes.logInButton} onClick={() => this.props.showAuthorizeModalAction('login')}>Login</button>
-				<button className={classes.signUpButton} onClick={() => this.props.showAuthorizeModalAction('signup')}>Sign up free</button>
+				<button className={classes.logInButton} onClick={() => this.props.showAuthorizeModalAction('login')}>{strings.loginLabel}</button>
+				<button className={classes.signUpButton} onClick={() => this.props.showAuthorizeModalAction('signup')}>{strings.signupLabel}</button>
 			</div>
         )
     }
