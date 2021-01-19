@@ -6,6 +6,16 @@ const {getCSS, createClassName} = require('../compiler/functions')
 const longFormStyles = require('../../../shared/campaign-styles/long-form')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 
+let strings = {
+    en:{
+        answerPlaceholder: "Please put your answer here"
+    },
+    kr: {
+        answerPlaceholder: "이곳에 답변을 써주세요"
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
 const longFormClass = createClassName({
     type: 'textarea',
     uid: shortid.generate()
@@ -31,7 +41,7 @@ function compileLongFormHTML(options) {
     
     let input = document.createElement('textarea');
     input.setAttribute('class', textClass + " " + longFormClass)
-    input.setAttribute('placeholder', 'Please put your answer here')
+    input.setAttribute('placeholder', strings.answerPlaceholder)
     container.appendChild(input)
 
     return container

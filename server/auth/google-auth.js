@@ -7,11 +7,6 @@ const {User} = require('../db/user');
 /*************/
 
 function createConnection() {
-    console.log("CON: ", {
-        a: process.env.GOOGLE_API_CLIENT_ID,
-        b: process.env.GOOGLE_API_CLIENT_SECRET,
-        c: process.env.APP_URL
-    })
     return  new OAuth2Client(
         process.env.GOOGLE_API_CLIENT_ID,
         process.env.GOOGLE_API_CLIENT_SECRET,

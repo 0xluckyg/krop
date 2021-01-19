@@ -7,28 +7,48 @@ const {CampaignResponse} = require('../db/campaign-response');
 const {CampaignSession} = require('../db/campaign-session');
 const keys = require('../../config/keys')
 
+let strings = {
+    en:{
+        emailMissingError: "Please enter an email",
+        emailInvalidError: "Your email is not valid",
+        phoneNumberMissingError: "Please enter a phone number",
+        phoneNumberInvalidError: "Your phone number is not valid",
+        tryAgainError: "Please try again later",
+        phoneValidationTag: "USA"
+    },
+    kr: {
+        emailMissingError: "이메일을 입력해 주세요",
+        emailInvalidError: "올바른 이메일이 아니에요!",
+        phoneNumberMissingError: "핸드폰 번호를 입력해 주세요",
+        phoneNumberInvalidError: "올바른 전화번호가 아니에요!",
+        tryAgainError: "죄송합니다. 잠시후 다시 시도해 주세요",
+        phoneValidationTag: "KOR"
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
 function sendErrorMessage(ctx, message) {
     ctx.body = message
     ctx.status = 400
 }
 
 function cleanPhoneNumber(phone) {
-    return phoneCleaner(phone, 'KOR')[0]
+    return phoneCleaner(phone, strings.phoneValidationTag)[0]
 }
 
 function emailError(email) {
-    if (!email) return 'Please enter an email'
+    if (!email) return strings.emailMissingError
     
     if (!emailValidator.validate(email)) {
-        return 'Your email is not valid.'
+        return strings.emailInvalidError
     }
 }
 
 function phoneError(phone) {
-    if (!phone) return 'Please enter a phone number'
+    if (!phone) return strings.phoneNumberMissingError
     
     if (!cleanPhoneNumber(phone)) {
-        return 'Your phone number is not valid'
+        return strings.phoneNumberInvalidError
     }
 }
 
@@ -126,7 +146,7 @@ async function receiveCampaign(ctx) {
         ctx.body = []
     } catch(err) {
         console.log("Failed receiveCampaign:", err)
-        sendErrorMessage(ctx, 'Please try again later')
+        sendErrorMessage(ctx, strings.tryAgainError)
     }
 }
 

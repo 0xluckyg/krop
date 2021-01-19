@@ -11,6 +11,28 @@ const {formClass} = require('./form')
 const dom = new JSDOM('')
 const document = dom.window.document
 
+let strings = {
+    en:{
+        address1Placeholder: "Address 1",
+        address2Placeholder: "Address 2",
+        cityPlaceholder: "City",
+        statePlaceholder: "State",
+        countryPlaceholder: "Country",
+        zipPlaceholder: "Zip",
+        addressLabel: "Address"
+    },
+    kr: {
+        address1Placeholder: "주소",
+        address2Placeholder: "상세주소",
+        cityPlaceholder: "도시",
+        statePlaceholder: "도",
+        countryPlaceholder: "국가",
+        zipPlaceholder: "우편번호",
+        addressLabel: "주소"
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
 const addressTitleClass = createClassName({
     type: 'address_title',
     uid: shortid.generate()
@@ -34,7 +56,7 @@ function compileAddress1(options) {
     
     let address1 = document.createElement('input');
     address1.setAttribute('class', textClass + " " + addressClass + " " + formClass)
-    address1.setAttribute('placeholder', "Address 1")
+    address1.setAttribute('placeholder', strings.address1Placeholder)
     address1.setAttribute('key', "address1")
     address1.setAttribute('required', address1Required)
     return address1
@@ -46,7 +68,7 @@ function compileAddress2(options) {
     
     let address2 = document.createElement('input');
     address2.setAttribute('class', textClass + " " + addressClass + " " + formClass)
-    address2.setAttribute('placeholder', "Address 2")
+    address2.setAttribute('placeholder', strings.address2Placeholder)
     address2.setAttribute('key', "address2")
     address2.setAttribute('required', address2Required)
     return address2
@@ -59,7 +81,7 @@ function compileCity(options) {
     const frontAddress = stateEnabled ? frontAddressClass : ""
     let city = document.createElement('input');
     city.setAttribute('class',  frontAddress + " " + textClass + " " + addressClass + " " + formClass)
-    city.setAttribute('placeholder', "City")
+    city.setAttribute('placeholder', strings.cityPlaceholder)
     city.setAttribute('key', "city")
     city.setAttribute('required', cityRequired)
     return city
@@ -71,7 +93,7 @@ function compileState(options) {
     
     let state = document.createElement('input');
     state.setAttribute('class', textClass + " " + addressClass + " " + formClass)
-    state.setAttribute('placeholder', "State")
+    state.setAttribute('placeholder', strings.statePlaceholder)
     state.setAttribute('key', "state")
     state.setAttribute('required', stateRequired)
     return state
@@ -84,7 +106,7 @@ function compileCountry(options) {
     const frontAddress = zipEnabled ? frontAddressClass : ""
     let country = document.createElement('input');
     country.setAttribute('class',  frontAddress + " " + textClass + " " + addressClass + " " + formClass)
-    country.setAttribute('placeholder', "Country")
+    country.setAttribute('placeholder', strings.countryPlaceholder)
     country.setAttribute('key', "country")
     country.setAttribute('required', countryRequired)
     return country
@@ -96,7 +118,7 @@ function compileZip(options) {
     
     let zip = document.createElement('input');
     zip.setAttribute('class', textClass + " " + addressClass + " " + formClass)
-    zip.setAttribute('placeholder', "Zip")
+    zip.setAttribute('placeholder', strings.zipPlaceholder)
     zip.setAttribute('key', "zip")
     zip.setAttribute('required', zipRequired)
     return zip
@@ -118,7 +140,7 @@ function compileAddressHTML(options) {
     let question = compileQuestionHTML()
     let newClass = question.getAttribute("class") + " " + addressTitleClass
     question.setAttribute('class', newClass)
-    question.innerHTML = "Address"
+    question.innerHTML = strings.addressLabel
     container.appendChild(question)
     
     //------------

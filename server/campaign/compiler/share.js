@@ -8,6 +8,20 @@ const shareStyles = require('../../../shared/campaign-styles/share')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 const socialIcons = require('../../../static/campaign/social-icons')
 
+let strings = {
+    en:{
+        facebhookShareLabel: "Share on Facebook!",
+        instagramShareLabel: "Share on Instagram!",
+        twitterShareLabel: "Share on Twitter!"
+    },
+    kr: {
+        facebhookShareLabel: "페이스북에 공유하기!",
+        instagramShareLabel: "인스타에 공유하기!",
+        twitterShareLabel: "트위터에 공유하기!"
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
 const shareTitleClass = createClassName({
     type: 'share_title',
     uid: shortid.generate()
@@ -44,9 +58,9 @@ function compileShareHTML(options) {
     container.appendChild(question)
 
     const platformText = {
-        'facebook': 'Share on Facebook!',
-        'instagram': 'Share on Instagram!',
-        'twitter': 'Share on Twitter!'
+        'facebook': strings.facebhookShareLabel,
+        'instagram': strings.instagramShareLabel,
+        'twitter': strings.twitterShareLabel
     }
 
     element.platforms.map(platform => {

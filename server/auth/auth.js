@@ -1,7 +1,33 @@
-
 const {User} = require('../db/user');
 const jwt = require('jsonwebtoken');
 const {createEmailTemplate, sendEmail} = require('../communication/email')
+
+let strings = {
+    en:{
+        validationEmailHeaderText: "Thanks for signing up ",
+        validationEmailBodyText: "Please verify your email address to get access to exclusive materials!",
+        validationEmailButtonText: "Verify email now",
+        validaitonEmailSubject: "Please verify your email at krop.io",
+
+        passwordRecoveryEmailHeaderText: "Welcome back, ",
+        passwordRecoveryEmailBodyText: "Please follow the link below to reset the password",
+        passwordRecoveryEmailButtonText: "Change password",
+        passwordRecoveryEmailSubject: "Change your password"
+    },
+    kr: {
+        validationEmailHeaderText: "회원 가입을 해주셔서 감사합니다 ",
+        validationEmailBodyText: "이메일을 인증 하시고 프리미엄 기능들을 사용하세요!",
+        validationEmailButtonText: "이메일 인증하기",
+        validaitonEmailSubject: "krop.kr 의 이메일을 인증해 주세요",
+
+        passwordRecoveryEmailHeaderText: "안녕하세요, ",
+        passwordRecoveryEmailBodyText: "밑에 버튼을 눌러 비밀번호를 바꾸세요!",
+        passwordRecoveryEmailButtonText: "비밀번호 바꾸기",
+        passwordRecoveryEmailSubject: "비밀번호를 바꿔 주세요"
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
 async function authenticate(ctx, next) {
     try {
         const {accessToken} = ctx.session
@@ -124,15 +150,15 @@ async function sendValidationEmail(ctx) {
         
         const appUrl = process.env.APP_URL
         const validationEmail = await createEmailTemplate({
-            headerText: `Thanks for signing up, ${user.name}!`,
-            bodyText: 'Please verify your email address to get access to exclusive design and marketing materials!',
+            headerText: strings.validationEmailHeaderText,
+            bodyText: strings.validationEmailBodyText,
             buttonLink: appUrl + '/validate-email?token=' + token + '&email=' + key,
-            buttonText: 'Verify Email Now'
+            buttonText: strings.validationEmailButtonText
         })
         
         sendEmail({
             to: body.email,
-            subject: 'Please verify your email at krop.io',
+            subject: strings.validationEmailSubject,
             html: validationEmail
         })
         
@@ -195,15 +221,15 @@ async function sendPasswordRecoveryEmail(ctx) {
         
         const appUrl = process.env.APP_URL
         const passwordRecoveryEmail = await createEmailTemplate({
-            headerText: `Welcome back, ${user.name}!`,
-            bodyText: 'Please follow the link below to reset password',
+            headerText: strings.passwordRecoveryEmailHeaderText,
+            bodyText: strings.passwordRecoveryEmailBodyText,
             buttonLink: appUrl + '/authentication/change-pw?token=' + token + '&email=' + key,
-            buttonText: 'Change Password'
+            buttonText: strings.passwordRecoveryEmailButtonText
         })
         
         sendEmail({
             to: body.email,
-            subject: 'Change your password',
+            subject: strings.passwordRecoveryEmailSubject,
             html: passwordRecoveryEmail
         })
         

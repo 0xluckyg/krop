@@ -6,6 +6,16 @@ const {getCSS, createId, createClassName} = require('../compiler/functions')
 const keys = require('../../../config/keys')
 const buttonStyles = require('../../../shared/campaign-styles/button')
 
+let strings = {
+    en:{
+        continueLabel: "Continue"
+    },
+    kr: {
+        continueLabel: "다음"
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
 const buttonContainerClass = createClassName({
     type: keys.BUTTON_ELEMENT,
     uid: shortid.generate()
@@ -31,7 +41,7 @@ function compileButtonHTML(options) {
     
     let button = document.createElement('button');
     button.setAttribute('class', buttonClass)
-    button.innerHTML = "Continue"
+    button.innerHTML = strings.continueLabel
     
     buttonContainer.appendChild(button)
     

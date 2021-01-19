@@ -8,6 +8,20 @@ const nameStyles = require('../../../shared/campaign-styles/name')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 const {formClass} = require('./form')
 
+let strings = {
+    en:{
+        nameLabel: "Name",
+        firstNamePlaceholder: "First name",
+        lastNamePlaceholder: "Last name"
+    },
+    kr: {
+        nameLabel: "이름",
+        firstNamePlaceholder: "이름",
+        lastNamePlaceholder: "성"
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
 const nameWrapperClass = createClassName({
     type: 'name_wrapper',
     uid: shortid.generate()
@@ -31,7 +45,7 @@ function compileNameHTML(options) {
     container.setAttribute('tags', tags.join(','))
     
     let question = compileQuestionHTML()
-    question.innerHTML = "Name"
+    question.innerHTML = strings.nameLabel
     container.appendChild(question)
     
     let nameWrapper = document.createElement('div');
@@ -39,14 +53,14 @@ function compileNameHTML(options) {
     
     let firstName = document.createElement('input');
     firstName.setAttribute('class', textClass + " " + frontNameClass + " " + formClass)
-    firstName.setAttribute('placeholder', "First name")
+    firstName.setAttribute('placeholder', strings.firstNamePlaceholder)
     firstName.setAttribute('key', "firstName")
     firstName.setAttribute('required', required)
     nameWrapper.appendChild(firstName)
     
     let lastName = document.createElement('input');
     lastName.setAttribute('class', textClass + " " + formClass)
-    lastName.setAttribute('placeholder', "Last name")
+    lastName.setAttribute('placeholder', strings.lastNamePlaceholder)
     lastName.setAttribute('key', "lastName")
     lastName.setAttribute('required', required)
     nameWrapper.appendChild(lastName)

@@ -7,6 +7,22 @@ const keys = require('../../../config/keys')
 const formStyles = require('../../../shared/campaign-styles/form')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 
+let strings = {
+    en:{
+        emailPlaceholder: "Email",
+        phonePlaceholder: "Phone",
+        phoneNumberPlaceholder: "Phone number",
+        answerPlaceholder: "Please put your answer here",
+    },
+    kr: {
+        emailPlaceholder: "이메일",
+        phonePlaceholder: "번호",
+        phoneNumberPlaceholder: "전화번호",
+        answerPlaceholder: "이곳에 답변을 입력해 주세요",
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
 const formClass = createClassName({
     type: 'input',
     uid: shortid.generate()
@@ -14,8 +30,8 @@ const formClass = createClassName({
 
 function getQuestion(element) {
     const placeholders = {}
-    placeholders[keys.EMAIL_ELEMENT] = 'Email'
-    placeholders[keys.PHONE_ELEMENT] = 'Phone'
+    placeholders[keys.EMAIL_ELEMENT] = strings.emailPlaceholder
+    placeholders[keys.PHONE_ELEMENT] = strings.phonePlaceholder
     placeholders[keys.FORM_ELEMENT] = element.question
 
     return placeholders[element.type]
@@ -23,9 +39,9 @@ function getQuestion(element) {
 
 function getPlaceholder(element) {
     const placeholders = {}
-    placeholders[keys.EMAIL_ELEMENT] = 'Email'
-    placeholders[keys.PHONE_ELEMENT] = 'Phone number'
-    placeholders[keys.FORM_ELEMENT] = 'Please put your answer here'
+    placeholders[keys.EMAIL_ELEMENT] = strings.emailPlaceholder
+    placeholders[keys.PHONE_ELEMENT] = strings.phoneNumberPlaceholder
+    placeholders[keys.FORM_ELEMENT] = strings.answerPlaceholder
 
     return placeholders[element.type]
 }

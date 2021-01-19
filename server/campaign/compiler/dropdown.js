@@ -7,6 +7,16 @@ const keys = require('../../../config/keys')
 const dropdownStyles = require('../../../shared/campaign-styles/dropdown')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 
+let strings = {
+    en:{
+        optionPlaceholder: "* Please choose an option"
+    },
+    kr: {
+        optionPlaceholder: "* 옵션을 선택해 주세요"
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
 const dropdownWrapperClass = createClassName({
     type: 'dropdown_wrapper',
     uid: shortid.generate()
@@ -45,7 +55,7 @@ function compileDropdownHTML(options) {
     
     let defaultOption = document.createElement('option');
     defaultOption.setAttribute('class', dropdownOptionClass)
-    defaultOption.innerHTML = "* Please choose an option"
+    defaultOption.innerHTML = strings.optionPlaceholder
     dropdown.appendChild(defaultOption)
     
     element.options.map(option => {

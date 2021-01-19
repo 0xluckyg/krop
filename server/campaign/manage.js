@@ -9,6 +9,16 @@ const campaignCompiler = require('../campaign/compiler')
 const {updateCampaignQuestions, removeCampaignQuestions} = require('./functions')
 const keys = require('../../config/keys')
 
+let strings = {
+    en:{
+        pathError: "There is already a campaign on this path",
+    },
+    kr: {
+        pathError: "이 경로는 이미 사용중 이에요"
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
 async function getCompiledCampaign(campaign) {
     return {
         ...await campaignCompiler.compiler({...campaign})
@@ -25,12 +35,11 @@ async function checkIfPathExists(ctx) {
             $ne: body._id
         }
     })
-    console.log(":PAH ", body.path)
-    console.log(":SU ", campaignInPath)
+
     return campaignInPath
 }
 
-const pathError = 'There is already a campaign on this path.'
+const pathError = strings.pathError
 async function createCampaign(ctx) {
     try {
         if (await checkIfPathExists(ctx)) {
