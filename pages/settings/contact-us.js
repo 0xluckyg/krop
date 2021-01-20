@@ -42,7 +42,7 @@ let strings = new LocalizedStrings({
         subjectLabel: "주제",
         subjectPlaceholder: "예시: 저장 버튼이 안먹혀요!",
         emailLabel: "이메일",
-        emailPlaceholder: "예시: abc@krop.io",
+        emailPlaceholder: "예시: abc@krop.app",
         bodyLabel: "본문",
         bodyPlaceholder: '저희와 소통해요!',
         buttonLabel: "보내기"

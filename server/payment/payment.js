@@ -71,7 +71,7 @@ async function handlePaymentUpgradeEmail(ctx, user) {
         
         await sendEmail({
             to: user.email,
-            subject: 'URGENT! Please upgrade your plan at krop.io',
+            subject: 'URGENT! Please upgrade your plan at krop.app',
             html: planUpgradeEmail
         })
         

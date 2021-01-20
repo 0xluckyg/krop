@@ -7,7 +7,7 @@ let strings = {
         validationEmailHeaderText: "Thanks for signing up ",
         validationEmailBodyText: "Please verify your email address to get access to exclusive materials!",
         validationEmailButtonText: "Verify email now",
-        validaitonEmailSubject: "Please verify your email at krop.io",
+        validaitonEmailSubject: "Please verify your email at krop.app",
 
         passwordRecoveryEmailHeaderText: "Welcome back, ",
         passwordRecoveryEmailBodyText: "Please follow the link below to reset the password",

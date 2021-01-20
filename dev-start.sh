@@ -1,2 +1,2 @@
-~/ngrok http 3000 -subdomain=vivelop --log=stdout > ngrok.log &
+~/ngrok http 3000 -subdomain=krop --log=stdout > ngrok.log &
 npm run dev

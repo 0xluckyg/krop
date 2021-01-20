@@ -28,7 +28,7 @@ const APP_ZIP = '07310'
 const PAGE_SIZE = 50
 
 const LOGO = '../static/logo-white.svg'
-const APP_EMAIL = 'info@krop.io'
+const APP_EMAIL = 'info@krop.app'
 const NAV_WIDTH = 200
 const NAV_COLOR = '#151b26'
 const HEADER_HEIGHT = 45
