@@ -396,7 +396,7 @@ const defaultStages = () => [
         elements: [
             // referral(),
             // share(),
-            loyalty(),
+            // loyalty(),
             spacing(),
             heading(), 
             subheading(), 

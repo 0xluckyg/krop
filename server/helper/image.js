@@ -3,7 +3,7 @@ const {authenticateAdmin} = require('../admin')
 
 async function uploadToS3(ctx) {
     try {
-        const {key} = ctx.session       
+        const {id} = ctx.session       
         let body = JSON.parse(ctx.request.rawBody)
         
         let contentType = body.data.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0]   
@@ -13,7 +13,7 @@ async function uploadToS3(ctx) {
         
         let bucketName = process.env.S3_BUCKET
         let randomKey =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        let resourceName = `${key}-${randomKey}`     
+        let resourceName = `${id}-${randomKey}`     
         
         if (await authenticateAdmin(ctx)) {
             bucketName = process.env.S3_BUCKET_ADMIN

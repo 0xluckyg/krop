@@ -44,9 +44,6 @@ async function saveAcceptPayment(accessToken, price, date) {
                     accepted,
                     plan: price,
                     date
-                },
-                branding: {
-                    enabled: !accepted
                 }
             }
         }

@@ -15,10 +15,10 @@ function createConnection() {
 }
 
 async function saveUser(ctx, info) {
-    const {key, name, email, accessToken} = info
-    let user = await User.findOne({key})
+    const {name, email, accessToken} = info
+    let user = await User.findOne({email})
     if (user) {
-        user = await User.findOneAndUpdate({key}, {
+        user = await User.findOneAndUpdate({email}, {
             $set: {
                 type: 'google',
                 active: true,
@@ -27,13 +27,12 @@ async function saveUser(ctx, info) {
             }
         }, {new: true})   
         ctx.session = {
-            key, type: 'google', accessToken, id: user._id,
+            type: 'google', accessToken, id: user._id,
         }
     } else {
         
         user = new User({
             type: 'google',
-            key,
             name,
             email,
             accessToken,
@@ -42,7 +41,7 @@ async function saveUser(ctx, info) {
         })
         await user.save()
         ctx.session = {
-            key, type: 'google', accessToken, id: user._id,
+            type: 'google', accessToken, id: user._id,
         }
     }
     
@@ -58,7 +57,6 @@ async function saveUser(ctx, info) {
 
 async function googleAuth(ctx) {
     try {
-        const {key} = ctx.session
         const code = ctx.query.code
         const oauth2Client = createConnection()
 
@@ -75,7 +73,6 @@ async function googleAuth(ctx) {
         const email = tokenInfo.email
         
         const user = await saveUser(ctx, {
-            key: key ? key : email,
             email,
             name,
             accessToken: tokens.refresh_token

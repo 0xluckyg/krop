@@ -14,7 +14,6 @@ import {getUserAction, showToastAction, isLoadingAction } from '../../redux/acti
 import PageHeader from '../../components/reusable/page-header'
 import ChangePassword from '../../components/settings/change-password'
 import UserInfo from '../../components/settings/user-info'
-import Branding from '../../components/settings/branding'
 import AppColors from '../../components/settings/app-color'
 import keys from '../../config/keys'
 
@@ -97,8 +96,6 @@ class Settings extends React.Component {
                     {/* <Integrations/> */}
                     {/* <br/> */}
                     <AppColors/>
-                    <br/>
-                    <Branding/>
                     <br/>
                     <UserInfo/>
                     <br/>

@@ -6,7 +6,6 @@ const MediaTemplateSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    key: String,
     //Media, 
     templateType: String,
     //svg, url, video, etc

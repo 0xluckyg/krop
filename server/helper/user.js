@@ -22,7 +22,7 @@ async function getUser(ctx) {
 
 async function updateUser(ctx) {
     const body = JSON.parse(ctx.request.rawBody)
-    const {_id, name, email, domain, primaryColor, secondaryColor, integrations, branding} = body
+    const {_id, name, email, domain, primaryColor, secondaryColor, integrations} = body
     let params = {}
     name ? params.name = name : null
     email ? params.email = email : null
@@ -30,7 +30,6 @@ async function updateUser(ctx) {
     primaryColor ? params.primaryColor = primaryColor : null
     secondaryColor ? params.secondaryColor = secondaryColor : null
     integrations ? params.integrations = integrations : null
-    branding ? params.branding = branding : null
     
     let newUser = await User.findByIdAndUpdate(_id, params, {new: true})
     newUser = newUser.toObject()

@@ -69,8 +69,8 @@ async function logIn(ctx) {
         let user = await User.findByCredentials(email, password)
         
         const accessToken = await user.generateAuthToken()
-        ctx.session = {accessToken, id: user._id, key: user.email, type: 'organic'}
-        
+        ctx.session = {accessToken, id: user._id, type: 'organic'}
+        console.log("ESSS: ", ctx.session)
         user = user.toObject()
         delete user.password
 
@@ -91,16 +91,16 @@ async function signUp(ctx) {
     try {
         let body = JSON.parse(ctx.request.rawBody)
         
-        const existingUser = await User.findOne({key: body.email})
+        const existingUser = await User.findOne({email: body.email})
         if (existingUser) {
             ctx.status = 400
             ctx.body = 'user exists'
             return
         }
         
-        let user = new User({key: body.email, ...body});
+        let user = new User({email: body.email, ...body});
         const accessToken = await user.generateAuthToken()
-        ctx.session = {accessToken, id: user._id, key: user.email, type: 'organic'}
+        ctx.session = {accessToken, id: user._id, type: 'organic'}
         
         user = user.toObject()
         delete user.password
@@ -114,9 +114,9 @@ async function signUp(ctx) {
 
 async function logOut(ctx) {
     try {
-        const {key} = ctx.session        
+        const {id} = ctx.session        
         await User.findOneAndUpdate(
-            { key }, 
+            { _id: id }, 
             { $set: { 
                 active: false
             } }
@@ -132,10 +132,10 @@ async function sendValidationEmail(ctx) {
     try {
         //body.name body.email
         const body = JSON.parse(ctx.request.rawBody)
-        const key = body.email
+        const email = body.email
         
         const user = await User.findOne({
-            email: key
+            email
         })
         
         if (!user) {
@@ -152,7 +152,7 @@ async function sendValidationEmail(ctx) {
         const validationEmail = await createEmailTemplate({
             headerText: strings.validationEmailHeaderText,
             bodyText: strings.validationEmailBodyText,
-            buttonLink: appUrl + '/validate-email?token=' + token + '&email=' + key,
+            buttonLink: appUrl + '/validate-email?token=' + token + '&email=' + email,
             buttonText: strings.validationEmailButtonText
         })
         
@@ -183,7 +183,6 @@ async function validateEmail(ctx) {
             ctx.session = {
                 accessToken: user.accessToken,
                 id: user._id,
-                key: user.key,
                 type: 'organic'
             }
             
@@ -203,10 +202,10 @@ async function sendPasswordRecoveryEmail(ctx) {
     try {
         //body.name body.email
         const body = JSON.parse(ctx.request.rawBody)
-        const key = body.email
+        const email = body.email
         
         const user = await User.findOne({
-            email: key
+            email
         })
         
         if (!user) {
@@ -223,7 +222,7 @@ async function sendPasswordRecoveryEmail(ctx) {
         const passwordRecoveryEmail = await createEmailTemplate({
             headerText: strings.passwordRecoveryEmailHeaderText,
             bodyText: strings.passwordRecoveryEmailBodyText,
-            buttonLink: appUrl + '/authentication/change-pw?token=' + token + '&email=' + key,
+            buttonLink: appUrl + '/authentication/change-pw?token=' + token + '&email=' + email,
             buttonText: strings.passwordRecoveryEmailButtonText
         })
         
@@ -244,12 +243,12 @@ async function changePassword(ctx) {
     try {
         const body = JSON.parse(ctx.request.rawBody)
         const {token, email, password} = body
-        const {accessToken, key} = ctx.session
+        const {accessToken, id} = ctx.session
         
         let user;
         if (accessToken) {
             user = await User.findOne({
-                key, accessToken
+                _id: id
             });
         } else {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -258,18 +257,19 @@ async function changePassword(ctx) {
             });
         }
         
-        if (user && (user.email == email || user.email == key)) {
+        if (user && (user.email == email)) {
            user.password = password
            await user.save()
             
             ctx.session = {
                 accessToken: user.accessToken,
-                key: user.key,
                 id: user._id,
                 type: 'organic'
             }
             
+            console.log("SE: ", ctx.session)
             ctx.redirect('/')
+            console.log("33333: ")
             return
         } else {
             ctx.redirect('/')

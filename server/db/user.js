@@ -171,7 +171,7 @@ UserSchema.statics.findByCredentials = async function(email, password) {
         const User = this;
         
         const user = await User.findOne({email})
-        
+
         if (!user) {
             return Promise.reject('no user');
         }
@@ -194,7 +194,6 @@ UserSchema.statics.findByCredentials = async function(email, password) {
 //Run middleware before 'save' operation
 UserSchema.pre('save', function(next) {
     const user = this;
-
     //Checks if password was modified
     if (user.isModified('password')) {
         bcrypt.genSalt(10, (err, salt) => {

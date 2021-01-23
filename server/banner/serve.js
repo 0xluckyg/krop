@@ -37,7 +37,6 @@ async function getBannerScript(ctx) {
             script = script.replace('{{APP_URL}}', process.env.APP_URL)
             script = script.replace('{{APP_NAME}}', keys.APP_NAME)
             script = script.replace('{{ACCOUNT_ID}}', ctx.query.key)
-            script = script.replace('{{BRANDING}}', user.branding.enabled)
             script = minifyJS(script)
             ctx.body = script   
         }
@@ -63,7 +62,6 @@ async function getBannerOptions(ctx) {
 
         ctx.body = {
             banners,
-            branding,
             clientId: mongoose.Types.ObjectId(),
             sessionId: mongoose.Types.ObjectId()
         }

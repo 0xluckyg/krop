@@ -16,14 +16,13 @@ async function getCompiledBanner(banner) {
 
 async function createBanner(ctx) {
     try {
-        const {key, accessToken} = ctx.session       
+        const {accessToken} = ctx.session       
         let body = JSON.parse(ctx.request.rawBody)   
         
-        let account = await User.findOne({key, accessToken})
+        let account = await User.findOne({accessToken})
         let widget = new Banner({
             ...body,
             accountId: account._id,
-            key
         })
     
         widget.compiled = {...await getCompiledBanner(widget.toObject())}

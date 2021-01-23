@@ -7,24 +7,22 @@
         "MONGODB_URI": "mongodb://localhost:27017/krop",
         "S3_BUCKET": "krop-images",
         "GOOGLE_API_CLIENT_ID":"1051648092685-8r05a449ts1lngdvuglrj11g397mebki.apps.googleusercontent.com",
-        "STRIPE_API_KEY": "pk_test_51H1uBRBI9q0ktHJ5vE0SFWsNWFQkMjZGXXIZuJB6tVzDWX1pc4DsJwWX5pLY3J5DjLWAqmWWQV7SefD4rREf5Mzo00uUoTN6Hw"
+        "STRIPE_API_KEY": "pk_live_51H1uBRBI9q0ktHJ5G9lKoTDIgs0603FDuG5XXncggfOVn662E2h542nbJgzs7a8xjge0JvHBGrZmBlQC18CymlzQ00CjEHrwL1"
     },
     "test": {
         "PORT": 3000,
-        "APP_URL": "https://krop.ngrok.io",
+        "APP_URL": "https://krop.kr",
         "APP_EMAIL": "info@krop.app",
         "LANGUAGE": "kr",
-        "SHOPIFY_API_KEY": "cc70f60501318eedd43ebaae753aeb96",
-        "MONGODB_URI":"mongodb+srv://krop-admin:zpnKDnRPl4KkHLwS@krop-cluster.ncf5u.mongodb.net/krop?retryWrites=true&w=majority",
         "S3_BUCKET": "krop-images",
         "GOOGLE_API_CLIENT_ID":"1051648092685-8r05a449ts1lngdvuglrj11g397mebki.apps.googleusercontent.com",
-        "STRIPE_API_KEY": "pk_test_51H1uBRBI9q0ktHJ5vE0SFWsNWFQkMjZGXXIZuJB6tVzDWX1pc4DsJwWX5pLY3J5DjLWAqmWWQV7SefD4rREf5Mzo00uUoTN6Hw"
+        "STRIPE_API_KEY": "pk_live_51H1uBRBI9q0ktHJ5G9lKoTDIgs0603FDuG5XXncggfOVn662E2h542nbJgzs7a8xjge0JvHBGrZmBlQC18CymlzQ00CjEHrwL1"
     },
     "production": {
-        "APP_URL": "https://krop.app",
+        "PORT": 3000,
+        "APP_URL": "https://krop.kr",
         "APP_EMAIL": "info@krop.app",
         "LANGUAGE": "kr",
-        "SHOPIFY_API_KEY": "a5a6f83ab61b669d0a1d1cd6924eb713",
         "S3_BUCKET": "krop-images",
         "GOOGLE_API_CLIENT_ID":"1051648092685-8r05a449ts1lngdvuglrj11g397mebki.apps.googleusercontent.com",
         "STRIPE_API_KEY": "pk_live_51H1uBRBI9q0ktHJ5G9lKoTDIgs0603FDuG5XXncggfOVn662E2h542nbJgzs7a8xjge0JvHBGrZmBlQC18CymlzQ00CjEHrwL1"

@@ -89,31 +89,45 @@ async function getCampaign(domain, path) {
 }
 
 function getCampaignDevParams(ctx) {
-    const ctxHeader = ctx.request
-    const url = ctxHeader.origin.replace(/(^\w+:|^)\/\//, '')
-    return {url, ...ctx.query}
+    return {...ctx.query}
 }
 
 function getCampaignProductionParams(ctx) {
-    const ctxHeader = ctx.request.header
-    const url = ctxHeader.origin.replace(/(^\w+:|^)\/\//, '')
-    return {url, domain: '', path: ''}
+    const blacklistedSubdomains = ['www']
+    let path;
+    let domain;
+    if (ctx.request.header && ctx.request.header.host) {
+        let domainSplit = ctx.request.header.host.split('.')
+        if (domainSplit) {
+            domain = domainSplit[0]
+            if (domain && !blacklistedSubdomains.includes(domain)) {
+                path = ctx.request.url.replace("/", "")
+            } else {
+                return false
+            }
+        }
+    }
+
+    return {domain, path}
 }
 
 //MAIN
 async function getCampaignScript(ctx) {
     try {
-        let script = await fs.readFile(`${__dirname}/script.js`, "utf8");
         let campaignParams
         if (process.env.NODE_ENV == 'development') {
+            campaignParams = getCampaignProductionParams(ctx)
             campaignParams = getCampaignDevParams(ctx)
         } else {
             campaignParams = getCampaignProductionParams(ctx)
         }
+        if (!campaignParams) return
         const {domain, path} = campaignParams
-        
+
         const user = await incrementTotalView(domain)
         if (!user) return
+
+        let script = await fs.readFile(`${__dirname}/script.js`, "utf8");
         // const needsUpgrade = needsPaymentUpgradeForMoreViews(user, user.views.count)
         // if (needsUpgrade) {
         //     await handlePaymentUpgradeEmail(ctx, user)

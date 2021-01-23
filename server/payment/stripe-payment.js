@@ -124,9 +124,6 @@ async function updateStripeSubscription(ctx, user) {
                     subscriptionId,
                     accepted: true,
                     date: new Date()
-                },
-                branding: {
-                    enabled: !(Number(plan) > 0)
                 }
             }
         }, {new: true})

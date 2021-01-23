@@ -90,8 +90,8 @@ app.prepare().then(() => {
     
     const routerUnauthorized = new Router();
     server.use(routerUnauthorized.routes());
-    
-    routerUnauthorized.get('/dev', getCampaignScript);
+
+    routerUnauthorized.get('/:path', getCampaignScript)
     routerUnauthorized.post('/campaign-options', getCampaignOptions);
     routerUnauthorized.post('/campaign-receive', receiveCampaign);
     // routerUnauthorized.post('/campaign-validate', validateCampaignResponse);
