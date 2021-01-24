@@ -47,7 +47,7 @@ function sendEmail(options) {
             to,
             from: process.env.APP_EMAIL,
             subject,
-            html
+            text: "This is for test"
         };
         
         return new Promise((resolve,reject) => {
