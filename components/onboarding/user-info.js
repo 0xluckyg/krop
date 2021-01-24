@@ -155,9 +155,7 @@ class OnboardingModal extends React.Component {
         const {_id} = this.props.user
         const params = { name, email, domain, primaryColor, secondaryColor, _id }
         this.setState({isLoading: true})
-        axios.post(process.env.APP_URL + '/update-user', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/update-user', params)
         .then((res) => {
             this.props.getUserResolveAction(res.data)
             this.setState({isLoading:false, isOpen: false})

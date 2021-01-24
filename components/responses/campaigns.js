@@ -82,8 +82,7 @@ class BrowseCampaigns extends React.Component {
 
         this.setState({isLoading: true})
         axios.get(process.env.APP_URL + '/get-campaigns', {
-            params,
-            withCredentials: true
+            params
         }).then(res => {                        
             let result = res.data
             result.campaigns = [...this.state.campaigns, ...result.campaigns]

@@ -83,8 +83,7 @@ class CampaignSessions extends React.Component {
 
         this.setState({isLoading: true})
         axios.get(process.env.APP_URL + '/get-sessions', {
-            params,
-            withCredentials: true
+            params
         }).then(res => {                
             let result = res.data
             result.sessions = [...this.state.sessions, ...result.sessions]

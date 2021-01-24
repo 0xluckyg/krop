@@ -92,8 +92,7 @@ class CampaignResponses extends React.Component {
 
         this.setState({isLoading: true})
         axios.get(process.env.APP_URL + '/get-responses', {
-            params,
-            withCredentials: true
+            params
         }).then(res => {                        
             let result = res.data
             result.responses = [...this.state.responses, ...result.responses]

@@ -134,9 +134,7 @@ class ValidateEmail extends React.Component {
             return
         }
         
-        axios.post(process.env.APP_URL + '/change-pw', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/change-pw', params)
         .then(() => {
             this.props.showToastAction(true, strings.changeAlert, 'success')
             this.handleLogin()

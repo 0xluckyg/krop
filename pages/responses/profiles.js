@@ -142,8 +142,7 @@ class BrowseProfiles extends React.Component {
 
         this.setState({isLoading: true})
         axios.get(process.env.APP_URL + '/get-profiles', {
-            params,
-            withCredentials: true
+            params
         }).then(res => {                
             const result = res.data
             this.setState({...result, ...{ isLoading: false }})
@@ -157,9 +156,7 @@ class BrowseProfiles extends React.Component {
     handleDelete(_id) {      
         const params = { _id }
         this.setState({isLoading:true})
-        axios.post(process.env.APP_URL + '/remove-profile', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/remove-profile', params)
         .then(() => {
             this.props.showToastAction(true, strings.deleteAlert, 'success')
             this.setState({isLoading:false})

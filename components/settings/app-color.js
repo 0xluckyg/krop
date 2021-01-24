@@ -75,9 +75,7 @@ class ChangeAppColor extends React.Component {
         const {_id} = this.props.getUserReducer
         const params = { primaryColor, secondaryColor, _id }
         this.setState({isLoading: true})
-        axios.post(process.env.APP_URL + '/update-user', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/update-user', params)
         .then((res) => {
             this.props.getUserResolveAction(res.data)
             this.props.showToastAction(true, strings.updatedAlert, 'success')

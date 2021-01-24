@@ -26,9 +26,7 @@ class CartModal extends React.Component {
         let orders = {...state.orders}
         const params = { orders }
         this.setState({isLoading: true})
-        axios.post(process.env.APP_URL + '/create-banner-orders', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/create-banner-orders', params)
         .then(() => {
             this.setState({isLoading:false})
             callback()

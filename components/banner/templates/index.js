@@ -154,8 +154,7 @@ class TemplateModal extends React.Component {
         }
         query = process.env.APP_URL + query
         axios.get(query, {
-            params,
-            withCredentials: true
+            params
         }).then(res => {
             let result = res.data
             result.templates = this.changeWidgetColors(result.templates)

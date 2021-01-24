@@ -57,9 +57,7 @@ class ValidateEmail extends React.Component {
         const params = {
             email: this.state.recoveryEmail
         }
-        axios.post(process.env.APP_URL + '/send-pw-recovery-email', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/send-pw-recovery-email', params)
         .then(() => {
             this.props.showToastAction(true, strings.sentEmailAlert, 'success')
             this.setState({isLoading:false})

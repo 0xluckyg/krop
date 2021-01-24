@@ -72,8 +72,7 @@ class BrowseCampaigns extends React.Component {
     fetchCampaigns(page) {
         const params = { page }
         axios.get(process.env.APP_URL + '/get-campaigns', {
-            params,
-            withCredentials: true
+            params
         }).then(res => {                        
             let result = res.data
             if (page > 1) {
@@ -92,9 +91,7 @@ class BrowseCampaigns extends React.Component {
     handleDelete(_id) {        
         const params = { _id }
         this.setState({isLoading:true})
-        axios.post(process.env.APP_URL + '/delete-campaign', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/delete-campaign', params)
         .then(() => {
             this.props.showToastAction(true, strings.deletedAlert, 'success')
             this.setState({isLoading:false})

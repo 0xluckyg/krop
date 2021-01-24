@@ -97,9 +97,7 @@ class ChangePassword extends React.Component {
             return
         }
         
-        axios.post(process.env.APP_URL + '/change-pw', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/change-pw', params)
         .then(() => {
             this.props.showToastAction(true, strings.changePasswordLabel, 'success')
             this.setState({isLoading: false})

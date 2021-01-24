@@ -89,8 +89,7 @@ class BrowseBanners extends React.Component {
     fetchBanners(page) {
         const params = { page }
         axios.get(process.env.APP_URL + '/get-banners', {
-            params,
-            withCredentials: true
+            params
         }).then(res => {                        
             let result = res.data
             if (page > 1) {
@@ -109,9 +108,7 @@ class BrowseBanners extends React.Component {
     handleDelete(_id) {        
         const params = { _id }
         this.setState({isLoading:true})
-        axios.post(process.env.APP_URL + '/delete-banner', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/delete-banner', params)
         .then(() => {
             this.props.showToastAction(true, strings.deletedAlert, 'success')
             this.setState({isLoading:false})

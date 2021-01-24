@@ -141,9 +141,7 @@ class AuthorizeModal extends React.Component {
     
     sendValidationEmail(email, callback) {
         const params = { email }
-        axios.post(process.env.APP_URL + '/send-validation-email', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/send-validation-email', params)
         .then(() => {
             this.setState({isLoading:false})
             callback()
@@ -162,9 +160,7 @@ class AuthorizeModal extends React.Component {
         const {signUpName, signUpEmail, signUpPassword} = this.state
         const params = { name: signUpName, email: signUpEmail, password: signUpPassword }
         this.setState({isLoading: true})
-        axios.post(process.env.APP_URL + '/sign-up', params, {
-            withCredentials: true
-        })
+        axios.post(process.env.APP_URL + '/sign-up', params)
         .then((res) => {
             this.setState({isLoading:false})
             this.sendValidationEmail(signUpEmail, () => {

@@ -4,8 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 async function requestStripePayment(plan, errorHandler) {
     try {
         return await axios.get(process.env.APP_URL + '/handle-stripe-subscription', {
-            params: { plan },
-            withCredentials: true
+            params: { plan }
         })
     } catch (err) {
         return errorHandler(err)

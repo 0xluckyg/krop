@@ -89,8 +89,7 @@ class CampaignQuestions extends React.Component {
 
         this.setState({isLoading: true})
         axios.get(process.env.APP_URL + '/get-questions', {
-            params,
-            withCredentials: true
+            params
         }).then(res => {                        
             const result = res.data
             this.setState({...result, ...{ isLoading: false }})
