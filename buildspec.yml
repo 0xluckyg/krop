@@ -30,9 +30,9 @@ phases:
             - aws --version
             - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
             # A source control repository with your application Dockerfile and source code and a Docker image repository to store your image. For the application Dockerfile, we use our base image and then add our application code:
-            # - REPOSITORY_URI=012345678910.dkr.ecr.us-east-1.amazonaws.com/base-image
-            # - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-            # - IMAGE_TAG=${COMMIT_HASH:=latest}
+            - REPOSITORY_URI=012345678910.dkr.ecr.us-east-1.amazonaws.com/base-image
+            - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+            - IMAGE_TAG=${COMMIT_HASH:=latest}
             #so that build doesn't fail due to non existent module. All .env variables are configured on AWS for prod
             - touch .env
             - npm install
@@ -52,12 +52,12 @@ phases:
         #base-directory: location
         #discard-paths: yes
         #file-format: JunitXml | CucumberJson
-artifacts:
-    files:
-        - imagedefinitions.json
-    name: $(date +%Y-%m-%d)
-    discard-paths: yes
-    base-directory: location
+# artifacts:
+#     files:
+#         - imagedefinitions.json
+#     name: $(date +%Y-%m-%d)
+#     discard-paths: yes
+#     base-directory: location
 #cache:
     #paths:
         # - paths
