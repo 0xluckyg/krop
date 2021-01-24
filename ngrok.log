@@ -32,3 +32,9 @@ t=2021-01-25T02:29:57+0900 lvl=info msg="join connections" obj=join id=1e68e18d8
 t=2021-01-25T02:30:40+0900 lvl=info msg="join connections" obj=join id=dc8cae71bf77 l=127.0.0.1:3000 r=61.254.18.27:49230
 t=2021-01-25T02:31:56+0900 lvl=info msg="join connections" obj=join id=6173faac3d42 l=127.0.0.1:3000 r=61.254.18.27:49230
 t=2021-01-25T02:31:57+0900 lvl=info msg="join connections" obj=join id=c8b57207a15c l=127.0.0.1:3000 r=61.254.18.27:49242
+t=2021-01-25T02:32:34+0900 lvl=info msg="join connections" obj=join id=803080377d39 l=127.0.0.1:3000 r=61.254.18.27:49242
+t=2021-01-25T02:59:58+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=2ef27262a381 clientid=c53e083c081f7d34b99c40cb1e4d7680
+t=2021-01-25T02:59:58+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=eed5ada12f79 err="session closed"
+t=2021-01-25T03:00:01+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-01-25T03:00:01+0900 lvl=info msg="client session established" obj=csess id=eed5ada12f79
+t=2021-01-25T03:00:24+0900 lvl=info msg="join connections" obj=join id=d5f4a5a9f1f3 l=127.0.0.1:3000 r=61.254.18.27:49422
