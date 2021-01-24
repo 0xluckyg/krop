@@ -18,7 +18,7 @@ let strings = new LocalizedStrings({
         heightLabel: "공간 높이"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class SpacingEditor extends React.Component {
     getProperty(propertyType, property) {

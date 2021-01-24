@@ -19,7 +19,7 @@ let strings = new LocalizedStrings({
         searchLabel: "찾기..."
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 const fontListStyles = () => {
     createStyles({

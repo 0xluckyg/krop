@@ -18,7 +18,7 @@ let strings = new LocalizedStrings({
         signupLabel: "회원가입"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class Header extends React.Component {
     constructor(props) {

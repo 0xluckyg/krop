@@ -103,7 +103,7 @@ let strings = new LocalizedStrings({
         profilesTitle: "프로필"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class BrowseProfiles extends React.Component {
     constructor(props){

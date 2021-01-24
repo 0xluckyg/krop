@@ -21,7 +21,7 @@ let strings = new LocalizedStrings({
         newWindowLabel: "링크가 새 창에서 열리게 하기"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class LinkEditor extends React.Component {
     getProperty(propertyType, property) {

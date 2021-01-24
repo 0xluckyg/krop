@@ -80,7 +80,7 @@ let strings = new LocalizedStrings({
         loginButtonText: '로그인'
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 //A pop up to ask users to login or signup
 class AuthorizeModal extends React.Component {

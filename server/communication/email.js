@@ -42,12 +42,11 @@ function sendEmail(options) {
     try {
         const {to, subject, html} = options
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
         const msg = {
             to,
             from: process.env.APP_EMAIL,
             subject,
-            text: "This is for test"
+            html
         };
         
         return new Promise((resolve,reject) => {
@@ -55,7 +54,7 @@ function sendEmail(options) {
                 resolve()
             }).catch(err => {
                 if (err) {
-                    console.log('Failed to send email using Sendgrid: ', err)
+                    console.log('Failed to send email using Sendgrid: ', err.response.body)
                     reject(err)
                 }
             });   

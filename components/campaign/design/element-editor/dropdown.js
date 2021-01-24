@@ -34,7 +34,7 @@ let strings = new LocalizedStrings({
         optionLabel: "옵션"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class CheckboxEditor extends React.Component {
     constructor(props) {

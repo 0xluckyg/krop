@@ -87,7 +87,7 @@ let strings = new LocalizedStrings({
         popupAlertLabel: "오류들을 수정해 주세요!"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 function createId(type) {
     return type + "_" + shortid.generate()

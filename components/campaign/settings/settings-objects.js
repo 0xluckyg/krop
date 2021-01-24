@@ -8,7 +8,7 @@ let strings = new LocalizedStrings({
         campaignLabel: "캠페인"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 const defaultSettings = {
     name: strings.campaignLabel,

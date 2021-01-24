@@ -55,7 +55,7 @@ let strings = new LocalizedStrings({
         viewAsLabel: "기기 (모바일 / 데스크탑)"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class StageBar extends React.Component {
     constructor(props) {

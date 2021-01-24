@@ -14,7 +14,7 @@ let strings = new LocalizedStrings({
         templateLabel: "템플렛"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 
 class CompiledElement extends React.Component {      

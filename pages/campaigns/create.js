@@ -43,7 +43,7 @@ let strings = new LocalizedStrings({
         saveLabel: "저장"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class CreateCampaign extends React.Component {
     constructor(props){

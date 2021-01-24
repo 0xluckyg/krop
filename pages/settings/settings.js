@@ -31,7 +31,7 @@ let strings = new LocalizedStrings({
         settingsTitle: "설정"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 //Lets users customize app settings.
 class Settings extends React.Component {

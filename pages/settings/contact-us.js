@@ -48,7 +48,7 @@ let strings = new LocalizedStrings({
         buttonLabel: "보내기"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class ContactUs extends React.Component {
     constructor(props){

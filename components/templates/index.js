@@ -39,7 +39,7 @@ let strings = new LocalizedStrings({
         selectLabel: "선택"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 const defaultState = {
     name: '',

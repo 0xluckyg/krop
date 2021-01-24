@@ -21,7 +21,7 @@ let strings = new LocalizedStrings({
         twitterShareLabel: "트위터에 공유하기!!"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class SharePreview extends React.Component {
     constructor(props) {

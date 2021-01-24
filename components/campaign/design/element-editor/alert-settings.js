@@ -22,7 +22,7 @@ let strings = new LocalizedStrings({
         popupTextColorLabel: "알림 팝업 글자 색"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class AlertSettingsEditor extends React.Component {
     constructor(props) {

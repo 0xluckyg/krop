@@ -18,7 +18,7 @@ let strings = new LocalizedStrings({
         shareButtonsLabel: "공유 버튼"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class ShareEditor extends React.Component {
     constructor(props) {

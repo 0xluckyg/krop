@@ -51,7 +51,7 @@ let strings = new LocalizedStrings({
 
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 
 class NoContent extends React.Component {   

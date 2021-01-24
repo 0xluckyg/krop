@@ -39,7 +39,7 @@ let strings = new LocalizedStrings({
         couponButtonLabel: "추천 쿠폰 버튼",
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class ReferralEditor extends React.Component {
     constructor(props) {

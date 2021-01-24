@@ -48,7 +48,7 @@ let strings = new LocalizedStrings({
         alertSettingsLabel: "알람 설정"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class ElementEditor extends React.Component {
     constructor(props) {

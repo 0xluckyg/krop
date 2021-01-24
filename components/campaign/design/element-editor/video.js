@@ -29,7 +29,7 @@ let strings = new LocalizedStrings({
         cornerRoundingLabel: "모서리 각"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class VideoEditor extends React.Component {
     constructor(props) {

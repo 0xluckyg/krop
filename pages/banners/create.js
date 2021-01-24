@@ -39,7 +39,7 @@ let strings = new LocalizedStrings({
 
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class CreateBanner extends React.Component {
     constructor(props){

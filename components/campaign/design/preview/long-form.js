@@ -20,7 +20,7 @@ let strings = new LocalizedStrings({
         placeholderLabel: "엔터를 누르면 띄어져요"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class LongFormPreview extends React.Component {
     constructor(props) {

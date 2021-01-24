@@ -16,7 +16,7 @@ let strings = new LocalizedStrings({
         buttonLabel: "다음"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class ButtonPreview extends React.Component {
     constructor(props) {

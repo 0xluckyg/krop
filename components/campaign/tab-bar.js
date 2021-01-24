@@ -16,7 +16,7 @@ let strings = new LocalizedStrings({
         settingsLabel: "설정"        
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 const TopTabs = withStyles({
     indicator: {

@@ -28,7 +28,7 @@ let strings = new LocalizedStrings({
         imageLabel: "이미지나 gif 주소"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class BannerDropzone extends React.Component {
     constructor(props){

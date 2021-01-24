@@ -54,7 +54,7 @@ let strings = new LocalizedStrings({
         contentTabLabel: "내용"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class AddressEditor extends React.Component {
     constructor(props) {

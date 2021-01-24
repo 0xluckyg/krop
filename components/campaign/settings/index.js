@@ -37,7 +37,7 @@ let strings = new LocalizedStrings({
         campaignSettingsLabel: "캠페인 설정"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'en')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
 
 class SettingsEditor extends React.Component {
     constructor(props){
