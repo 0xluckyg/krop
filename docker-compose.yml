@@ -2,5 +2,5 @@
 version: '3'
 services:
   krop:
-    image: 838823345115.dkr.ecr.us-east-1.amazonaws.com/krop-ecr:latest
+    image: 838823345115.dkr.ecr.us-east-1.amazonaws.com/krop-ecr
     build: .
