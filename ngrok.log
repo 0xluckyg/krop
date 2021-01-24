@@ -1,25 +1,16 @@
-t=2021-01-24T03:58:12+0900 lvl=info msg="no configuration paths supplied"
-t=2021-01-24T03:58:12+0900 lvl=info msg="using configuration at default config path" path=/Users/scottcho/.ngrok2/ngrok.yml
-t=2021-01-24T03:58:12+0900 lvl=info msg="open config file" path=/Users/scottcho/.ngrok2/ngrok.yml err=nil
-t=2021-01-24T03:58:12+0900 lvl=info msg="run component" obj=controller comp="signal handler"
-t=2021-01-24T03:58:12+0900 lvl=info msg="run component" obj=controller comp=updater
-t=2021-01-24T03:58:12+0900 lvl=info msg="run component" obj=controller comp="memory storage"
-t=2021-01-24T03:58:12+0900 lvl=info msg="run component" obj=controller comp="Tunnel session"
-t=2021-01-24T03:58:12+0900 lvl=info msg="run component" obj=controller comp=web
-t=2021-01-24T03:58:12+0900 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
-t=2021-01-24T03:58:13+0900 lvl=info msg="tunnel session started" obj=tunSess
-t=2021-01-24T03:58:13+0900 lvl=info msg="client session established" obj=csess id=6a2c4abead8e
-t=2021-01-24T03:58:13+0900 lvl=info msg="update available" obj=updater
-t=2021-01-24T03:58:13+0900 lvl=info msg="wait to update manually" obj=updater
-t=2021-01-24T03:58:28+0900 lvl=info msg="join connections" obj=join id=4525ecf1ef40 l=[::1]:3000 r=61.254.18.27:61975
-t=2021-01-24T03:58:29+0900 lvl=info msg="join connections" obj=join id=4b176b376c8d l=[::1]:3000 r=61.254.18.27:61994
-t=2021-01-24T03:58:43+0900 lvl=info msg="component stopped" obj=controller comp="signal handler" err=nil
-t=2021-01-24T03:58:43+0900 lvl=info msg="requesting shutdown" obj=controller
-t=2021-01-24T03:58:43+0900 lvl=info msg="session closing" obj=tunSess err=nil
-t=2021-01-24T03:58:43+0900 lvl=info msg="component stopped" obj=controller comp="Tunnel session" err=nil
-t=2021-01-24T03:58:43+0900 lvl=info msg="component stopped" obj=controller comp="memory storage" err=nil
-t=2021-01-24T03:58:43+0900 lvl=info msg="accept failed" obj=csess id=6a2c4abead8e err="reconnecting session closed"
-t=2021-01-24T03:58:43+0900 lvl=info msg="tunnel session closing permanently" obj=tunSess err="not reconnecting, session closed by the client side"
-t=2021-01-24T03:58:43+0900 lvl=info msg="component stopped" obj=controller comp=updater err=nil
-t=2021-01-24T03:58:43+0900 lvl=info msg="component stopped" obj=controller comp=web err=nil
-t=2021-01-24T03:58:43+0900 lvl=info msg="all component stopped" obj=controller
+t=2021-01-24T23:12:40+0900 lvl=info msg="no configuration paths supplied"
+t=2021-01-24T23:12:40+0900 lvl=info msg="using configuration at default config path" path=/Users/scottcho/.ngrok2/ngrok.yml
+t=2021-01-24T23:12:40+0900 lvl=info msg="open config file" path=/Users/scottcho/.ngrok2/ngrok.yml err=nil
+t=2021-01-24T23:12:40+0900 lvl=info msg="run component" obj=controller comp="signal handler"
+t=2021-01-24T23:12:40+0900 lvl=info msg="run component" obj=controller comp="Tunnel session"
+t=2021-01-24T23:12:40+0900 lvl=info msg="run component" obj=controller comp="memory storage"
+t=2021-01-24T23:12:40+0900 lvl=info msg="run component" obj=controller comp=web
+t=2021-01-24T23:12:40+0900 lvl=info msg="run component" obj=controller comp=updater
+t=2021-01-24T23:12:40+0900 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
+t=2021-01-24T23:12:40+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-01-24T23:12:40+0900 lvl=info msg="client session established" obj=csess id=e7eccb7bace8
+t=2021-01-24T23:12:41+0900 lvl=info msg="update available" obj=updater
+t=2021-01-24T23:12:41+0900 lvl=info msg="wait to update manually" obj=updater
+t=2021-01-24T23:20:09+0900 lvl=info msg="join connections" obj=join id=56842a87b1e5 l=127.0.0.1:3000 r=61.254.18.27:51576
+t=2021-01-24T23:20:25+0900 lvl=info msg="join connections" obj=join id=e90724d49668 l=127.0.0.1:3000 r=61.254.18.27:51576
+t=2021-01-24T23:20:36+0900 lvl=info msg="join connections" obj=join id=fa7506427aea l=127.0.0.1:3000 r=61.254.18.27:51576
