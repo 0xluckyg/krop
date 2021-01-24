@@ -1,16 +1,38 @@
-t=2021-01-24T23:12:40+0900 lvl=info msg="no configuration paths supplied"
-t=2021-01-24T23:12:40+0900 lvl=info msg="using configuration at default config path" path=/Users/scottcho/.ngrok2/ngrok.yml
-t=2021-01-24T23:12:40+0900 lvl=info msg="open config file" path=/Users/scottcho/.ngrok2/ngrok.yml err=nil
-t=2021-01-24T23:12:40+0900 lvl=info msg="run component" obj=controller comp="signal handler"
-t=2021-01-24T23:12:40+0900 lvl=info msg="run component" obj=controller comp="Tunnel session"
-t=2021-01-24T23:12:40+0900 lvl=info msg="run component" obj=controller comp="memory storage"
-t=2021-01-24T23:12:40+0900 lvl=info msg="run component" obj=controller comp=web
-t=2021-01-24T23:12:40+0900 lvl=info msg="run component" obj=controller comp=updater
-t=2021-01-24T23:12:40+0900 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
-t=2021-01-24T23:12:40+0900 lvl=info msg="tunnel session started" obj=tunSess
-t=2021-01-24T23:12:40+0900 lvl=info msg="client session established" obj=csess id=e7eccb7bace8
-t=2021-01-24T23:12:41+0900 lvl=info msg="update available" obj=updater
-t=2021-01-24T23:12:41+0900 lvl=info msg="wait to update manually" obj=updater
-t=2021-01-24T23:20:09+0900 lvl=info msg="join connections" obj=join id=56842a87b1e5 l=127.0.0.1:3000 r=61.254.18.27:51576
-t=2021-01-24T23:20:25+0900 lvl=info msg="join connections" obj=join id=e90724d49668 l=127.0.0.1:3000 r=61.254.18.27:51576
-t=2021-01-24T23:20:36+0900 lvl=info msg="join connections" obj=join id=fa7506427aea l=127.0.0.1:3000 r=61.254.18.27:51576
+t=2021-01-25T00:51:09+0900 lvl=info msg="no configuration paths supplied"
+t=2021-01-25T00:51:09+0900 lvl=info msg="using configuration at default config path" path=/Users/scottcho/.ngrok2/ngrok.yml
+t=2021-01-25T00:51:09+0900 lvl=info msg="open config file" path=/Users/scottcho/.ngrok2/ngrok.yml err=nil
+t=2021-01-25T00:51:09+0900 lvl=info msg="run component" obj=controller comp="signal handler"
+t=2021-01-25T00:51:09+0900 lvl=info msg="run component" obj=controller comp="Tunnel session"
+t=2021-01-25T00:51:09+0900 lvl=info msg="run component" obj=controller comp=web
+t=2021-01-25T00:51:09+0900 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
+t=2021-01-25T00:51:09+0900 lvl=info msg="run component" obj=controller comp=updater
+t=2021-01-25T00:51:09+0900 lvl=info msg="run component" obj=controller comp="memory storage"
+t=2021-01-25T00:51:10+0900 lvl=info msg="update available" obj=updater
+t=2021-01-25T00:51:10+0900 lvl=info msg="wait to update manually" obj=updater
+t=2021-01-25T00:51:10+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-01-25T00:51:10+0900 lvl=info msg="client session established" obj=csess id=b07162d7d78f
+t=2021-01-25T00:51:16+0900 lvl=warn msg="failed to open private leg" id=909793df9506 privaddr=localhost:3000 err="dial tcp 127.0.0.1:3000: getsockopt: connection refused"
+t=2021-01-25T00:51:16+0900 lvl=info msg="join connections" obj=join id=71d12896bcee l=nil r=61.254.18.27:57952
+t=2021-01-25T00:51:18+0900 lvl=warn msg="failed to open private leg" id=ad0f72384966 privaddr=localhost:3000 err="dial tcp 127.0.0.1:3000: getsockopt: connection refused"
+t=2021-01-25T00:51:18+0900 lvl=info msg="join connections" obj=join id=23676644bd9a l=nil r=61.254.18.27:57952
+t=2021-01-25T00:51:23+0900 lvl=warn msg="failed to open private leg" id=bf0ed30cf700 privaddr=localhost:3000 err="dial tcp 127.0.0.1:3000: getsockopt: connection refused"
+t=2021-01-25T00:51:23+0900 lvl=info msg="join connections" obj=join id=7e6f43c76622 l=nil r=61.254.18.27:57952
+t=2021-01-25T00:51:25+0900 lvl=warn msg="failed to open private leg" id=3808514149a5 privaddr=localhost:3000 err="dial tcp 127.0.0.1:3000: getsockopt: connection refused"
+t=2021-01-25T00:51:25+0900 lvl=info msg="join connections" obj=join id=825381c66304 l=nil r=61.254.18.27:57952
+t=2021-01-25T00:51:28+0900 lvl=info msg="join connections" obj=join id=3a28d90d4826 l=127.0.0.1:3000 r=61.254.18.27:57952
+t=2021-01-25T00:51:28+0900 lvl=info msg="join connections" obj=join id=a89e2ac43137 l=127.0.0.1:3000 r=61.254.18.27:57727
+t=2021-01-25T00:51:29+0900 lvl=info msg="join connections" obj=join id=7c5b06a18028 l=127.0.0.1:3000 r=61.254.18.27:57774
+t=2021-01-25T00:51:31+0900 lvl=info msg="join connections" obj=join id=3257e2c29025 l=127.0.0.1:3000 r=61.254.18.27:58266
+t=2021-01-25T00:51:32+0900 lvl=info msg="join connections" obj=join id=16fbba5676c3 l=127.0.0.1:3000 r=61.254.18.27:58267
+t=2021-01-25T00:51:32+0900 lvl=info msg="join connections" obj=join id=f2a410025531 l=127.0.0.1:3000 r=61.254.18.27:58277
+t=2021-01-25T00:51:32+0900 lvl=info msg="join connections" obj=join id=0f2602d09f16 l=127.0.0.1:3000 r=61.254.18.27:58276
+t=2021-01-25T00:51:32+0900 lvl=info msg="join connections" obj=join id=77cbea8a28b3 l=127.0.0.1:3000 r=61.254.18.27:58274
+t=2021-01-25T00:51:32+0900 lvl=info msg="join connections" obj=join id=04c113174c7a l=127.0.0.1:3000 r=61.254.18.27:58275
+t=2021-01-25T00:51:45+0900 lvl=info msg="join connections" obj=join id=73b30fdc0f88 l=127.0.0.1:3000 r=61.254.18.27:58267
+t=2021-01-25T01:06:33+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=2c90874f84f7 clientid=f5ef3b046d17a691896b8cad7755c3f7
+t=2021-01-25T01:06:33+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=b07162d7d78f err="session closed"
+t=2021-01-25T01:06:36+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-01-25T01:06:36+0900 lvl=info msg="client session established" obj=csess id=b07162d7d78f
+t=2021-01-25T01:06:42+0900 lvl=info msg="join connections" obj=join id=d0f4f16581c5 l=127.0.0.1:3000 r=61.254.18.27:61153
+t=2021-01-25T01:06:43+0900 lvl=info msg="join connections" obj=join id=7bcc6817407c l=127.0.0.1:3000 r=61.254.18.27:61159
+t=2021-01-25T01:18:39+0900 lvl=info msg="join connections" obj=join id=6947d6e54c3d l=127.0.0.1:3000 r=61.254.18.27:64162

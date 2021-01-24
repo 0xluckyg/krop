@@ -55,8 +55,8 @@ function sendEmail(options) {
                 resolve()
             }).catch(err => {
                 if (err) {
-                    reject(err)
                     console.log('Failed to send email using Sendgrid: ', err)
+                    reject(err)
                 }
             });   
         })

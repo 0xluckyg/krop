@@ -112,7 +112,7 @@ function getCampaignProductionParams(ctx) {
 }
 
 //MAIN
-async function getCampaignScript(ctx) {
+async function getCampaignScript(ctx, next) {
     try {
         let campaignParams
         if (process.env.NODE_ENV == 'development') {
@@ -121,11 +121,17 @@ async function getCampaignScript(ctx) {
         } else {
             campaignParams = getCampaignProductionParams(ctx)
         }
-        if (!campaignParams) return
+        if (!campaignParams) {
+            return await next()
+        }
         const {domain, path} = campaignParams
-
+        if (!domain) {
+            return await next()
+        }
         const user = await incrementTotalView(domain)
-        if (!user) return
+        if (!user) {
+            return await next()
+        }
 
         let script = await fs.readFile(`${__dirname}/script.js`, "utf8");
         // const needsUpgrade = needsPaymentUpgradeForMoreViews(user, user.views.count)
