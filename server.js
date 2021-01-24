@@ -65,7 +65,7 @@ async function handleRender(ctx) {
 
 async function cors(ctx, next) {
     ctx.set('Access-Control-Allow-Origin', '*');
-    ctx.set('Access-Control-Allow-Headers', 'Origin, Content-Type, Accept');
+    ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, X-No-CORS-Reason, Content-Type, Accept');
     ctx.set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
     ctx.set('Access-Control-Allow-Credentials', true);
     await next();
