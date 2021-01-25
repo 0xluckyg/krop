@@ -18,7 +18,7 @@ let strings = new LocalizedStrings({
     },
     kr: {
         title: "QR 코드를 이용한 고객 체크인과 설문조사!",
-        subtitle: "고객의 목소리를 들으세요",
+        subtitle: "만들기 쉬운 설문조사를 통하여 고객님들과의 소통을 도와드려요",
         description: "설문조사, 체크인, 친구 추천 기능 등등 쉬운 고객관리를 체험해 보세요!",
         buttonLabel: "캠페인 만들기",
         integrationLabel: "아래의 서비스들과 연동 됩니다"
@@ -94,7 +94,7 @@ const useStyles = theme => ({
         flexDirection: 'column',
         height: 'calc(100vh - 70px)',
         
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             height: 'auto',
         }
     },
@@ -106,7 +106,7 @@ const useStyles = theme => ({
         justifyContent: 'center',
         alignItems: 'center',
         
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             flexDirection: 'column'
         }
     },
@@ -117,7 +117,7 @@ const useStyles = theme => ({
         flexDirection: 'column',
         flex: 3.5,
         
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             justifyContent: 'center',
             alignItems: 'center',
             padding: 30
@@ -128,22 +128,23 @@ const useStyles = theme => ({
         fontSize: 45,
         color: 'white',
         
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             textAlign: 'center'
         }
     },
     subtitle: {
-        fontSize: 10,
-        color: keys.APP_COLOR_GRAY,
+        fontSize: 14,
+        color: keys.APP_COLOR_GRAY_LIGHT,
         
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             textAlign: 'center'
         }
     },
     subText: {
         color: 'white',
+        fontSize: 20,
         
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             textAlign: 'center'
         }
     },
@@ -166,7 +167,7 @@ const useStyles = theme => ({
         alignItems: 'center',
         justifyContent: 'center',
         
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             display: 'none'
         }
     },
@@ -174,7 +175,7 @@ const useStyles = theme => ({
         flex: 4.5,
         paddingRight: 50,
         
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             paddingLeft: 50,
             display: 'flex',
             flexDirection: 'column',
@@ -208,6 +209,7 @@ const useStyles = theme => ({
         border: 'none',
         fontWeight: 600,
         transition: '0.2s',
+        marginTop: 20,
         '&:focus': {
             outline: 'none'
         },
@@ -254,7 +256,7 @@ const useStyles = theme => ({
     mainImageContainer: {
         flex: 5.5,
         
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             paddingTop: 50,
             display: 'flex',
             justifyContent: 'center',
@@ -269,7 +271,7 @@ const useStyles = theme => ({
         left: '0%',
         transform: 'translate(-35%, -50%)',
         
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('lg')]: {
             // position: 'relative',
             // objectFit: 'cover',
             position: 'static',

@@ -21,7 +21,7 @@ async function createEmailTemplate(options) {
     const appUrl = process.env.APP_URL
     let emailScript = await fs.readFile(`${__dirname}/${strings.templateLink}`, "utf8");
     emailScript = emailScript.replace(/{{APP_COLOR}}/g, keys.APP_COLOR)
-    emailScript = emailScript.replace(/{{APP_LOGO}}/g, appUrl+'/static/app/logo.svg')
+    // emailScript = emailScript.replace(/{{APP_LOGO}}/g, appUrl+'/static/app/logo.svg')
     
     emailScript = emailScript.replace(/{{HEADER_TEXT}}/g, headerText ? headerText : process.env.APP_NAME)
     emailScript = emailScript.replace(/{{BODY_TEXT}}/g, bodyText ? bodyText : strings.bodyText)

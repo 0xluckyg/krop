@@ -182,7 +182,7 @@ class FormEditor extends React.Component {
                         name: strings.settingsTabLabel,
                         value: 0
                     }, {
-                        name: settings.contentTabLabel,
+                        name: strings.contentTabLabel,
                         value: 1
                     }]}
                 />

@@ -124,10 +124,11 @@ const shareElements = [
 ]
 
 const campaignElements = [
+    // {
+    //     type: keys.LOYALTY_ELEMENT,
+    //     name: strings.loyaltyLabel
+    // }, 
     {
-        type: keys.LOYALTY_ELEMENT,
-        name: strings.loyaltyLabel
-    }, {
         type: keys.MULTIPLE_CHOICE_ELEMENT,
         name: strings.multipleChoiceLabel
     }, {

@@ -36,7 +36,7 @@ let strings = new LocalizedStrings({
         pwPlaceholder: 'Password (Please make it longer than 8 characters)',
         nameLabel: 'Name',
         namePlaceholder: 'Your name',
-        noAccountButton: "Don't have an account?",
+        haveAccountButton: "Already have an account?",
         backToLoginButton: "Back to Log In",
         signupText: "Sign Up!",
         googleSignupText: 'Sign up with Google',
@@ -46,38 +46,40 @@ let strings = new LocalizedStrings({
         signupText: 'Get started with our FREE trial',
         loginText: 'Log in and get designing!',
         signupButtonText: 'GET STARTED',
-        loginButtonText: 'LOG IN'
+        loginButtonText: 'LOG IN',
+        forgotPassword: "Forgot password?"
     },
     kr: {
         pwTooShort:"비밀번호가 너무 짧아요. 8글자 이상으로 만들어주세요!",
         pwTooLong: "비밀번호가 너무 길어요",
         pwCaseError: "비밀번호에 대문자와 소문자를 포함해 주세요!",
         pwNumberError: '비밀번호에 숫자도 추가해 주세요!',
-        validationEmailError: '확인 이메일 전송을 실패했어요. 조금 있다가 다시 시도해 주세요!',
+        validationEmailError: '확인 이메일 전송을 실패했어요. 잠시후 다시 시도해 주세요!',
         emailError: '제대로된 이메일을 입력해 주세요!',
         pwError: '제대로된 비밀번호를 입력해 주세요!',
         emailExists: '이 이메일은 이미 사용중이에요.',
-        signupError: '계정을 만드는데 실패 하였습니다. 족므 있다가 다시 시도해 주세요!',
+        signupError: '계정을 만드는데 실패 하였습니다. 잠시후 다시 시도해 주세요!',
         noUserError: '이 계정은 존재하지 않아요.',
         wrongPwError: '로그인에 실패 하였어요. 계정을 까먹으셨나요?',
-        unknownLoginError: '로그인에 실패 하였어요. 조금 있다가 다시 시도해 주세요!',
+        unknownLoginError: '로그인에 실패 하였어요. 잠시후 다시 시도해 주세요!',
         emailLabel: '이메일',
         pwLabel: '비밀번호',
         emailPlaceholder: '이메일 (예시: krop@naver.com)',
         pwPlaceholder: '비밀번호 (8글자 이상으로 만들어 주세요)',
         nameLabel: '이름',
         namePlaceholder: '성함',
-        noAccountButton: "계정이 없으시다구요?",
+        haveAccountButton: "계정이 있으신가요?",
         backToLoginButton: "로그인 하기",
         signupText: "계정 만들기!",
         googleSignupText: '구글로 시작하기',
         googleLoginText: '구글로 로그인 하기',
         googleAuthSuccess: '구글로 로그인에 성공하였어요!',
         googleAuthFailure: '구글로 로그인에 실패하였어요.',
-        signupText: '당장 공짜 체험 시작하기!',
+        signupText: '무료 체험 시작하기!',
         loginText: '로그인',
         signupButtonText: '계정 만들기',
-        loginButtonText: '로그인'
+        loginButtonText: '로그인',
+        forgotPassword: "비밀번호를 잊으셨나요?"
     }
 });
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
@@ -296,14 +298,14 @@ class AuthorizeModal extends React.Component {
     renderAuthFooter() {
         const {classes} = this.props
         let showType = this.props.showAuthorizeModalReducer
-        const authExplainer = showType=='login' ? null : strings.noAccountButton
+        const authExplainer = showType=='login' ? null : strings.haveAccountButton
         const authActionText = showType=='signup' ? strings.backToLoginButton : strings.signupText
         return (
             <div className={classes.footerWrapper}>
                 <div>
                     {showType=='login' ? null : <p onClick={() => {
                         window.location.replace(`${process.env.APP_URL}/authentication/pw-recovery`)    
-                    }} className={classes.forgotPassword}>Forgot Password?</p>}
+                    }} className={classes.forgotPassword}>{strings.forgotPassword}</p>}
                     <div className={classes.authTypeWrapper}>
                         <span className={classes.authTypeExplainer}>{authExplainer}</span> 
                         <span onClick={
