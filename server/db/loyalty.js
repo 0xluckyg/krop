@@ -1,38 +1,21 @@
 const mongoose = require('mongoose');
 
-const LoyaltySchema = new mongoose.Schema({
-    customerId: {
-        type: String,
-        index: true
-    },
+const CouponSchema = new mongoose.Schema({
     accountId: {
         type: String,
         index: true
     },
-    loyaltyId: {
+    couponId: {
         type: String,
         index: true
     },
-    sessionId: {
-        type: String,
-        index: true
-    },
-    email: {
-        type: String
-    },
-    phone: {
-        type: String
-    },
-
-    reset: Number,
-    count: {
-        type: Number,
-        required: true
-    }
+    html: String,
+    css: String,
+    views: Number
 },{
     timestamps: true // Saves createdAt and updatedAt as dates
 });
 
-const Order = mongoose.model('Loyalties', LoyaltySchema);
+const Coupon = mongoose.model('Couponds', CouponSchema);
 
-module.exports = {Order};
+module.exports = {Coupon};

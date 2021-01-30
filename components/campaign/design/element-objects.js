@@ -29,6 +29,8 @@ let strings = new LocalizedStrings({
         referralTitleLabel: "10% DISCOUNT COUPON AT NAME",
         referralDescriptionLabel: "Show this coupon at the following branch below to claim the discount!",
         storeAddressLabel: "110 Broadway, NYC",
+        shareTitleLabel: "",
+        shareTextLabel: "",
 
         questionLabel: "Question",
         option1Label: "Option 1",
@@ -71,6 +73,8 @@ let strings = new LocalizedStrings({
         referralTitleLabel: "10% 할인 쿠폰",
         referralDescriptionLabel: "이 쿠폰을 다음 지점에서 보여주세요.",
         storeAddressLabel: "주소",
+        shareTitleLabel: "",
+        shareTextLabel: "",
 
         questionLabel: "질문",
         option1Label: "옵션 1",
@@ -106,8 +110,8 @@ const loyalty = (custom) => {
 }
 
 const referral = (custom) => {
-    const {required, media, buttonText, question, 
-        couponTitle, couponDescription, couponImage, storeAddress, couponDuration } = custom ? custom : {}
+    const {required, media, buttonText, question, couponBackgroundColor, couponTextColor,
+        couponTitle, couponDescription, couponImage, storeAddress, shareTitle, shareText, couponDuration } = custom ? custom : {}
     return {
         id:  createId(keys.REFERRAL_ELEMENT),
         type: keys.REFERRAL_ELEMENT,
@@ -117,6 +121,11 @@ const referral = (custom) => {
         question: question ? question : strings.referralLabel,
         buttonText: buttonText ? buttonText : strings.referralButtonLabel,
         
+        shareTitle: shareTitle ? shareTitle : strings.shareTitleLabel,
+        shareText: shareText ? shareText : strings.shareTextLabel,
+
+        couponBackgroundColor: couponBackgroundColor ? couponBackgroundColor : '#fff',
+        couponTextColor: couponTextColor ? couponTextColor : '#000',
         couponTitle: couponTitle ? couponTitle : strings.referralTitleLabel,
         couponImage: couponImage ? couponImage : '',
         couponDescription: couponDescription ? couponDescription : strings,referralDescriptionLabel,
@@ -394,9 +403,9 @@ const defaultStages = () => [
             isSinglePage: true
         },
         elements: [
-            // referral(),
             // share(),
             // loyalty(),
+            referral(),
             spacing(),
             heading(), 
             subheading(), 

@@ -9,6 +9,7 @@ import Input from './sub/input'
 import ImageUploader from './sub/image-uploader'
 import SectionTabs from './sub/section-tabs'
 import {setProperty, getProperty} from './sub/functions'
+import ColorPicker from '../../../reusable/color-picker'
 
 let strings = new LocalizedStrings({
     en:{
@@ -22,8 +23,12 @@ let strings = new LocalizedStrings({
         expirationDescriptionLabel: "Coupon valid for (days) after receiving",
         buttonTextLabel: "Button text",
         couponTabLabel: "Referral coupon",
-        couponButtonLabel: "Referral button",
-        
+        couponShareLabel: "Share text",
+        couponButtonLabel: "Button",
+        backgroundColorLabel: "Coupon background color",
+        textColorLabel: "Coupon text color",
+        shareTextLabel: "Share text",
+        shareTitleLabel: "Share title"
     },
     kr: {
         titleLabel: "제목",
@@ -35,8 +40,13 @@ let strings = new LocalizedStrings({
         expirationLabel: "사용 기간",
         expirationDescriptionLabel: "쿠폰이 유효한 기간 (일 수)",
         buttonTextLabel: "버튼 제목",
-        couponTabLabel: "추천 쿠폰",
-        couponButtonLabel: "추천 쿠폰 버튼",
+        couponTabLabel: "쿠폰",
+        couponShareLabel: "공유 문자",
+        couponButtonLabel: "버튼",
+        backgroundColorLabel: "쿠폰 배경 컬러",
+        textColorLabel: "쿠폰 글씨 컬러",
+        shareTextLabel: "공유 글",
+        shareTitleLabel: "공유 제목"
     }
 });
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
@@ -124,7 +134,41 @@ class ReferralEditor extends React.Component {
                         value={this.getProperty(null, 'couponDuration')}
                     />
                 </SectionContainer>
+                <SectionContainer title={strings.couponColorLabel}>
+                    <ColorPicker
+                        text={strings.backgroundColorLabel}
+                        color={this.getProperty(null, 'couponBackgroundColor')}
+                        onChange={color => this.setProperty(null, 'couponBackgroundColor', color)}
+                    /><br/>
+                    <ColorPicker
+                        text={strings.textColorLabel}
+                        color={this.getProperty(null, 'couponTextColor')}
+                        onChange={color => this.setProperty(null, 'couponTextColor', color)}
+                    />
+                </SectionContainer>
             </Fragment>
+        )
+    }
+
+    renderShareEditor() {
+        const {classes} = this.props
+        return (
+            <SectionContainer title={strings.shareTextLabel}>
+                <Input
+                    label={strings.shareTitleLabel}
+                    onChange={value => {
+                        this.setProperty(null, 'shareTitle', value)
+                    }}
+                    value={this.getProperty(null, 'shareTitle')}
+                />
+                <Input
+                    label={strings.shareTextLabel}
+                    onChange={value => {
+                        this.setProperty(null, 'shareText', value)
+                    }}
+                    value={this.getProperty(null, 'shareText')}
+                />
+            </SectionContainer>
         )
     }
     
@@ -143,6 +187,18 @@ class ReferralEditor extends React.Component {
         )
     }
     
+    renderEditor() {
+        const {editorType} = this.state
+        switch(editorType) {
+            case(0):
+                return this.renderCouponEditor()
+            case(1):
+                return this.renderShareEditor()
+            case(2):
+                return this.renderButtonEditor()
+        }
+    }
+
     render() {
         const {editorType} = this.state
         return (
@@ -154,17 +210,17 @@ class ReferralEditor extends React.Component {
                         this.setState({editorType: newValue})
                     }}
                     tabs={[{
-                        name: strings.couponTitleLabel,
+                        name: strings.couponTabLabel,
                         value: 0
                     }, {
-                        name: strings.couponButtonLabel,
+                        name: strings.couponShareLabel,
                         value: 1
+                    }, {
+                        name: strings.couponButtonLabel,
+                        value: 2
                     }]}
                 />
-                {editorType == 0 ? 
-                    this.renderCouponEditor() :
-                    this.renderButtonEditor()
-                }
+                {this.renderEditor()}
             </Fragment>
         )
     }

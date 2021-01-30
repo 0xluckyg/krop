@@ -256,25 +256,25 @@
     
     /// ========= REFERRAL ================================================
 
-    // this.shareReferralCoupon() {
-    //     JSONRequest(appUrl + "/create-referral-coupon", {
-    //         clientId: clientId,
-    //         sessionId: sessionId,
-    //         campaignId: campaignId,
-    //         accountId: accountId
-    //     }, 
-    //     function(response) {
-    //         if (navigator.share !== undefined){
-    //             navigator.share(response).then(function() {
+    this.shareReferralCoupon = function() {
+        JSONRequest(appUrl + "/create-referral-coupon", {
+            clientId: clientId,
+            sessionId: sessionId,
+            campaignId: campaignId,
+            accountId: accountId
+        }, 
+        function(response) {
+            if (navigator.share !== undefined){
+                navigator.share(response).then(function() {
                     
-    //             }).catch(function() {
+                }).catch(function() {
 
-    //             });
-    //         }
-    //     }, function(error) {
+                });
+            }
+        }, function(error) {
             
-    //     });
-    // }
+        });
+    }
 
     /// ========= CAMPAIGN RESPONSE ================================================
     

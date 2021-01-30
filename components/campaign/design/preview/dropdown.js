@@ -16,7 +16,7 @@ let strings = new LocalizedStrings({
     },
     kr: {
         placeholderLabel: "* 항목을 선택해 주세요",
-        placeholderLabel: "항목을 선택해 주세요"
+        defaultOptionLabel: "항목을 선택해 주세요"
     }
 });
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
