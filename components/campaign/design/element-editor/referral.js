@@ -25,6 +25,7 @@ let strings = new LocalizedStrings({
         couponTabLabel: "Referral coupon",
         couponShareLabel: "Share text",
         couponButtonLabel: "Button",
+        couponStyleLabel: "Coupon style",
         backgroundColorLabel: "Coupon background color",
         textColorLabel: "Coupon text color",
         shareTextLabel: "Share text",
@@ -43,6 +44,7 @@ let strings = new LocalizedStrings({
         couponTabLabel: "쿠폰",
         couponShareLabel: "공유 문자",
         couponButtonLabel: "버튼",
+        couponStyleLabel: "쿠폰 스타일",
         backgroundColorLabel: "쿠폰 배경 컬러",
         textColorLabel: "쿠폰 글씨 컬러",
         shareTextLabel: "공유 글",
@@ -129,12 +131,12 @@ class ReferralEditor extends React.Component {
                         label={strings.expirationDescriptionLabel}
                         onChange={value => {
                             if (isNaN(value) || value < 0) return
-                            this.setProperty(null, 'couponDuration', value)
+                            this.setProperty(null, 'couponExpiration', value)
                         }}
-                        value={this.getProperty(null, 'couponDuration')}
+                        value={this.getProperty(null, 'couponExpiration')}
                     />
                 </SectionContainer>
-                <SectionContainer title={strings.couponColorLabel}>
+                <SectionContainer title={strings.couponStyleLabel}>
                     <ColorPicker
                         text={strings.backgroundColorLabel}
                         color={this.getProperty(null, 'couponBackgroundColor')}

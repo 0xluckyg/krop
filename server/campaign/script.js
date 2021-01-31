@@ -256,12 +256,13 @@
     
     /// ========= REFERRAL ================================================
 
-    this.shareReferralCoupon = function() {
-        JSONRequest(appUrl + "/create-referral-coupon", {
+    this.shareReferralCoupon = function(couponId) {
+        JSONRequest(appUrl + "/get-coupon", {
             clientId: clientId,
             sessionId: sessionId,
             campaignId: campaignId,
-            accountId: accountId
+            accountId: accountId,
+            couponId: couponId
         }, 
         function(response) {
             if (navigator.share !== undefined){

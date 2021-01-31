@@ -86,6 +86,7 @@ const PARAGRAPH_ELEMENT = 'paragraph'
 const LINK_ELEMENT = 'link'
 
 const IMAGE_ELEMENT = 'image'
+const IMAGE_UPLOAD_ELEMENT = 'image_upload'
 const VIDEO_ELEMENT = 'video'
 const SPACING_ELEMENT = 'spacing'
 
@@ -95,6 +96,8 @@ const TEXT_ELEMENT = 'text'
 const QR_ELEMENT = 'qr'
 
 const MEDIA_TEMPLATE = 'media_template'
+
+const EXPIRATION_DATE = 'expiration_date'
 
 const FEE_0 = {
     price: 0,
@@ -198,6 +201,7 @@ module.exports = {
     PARAGRAPH_ELEMENT,
     LINK_ELEMENT,
     IMAGE_ELEMENT,
+    IMAGE_UPLOAD_ELEMENT,
     VIDEO_ELEMENT,
     SPACING_ELEMENT,
     
@@ -206,5 +210,7 @@ module.exports = {
     TEXT_ELEMENT,
     QR_ELEMENT,
 
-    MEDIA_TEMPLATE
+    MEDIA_TEMPLATE,
+
+    EXPIRATION_DATE
 }

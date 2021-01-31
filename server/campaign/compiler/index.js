@@ -180,13 +180,13 @@ async function compileCSS(options) {
     return css
 }
 
-function compileElement(options) {
+async function compileElement(options) {
     const {element} = options
     switch(element.type) {
         case(keys.SHARE_ELEMENT):
             return compileShareHTML(options).outerHTML
         case(keys.REFERRAL_ELEMENT):
-            return compileReferralHTML(options).outerHTML
+            return await compileReferralHTML(options).outerHTML
         case(keys.SPACING_ELEMENT):
             return compileSpacingHTML(options).outerHTML
         case(keys.IMAGE_ELEMENT):
@@ -223,7 +223,7 @@ function compileElement(options) {
 }
 
 
-function compileStage(options) {
+async function compileStage(options) {
     const {stage} = options
     
     const compiledStage = {
@@ -231,9 +231,9 @@ function compileStage(options) {
         elements: []
     }
     
-    stage.elements.map((element, i) => {
+    await Promise.all(stage.elements.map(async (element, i) => {
         const elementIndex = stage.elements.length - i
-        const compiledElement = compileElement({
+        const compiledElement = await compileElement({
             element, 
             elementIndex, 
             ...options
@@ -241,7 +241,7 @@ function compileStage(options) {
         if (compiledElement) {
             compiledStage.elements.push(compiledElement)   
         }
-    })
+    }))
     
     return compiledStage
 }
@@ -255,12 +255,12 @@ async function compiler(campaignOptions) {
 
     const {stages, styles, alertMessages} = campaignOptions
     let compiledStages = []
-    stages.map((stage, stageIndex) => {
-        const compiledStage = compileStage({
+    await Promise.all(stages.map(async (stage, stageIndex) => {
+        const compiledStage = await compileStage({
             stage, stageIndex, ...campaignOptions
         })
         compiledStages.push(compiledStage)
-    })
+    }))
     
     let css = await compileCSS(campaignOptions)
     css = await cleanCSS(css)

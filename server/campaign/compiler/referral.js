@@ -7,6 +7,7 @@ const keys = require('../../../config/keys')
 const referralStyles = require('../../../shared/campaign-styles/referral')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 const socialIcons = require('../../../static/campaign/social-icons')
+const {deleteReferralCoupon, createReferralCoupon} = require('../../referral')
 
 const referralButtonClass = createClassName({
     type: 'referral_button',
@@ -22,7 +23,7 @@ const referralTextClass = createClassName({
 })
 
 
-function compileReferralHTML(options) {
+async function compileReferralHTML(options) {
     const dom = new JSDOM('')
     const document = dom.window.document
     
@@ -38,7 +39,7 @@ function compileReferralHTML(options) {
 
     let buttonContainer = document.createElement('button')
     buttonContainer.setAttribute('class', referralButtonClass)
-    buttonContainer.setAttribute('onclick', 'shareReferralCoupon()')
+    buttonContainer.setAttribute('onclick', `shareReferralCoupon(${element.id})`)
 
     let referralIcon = document.createElement('div')
     referralIcon.setAttribute('class', referralIconClass)
@@ -52,6 +53,9 @@ function compileReferralHTML(options) {
     buttonContainer.appendChild(referralText)
 
     container.appendChild(buttonContainer)
+    
+    await deleteReferralCoupon({...element})
+    await createReferralCoupon({...element})
 
     return container
 }

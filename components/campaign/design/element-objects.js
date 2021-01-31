@@ -69,7 +69,7 @@ let strings = new LocalizedStrings({
         sliderLabel: "슬라이더",
         dropdownLabel: "드랍다운 메뉴",
 
-        referralButtonLabel: "친구들에게 공유하고 쿠폰 받아가세요!",
+        referralButtonLabel: "쿠폰 공유하기!",
         referralTitleLabel: "10% 할인 쿠폰",
         referralDescriptionLabel: "이 쿠폰을 다음 지점에서 보여주세요.",
         storeAddressLabel: "주소",
@@ -111,7 +111,7 @@ const loyalty = (custom) => {
 
 const referral = (custom) => {
     const {required, media, buttonText, question, couponBackgroundColor, couponTextColor,
-        couponTitle, couponDescription, couponImage, storeAddress, shareTitle, shareText, couponDuration } = custom ? custom : {}
+        couponTitle, couponDescription, couponImage, storeAddress, shareTitle, shareText, couponExpiration } = custom ? custom : {}
     return {
         id:  createId(keys.REFERRAL_ELEMENT),
         type: keys.REFERRAL_ELEMENT,
@@ -128,9 +128,9 @@ const referral = (custom) => {
         couponTextColor: couponTextColor ? couponTextColor : '#000',
         couponTitle: couponTitle ? couponTitle : strings.referralTitleLabel,
         couponImage: couponImage ? couponImage : '',
-        couponDescription: couponDescription ? couponDescription : strings,referralDescriptionLabel,
+        couponDescription: couponDescription ? couponDescription : strings.referralDescriptionLabel,
         storeAddress: storeAddress ? storeAddress : strings.storeAddressLabel,
-        couponDuration:  couponDuration ? couponDuration : 10
+        couponExpiration:  couponExpiration ? couponExpiration : 10
     }
 }
 
@@ -355,11 +355,19 @@ const paragraph = (custom) => {
 const image = (custom) => {
     const {url} = custom ? custom : {}
     return {
-        id:  createId(keys.IMAGE_ELEMENT),
+        id:  createId(keys.IMAGE_UPLOAD_ELEMENT),
         type: keys.IMAGE_ELEMENT,
         name: strings.imageLabel,
         url: url ? url : '',
         rounding: true
+    }
+}
+
+const imageUpload = (custom) => {
+    return {
+        question: question ? question : strings.questionLabel,
+        required: required ? required : true,
+        tags: tags ? tags : []
     }
 }
 
@@ -405,6 +413,7 @@ const defaultStages = () => [
         elements: [
             // share(),
             // loyalty(),
+            imageUpload(),
             referral(),
             spacing(),
             heading(), 

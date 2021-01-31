@@ -116,7 +116,6 @@ async function getCampaignScript(ctx, next) {
     try {
         let campaignParams
         if (process.env.NODE_ENV == 'development') {
-            campaignParams = getCampaignProductionParams(ctx)
             campaignParams = getCampaignDevParams(ctx)
         } else {
             campaignParams = getCampaignProductionParams(ctx)

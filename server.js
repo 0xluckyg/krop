@@ -44,7 +44,7 @@ const {receiveCampaign} = require('./server/campaign/receive');
 const {getProfiles, removeProfile} = require('./server/responses/profiles');
 const {getCampaignSessions} = require('./server/responses/sessions');
 const {getCampaignResponses, deleteCampaignResponse} = require('./server/responses/responses');
-const {createReferralCoupon} = require('./server/referral');
+const {getReferralCoupon, sendReferralCoupon} = require('./server/referral');
 
 const whitelist = [    
     '/_next',
@@ -163,7 +163,8 @@ app.prepare().then(() => {
     router.get('/get-responses', getCampaignResponses)
     router.post('/remove-profile', removeProfile)
 
-    router.post('/create-referral-coupon', createReferralCoupon)
+    router.post('/send-coupon', sendReferralCoupon)
+    router.post('/get-coupon', getReferralCoupon)
 
     router.post('/create-banner-orders', createBannerOrders)
     router.get('/get-banner-orders', getBannerOrders)
