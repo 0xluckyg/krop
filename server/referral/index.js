@@ -1,8 +1,34 @@
 const {Coupon} = require('../db/coupon');
 const {Referral} = require('../db/referral')
+const {User} = require('../db/user')
 const shortid = require("shortid")
 const {compileCoupon} = require('./compiler')
-const keys = require('../../config/keys')
+const keys = require('../../config/keys');
+
+let strings = {
+    en:{
+        expirationLabel: "Valid until: "
+    },
+    kr: {
+        expirationLabel: "유효기간: "
+    }
+}
+strings = {...strings[process.env.LANGUAGE]}
+
+async function updateReferralCoupon(options) {
+    const {campaignId, accountId} = options
+    let referralElement
+    options.stages.map((stage) => {
+        stage.elements.map((element) => {
+            if (element.type == keys.REFERRAL_ELEMENT) {
+                referralElement = element
+            }
+        })
+    })
+    if (!referralElement) return
+    await deleteReferralCoupon({...referralElement, campaignId, accountId})
+    await createReferralCoupon({...referralElement, campaignId, accountId})
+}
 
 async function deleteReferralCoupon(options) {
     const {campaignId, id} = options
@@ -11,30 +37,19 @@ async function deleteReferralCoupon(options) {
 
 async function createReferralCoupon(options) {
     const {accountId, id, campaignId, couponExpiration} = options
-    coupon = compileCoupon(options)
+    console.log("addd: ", accountId)
+    let user = await User.findOne({_id: accountId})
+    console.log("U: ", user)
+    compiledCoupon = compileCoupon(options)
     const coupon = new Coupon({
-        ...coupon,
+        ...compiledCoupon,
         accountId,
         couponId: id,
         campaignId,
+        domain: user.domain,
         expiration: couponExpiration
     })
     await coupon.save()
-}
-
-
-async function sendReferralCoupon(ctx) {
-    let body = JSON.parse(ctx.request.rawBody) 
-    const {clientId, sessionId, campaignId, accountId, id} = body
-
-    const referralId = shortid.generate()
-    await Referral.save({
-        clientId, sessionId, campaignId, accountId, couponId: id,
-        referralId,
-        domain
-    })
-
-    ctx.body = `${process.env.APP_URL}/coupon/${referralId}`
 }
 
 function getCouponDevParams(ctx) {
@@ -62,14 +77,32 @@ function getCouponProductionParams(ctx) {
     return {domain, referralId}
 }
 
+async function sendReferralCoupon(ctx) {
+    let body = JSON.parse(ctx.request.rawBody) 
+    const {clientId, sessionId, campaignId, accountId, couponId, domain} = body
+
+    const referralId = shortid.generate()
+    console.log("BODY: ", body)
+    const referral = new Referral({
+        clientId, sessionId, campaignId, accountId, couponId,
+        referralId,
+        domain
+    })
+    await referral.save()
+
+    ctx.body = `${process.env.APP_URL}/coupon/${referralId}`
+}
+
 function formatDate(expiration) {
     const months = ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12"]
-    let date = new Date(Date.parse(ISO))
+    let date = new Date()
+    console.log("EX: ", expiration)
     date.setTime( date.getTime() + expiration * 86400000 );
+    console.log("EX2: ", date)
     return `${date.getFullYear()}, ${months[date.getMonth()]}/${date.getDate()}`
 }
 
-async function getReferralCoupon(ctx) {
+async function getReferralCoupon(ctx, next) {
     let couponParams
     if (process.env.NODE_ENV == 'development') {
         couponParams = getCouponDevParams(ctx)
@@ -86,17 +119,18 @@ async function getReferralCoupon(ctx) {
     if (!referral) {
         return await next()
     }
-    const {domain, couponId, expiration} = referral
-
+    const {domain, couponId} = referral
     const coupon = await Coupon.findOneAndUpdate({domain, couponId}, {
         $inc: {views: 1}
     }, {new: true})
+    const {expiration} = coupon
+    console.log("re: ", coupon)
     if (!coupon) {
         return await next()
     }
 
     let {html, css} = coupon
-    html = html.replace(`{{${keys.EXPIRATION_DATE}}}`, formatDate(expiration))
+    html = html.replace(`{{${keys.EXPIRATION_DATE}}}`, strings.expirationLabel + formatDate(expiration))
 
     ctx.body = `<html lang="en">
         <head>
@@ -114,6 +148,7 @@ async function getReferralCoupon(ctx) {
 module.exports = {
     createReferralCoupon,
     deleteReferralCoupon,
+    updateReferralCoupon,
     sendReferralCoupon,
     getReferralCoupon
 }

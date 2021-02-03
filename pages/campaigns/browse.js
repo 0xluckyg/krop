@@ -73,7 +73,8 @@ class BrowseCampaigns extends React.Component {
         const params = { page }
         axios.get(process.env.APP_URL + '/get-campaigns', {
             params
-        }).then(res => {                        
+        }).then(res => {              
+            console.log("RES: ", res.data)          
             let result = res.data
             if (page > 1) {
                 result.campaigns = [...this.state.campaigns, ...result.campaigns]

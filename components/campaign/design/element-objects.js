@@ -9,6 +9,7 @@ let strings = new LocalizedStrings({
         headingLabel: "Heading",
         subheadingLabel: "Subheading",
         imageLabel: "Image",
+        imageUploadLabel: "Image Uploader",
         videoLabel: "Video",
         linkLabel: "Link",
         spacingLabel: "Spacing",
@@ -53,6 +54,7 @@ let strings = new LocalizedStrings({
         headingLabel: "큰 텍스트 (h1)",
         subheadingLabel: "중간 텍스트 (h2)",
         imageLabel: "이미지",
+        imageUploadLabel: "이미지 업로드",
         videoLabel: "비디오",
         linkLabel: "링크",
         spacingLabel: "공간",
@@ -364,8 +366,11 @@ const image = (custom) => {
 }
 
 const imageUpload = (custom) => {
+    const {question, required, tags} = custom ? custom : {}
     return {
         question: question ? question : strings.questionLabel,
+        type: keys.IMAGE_UPLOAD_ELEMENT, 
+        name: strings.imageUploadLabel,
         required: required ? required : true,
         tags: tags ? tags : []
     }

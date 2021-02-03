@@ -23,7 +23,7 @@ const referralTextClass = createClassName({
 })
 
 
-async function compileReferralHTML(options) {
+ function compileReferralHTML(options) {
     const dom = new JSDOM('')
     const document = dom.window.document
     
@@ -39,7 +39,7 @@ async function compileReferralHTML(options) {
 
     let buttonContainer = document.createElement('button')
     buttonContainer.setAttribute('class', referralButtonClass)
-    buttonContainer.setAttribute('onclick', `shareReferralCoupon(${element.id})`)
+    buttonContainer.setAttribute('onclick', `shareReferralCoupon("${element.id}")`)
 
     let referralIcon = document.createElement('div')
     referralIcon.setAttribute('class', referralIconClass)
@@ -54,9 +54,6 @@ async function compileReferralHTML(options) {
 
     container.appendChild(buttonContainer)
     
-    await deleteReferralCoupon({...element})
-    await createReferralCoupon({...element})
-
     return container
 }
 

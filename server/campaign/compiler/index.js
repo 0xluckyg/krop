@@ -186,7 +186,7 @@ async function compileElement(options) {
         case(keys.SHARE_ELEMENT):
             return compileShareHTML(options).outerHTML
         case(keys.REFERRAL_ELEMENT):
-            return await compileReferralHTML(options).outerHTML
+            return compileReferralHTML(options).outerHTML
         case(keys.SPACING_ELEMENT):
             return compileSpacingHTML(options).outerHTML
         case(keys.IMAGE_ELEMENT):
@@ -231,7 +231,8 @@ async function compileStage(options) {
         elements: []
     }
     
-    await Promise.all(stage.elements.map(async (element, i) => {
+    for (let i = 0; i < stage.elements.length; i++) {
+        const element = stage.elements[i]
         const elementIndex = stage.elements.length - i
         const compiledElement = await compileElement({
             element, 
@@ -241,7 +242,7 @@ async function compileStage(options) {
         if (compiledElement) {
             compiledStage.elements.push(compiledElement)   
         }
-    }))
+    }
     
     return compiledStage
 }
@@ -255,13 +256,14 @@ async function compiler(campaignOptions) {
 
     const {stages, styles, alertMessages} = campaignOptions
     let compiledStages = []
-    await Promise.all(stages.map(async (stage, stageIndex) => {
+    for (let stageIndex = 0; stageIndex < stages.length; stageIndex++) {
+        let stage = stages[stageIndex]
         const compiledStage = await compileStage({
             stage, stageIndex, ...campaignOptions
         })
         compiledStages.push(compiledStage)
-    }))
-    
+    }
+
     let css = await compileCSS(campaignOptions)
     css = await cleanCSS(css)
     

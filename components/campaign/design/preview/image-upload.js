@@ -16,9 +16,7 @@ class ImageUploadPreview extends React.Component {
         let linkElement = getElement({
             props: this.props, selectedStage: stage, selectedElement: element
         })
-        return <div className={classes.imageUploadStyle}>
-            {linkElement.url}
-        </div>
+        return  <input type="file" id="img" name="img" accept="image/*"/>
     }
 }
 
@@ -37,22 +35,7 @@ const useStyles = theme => ({
         const {font, align} = getStyle(props)
         const {primaryColor} = getStyle(props)
         let style = isDesktop(props) ? imageUploadStyles.IMAGE_UPLOAD_DESKTOP : imageUploadStyles.IMAGE_UPLOAD
-        return {
-            fontFamily: font,
-            textAlign: align,
-            color: primaryColor,
-            ...style,
-            '&:before': {
-                ...style.BEFORE,
-                marginRight: 10
-            },
-            '&:hover': {
-                ...style.HOVER
-            },
-            '&:active': {
-                ...style.ACTIVE
-            }
-        }
+        
     }
 })
 

@@ -7,6 +7,7 @@ const {Campaign} = require('../db/campaign');
 const {User} = require('../db/user');
 const campaignCompiler = require('../campaign/compiler')
 const {updateCampaignQuestions, removeCampaignQuestions} = require('./functions')
+const {updateReferralCoupon} = require('../referral')
 const keys = require('../../config/keys')
 
 let strings = {
@@ -64,7 +65,8 @@ async function createCampaign(ctx) {
             campaignName: campaign.settings.name
         }
         await updateCampaignQuestions(campaignOptions)
-        
+        await updateReferralCoupon(campaignOptions)
+
         ctx.body = 'Campaign saved'
     } catch (err) {
         console.log('Failed createCampaign: ', err)
@@ -92,13 +94,15 @@ async function updateCampaign(ctx) {
         const newCampaign = await Campaign.findOneAndUpdate({_id:body._id}, {
             ...body,
         }, {new: true})
-        await updateCampaignQuestions({
+        const campaignOptions = {
             ...body, 
             campaignId: body._id, 
             accountId: accountId,
             campaignName: settings.name
-        })
-        
+        }
+        await updateCampaignQuestions(campaignOptions)
+        await updateReferralCoupon(campaignOptions)
+
         ctx.body = newCampaign
     } catch (err) {
         console.log('Failed updateCampaign: ', err)

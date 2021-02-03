@@ -18,6 +18,7 @@ import {
     mdiFormatHeader2,
     mdiFormatParagraph,
     mdiImageOutline,
+    mdiCloudUploadOutline,
     mdiLink,
     mdiYoutube,
     mdiArrowExpandVertical,
@@ -161,6 +162,8 @@ class ListElement extends React.Component {
                 return this.renderIcon(mdiFormatParagraph, classes.mainIcon)
             case keys.IMAGE_ELEMENT:
                 return this.renderIcon(mdiImageOutline, classes.mainIcon)
+            case keys.IMAGE_UPLOAD_ELEMENT:
+                return this.renderIcon(mdiCloudUploadOutline, classes.mainIcon)
             case keys.VIDEO_ELEMENT:
                 return this.renderIcon(mdiYoutube, classes.mainIcon)
             case keys.LINK_ELEMENT:

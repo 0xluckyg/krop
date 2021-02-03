@@ -13,10 +13,12 @@ const CouponSchema = new mongoose.Schema({
         type: String,
         index: true
     },
+    domain: String,
     html: String,
     css: String,
     views: Number,
-    sends: Number
+    sends: Number,
+    expiration: Number
 },{
     timestamps: true // Saves createdAt and updatedAt as dates
 });

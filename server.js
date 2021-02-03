@@ -95,7 +95,8 @@ app.prepare().then(() => {
     routerUnauthorized.get('/:path', getCampaignScript)
     routerUnauthorized.post('/campaign-options', getCampaignOptions);
     routerUnauthorized.post('/campaign-receive', receiveCampaign);
-    // routerUnauthorized.post('/campaign-validate', validateCampaignResponse);
+    routerUnauthorized.post('/send-coupon', sendReferralCoupon)
+    routerUnauthorized.get('/coupon/:path', getReferralCoupon)
     
     routerUnauthorized.get('/log-in', logIn)
     routerUnauthorized.post('/sign-up', signUp)
@@ -162,9 +163,6 @@ app.prepare().then(() => {
     router.get('/get-sessions', getCampaignSessions)
     router.get('/get-responses', getCampaignResponses)
     router.post('/remove-profile', removeProfile)
-
-    router.post('/send-coupon', sendReferralCoupon)
-    router.post('/get-coupon', getReferralCoupon)
 
     router.post('/create-banner-orders', createBannerOrders)
     router.get('/get-banner-orders', getBannerOrders)

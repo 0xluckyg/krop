@@ -13,6 +13,7 @@ import Header from './header'
 import Spacing from './spacing'
 import Text from './text'
 import Image from './image'
+import ImageUpload from './image-upload'
 import MultipleChoice from './multiple-choice'
 import Checkbox from './checkbox'
 import Form from './form'
@@ -152,6 +153,14 @@ class CampaignPreview extends React.Component {
                                 />
                             case(keys.IMAGE_ELEMENT):
                                 return <Image
+                                    key={element.type+i}
+                                    state={state}
+                                    setState={setState}
+                                    stage={state.selectedStage}
+                                    element={i}
+                                />
+                            case(keys.IMAGE_UPLOAD_ELEMENT):
+                                return <ImageUpload
                                     key={element.type+i}
                                     state={state}
                                     setState={setState}

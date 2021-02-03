@@ -19,6 +19,7 @@ import FormEditor from './form'
 import AddressEditor from './address'
 import LongFormEditor from './long-form'
 import ImageEditor from './image'
+import ImageUploadEditor from './image-upload'
 import VideoEditor from './video'
 import LinkEditor from './link'
 import StageSettingsEditor from './stage-settings'
@@ -214,6 +215,13 @@ class ElementEditor extends React.Component {
             
             case(keys.IMAGE_ELEMENT):
                 return <ImageEditor
+                    stage={selectedStage}
+                    element={selectedElement}
+                    state={state}
+                    setState={setState}
+                />
+            case(keys.IMAGE_UPLOAD_ELEMENT):
+                return <ImageUploadEditor
                     stage={selectedStage}
                     element={selectedElement}
                     state={state}

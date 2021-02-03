@@ -257,14 +257,16 @@
     /// ========= REFERRAL ================================================
 
     this.shareReferralCoupon = function(couponId) {
-        JSONRequest(appUrl + "/get-coupon", {
+        JSONRequest(appUrl + "/send-coupon", {
             clientId: clientId,
             sessionId: sessionId,
             campaignId: campaignId,
             accountId: accountId,
-            couponId: couponId
+            couponId: couponId,
+            domain: domain
         }, 
         function(response) {
+            console.log("response ", response)
             if (navigator.share !== undefined){
                 navigator.share(response).then(function() {
                     

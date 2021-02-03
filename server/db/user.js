@@ -37,6 +37,7 @@ const UserSchema = new mongoose.Schema({
     },
     domain: {
         type: String,  
+        unique: true
     },
     //whether the user is verified and active
     active: {
