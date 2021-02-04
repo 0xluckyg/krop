@@ -4,6 +4,7 @@ import LocalizedStrings from 'react-localization';
 import { withStyles } from '@material-ui/core/styles';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import Input from './sub/input'
 
 import keys from '../../../../config/keys'
 import SectionContainer from './frame/section-container'
@@ -12,10 +13,18 @@ import socialIcons from '../../../../static/campaign/social-icons';
 
 let strings = new LocalizedStrings({
     en:{
-        shareButtonsLabel: "Share buttons"
+        shareButtonsLabel: "Share buttons",
+
+        shareContentLabel: "Content to share",
+        shareTextLabel: "Text to share",
+        shareUrlLabel: "Link to share"
     },
     kr: {
-        shareButtonsLabel: "공유 버튼"
+        shareButtonsLabel: "공유 버튼",
+
+        shareContentLabel: "공유할 내용",
+        shareTextLabel: "공유할 글",
+        shareUrlLabel: "공유할 링크"
     }
 });
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
@@ -107,9 +116,9 @@ class ShareEditor extends React.Component {
                     <ToggleButton value="facebook" aria-label="facebook">
                         {this.createSocialIcon("facebook")}
                     </ToggleButton>
-                    <ToggleButton value="instagram" aria-label="instagram">
+                    {/* <ToggleButton value="instagram" aria-label="instagram">
                         {this.createSocialIcon("instagram")}
-                    </ToggleButton>
+                    </ToggleButton> */}
                     <ToggleButton value="twitter" aria-label="twitter">
                         {this.createSocialIcon("twitter")}
                     </ToggleButton>
@@ -121,9 +130,27 @@ class ShareEditor extends React.Component {
     render() {
         const {classes} = this.props
         return (
-            <SectionContainer title={strings.shareButtonsLabel}>
-                {this.renderToggleButtons()}
-            </SectionContainer>
+            <React.Fragment>
+                <SectionContainer title={strings.shareButtonsLabel}>
+                    {this.renderToggleButtons()}
+                </SectionContainer>
+                <SectionContainer title={strings.shareContentLabel}>
+                    <Input
+                        label={strings.shareTextLabel}
+                        onChange={value => {
+                            this.setProperty(null, 'text', value)
+                        }}
+                        value={this.getProperty(null, 'text')}
+                    />
+                    <Input
+                        label={strings.shareUrlLabel}
+                        onChange={value => {
+                            this.setProperty(null, 'url', value)
+                        }}
+                        value={this.getProperty(null, 'url')}
+                    />
+                </SectionContainer>
+            </React.Fragment>
         )
     }
 }

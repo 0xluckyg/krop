@@ -254,9 +254,9 @@
         
     }
     
-    /// ========= REFERRAL ================================================
+    /// ========= REFERRAL & SHARE ================================================
 
-    this.shareReferralCoupon = function(couponId) {
+    this.shareReferralCoupon = function(couponId, shareTitle, shareText) {
         JSONRequest(appUrl + "/send-coupon", {
             clientId: clientId,
             sessionId: sessionId,
@@ -265,10 +265,13 @@
             couponId: couponId,
             domain: domain
         }, 
-        function(response) {
-            console.log("response ", response)
+        function(res) {
             if (navigator.share !== undefined){
-                navigator.share(response).then(function() {
+                navigator.share({
+                    title: shareTitle,
+                    text: shareText,
+                    url: res.url
+                }).then(function() {
                     
                 }).catch(function() {
 
@@ -277,6 +280,12 @@
         }, function(error) {
             
         });
+    }
+
+    this.share = function(url) {
+        if (window) {
+            window.open(url, '_blank')
+        }
     }
 
     /// ========= CAMPAIGN RESPONSE ================================================
@@ -590,14 +599,13 @@
         );
         xhr.onload = function() {
             try {
-                console.log("XHR2: ", xhr)
                 if (xhr.status / 100 >= 4) {
                     return errorCallback(xhr.responseText)
                 }
                 return callback(JSON.parse(xhr.responseText));
             }
             catch(e) {
-                console.log("X22HR: ", xhr)
+                console.log("Campaign error: ", e)
                 errorCallback && errorCallback(e);
             }
         };

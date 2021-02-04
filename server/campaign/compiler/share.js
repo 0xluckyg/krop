@@ -11,12 +11,12 @@ const socialIcons = require('../../../static/campaign/social-icons')
 let strings = {
     en:{
         facebhookShareLabel: "Share on Facebook!",
-        instagramShareLabel: "Share on Instagram!",
+        // instagramShareLabel: "Share on Instagram!",
         twitterShareLabel: "Share on Twitter!"
     },
     kr: {
         facebhookShareLabel: "페이스북에 공유하기!",
-        instagramShareLabel: "인스타에 공유하기!",
+        // instagramShareLabel: "인스타에 공유하기!",
         twitterShareLabel: "트위터에 공유하기!"
     }
 }
@@ -59,14 +59,17 @@ function compileShareHTML(options) {
 
     const platformText = {
         'facebook': strings.facebhookShareLabel,
-        'instagram': strings.instagramShareLabel,
+        // 'instagram': strings.instagramShareLabel,
         'twitter': strings.twitterShareLabel
     }
 
     element.platforms.map(platform => {
-        const {svg, color} = socialIcons[platform]
+        let {svg, color, url} = socialIcons[platform]
         let buttonContainer = document.createElement('button')
         buttonContainer.style.backgroundColor = color
+        url = url.replace("{{URL}}", element.url)
+        url = url.replace("{{TEXT}}", element.text)
+        buttonContainer.setAttribute('onclick', `share("${url}")`)
         buttonContainer.setAttribute('class', shareButtonClass)
         
         let shareIcon = document.createElement('div')

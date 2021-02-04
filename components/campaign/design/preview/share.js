@@ -46,7 +46,7 @@ class SharePreview extends React.Component {
 
         const platformText = {
             'facebook': strings.facebookShareLabel,
-            'instagram': strings.instagramShareLabel,
+            // 'instagram': strings.instagramShareLabel,
             'twitter': strings.twitterShareLabel
         }
 

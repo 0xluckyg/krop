@@ -39,7 +39,7 @@ const referralTextClass = createClassName({
 
     let buttonContainer = document.createElement('button')
     buttonContainer.setAttribute('class', referralButtonClass)
-    buttonContainer.setAttribute('onclick', `shareReferralCoupon("${element.id}")`)
+    buttonContainer.setAttribute('onclick', `shareReferralCoupon("${element.id}", "${element.shareTitle}", "${element.shareText}")`)
 
     let referralIcon = document.createElement('div')
     referralIcon.setAttribute('class', referralIconClass)

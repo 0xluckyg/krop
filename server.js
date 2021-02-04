@@ -91,12 +91,12 @@ app.prepare().then(() => {
     const routerUnauthorized = new Router();
     server.use(routerUnauthorized.routes());
 
+    routerUnauthorized.get('/coupon/:path', getReferralCoupon)
     routerUnauthorized.get('/', getCampaignScript)
     routerUnauthorized.get('/:path', getCampaignScript)
     routerUnauthorized.post('/campaign-options', getCampaignOptions);
     routerUnauthorized.post('/campaign-receive', receiveCampaign);
     routerUnauthorized.post('/send-coupon', sendReferralCoupon)
-    routerUnauthorized.get('/coupon/:path', getReferralCoupon)
     
     routerUnauthorized.get('/log-in', logIn)
     routerUnauthorized.post('/sign-up', signUp)

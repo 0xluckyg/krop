@@ -5,7 +5,7 @@
 		"main": "index.js",
 		"scripts": {
 				"test": "export NODE_ENV=test || \"SET NODE_ENV=test\" && mocha --exit tests/index.test.js",
-				"dev": "nodemon server.js",
+				"dev": "node server.js",
 				"build": "next build",
 				"start": "next start"
 		},

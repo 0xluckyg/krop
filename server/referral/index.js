@@ -82,7 +82,6 @@ async function sendReferralCoupon(ctx) {
     const {clientId, sessionId, campaignId, accountId, couponId, domain} = body
 
     const referralId = shortid.generate()
-    console.log("BODY: ", body)
     const referral = new Referral({
         clientId, sessionId, campaignId, accountId, couponId,
         referralId,
@@ -90,7 +89,9 @@ async function sendReferralCoupon(ctx) {
     })
     await referral.save()
 
-    ctx.body = `${process.env.APP_URL}/coupon/${referralId}`
+    ctx.body = {
+        url: `${process.env.APP_URL}/coupon/${referralId}`
+    }
 }
 
 function formatDate(expiration) {

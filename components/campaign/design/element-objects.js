@@ -30,8 +30,12 @@ let strings = new LocalizedStrings({
         referralTitleLabel: "10% DISCOUNT COUPON AT NAME",
         referralDescriptionLabel: "Show this coupon at the following branch below to claim the discount!",
         storeAddressLabel: "110 Broadway, NYC",
-        shareTitleLabel: "",
-        shareTextLabel: "",
+        referralShareTitleLabel: "",
+        referralShareTextLabel: "",
+        referralShareUrlLabel: "",
+
+        shareTextLabel: "Text to share",
+        shareUrlLabel: "Url to share (ex. https://krop.app)",
 
         questionLabel: "Question",
         option1Label: "Option 1",
@@ -75,8 +79,12 @@ let strings = new LocalizedStrings({
         referralTitleLabel: "10% 할인 쿠폰",
         referralDescriptionLabel: "이 쿠폰을 다음 지점에서 보여주세요.",
         storeAddressLabel: "주소",
-        shareTitleLabel: "",
-        shareTextLabel: "",
+        referralShareTitleLabel: "",
+        referralShareTextLabel: "",
+        referralShareUrlLabel: "",
+
+        shareTextLabel: "공유할 글",
+        shareUrlLabel: "공유할 링크 (예시: https://krop.app)",
 
         questionLabel: "질문",
         option1Label: "옵션 1",
@@ -112,7 +120,7 @@ const loyalty = (custom) => {
 }
 
 const referral = (custom) => {
-    const {required, media, buttonText, question, couponBackgroundColor, couponTextColor,
+    const {required, media, buttonText, question, couponBackgroundColor, couponPrimaryColor,
         couponTitle, couponDescription, couponImage, storeAddress, shareTitle, shareText, couponExpiration } = custom ? custom : {}
     return {
         id:  createId(keys.REFERRAL_ELEMENT),
@@ -123,11 +131,10 @@ const referral = (custom) => {
         question: question ? question : strings.referralLabel,
         buttonText: buttonText ? buttonText : strings.referralButtonLabel,
         
-        shareTitle: shareTitle ? shareTitle : strings.shareTitleLabel,
-        shareText: shareText ? shareText : strings.shareTextLabel,
+        shareTitle: shareTitle ? shareTitle : strings.referralShareTitleLabel,
+        shareText: shareText ? shareText : strings.referralShareTextLabel,
 
-        couponBackgroundColor: couponBackgroundColor ? couponBackgroundColor : '#fff',
-        couponTextColor: couponTextColor ? couponTextColor : '#000',
+        couponPrimaryColor: couponPrimaryColor ? couponPrimaryColor : '#000',
         couponTitle: couponTitle ? couponTitle : strings.referralTitleLabel,
         couponImage: couponImage ? couponImage : '',
         couponDescription: couponDescription ? couponDescription : strings.referralDescriptionLabel,
@@ -137,7 +144,7 @@ const referral = (custom) => {
 }
 
 const share = (custom) => {
-    const {required, media, platforms, question, tags} = custom ? custom : {}
+    const {required, media, platforms, question, tags, text, url} = custom ? custom : {}
     return {
         id:  createId(keys.SHARE_ELEMENT),
         type: keys.SHARE_ELEMENT,
@@ -146,6 +153,8 @@ const share = (custom) => {
         media: media ? media : null,
         question: question ? question : strings.shareLabel,
         platforms: platforms ? platforms : ['facebook', 'instagram', 'twitter'],
+        text: text ? text : strings.shareTextLabel,
+        url: url ? url : strings.shareUrlLabel,
         tags: tags ? tags : []
     }
 }
@@ -416,10 +425,10 @@ const defaultStages = () => [
             isSinglePage: true
         },
         elements: [
-            // share(),
             // loyalty(),
-            imageUpload(),
+            // imageUpload(),
             referral(),
+            share(),
             spacing(),
             heading(), 
             subheading(), 

@@ -120,13 +120,13 @@ function compileCouponHTML(options) {
     wrapper.appendChild(description)
 
     container.appendChild(wrapper)
-    
+    body.appendChild(container)
     return body.outerHTML
 }
 
 function compileCouponCSS(options) {
     const { 
-        primaryColor
+        couponPrimaryColor
     } = options
 
     let bodyCSS = getCSS(bodyClass, {
@@ -139,7 +139,7 @@ function compileCouponCSS(options) {
 
     let wrapperCSS = getCSS(wrapperClass, {
         ...couponStyles.WRAPPER,
-        borderTop: `solid 3px ${primaryColor}`
+        borderTop: `solid 3px ${couponPrimaryColor}`
     })
 
     let dividerCSS = getCSS(dividerClass, {

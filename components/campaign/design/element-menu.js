@@ -57,6 +57,7 @@ let strings = new LocalizedStrings({
         premadeElementsLabel: "Premade elements",
         chooseFromTemplatesLabel: "Choose from templates",
         designElementsLabel: "Design elements",
+        shareElementsLabel: "Share elements",
         campaignElementsLabel: "Campaign elements",
     },
     kr: {
@@ -83,6 +84,7 @@ let strings = new LocalizedStrings({
         premadeElementsLabel: "템플릿",
         chooseFromTemplatesLabel: "템플릿 에서 고르기",
         designElementsLabel: "디자인 요소들",
+        shareElementsLabel: "공유 요소들",
         campaignElementsLabel: "캠페인 요소들",
     }
 });
@@ -124,10 +126,6 @@ const shareElements = [
 ]
 
 const campaignElements = [
-    // {
-    //     type: keys.LOYALTY_ELEMENT,
-    //     name: strings.loyaltyLabel
-    // }, 
     {
         type: keys.MULTIPLE_CHOICE_ELEMENT,
         name: strings.multipleChoiceLabel
@@ -337,16 +335,16 @@ class AddElementModal extends React.Component {
     renderDesignElements() {
         return (
             <React.Fragment>
-                <SectionHeader title={strings.premadeElementsLabel}/>
-                {this.renderItem(strings.chooseFromTemplatesLabel, "template")}
+                {/* <SectionHeader title={strings.premadeElementsLabel}/>
+                {this.renderItem(strings.chooseFromTemplatesLabel, "template")} */}
                 <SectionHeader title={strings.designElementsLabel}/>
                 {designElements.map(el => {
                     return this.renderItem(el.name, el.type)
                 })}
-                {/* <SectionHeader title="Share Elements"/>
+                <SectionHeader title={strings.shareElementsLabel}/>
                 {shareElements.map(el => {
                     return this.renderItem(el.name, el.type)
-                })} */}
+                })}
                 <SectionHeader title={strings.campaignElementsLabel}/>
                 {campaignElements.map(el => {
                     return this.renderItem(el.name, el.type)

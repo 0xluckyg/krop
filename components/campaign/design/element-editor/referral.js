@@ -1,5 +1,7 @@
 import React, {Fragment} from 'react'
 import LocalizedStrings from 'react-localization';
+import TextareaAutosize from 'react-autosize-textarea';
+import clsx from 'clsx';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -87,7 +89,7 @@ class ReferralEditor extends React.Component {
     
     renderCouponEditor() {
         console.log(": ", this.getProperty(null, 'couponTitle'))
-        const {state, setState, stage, element} = this.props
+        const {state, setState, stage, element, classes} = this.props
         return (
             <Fragment>
                 <SectionContainer title={strings.titleLabel}>
@@ -100,11 +102,13 @@ class ReferralEditor extends React.Component {
                     />
                 </SectionContainer>
                 <SectionContainer title={strings.descriptionLabel}>
-                    <Input
-                        label={strings.couponTextLabel}
-                        onChange={value => {
-                            this.setProperty(null, 'couponDescription', value)
+                    <TextareaAutosize
+                        placeholder={strings.couponTextLabel}
+                        type="text"
+                        onChange={e => {
+                            this.setProperty(null, 'couponDescription', e.target.value)
                         }}
+                        className={clsx(classes.inputStyle, classes.mainTextStyle)}
                         value={this.getProperty(null, 'couponDescription')}
                     />
                 </SectionContainer>
@@ -139,13 +143,8 @@ class ReferralEditor extends React.Component {
                 <SectionContainer title={strings.couponStyleLabel}>
                     <ColorPicker
                         text={strings.backgroundColorLabel}
-                        color={this.getProperty(null, 'couponBackgroundColor')}
-                        onChange={color => this.setProperty(null, 'couponBackgroundColor', color)}
-                    /><br/>
-                    <ColorPicker
-                        text={strings.textColorLabel}
-                        color={this.getProperty(null, 'couponTextColor')}
-                        onChange={color => this.setProperty(null, 'couponTextColor', color)}
+                        color={this.getProperty(null, 'couponPrimaryColor')}
+                        onChange={color => this.setProperty(null, 'couponPrimaryColor', color)}
                     />
                 </SectionContainer>
             </Fragment>
@@ -248,13 +247,16 @@ const useStyles = theme => ({
         letterSpacing: '0.01071em',
         resize: 'none',
         fontSize: 15,
-        whiteSpace: "pre-wrap",
-        overflowY: 'auto',
-        cursor: 'text',
         '&:focus': {
             outline: 'none'
         }
-    }
+    },
+    mainTextStyle: {
+        marginBottom: 10,
+        whiteSpace: "pre-wrap",
+        overflowY: 'auto',
+        cursor: 'text'
+    },
 })
 
 export default withStyles(useStyles)(ReferralEditor)
