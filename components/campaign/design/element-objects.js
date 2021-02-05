@@ -152,7 +152,7 @@ const share = (custom) => {
         required: required ? required : true,
         media: media ? media : null,
         question: question ? question : strings.shareLabel,
-        platforms: platforms ? platforms : ['facebook', 'instagram', 'twitter'],
+        platforms: platforms ? platforms : ['facebook', 'twitter'],
         text: text ? text : strings.shareTextLabel,
         url: url ? url : strings.shareUrlLabel,
         tags: tags ? tags : []

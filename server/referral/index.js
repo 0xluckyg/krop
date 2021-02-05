@@ -66,8 +66,9 @@ function getCouponProductionParams(ctx) {
             domain = domainSplit[0]
             if (domain && !blacklistedSubdomains.includes(domain)) {
                 let urlSplit = ctx.request.url.split("/")
-                if (!urlSplit || urlSplit[0] != 'coupon') return false
-                referralId = urlSplit[urlSplit.length - 1]
+                if (!urlSplit || urlSplit[1] != 'coupon') return false
+                let referralString = urlSplit[urlSplit.length - 1]
+                referralId = referralString.split('?')[0]
             } else {
                 return false
             }
@@ -75,6 +76,16 @@ function getCouponProductionParams(ctx) {
     }
 
     return {domain, referralId}
+}
+
+function getDevReferralUrl(domain, referralId) {
+    return `${process.env.APP_URL}/coupon/example?domain=${domain}&referralId=${referralId}`
+}
+
+function getProductionReferralUrl(domain, referralId) {
+    let originalUrl = process.env.APP_URL
+    originalUrl.replace("www.", domain+".")
+    return `${originalUrl}/coupon/${referralId}`
 }
 
 async function sendReferralCoupon(ctx) {
@@ -89,23 +100,26 @@ async function sendReferralCoupon(ctx) {
     })
     await referral.save()
 
+    let url = process.env.NODE_ENV == 'development' ? 
+    getDevReferralUrl(domain ,referralId) : 
+    getProductionReferralUrl(domain, referralId)
+
     ctx.body = {
-        url: `${process.env.APP_URL}/coupon/${referralId}`
+        url
     }
 }
 
 function formatDate(expiration) {
     const months = ["1", "2", "3", "4", "5", "6","7", "8", "9", "10", "11", "12"]
     let date = new Date()
-    console.log("EX: ", expiration)
     date.setTime( date.getTime() + expiration * 86400000 );
-    console.log("EX2: ", date)
     return `${date.getFullYear()}, ${months[date.getMonth()]}/${date.getDate()}`
 }
 
 async function getReferralCoupon(ctx, next) {
     let couponParams
     if (process.env.NODE_ENV == 'development') {
+        couponParams = getCouponProductionParams(ctx)
         couponParams = getCouponDevParams(ctx)
     } else {
         couponParams = getCouponProductionParams(ctx)
@@ -125,7 +139,6 @@ async function getReferralCoupon(ctx, next) {
         $inc: {views: 1}
     }, {new: true})
     const {expiration} = coupon
-    console.log("re: ", coupon)
     if (!coupon) {
         return await next()
     }

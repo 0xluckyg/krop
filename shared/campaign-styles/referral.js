@@ -17,7 +17,7 @@ const REFERRAL_BUTTON = {
     backgroundColor: 'rgba(0,0,0,0)',
     fontWeight: 100,
     width: '100%',
-    border: `0.1px solid #000`,
+    border: `0.5px solid #000`,
     padding: '13px 25px',
     borderRadius: '30px',
     fontSize: '14px',

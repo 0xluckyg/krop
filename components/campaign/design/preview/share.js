@@ -12,13 +12,13 @@ import socialIcons from '../../../../static/campaign/social-icons';
 let strings = new LocalizedStrings({
     en:{
         facebookShareLabel: "Share on Facebook!",
-        instagramShareLabel: "Share on Instagram!",
-        twitterShareLabel: "Share on Twitter!"
+        twitterShareLabel: "Share on Twitter!",
+        // instagramShareLabel: "Share on Instagram!",
     },
     kr: {
         facebookShareLabel: "페이스북에 공유하기!",
-        instagramShareLabel: "인스타그램에 공유하기!",
-        twitterShareLabel: "트위터에 공유하기!!"
+        twitterShareLabel: "트위터에 공유하기!!",
+        // instagramShareLabel: "인스타그램에 공유하기!",
     }
 });
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
