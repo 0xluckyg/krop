@@ -36,10 +36,8 @@ async function deleteReferralCoupon(options) {
 }
 
 async function createReferralCoupon(options) {
-    const {accountId, id, campaignId, couponExpiration} = options
-    console.log("addd: ", accountId)
+    const {accountId, id, campaignId, couponExpiration, coordinates} = options
     let user = await User.findOne({_id: accountId})
-    console.log("U: ", user)
     compiledCoupon = compileCoupon(options)
     const coupon = new Coupon({
         ...compiledCoupon,
@@ -47,7 +45,8 @@ async function createReferralCoupon(options) {
         couponId: id,
         campaignId,
         domain: user.domain,
-        expiration: couponExpiration
+        expiration: couponExpiration,
+        coordinates
     })
     await coupon.save()
 }
@@ -138,7 +137,7 @@ async function getReferralCoupon(ctx, next) {
     const coupon = await Coupon.findOneAndUpdate({domain, couponId}, {
         $inc: {views: 1}
     }, {new: true})
-    const {expiration} = coupon
+    const {coordinates, expiration} = coupon
     if (!coupon) {
         return await next()
     }
@@ -152,7 +151,26 @@ async function getReferralCoupon(ctx, next) {
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>${keys.APP_NAME}</title>
             <meta name="host" content="Krop">
-            <script type="text/javascript" async></script>
+            <script
+                src="https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&callback=initMap&libraries=&v=weekly"
+                async
+            ></script>
+            <script type="text/javascript" async>
+                let map;
+
+                function initMap() {
+                    let latLng = { lat: ${coordinates[0]}, lng: ${coordinates[1]} };
+                    map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 15,
+                        center: latLng,
+                    });
+                    new google.maps.Marker({
+                        position: latLng,
+                        map: map,
+                    title: "${strings.mapMarkerLabel}",
+                    });
+                }
+            </script>
             <style>${css}</style>
         </head>
         ${html}
@@ -166,3 +184,4 @@ module.exports = {
     sendReferralCoupon,
     getReferralCoupon
 }
+

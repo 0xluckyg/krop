@@ -12,6 +12,7 @@ import ImageUploader from './sub/image-uploader'
 import SectionTabs from './sub/section-tabs'
 import {setProperty, getProperty} from './sub/functions'
 import ColorPicker from '../../../reusable/color-picker'
+import Map from './sub/map'
 
 let strings = new LocalizedStrings({
     en:{
@@ -31,7 +32,10 @@ let strings = new LocalizedStrings({
         backgroundColorLabel: "Coupon background color",
         textColorLabel: "Coupon text color",
         shareTextLabel: "Share text",
-        shareTitleLabel: "Share title"
+        shareTitleLabel: "Share title",
+
+        latitude: 40.730859165035014,
+        longitude: -73.99747556184082
     },
     kr: {
         titleLabel: "제목",
@@ -50,7 +54,10 @@ let strings = new LocalizedStrings({
         backgroundColorLabel: "쿠폰 배경 컬러",
         textColorLabel: "쿠폰 글씨 컬러",
         shareTextLabel: "공유 글",
-        shareTitleLabel: "공유 제목"
+        shareTitleLabel: "공유 제목",
+
+        latitude: 37.303317773055575,
+        longitude: 127.07978024603273
     }
 });
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
@@ -129,6 +136,15 @@ class ReferralEditor extends React.Component {
                         }}
                         value={this.getProperty(null, 'couponAddress')}
                     />
+                    <Map
+                        google={this.props.google}
+                        center={{lat: this.getProperty(null, 'coordinates')[0], lng: this.getProperty(null, 'coordinates')[1]}}
+                        setCoordinates={(lat, lng) => {
+                            this.setProperty(null, 'coordinates', [lat, lng])
+                        }}
+                        height='300px'
+                        zoom={15}
+                    />
                 </SectionContainer>
                 <SectionContainer title={strings.expirationLabel}>
                     <Input
@@ -147,6 +163,7 @@ class ReferralEditor extends React.Component {
                         onChange={color => this.setProperty(null, 'couponPrimaryColor', color)}
                     />
                 </SectionContainer>
+
             </Fragment>
         )
     }

@@ -7,6 +7,7 @@
         "MONGODB_URI": "mongodb://localhost:27017/krop",
         "S3_BUCKET": "krop-images",
         "GOOGLE_API_CLIENT_ID":"1051648092685-8r05a449ts1lngdvuglrj11g397mebki.apps.googleusercontent.com",
+        "GOOGLE_API_KEY":"AIzaSyCZ9dVpWaMrxDWAdcKKxFJOg0oYigkycLA",
         "STRIPE_API_KEY": "pk_live_51H1uBRBI9q0ktHJ5G9lKoTDIgs0603FDuG5XXncggfOVn662E2h542nbJgzs7a8xjge0JvHBGrZmBlQC18CymlzQ00CjEHrwL1"
     },
     "test": {
@@ -16,6 +17,7 @@
         "LANGUAGE": "kr",
         "S3_BUCKET": "krop-images", 
         "GOOGLE_API_CLIENT_ID":"1051648092685-8r05a449ts1lngdvuglrj11g397mebki.apps.googleusercontent.com",
+        "GOOGLE_API_KEY":"AIzaSyCZ9dVpWaMrxDWAdcKKxFJOg0oYigkycLA",
         "STRIPE_API_KEY": "pk_live_51H1uBRBI9q0ktHJ5G9lKoTDIgs0603FDuG5XXncggfOVn662E2h542nbJgzs7a8xjge0JvHBGrZmBlQC18CymlzQ00CjEHrwL1"
     },
     "production": {
@@ -25,6 +27,7 @@
         "LANGUAGE": "kr",
         "S3_BUCKET": "krop-images",
         "GOOGLE_API_CLIENT_ID":"1051648092685-8r05a449ts1lngdvuglrj11g397mebki.apps.googleusercontent.com",
+        "GOOGLE_API_KEY":"AIzaSyCZ9dVpWaMrxDWAdcKKxFJOg0oYigkycLA",
         "STRIPE_API_KEY": "pk_live_51H1uBRBI9q0ktHJ5G9lKoTDIgs0603FDuG5XXncggfOVn662E2h542nbJgzs7a8xjge0JvHBGrZmBlQC18CymlzQ00CjEHrwL1"
     }
 }

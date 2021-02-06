@@ -114,6 +114,10 @@ function compileCouponHTML(options) {
     address.innerHTML = storeAddress
     wrapper.appendChild(address)
 
+    let map = document.createElement('div')
+    map.setAttribute('id', 'map')
+    wrapper.appendChild(map)
+
     let description = document.createElement('p')
     description.setAttribute('class', descriptionClass)
     description.innerHTML = couponDescription
@@ -178,6 +182,10 @@ function compileCouponCSS(options) {
         ...couponStyles.ADDRESS,
     })
 
+    let mapCSS = getCSS('map', {
+        ...couponStyles.MAP,
+    }, "#")
+
     let expirationCSS = getCSS(expirationClass, {
         ...couponStyles.EXPIRATION,
     })
@@ -194,6 +202,7 @@ function compileCouponCSS(options) {
     titleCSS+
     descriptionCSS+
     addressCSS+
+    mapCSS+
     expirationCSS
 }
 

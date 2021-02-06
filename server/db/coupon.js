@@ -18,7 +18,8 @@ const CouponSchema = new mongoose.Schema({
     css: String,
     views: Number,
     sends: Number,
-    expiration: Number
+    expiration: Number,
+    coordinates: Array
 },{
     timestamps: true // Saves createdAt and updatedAt as dates
 });

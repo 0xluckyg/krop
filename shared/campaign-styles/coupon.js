@@ -118,6 +118,17 @@ const ADDRESS_DESKTOP = {
     ...ADDRESS
 }
 
+const MAP = {
+    borderRadius: '5px',
+    height: '200px',
+    width: '100%',
+    margin: '20px 0px'
+}
+
+const MAP_DESKTOP = {
+    ...MAP
+}
+
 const EXPIRATION = {
     margin: '10px 0px',
     fontSize: '15px'
@@ -152,6 +163,8 @@ module.exports = {
     DESCRIPTION_DESKTOP,
     ADDRESS,
     ADDRESS_DESKTOP,
+    MAP,
+    MAP_DESKTOP,
     EXPIRATION,
     EXPIRATION_DESKTOP
 }

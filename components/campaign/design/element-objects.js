@@ -49,8 +49,10 @@ let strings = new LocalizedStrings({
         tooLongAlertLabel: "Please keep your {{TYPE}} shorter than {{NUMBER}} characters.",
         tooShortAlertLabel: "Please make your {{TYPE}} longer than {{NUMBER}} characters.",
         invalidAlertLabel: "Your {{TYPE}} is invalid!",
-        popupAlertLabel: "Please fix the form error"
+        popupAlertLabel: "Please fix the form error",
         
+        latitude: 40.730859165035014,
+        longitude: -73.99747556184082
     },
     kr: {
         loyaltyLabel: "로열티 쿠폰",
@@ -98,7 +100,10 @@ let strings = new LocalizedStrings({
         tooLongAlertLabel: "{{TYPE}} 을 {{NUMBER}} 보다 짧게 써주세요.",
         tooShortAlertLabel: "{{TYPE}}을 {{NUMBER}} 보다 길게 써주세요.",
         invalidAlertLabel: "{{TYPE}}을 올바르게 작석해 주세요!",
-        popupAlertLabel: "오류들을 수정해 주세요!"
+        popupAlertLabel: "오류들을 수정해 주세요!",
+
+        latitude: 37.303317773055575,
+        longitude: 127.07978024603273
     }
 });
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
@@ -120,7 +125,7 @@ const loyalty = (custom) => {
 }
 
 const referral = (custom) => {
-    const {required, media, buttonText, question, couponBackgroundColor, couponPrimaryColor,
+    const {required, media, buttonText, question, couponPrimaryColor, coordinates,
         couponTitle, couponDescription, couponImage, storeAddress, shareTitle, shareText, couponExpiration } = custom ? custom : {}
     return {
         id:  createId(keys.REFERRAL_ELEMENT),
@@ -139,6 +144,7 @@ const referral = (custom) => {
         couponImage: couponImage ? couponImage : '',
         couponDescription: couponDescription ? couponDescription : strings.referralDescriptionLabel,
         storeAddress: storeAddress ? storeAddress : strings.storeAddressLabel,
+        coordinates: coordinates ? coordinates : [strings.latitude, strings.longitude],
         couponExpiration:  couponExpiration ? couponExpiration : 10
     }
 }

@@ -1,23 +1,18 @@
-t=2021-02-05T14:21:07+0900 lvl=info msg="no configuration paths supplied"
-t=2021-02-05T14:21:07+0900 lvl=info msg="using configuration at default config path" path=/Users/scottcho/.ngrok2/ngrok.yml
-t=2021-02-05T14:21:07+0900 lvl=info msg="open config file" path=/Users/scottcho/.ngrok2/ngrok.yml err=nil
-t=2021-02-05T14:21:07+0900 lvl=info msg="run component" obj=controller comp="signal handler"
-t=2021-02-05T14:21:07+0900 lvl=info msg="run component" obj=controller comp="Tunnel session"
-t=2021-02-05T14:21:07+0900 lvl=info msg="run component" obj=controller comp="memory storage"
-t=2021-02-05T14:21:07+0900 lvl=info msg="run component" obj=controller comp=updater
-t=2021-02-05T14:21:07+0900 lvl=info msg="run component" obj=controller comp=web
-t=2021-02-05T14:21:07+0900 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
-t=2021-02-05T14:21:08+0900 lvl=info msg="tunnel session started" obj=tunSess
-t=2021-02-05T14:21:08+0900 lvl=info msg="client session established" obj=csess id=784bafaedb65
-t=2021-02-05T14:21:08+0900 lvl=info msg="update available" obj=updater
-t=2021-02-05T14:21:08+0900 lvl=info msg="wait to update manually" obj=updater
-t=2021-02-05T14:21:13+0900 lvl=warn msg="failed to open private leg" id=c46e6a725364 privaddr=localhost:3000 err="dial tcp [::1]:3000: getsockopt: connection refused"
-t=2021-02-05T14:21:13+0900 lvl=info msg="join connections" obj=join id=271d018219d8 l=nil r=1.237.236.79:51315
-t=2021-02-05T14:21:19+0900 lvl=warn msg="failed to open private leg" id=e7d22753cd6f privaddr=localhost:3000 err="dial tcp [::1]:3000: getsockopt: connection refused"
-t=2021-02-05T14:21:19+0900 lvl=info msg="join connections" obj=join id=8a4a21cb7acd l=nil r=1.237.236.79:51315
-t=2021-02-05T14:21:26+0900 lvl=info msg="join connections" obj=join id=ef7fcc3a4266 l=[::1]:3000 r=1.237.236.79:51315
-t=2021-02-05T14:21:26+0900 lvl=info msg="join connections" obj=join id=ff3c351e47e7 l=[::1]:3000 r=1.237.236.79:51290
-t=2021-02-05T14:21:35+0900 lvl=info msg="join connections" obj=join id=23347f7175ce l=[::1]:3000 r=1.237.236.79:52296
-t=2021-02-05T14:21:35+0900 lvl=info msg="join connections" obj=join id=8c92a5b5d805 l=[::1]:3000 r=1.237.236.79:52326
-t=2021-02-05T14:22:36+0900 lvl=info msg="join connections" obj=join id=0304243de4d5 l=[::1]:3000 r=1.237.236.79:51290
-t=2021-02-05T14:22:42+0900 lvl=info msg="join connections" obj=join id=8164a701ee08 l=[::1]:3000 r=1.237.236.79:51290
+t=2021-02-06T18:08:42+0900 lvl=info msg="no configuration paths supplied"
+t=2021-02-06T18:08:42+0900 lvl=info msg="using configuration at default config path" path=/Users/scottcho/.ngrok2/ngrok.yml
+t=2021-02-06T18:08:42+0900 lvl=info msg="open config file" path=/Users/scottcho/.ngrok2/ngrok.yml err=nil
+t=2021-02-06T18:08:42+0900 lvl=info msg="run component" obj=controller comp="Tunnel session"
+t=2021-02-06T18:08:42+0900 lvl=info msg="run component" obj=controller comp="memory storage"
+t=2021-02-06T18:08:42+0900 lvl=info msg="run component" obj=controller comp=web
+t=2021-02-06T18:08:42+0900 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
+t=2021-02-06T18:08:42+0900 lvl=info msg="run component" obj=controller comp=updater
+t=2021-02-06T18:08:42+0900 lvl=info msg="run component" obj=controller comp="signal handler"
+t=2021-02-06T18:08:43+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-06T18:08:43+0900 lvl=info msg="client session established" obj=csess id=ec636d493767
+t=2021-02-06T18:08:43+0900 lvl=info msg="update available" obj=updater
+t=2021-02-06T18:08:43+0900 lvl=info msg="wait to update manually" obj=updater
+t=2021-02-06T18:09:11+0900 lvl=info msg="join connections" obj=join id=e8168a5e430c l=[::1]:3000 r=61.254.18.27:62896
+t=2021-02-06T18:09:23+0900 lvl=info msg="join connections" obj=join id=b39b16b97e88 l=[::1]:3000 r=61.254.18.27:62896
+t=2021-02-06T18:09:24+0900 lvl=info msg="join connections" obj=join id=1dbafbe7aa38 l=[::1]:3000 r=61.254.18.27:64495
+t=2021-02-06T18:09:36+0900 lvl=info msg="join connections" obj=join id=bc7876b15c3c l=[::1]:3000 r=61.254.18.27:64568
+t=2021-02-06T18:09:36+0900 lvl=info msg="join connections" obj=join id=55b63a3b5aa1 l=[::1]:3000 r=61.254.18.27:64607
