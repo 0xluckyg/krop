@@ -83,7 +83,7 @@ function getDevReferralUrl(domain, referralId) {
 
 function getProductionReferralUrl(domain, referralId) {
     let originalUrl = process.env.APP_URL
-    originalUrl.replace("www.", domain+".")
+    originalUrl = originalUrl.replace("www.", domain+".")
     return `${originalUrl}/coupon/${referralId}`
 }
 

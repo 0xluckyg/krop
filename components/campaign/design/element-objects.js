@@ -27,8 +27,18 @@ let strings = new LocalizedStrings({
         dropdownLabel: "Dropdown",
 
         referralButtonLabel: "Tell friends about this store!",
-        referralTitleLabel: "10% DISCOUNT COUPON AT NAME",
-        referralDescriptionLabel: "Show this coupon at the following branch below to claim the discount!",
+        referralTitleLabel: "$10 Gift Coupon",
+        referralDescriptionLabel: `[Benefits]
+❤️ Premium $10.00 coupon for 2~3 people
+
+[Available locations]
+Please insert your store address here or a specific location
+
+[Notes]
+1. You can use the coupon after showing it to one of our employees
+2. Allowed 1 use of coupon per table (Up to 4 people)
+3. Coupons from other events cannot be used with this coupon
+4. Only one use allowed per coupon`,
         storeAddressLabel: "110 Broadway, NYC",
         referralShareTitleLabel: "",
         referralShareTextLabel: "",
@@ -78,8 +88,19 @@ let strings = new LocalizedStrings({
         dropdownLabel: "드랍다운 메뉴",
 
         referralButtonLabel: "쿠폰 공유하기!",
-        referralTitleLabel: "10% 할인 쿠폰",
-        referralDescriptionLabel: "이 쿠폰을 다음 지점에서 보여주세요.",
+        referralTitleLabel: "9,000원 쿠폰",
+        referralDescriptionLabel: `[이용 혜택]
+❤️ 프리미엄 9,000원 이용권 2~3인세트
+        
+[이용 매장]
+이용 매장 주소
+        
+[유의 사항]
+1. 주문시 직원에게 쿠폰 제시 후 사용 가능
+2. 테이블 및 일행당 1매 사용 가능 (일행 기준: 4인)
+3. [공공사이 추가 혜택] 중복 적용 가능
+4. 타 쿠폰 및 행사, 할인 중복 적용 불가
+5. 쿠폰당 1회만 사용 가능`,
         storeAddressLabel: "주소",
         referralShareTitleLabel: "",
         referralShareTextLabel: "",

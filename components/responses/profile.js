@@ -138,9 +138,8 @@ class NoContent extends React.Component {
                     {strings.profileLabel}
                 </Typography> 
                 <Paper className={classes.paper}>
-
-                    {this.renderProperty(strings.nameLabel, this.formatName(profile))}
-                    {this.renderProperty(strings.addressLabel, this.formatAddress(profile))}
+                    {this.renderProperty(strings.nameLabel, profile.name ? this.formatName(profile) : strings.NALabel)}
+                    {this.renderProperty(strings.addressLabel, profile.address ? this.formatAddress(profile) : strings.NALabel)}
                 </Paper>    
             </React.Fragment>
         )

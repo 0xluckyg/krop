@@ -139,6 +139,14 @@ class BannerDropzone extends React.Component {
         }]})
     }
 
+    renderImagePreview() {
+        const {classes} = this.props
+        let imageUrl = this.getUrlValue()
+        if (imageUrl && imageUrl != '') {
+            return <img className={classes.imagePreview} src={imageUrl}></img>
+        }
+    }
+
     render() {
         const {classes} = this.props       
         return (
@@ -163,6 +171,7 @@ class BannerDropzone extends React.Component {
                                 className={classes.mainContainer} {...getRootProps()}>
                                 <input {...getInputProps()} />
                                 <div className={classes.dropzoneContainer}>
+                                    {this.renderImagePreview()}
                                     <p>{strings.uploadInstruction}</p>
                                 </div>
                                 <div className={classes.bannerEditButtonsContainer}>
@@ -262,6 +271,9 @@ const useStyles = theme => ({
         height: '30px',
         fontSize: '13px',    
         marginRight: theme.spacing(2)
+    },
+    imagePreview: {
+        width: '80%'
     }
 });
 

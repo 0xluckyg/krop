@@ -46,3 +46,41 @@ t=2021-02-08T00:15:56+0900 lvl=eror msg="session closed, starting reconnect loop
 t=2021-02-08T00:15:56+0900 lvl=eror msg="failed to reconnect session" obj=csess id=e6b965eef64a err="dial tcp 3.136.132.147:443: connect: network is down"
 t=2021-02-08T00:15:58+0900 lvl=info msg="tunnel session started" obj=tunSess
 t=2021-02-08T00:15:58+0900 lvl=info msg="client session established" obj=csess id=e6b965eef64a
+t=2021-02-08T01:58:30+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=7b6b5f74d8cb clientid=295976ed0a01393f2cb2f195f532e0bd
+t=2021-02-08T01:58:30+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=e6b965eef64a err="session closed"
+t=2021-02-08T01:58:33+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-08T01:58:34+0900 lvl=info msg="client session established" obj=csess id=e6b965eef64a
+t=2021-02-08T03:07:09+0900 lvl=info msg="join connections" obj=join id=bd0f1e238d01 l=127.0.0.1:3000 r=61.254.18.27:63787
+t=2021-02-08T03:07:23+0900 lvl=info msg="join connections" obj=join id=8b1cfbe661eb l=127.0.0.1:3000 r=61.254.18.27:63786
+t=2021-02-08T03:07:23+0900 lvl=info msg="join connections" obj=join id=103996c94f4a l=127.0.0.1:3000 r=61.254.18.27:63794
+t=2021-02-08T03:07:23+0900 lvl=info msg="join connections" obj=join id=4f964bda0b8d l=127.0.0.1:3000 r=61.254.18.27:63792
+t=2021-02-08T03:07:23+0900 lvl=info msg="join connections" obj=join id=c469582a1510 l=127.0.0.1:3000 r=61.254.18.27:63791
+t=2021-02-08T03:07:23+0900 lvl=info msg="join connections" obj=join id=b04abf0ea184 l=127.0.0.1:3000 r=61.254.18.27:63793
+t=2021-02-08T03:07:37+0900 lvl=info msg="join connections" obj=join id=667ab64650ab l=127.0.0.1:3000 r=61.254.18.27:63792
+t=2021-02-08T03:07:37+0900 lvl=info msg="join connections" obj=join id=073c1c864e20 l=127.0.0.1:3000 r=61.254.18.27:63787
+t=2021-02-08T03:08:43+0900 lvl=info msg="join connections" obj=join id=a11bbe1960b1 l=127.0.0.1:3000 r=61.254.18.27:63793
+t=2021-02-08T03:30:06+0900 lvl=info msg="join connections" obj=join id=caca0c494cf6 l=127.0.0.1:3000 r=61.254.18.27:63911
+t=2021-02-08T03:33:47+0900 lvl=info msg="join connections" obj=join id=d6c77d01f069 l=127.0.0.1:3000 r=61.254.18.27:63941
+t=2021-02-08T03:34:19+0900 lvl=info msg="join connections" obj=join id=703e46187a61 l=127.0.0.1:3000 r=61.254.18.27:63955
+t=2021-02-08T03:34:57+0900 lvl=info msg="join connections" obj=join id=5eb84e587724 l=127.0.0.1:3000 r=61.254.18.27:63955
+t=2021-02-08T03:35:50+0900 lvl=info msg="join connections" obj=join id=1e38acc0672e l=127.0.0.1:3000 r=61.254.18.27:63955
+t=2021-02-08T03:35:51+0900 lvl=info msg="join connections" obj=join id=e2424eccf663 l=127.0.0.1:3000 r=61.254.18.27:63980
+t=2021-02-08T03:36:55+0900 lvl=info msg="join connections" obj=join id=41e1eda6de09 l=127.0.0.1:3000 r=61.254.18.27:63980
+t=2021-02-08T03:38:25+0900 lvl=info msg="join connections" obj=join id=b485ad2d59fd l=127.0.0.1:3000 r=61.254.18.27:63980
+t=2021-02-08T03:39:01+0900 lvl=info msg="join connections" obj=join id=420abb7a2040 l=127.0.0.1:3000 r=61.254.18.27:63980
+t=2021-02-08T03:39:11+0900 lvl=info msg="join connections" obj=join id=87b503a77f75 l=127.0.0.1:3000 r=61.254.18.27:64019
+t=2021-02-08T03:39:23+0900 lvl=info msg="join connections" obj=join id=74a05d86466b l=127.0.0.1:3000 r=61.254.18.27:64019
+t=2021-02-08T03:39:57+0900 lvl=info msg="join connections" obj=join id=47efd24b383b l=127.0.0.1:3000 r=61.254.18.27:64019
+t=2021-02-08T03:40:15+0900 lvl=info msg="join connections" obj=join id=18b77244d0d8 l=127.0.0.1:3000 r=61.254.18.27:64019
+t=2021-02-08T03:42:08+0900 lvl=info msg="join connections" obj=join id=d6b612583987 l=127.0.0.1:3000 r=61.254.18.27:64019
+t=2021-02-08T03:43:14+0900 lvl=info msg="join connections" obj=join id=ec0e282b5cee l=127.0.0.1:3000 r=61.254.18.27:64118
+t=2021-02-08T03:50:14+0900 lvl=info msg="component stopped" obj=controller comp="signal handler" err=nil
+t=2021-02-08T03:50:14+0900 lvl=info msg="requesting shutdown" obj=controller
+t=2021-02-08T03:50:14+0900 lvl=info msg="session closing" obj=tunSess err=nil
+t=2021-02-08T03:50:14+0900 lvl=info msg="component stopped" obj=controller comp="Tunnel session" err=nil
+t=2021-02-08T03:50:14+0900 lvl=info msg="component stopped" obj=controller comp="memory storage" err=nil
+t=2021-02-08T03:50:14+0900 lvl=info msg="accept failed" obj=csess id=e6b965eef64a err="reconnecting session closed"
+t=2021-02-08T03:50:14+0900 lvl=info msg="tunnel session closing permanently" obj=tunSess err="not reconnecting, session closed by the client side"
+t=2021-02-08T03:50:14+0900 lvl=info msg="component stopped" obj=controller comp=updater err=nil
+t=2021-02-08T03:50:14+0900 lvl=info msg="component stopped" obj=controller comp=web err=nil
+t=2021-02-08T03:50:14+0900 lvl=info msg="all component stopped" obj=controller

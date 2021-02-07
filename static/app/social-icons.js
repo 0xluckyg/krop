@@ -58,5 +58,10 @@ module.exports = {
         url: `https://telegram.me/share/url?text={{TEXT}}&amp;url={{URL}}`,
         color: '#54A9EB',
         svg: `<svg height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M.707 8.475C.275 8.64 0 9.508 0 9.508s.284.867.718 1.03l5.09 1.897 1.986 6.38a1.102 1.102 0 0 0 1.75.527l2.96-2.41a.405.405 0 0 1 .494-.013l5.34 3.87a1.1 1.1 0 0 0 1.046.135 1.1 1.1 0 0 0 .682-.803l3.91-18.795A1.102 1.102 0 0 0 22.5.075L.706 8.475z"/></svg>`
-    }
+    },
+    instagram: {
+        url: `https://facebook.com/sharer/sharer.php?u={{URL}}`,
+        color: '#3b5998',
+        svg: `<svg height="100%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.77 7.46H14.5v-1.9c0-.9.6-1.1 1-1.1h3V.5h-4.33C10.24.5 9.5 3.44 9.5 5.32v2.15h-3v4h3v12h5v-12h3.85l.42-4z"/></svg>`
+    },
 }
