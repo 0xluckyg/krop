@@ -16,6 +16,8 @@ env:
 
 phases:
     install:
+        commands:
+            - docker login -u $dockerhub_username -p $dockerhub_password
         #If you use the Ubuntu standard image 2.0 or later, you must specify runtime-versions.
         #If you specify runtime-versions and use an image other than Ubuntu standard image 2.0, the build fails.
         runtime-versions:
@@ -25,6 +27,7 @@ phases:
             # - command
     pre_build:
         commands:
+            - docker login -u $dockerhub_username -p $dockerhub_password
             - echo Logging in to AWS ECR on `date`
             # log in to ecr
             - aws --version
