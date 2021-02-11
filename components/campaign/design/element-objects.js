@@ -40,12 +40,11 @@ Please insert your store address here or a specific location
 3. Coupons from other events cannot be used with this coupon
 4. Only one use allowed per coupon`,
         storeAddressLabel: "110 Broadway, NYC",
-        referralShareTitleLabel: "",
-        referralShareTextLabel: "",
-        referralShareUrlLabel: "",
+        referralShareTitleLabel: "Free coupon",
+        referralShareTextLabel: "Check this coupon out!",
 
         shareTextLabel: "Text to share",
-        shareUrlLabel: "Url to share (ex. https://krop.app)",
+        shareUrlLabel: process.env.APP_URL,
 
         questionLabel: "Question",
         option1Label: "Option 1",
@@ -102,12 +101,11 @@ Please insert your store address here or a specific location
 4. 타 쿠폰 및 행사, 할인 중복 적용 불가
 5. 쿠폰당 1회만 사용 가능`,
         storeAddressLabel: "주소",
-        referralShareTitleLabel: "",
-        referralShareTextLabel: "",
-        referralShareUrlLabel: "",
+        referralShareTitleLabel: "공짜 쿠폰",
+        referralShareTextLabel: "쿠폰 받은거 쓰세요!",
 
         shareTextLabel: "공유할 글",
-        shareUrlLabel: "공유할 링크 (예시: https://krop.app)",
+        shareUrlLabel: process.env.APP_URL,
 
         questionLabel: "질문",
         option1Label: "옵션 1",

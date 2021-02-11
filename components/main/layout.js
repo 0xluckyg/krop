@@ -41,8 +41,8 @@ class Layout extends React.Component {
         <div className={classes.root}>
             <Onboarding user={this.props.getUserReducer}/>
             <Toast/>
-            <PaymentPlanModal/>
             <CssBaseline />
+            <PaymentPlanModal/>
             
             <Navigation 
                 open={this.state.navOpen} 

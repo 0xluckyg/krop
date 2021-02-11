@@ -266,7 +266,6 @@
             domain: domain
         }, 
         function(res) {
-            console.log("RE: ", res)
             if (navigator.share !== undefined){
                 navigator.share({
                     title: shareTitle,

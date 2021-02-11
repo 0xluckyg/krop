@@ -220,7 +220,8 @@ class ListElement extends React.Component {
                 placeholder={placeholder}
                 type="text"
                 onChange={e => {
-                    this.setProperty(null, question ? 'question' : 'text', e.target.value)
+                    console.log((question || question == '') ? 'question' : 'text')
+                    this.setProperty(null, (question || question == '') ? 'question' : 'text', e.target.value)
                 }}
                 className={clsx(classes.inputStyle, classes.mainTextStyle)}
                 value={mainText}

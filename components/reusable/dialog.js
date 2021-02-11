@@ -15,6 +15,7 @@ export default function AlertDialog(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         >
+            <div style={{padding: 20}}>
             <DialogTitle id="alert-dialog-title">
                 {title}
             </DialogTitle>
@@ -36,10 +37,11 @@ export default function AlertDialog(props) {
                 <Button onClick={() => {
                     yesAction ? yesAction() : null
                     handleClose()
-                }} color="primary" autoFocus>
+                }} style={{color:"white"}} color="primary" variant="contained" autoFocus>
                     {yesText}
                 </Button>
             </DialogActions>
+            </div>
         </Dialog>
     );
 }

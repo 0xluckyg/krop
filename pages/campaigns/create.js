@@ -24,6 +24,7 @@ import SettingsEditor from '../../components/campaign/settings'
 import {defaultSettings} from '../../components/campaign/settings/settings-objects'
 import {defaultStages, defaultStyles, defaultAlert, defaultAlertMessages} from '../../components/campaign/design/element-objects'
 import ElementMenu from '../../components/campaign/design/element-menu'
+import Dialog from '../../components/reusable/dialog'
 
 let strings = new LocalizedStrings({
     en:{
@@ -32,7 +33,12 @@ let strings = new LocalizedStrings({
         createError: "Couldn't create the campaign. Please try again later",
         createLabel: "Create",
         discardLabel: "Discard",
-        saveLabel: "Save"
+        saveLabel: "Save",
+
+        dialogTitle: "Are you sure you want to leave?",
+        dialogDescription: "Your changes won't be saved",
+        dialogYes: "Yes, close",
+        dialogNo: "No, stay"
     },
     kr: {
         nameError: "캠페인에 이름을 지어 주세요",
@@ -40,7 +46,12 @@ let strings = new LocalizedStrings({
         createError: "캠페인를 만드는데 실패했어요. 잠시후 다시 시도해 주세요",
         createLabel: "만들기",
         discardLabel: "취소",
-        saveLabel: "저장"
+        saveLabel: "저장",
+
+        dialogTitle: "정말로 그만둘까요?",
+        dialogDescription: "아직 저장을 안하셨어요.",
+        dialogYes: "네",
+        dialogNo: "아니요"
     }
 });
 strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
@@ -71,7 +82,7 @@ class CreateCampaign extends React.Component {
             selectedEditor: 0,
             previewScale: 0.8,
             elementMenuOpen: false,
-            
+            showDialog:false,
             isLoading: false,
         }
     }
@@ -92,6 +103,14 @@ class CreateCampaign extends React.Component {
             }
             return {}
         }
+    }
+
+    componentDidMount() {
+        window.addEventListener("beforeunload", (ev) => 
+        {  
+            ev.preventDefault();
+            return ev.returnValue = 'Are you sure you want to close?';
+        });
     }
     
     //design, settings
@@ -178,8 +197,7 @@ class CreateCampaign extends React.Component {
                     showDiscard={true}
                     saveAction={() => this.handleSubmit()}
                     discardAction={() => {
-                        this.setState({isLoading:false})
-                        this.props.backAction()
+                        this.setState({isLoading:false, showDialog: true})
                     }}
                 >
                     <TabBar indicator="top" value={selectedEditor} handleChange={this.handleEditorChange.bind(this)}/>
@@ -204,6 +222,22 @@ class CreateCampaign extends React.Component {
                     setState={(state) => this.setState(state)}
                     isOpen={this.state.elementMenuOpen}
                     close={() => this.setState({elementMenuOpen: false})}
+                />
+                <Dialog
+                    open={this.state.showDialog}
+                    handleClose={() => this.setState({showDialog:false})}
+                    title={strings.dialogTitle}
+                    description={strings.dialogDescription}
+                    yesText={strings.dialogYes}
+                    yesAction={() => {
+                        if (!this.props.handleEdit) {
+                            window.history.back();
+                        } else {
+                            this.props.backAction()
+                        }
+                    }}
+                    noText={strings.dialogNo}
+                    noAction={() => this.setState({showDialog:false})}
                 />
             </main>
         )

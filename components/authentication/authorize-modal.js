@@ -115,12 +115,14 @@ class AuthorizeModal extends React.Component {
         const {signUpPassword} = this.state
 
         if (signUpPassword.length < 8) {
-            this.props.showToastAction(true, strings.pwTooShort, 'error')
+            // this.props.showToastAction(true, strings.pwTooShort, 'error')
+            this.setState({signUpPasswordError: strings.pwTooShort})
             return false
         }
         
         if (signUpPassword.length > 30) {
-            this.props.showToastAction(true, strings.pwTooLong, 'error')
+            // this.props.showToastAction(true, strings.pwTooLong, 'error')
+            this.setState({signUpPasswordError: strings.pwTooLong})
             return false
         }
         
@@ -129,12 +131,14 @@ class AuthorizeModal extends React.Component {
         const number = /[0-9]/
 
         if (!upper.test(signUpPassword) || !lower.test(signUpPassword)) {
-            this.props.showToastAction(true, strings.pwCaseError, 'error')
+            // this.props.showToastAction(true, strings.pwCaseError, 'error')
+            this.setState({signUpPasswordError: strings.pwCaseError})
             return false
         }
         
         if (!number.test(signUpPassword)) {
-            this.props.showToastAction(true, strings.pwNumberError, 'error')
+            // this.props.showToastAction(true, strings.pwNumberError, 'error')
+            this.setState({signUpPasswordError: strings.pwNumberError})
             return false
         }
         
@@ -148,8 +152,8 @@ class AuthorizeModal extends React.Component {
             this.setState({isLoading:false})
             callback()
         }).catch(() => {
+            this.setState({isLoading:false})
             this.props.showToastAction(true, strings.validationEmailError, 'error')
-            this.setState({isLoading:false})            
         })
     }
     
@@ -157,7 +161,7 @@ class AuthorizeModal extends React.Component {
         let valid = this.validateEmail(this.state.signUpEmail)
         if (!valid) return this.setState({signUpEmailError: strings.emailError})
         valid = this.checkPassword()
-        if (!valid) return this.setState({signUpPasswordError: strings.pwError})
+        if (!valid) return
         
         const {signUpName, signUpEmail, signUpPassword} = this.state
         const params = { name: signUpName, email: signUpEmail, password: signUpPassword }
@@ -169,12 +173,12 @@ class AuthorizeModal extends React.Component {
                 window.location.replace(`${process.env.APP_URL}/authentication/validate-email?email=`+signUpEmail)
             })
         }).catch((err) => {
+            this.setState({isLoading:false})     
             if (err.response && err.response.data) {
                 this.props.showToastAction(true, strings.emailExists, 'error')
             } else {
                 this.props.showToastAction(true, strings.signupError, 'error')   
-            }
-            this.setState({isLoading:false})            
+            }       
         })
     }
     
@@ -194,6 +198,7 @@ class AuthorizeModal extends React.Component {
             this.setState({isLoading:false})
             window.location.replace(`${process.env.APP_URL}/home`)
         }).catch(err => {
+            this.setState({isLoading:false})
             if (err.response && err.response.data == 'no user') {
                 this.props.showToastAction(true, strings.noUserError, 'error')
             } else if (err.response && err.response.data == 'wrong password') {
@@ -201,7 +206,6 @@ class AuthorizeModal extends React.Component {
             } else {
                 this.props.showToastAction(true, strings.unknownLoginError, 'error')   
             }
-            this.setState({isLoading:false})            
         })
     }
 
@@ -353,7 +357,7 @@ class AuthorizeModal extends React.Component {
                 }}
                 onFailure={err => {
                     this.setState({isLoading: false})
-                    this.props.showToastAction(true, strings.googleAuthFailure)
+                    // this.props.showToastAction(true, strings.googleAuthFailure)
                 }}
                 cookiePolicy='single_host_origin'
                 prompt='consent'

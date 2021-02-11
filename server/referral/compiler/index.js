@@ -118,7 +118,7 @@ function compileCouponHTML(options) {
     map.setAttribute('id', 'map')
     wrapper.appendChild(map)
 
-    let description = document.createElement('p')
+    let description = document.createElement('pre')
     description.setAttribute('class', descriptionClass)
     description.innerHTML = couponDescription
     wrapper.appendChild(description)
