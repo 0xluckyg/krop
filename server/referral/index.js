@@ -92,6 +92,10 @@ async function sendReferralCoupon(ctx) {
     const {clientId, sessionId, campaignId, accountId, couponId, domain} = body
 
     const referralId = shortid.generate()
+    await Coupon.findOneAndUpdate({accountId, couponId}, {
+        $inc: {sends: 1}
+    }, {new: true})
+
     const referral = new Referral({
         clientId, sessionId, campaignId, accountId, couponId,
         referralId,

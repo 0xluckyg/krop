@@ -70,7 +70,11 @@ const CampaignSchema = new mongoose.Schema({
     views: {
         type: Number,
         default: 0
-    }
+    },
+    submits: {
+        type: Number,
+        default: 0
+    }    
 },{
     timestamps: true // Saves createdAt and updatedAt as dates
 });
