@@ -33,7 +33,7 @@ let strings = new LocalizedStrings({
         alertLabel: "올바른 주소를 입력해 주세요!"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class NAMEPreview extends React.Component {
     constructor(props) {

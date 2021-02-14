@@ -27,7 +27,7 @@ let strings = new LocalizedStrings({
         dialogButtonLabel: "확인"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 const stageQuota = 100
 

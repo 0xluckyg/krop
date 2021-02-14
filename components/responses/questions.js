@@ -52,7 +52,7 @@ let strings = new LocalizedStrings({
         editLabel: "수정"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 
 class CampaignQuestions extends React.Component {

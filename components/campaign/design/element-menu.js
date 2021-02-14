@@ -88,7 +88,7 @@ let strings = new LocalizedStrings({
         campaignElementsLabel: "캠페인 요소들",
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 const designElements = [
     {

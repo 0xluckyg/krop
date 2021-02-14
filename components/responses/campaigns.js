@@ -52,7 +52,7 @@ let strings = new LocalizedStrings({
         sessionsTab: "세션"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class BrowseCampaigns extends React.Component {
     constructor(props){

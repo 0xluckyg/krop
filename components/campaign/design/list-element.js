@@ -45,7 +45,7 @@ let strings = new LocalizedStrings({
         optionsLabel: "옵션들"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class ListElement extends React.Component {      
     constructor(props) {

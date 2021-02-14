@@ -39,7 +39,7 @@ let strings = new LocalizedStrings({
         scheduledLabel: "일시적"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class ShowAfter extends React.Component {
     constructor(props){

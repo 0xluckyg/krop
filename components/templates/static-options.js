@@ -23,7 +23,7 @@ let strings = new LocalizedStrings({
         iconsLabel: "아이콘"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 
 const iconTags = [

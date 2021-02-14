@@ -25,7 +25,7 @@ let strings = new LocalizedStrings({
         styleLabel: "스타일"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class TextSettingsEditor extends React.Component {
     constructor(props) {

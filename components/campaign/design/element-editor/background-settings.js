@@ -19,7 +19,7 @@ let strings = new LocalizedStrings({
         backgroundImageLabel: "배경 이미지" 
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class BackgroundSettingsEditor extends React.Component {
     constructor(props) {

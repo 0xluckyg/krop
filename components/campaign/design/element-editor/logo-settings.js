@@ -15,7 +15,7 @@ let strings = new LocalizedStrings({
         logoImageLabel: "로고 이미지"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class LogoSettingsEditor extends React.Component {
     constructor(props) {

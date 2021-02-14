@@ -18,7 +18,7 @@ let strings = new LocalizedStrings({
         alertLabel: "* 슬라이더를 움직여 주세요"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class SliderPreview extends React.Component {
     constructor(props) {

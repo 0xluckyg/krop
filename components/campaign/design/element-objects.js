@@ -125,7 +125,7 @@ Please insert your store address here or a specific location
         longitude: 127.07978024603273
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 function createId(type) {
     return type + "_" + shortid.generate()

@@ -15,7 +15,7 @@ let strings = new LocalizedStrings({
         alertLabel: "위에 있는 오류들을 수정해 주세요!"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class AlertPreview extends React.Component {
     constructor(props) {

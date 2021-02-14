@@ -54,7 +54,7 @@ let strings = new LocalizedStrings({
         dialogNo: "아니요"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class CreateCampaign extends React.Component {
     constructor(props){

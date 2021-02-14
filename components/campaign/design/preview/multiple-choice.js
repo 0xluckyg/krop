@@ -18,7 +18,7 @@ let strings = new LocalizedStrings({
         alertLabel: "* 옵션을 선택해 주세요"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class MultipleChoicePreview extends React.Component {
     constructor(props) {

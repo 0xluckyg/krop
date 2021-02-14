@@ -23,7 +23,7 @@ let strings = new LocalizedStrings({
         saveStageLabel: "재방문자를 위한 진도 저장"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class StageSettingsEditor extends React.Component {
     constructor(props) {

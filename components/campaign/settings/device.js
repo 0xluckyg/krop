@@ -25,7 +25,7 @@ let strings = new LocalizedStrings({
         desktopLabel: "오직 데스크탑"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class Device extends React.Component {
     constructor(props){

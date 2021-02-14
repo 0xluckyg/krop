@@ -20,7 +20,7 @@ let strings = new LocalizedStrings({
         paragraphLabel: "작은 글자 (p)"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class TextEditor extends React.Component {
     constructor(props) {

@@ -82,7 +82,7 @@ let strings = new LocalizedStrings({
         forgotPassword: "비밀번호를 잊으셨나요?"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 //A pop up to ask users to login or signup
 class AuthorizeModal extends React.Component {

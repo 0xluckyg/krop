@@ -49,7 +49,7 @@ let strings = new LocalizedStrings({
         nameLabel: "이름"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 
 class CampaignResponses extends React.Component {

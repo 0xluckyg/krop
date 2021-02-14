@@ -21,7 +21,7 @@ let strings = new LocalizedStrings({
         stampImageLabel: "스탬프 이미지 (30px x 30px)"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class LoyaltyEditor extends React.Component {
     getProperty(propertyType, property) {

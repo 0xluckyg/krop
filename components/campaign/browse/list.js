@@ -15,7 +15,7 @@ let strings = new LocalizedStrings({
         createLabel: "새로운 캠페인 만들기!"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class List extends React.Component {      
     constructor(props) {

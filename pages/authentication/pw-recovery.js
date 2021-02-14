@@ -40,7 +40,7 @@ let strings = new LocalizedStrings({
 
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class ValidateEmail extends React.Component {   
     constructor(props) {

@@ -60,7 +60,7 @@ let strings = new LocalizedStrings({
         longitude: 127.07978024603273
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class ReferralEditor extends React.Component {
     constructor(props) {

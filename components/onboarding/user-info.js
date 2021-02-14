@@ -53,7 +53,7 @@ let strings = new LocalizedStrings({
         buttonLabel: "시작하기"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 //A pop up to ask users to login or signup
 class OnboardingModal extends React.Component {

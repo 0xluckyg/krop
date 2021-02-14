@@ -35,7 +35,7 @@ let strings = new LocalizedStrings({
         contentTabLabel: "내용"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class LongForm extends React.Component {
     constructor(props) {

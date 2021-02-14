@@ -24,7 +24,7 @@ let strings = new LocalizedStrings({
         settingsLabel: "설정"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class ImageUploadEditor extends React.Component {
     constructor(props) {

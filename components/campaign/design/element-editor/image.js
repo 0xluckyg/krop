@@ -21,7 +21,7 @@ let strings = new LocalizedStrings({
         cornerRoundingLabel: "모서리 각 설정"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class ImageEditor extends React.Component {
     getProperty(propertyType, property) {

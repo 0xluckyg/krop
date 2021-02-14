@@ -22,7 +22,7 @@ let strings = new LocalizedStrings({
         tagHelperTextLabel: "예시. 크리스마스 방문객",
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 
 class ShowAfter extends React.Component {

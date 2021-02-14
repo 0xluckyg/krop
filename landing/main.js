@@ -24,7 +24,7 @@ let strings = new LocalizedStrings({
         integrationLabel: "아래의 서비스들과 연동 됩니다"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class Main extends React.Component {
     constructor(props) {

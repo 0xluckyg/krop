@@ -50,7 +50,7 @@ let strings = new LocalizedStrings({
         responsesTab: "답변"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class CampaignSessions extends React.Component {
     constructor(props){

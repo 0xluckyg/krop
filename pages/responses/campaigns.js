@@ -34,7 +34,7 @@ let strings = new LocalizedStrings({
         campaignsTitle: "캠페인"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class CampaignResponses extends React.Component {
     constructor(props){

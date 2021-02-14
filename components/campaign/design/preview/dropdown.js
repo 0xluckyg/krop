@@ -19,7 +19,7 @@ let strings = new LocalizedStrings({
         defaultOptionLabel: "항목을 선택해 주세요"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class SelectorPreview extends React.Component {
     constructor(props) {

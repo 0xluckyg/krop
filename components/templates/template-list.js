@@ -21,7 +21,7 @@ let strings = new LocalizedStrings({
         noContentFooterText: "저희 팀은 항상 새로운 디자인을 준비하도록 노력하겠습니다.",
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class List extends React.Component {      
     constructor(props) {

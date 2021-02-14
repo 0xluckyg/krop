@@ -29,7 +29,7 @@ let strings = new LocalizedStrings({
         alignLabel: "정렬"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class StyleSettingsEditor extends React.Component {
     constructor(props) {

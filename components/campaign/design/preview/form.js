@@ -25,7 +25,7 @@ let strings = new LocalizedStrings({
         alertLabel: "* 오류 입니다"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class FormPreview extends React.Component {
     constructor(props) {

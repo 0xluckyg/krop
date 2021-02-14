@@ -25,7 +25,7 @@ let strings = new LocalizedStrings({
         lastNameLabel: "성"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class NamePreview extends React.Component {
     constructor(props) {

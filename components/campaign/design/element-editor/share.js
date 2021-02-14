@@ -27,7 +27,7 @@ let strings = new LocalizedStrings({
         shareUrlLabel: "공유할 링크"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class ShareEditor extends React.Component {
     constructor(props) {

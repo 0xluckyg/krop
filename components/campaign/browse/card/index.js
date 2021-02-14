@@ -30,7 +30,7 @@ let strings = new LocalizedStrings({
         pathLabel: "경로:"
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class Card extends React.Component {      
     constructor(props) {

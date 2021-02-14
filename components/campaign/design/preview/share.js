@@ -21,7 +21,7 @@ let strings = new LocalizedStrings({
         // instagramShareLabel: "인스타그램에 공유하기!",
     }
 });
-strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'kr')
+strings.setLanguage(process.env.LANGUAGE ? process.env.LANGUAGE : 'us')
 
 class SharePreview extends React.Component {
     constructor(props) {
