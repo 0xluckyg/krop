@@ -12,7 +12,7 @@
     },
     "test": {
         "PORT": 3000,
-        "APP_URL": "https://www.krop.kr",
+        "APP_URL": "https://www.krop.app",
         "APP_EMAIL": "info@krop.app",
         "LANGUAGE": "us",
         "S3_BUCKET": "krop-images", 
@@ -22,7 +22,7 @@
     },
     "production": {
         "PORT": 3000,
-        "APP_URL": "https://www.krop.kr",
+        "APP_URL": "https://www.krop.app",
         "APP_EMAIL": "info@krop.app",
         "LANGUAGE": "us",
         "S3_BUCKET": "krop-images",
