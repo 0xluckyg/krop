@@ -11,7 +11,7 @@ import Tags from './sub/tags'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         requiredLabel: "Required",
         tagsLabel: "Tags",
         questionLabel: "Question",

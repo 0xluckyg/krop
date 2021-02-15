@@ -8,7 +8,7 @@ import SectionContainer from './frame/section-container'
 import ImageUploader from './sub/image-uploader'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         logoImageLabel: "Logo image"
     },
     kr: {

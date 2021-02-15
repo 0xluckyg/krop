@@ -13,7 +13,7 @@ import SectionTabs from './sub/section-tabs'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         sliderSettingsLabel: "Slider settings",
         requiredLabel: "Required",
         lowestValueLabel: "Lowest value",

@@ -12,7 +12,7 @@ import alertStyle from '../../../../shared/campaign-styles/alert'
 import keys from '../../../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         nameLabel: "Name",
         alertLabel: "* Please give a valid name",
         firstNameLabel: "First name",

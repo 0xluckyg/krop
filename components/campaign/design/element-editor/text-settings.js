@@ -12,7 +12,7 @@ import FontPicker from './sub/font-picker'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         colorLabel: "Color",
         textColorLabel: "Text color",
         fontLabel: "Font",

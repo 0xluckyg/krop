@@ -21,7 +21,7 @@ import CampaignSessions from '../../components/responses/sessions';
 // import CampaignResponses from '../../components/responses/responses';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         shoByLabel: "Show by",
         campaignsLabel: "Campaigns",
         sessionsLabel: "Sessions",

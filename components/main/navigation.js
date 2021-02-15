@@ -22,7 +22,7 @@ import keys from '../../config/keys'
 require('../../config/config')
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         campaignLabel: "Campaigns",
         qrBannerLabel: "QR Banner",
         profileLabel: "Profiles",

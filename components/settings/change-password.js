@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import {getUserAction, showToastAction, isLoadingAction } from '../../redux/actions';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         matchError: "Your passwords do not match",
         shortError: "Please make your password at least 8 characters",
         longError: "Please keep your password shorter than 9 characters",

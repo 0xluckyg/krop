@@ -10,7 +10,7 @@ import Switch from './sub/switch'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         imageLabel: "Image",
         displaySettingsLabel: "Display settings",
         cornerRoundingLabel: "Corner rounding"

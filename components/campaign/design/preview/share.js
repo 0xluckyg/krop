@@ -10,7 +10,7 @@ import elementStyle from '../../../../shared/campaign-styles/reusable'
 import socialIcons from '../../../../static/campaign/social-icons';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         facebookShareLabel: "Share on Facebook!",
         twitterShareLabel: "Share on Twitter!",
         // instagramShareLabel: "Share on Instagram!",

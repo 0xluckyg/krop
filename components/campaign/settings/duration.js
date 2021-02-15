@@ -18,7 +18,7 @@ import {
 import MomentUtils from '@date-io/moment';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         monthLabel: "Month",
         dayLabel: "Day",
         fromLabel: "From",

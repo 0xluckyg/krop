@@ -13,7 +13,7 @@ import {setProperty, getProperty} from './functions'
 import keys from '../../../../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         addTagLabel: "Add Tag",
         tagHelperTextLabel: "Ex. Subscribers",
     },

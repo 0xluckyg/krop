@@ -7,7 +7,7 @@ const keys = require('../../../config/keys')
 const buttonStyles = require('../../../shared/campaign-styles/button')
 
 let strings = {
-    en:{
+    us:{
         continueLabel: "Continue"
     },
     kr: {

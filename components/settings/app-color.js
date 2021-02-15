@@ -14,7 +14,7 @@ import {getUserResolveAction, getUserAction, showToastAction, isLoadingAction } 
 import keys from '../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         selectError: "Please select your app colors!",
         updatedAlert: "Colors updated!",
         saveError: "Couldn't save your colors. Please try again later",

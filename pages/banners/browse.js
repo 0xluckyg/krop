@@ -19,7 +19,7 @@ import Spinner from '../../components/reusable/spinner'
 import keys from '../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         fetchError: "Couldn't get banners. Please try again later",
         deletedAlert: "Banner deleted!",
         deleteError: "Couldn't delete banner. Please try again later",

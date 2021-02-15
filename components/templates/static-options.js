@@ -6,7 +6,7 @@ const mediaQuery = '/get-media-templates'
 const pexelsQuery = '/get-pexels-templates'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         designLabel: "Design / Media",
         badgeLabel: "Badges",
         photosLabel: "Photos (Pexels)",

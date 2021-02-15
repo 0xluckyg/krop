@@ -22,7 +22,7 @@ import staticTemplateOptions from './static-options'
 import ColorPicker from '../reusable/color-picker'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         fetchError: "Couldn't get templates. Please try again later",
         chooseTemplateLabel: "Choose a template from our gallery",
         primaryColorLabel: "Primary",

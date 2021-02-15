@@ -8,7 +8,7 @@ const formStyles = require('../../../shared/campaign-styles/form')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 
 let strings = {
-    en:{
+    us:{
         emailPlaceholder: "Email",
         phonePlaceholder: "Phone",
         phoneNumberPlaceholder: "Phone number",

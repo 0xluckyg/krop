@@ -21,7 +21,7 @@ import {
 } from '@mdi/js';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         fetchError: "Couldn't get campaign responses. Please try again later",
         noContentTitle: "Hey there,",
         noContentSub: "It looks like you don't have responses yet!",

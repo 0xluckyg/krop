@@ -10,7 +10,7 @@ import {setProperty, getProperty} from './sub/functions'
 import Input from './sub/input'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         loyaltyResetLabel: "Reset loyalty after",
         visitsLabel: "Number of visits",
         stampImageLabel: "Stamp image (30px x 30px)"

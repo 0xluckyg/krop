@@ -33,7 +33,7 @@ import {findElementPageIndex, elementsToPages} from './element-editor/sub/functi
 import elements from './element-objects'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         loyaltyLabel: "Loyalty",
         paragraphLabel: "Paragraph",
         headingLabel: "Heading",

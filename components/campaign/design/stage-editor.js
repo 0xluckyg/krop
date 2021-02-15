@@ -12,7 +12,7 @@ import ElementList from '../../reusable/draggable-list'
 import SectionHeader from './element-editor/frame/section-container'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         stageNameLabel: "Stage name",
         stagesLabel: "Stages (Drag to reorder)",
         editStageLabel: "Edit stages"

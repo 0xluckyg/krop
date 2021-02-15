@@ -15,7 +15,7 @@ import Spinner from '../../components/reusable/spinner'
 import keys from '../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         fetchError: "Couldn't get campaigns. Please try again later",
         deletedAlert: "Campaign deleted!",
         deleteError: "Couldn't delete campaign. Please try again later",

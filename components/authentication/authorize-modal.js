@@ -17,7 +17,7 @@ import {showAuthorizeModalAction, showToastAction} from '../../redux/actions';
 import keys from '../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         pwTooShort:"Please make your password at least 8 characters",
         pwTooLong: 'Your password is too long',
         pwCaseError: 'Please include a upper and a lower case letter',

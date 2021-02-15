@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         daysLabel: "Days",
         hoursLabel: "Hours",
         minutesLabel: "Minutes",

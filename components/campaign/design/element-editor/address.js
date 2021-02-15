@@ -13,7 +13,7 @@ import SectionTabs from './sub/section-tabs'
 import {getElement, setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         addressSettingsLabel: "Address settings",
         address1EnabledLabel: "Address 1 Enabled",
         address1RequiredLabel: "Address 1 Required",

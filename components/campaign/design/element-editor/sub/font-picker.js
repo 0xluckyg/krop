@@ -12,7 +12,7 @@ import LocalizedStrings from 'react-localization';
 import { fontFamilies, insertGoogleFont } from '../../../../reusable/font-families';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         searchLabel: "Search..."
     },
     kr: {

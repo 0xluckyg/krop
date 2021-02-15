@@ -8,7 +8,7 @@ import Spinner from '../reusable/spinner';
 import NoContent from '../reusable/no-content';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         noContentTitle: "Hey there,",
         noContentSub: "It looks like there isn't any template matching your search!",
         noContentActionText: "Reset search",

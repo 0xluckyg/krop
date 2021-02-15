@@ -16,7 +16,7 @@ import keys from '../../../config/keys'
 import Dialog from '../../reusable/dialog'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         dialogTitle: "Too many slides",
         dialogDescription: "You can only add up to 100 stages",
         dialogButtonLabel: "Okay"

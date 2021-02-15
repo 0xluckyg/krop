@@ -9,7 +9,7 @@ import buttonStyles from '../../../../shared/campaign-styles/button'
 import {elementsToPages} from '../element-editor/sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         buttonLabel: "Continue"
     },
     kr: {

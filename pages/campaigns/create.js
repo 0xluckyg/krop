@@ -27,7 +27,7 @@ import ElementMenu from '../../components/campaign/design/element-menu'
 import Dialog from '../../components/reusable/dialog'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         nameError: "Please give your campaign a name",
         createdAlert: "Campaign created!",
         createError: "Couldn't create the campaign. Please try again later",

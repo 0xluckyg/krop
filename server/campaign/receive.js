@@ -8,7 +8,7 @@ const {CampaignSession} = require('../db/campaign-session');
 const keys = require('../../config/keys')
 
 let strings = {
-    en:{
+    us:{
         emailMissingError: "Please enter an email",
         emailInvalidError: "Your email is not valid",
         phoneNumberMissingError: "Please enter a phone number",

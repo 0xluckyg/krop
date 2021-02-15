@@ -10,7 +10,7 @@ import Switch from './sub/switch'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         stageSettingsLabel: "Stage settings",
         stageNameLabel: "Stage name",
         questionPerPageLabel: "Show one question per page",

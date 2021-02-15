@@ -7,7 +7,7 @@ const longFormStyles = require('../../../shared/campaign-styles/long-form')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 
 let strings = {
-    en:{
+    us:{
         answerPlaceholder: "Please put your answer here"
     },
     kr: {

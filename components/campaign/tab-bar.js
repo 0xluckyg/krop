@@ -7,7 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import { withStyles } from '@material-ui/core/styles';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         designLabel: "Design",
         settingsLabel: "Settings"
     },

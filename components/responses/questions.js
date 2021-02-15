@@ -19,7 +19,7 @@ import keys from '../../config/keys'
 import Spinner from '../../components/reusable/spinner'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         fetchError: "Couldn't get questions. Please try again later",
         noContentTitle: "Hey there,",
         noContentSub: "It looks like you don't have questions yet!",

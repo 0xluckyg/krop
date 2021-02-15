@@ -11,7 +11,7 @@ import Input from './input'
 import keys from '../../../../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         uploadError: "Couldn't upload image. Please try again later.",
         selectImageLabel: "Select image",
         removeImageLabel: "Remove image",

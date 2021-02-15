@@ -9,7 +9,7 @@ import keys from '../config/keys'
 
 // “We see our customers as invited guests to a party, and we are the hosts. It’s our job to make the customer experience a little bit better.” – Jeff Bezos, Founder Amazon
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         title: "QR Code based customer check-ins and surveys",
         subtitle: "START HEARING YOUR CUSTOMERS",
         description: "Add questions, referral coupons, loyalties, promotions and much more. Survey editor limited only by our imagination.",

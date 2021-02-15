@@ -13,7 +13,7 @@ import OptionsList from '../../../reusable/draggable-list'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         dropdownSettingsLabel: "Dropdown settings",
         requiredLabel: "Required",
         tagsLabel: "Tags",

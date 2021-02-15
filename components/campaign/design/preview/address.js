@@ -12,7 +12,7 @@ import alertStyle from '../../../../shared/campaign-styles/alert'
 import keys from '../../../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         title: "Address",
         address1Label: "Address Line 1",
         address2Label: "Address Line 2",

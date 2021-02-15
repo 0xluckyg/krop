@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import keys from '../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         templateLabel: "Template"
     },
     kr: {

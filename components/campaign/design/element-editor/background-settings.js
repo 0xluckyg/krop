@@ -10,7 +10,7 @@ import {getElement, setProperty, getProperty} from './sub/functions'
 import ImageUploader from './sub/image-uploader'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         backgroundColorLabel: "Background color",
         backgroundImageLabel: "Background image" 
     },

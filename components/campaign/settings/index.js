@@ -18,7 +18,7 @@ import Duration from './duration'
 import keys from '../../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         campaignNameLabel: "Campaign name",
         campaignNameDescription: "Give your campaign a name",
         pathLabel: "This campaign's path: ",

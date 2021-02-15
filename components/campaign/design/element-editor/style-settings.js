@@ -16,7 +16,7 @@ import ColorPicker from '../../../reusable/color-picker'
 import {getElement, setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         colorLabel: "Color",
         primaryColorLabel: "Primary app color",
         secondaryColorLabel: "Secondary app color",

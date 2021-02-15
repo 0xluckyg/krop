@@ -10,7 +10,7 @@ import Switch from './sub/switch'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         linkUrlLabel: "Link url",
         linkSettingsLabel: "Link settings",
         newWindowLabel: "Open link in a new window"

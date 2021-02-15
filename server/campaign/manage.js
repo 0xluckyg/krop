@@ -11,7 +11,7 @@ const {updateReferralCoupon} = require('../referral')
 const keys = require('../../config/keys')
 
 let strings = {
-    en:{
+    us:{
         pathError: "There is already a campaign on this path",
     },
     kr: {

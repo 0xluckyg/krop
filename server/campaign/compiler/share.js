@@ -9,7 +9,7 @@ const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('.
 const socialIcons = require('../../../static/campaign/social-icons')
 
 let strings = {
-    en:{
+    us:{
         facebhookShareLabel: "Share on Facebook!",
         // instagramShareLabel: "Share on Instagram!",
         twitterShareLabel: "Share on Twitter!"

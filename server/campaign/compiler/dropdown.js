@@ -8,7 +8,7 @@ const dropdownStyles = require('../../../shared/campaign-styles/dropdown')
 const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('./reusable')
 
 let strings = {
-    en:{
+    us:{
         optionPlaceholder: "* Please choose an option"
     },
     kr: {

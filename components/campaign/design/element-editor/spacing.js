@@ -9,7 +9,7 @@ import SliderField from './sub/slider-field'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         spacingUnitLabel: "Spacing unit",
         heightLabel: "Height"
     },

@@ -6,7 +6,7 @@ const {compileCoupon} = require('./compiler')
 const keys = require('../../config/keys');
 
 let strings = {
-    en:{
+    us:{
         expirationLabel: "Valid until: "
     },
     kr: {

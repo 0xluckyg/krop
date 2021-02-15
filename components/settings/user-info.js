@@ -15,7 +15,7 @@ import TextField from '@material-ui/core/TextField';
 import {getUserResolveAction, getUserAction, showToastAction, isLoadingAction } from '../../redux/actions';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         submitError: "Couldn't submit. Please try refreshing the app",
         validityError: "Please enter a valid email",
         nameError: "Please enter your name",

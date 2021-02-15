@@ -32,7 +32,7 @@ import LogoSettingsEditor from './logo-settings'
 import {getElement} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         stageSettingsLabel: "Stage Settings",
         styleSettingsLabel: "Style Settings",
         backgroundSettingsLabel: "Background Settings",

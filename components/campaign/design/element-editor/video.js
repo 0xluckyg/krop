@@ -14,7 +14,7 @@ import {setProperty, getProperty} from './sub/functions'
 import { showToastAction } from '../../../../redux/actions';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         urlError: "Please enter a valid url",
         videoUrlLabel: "Video url",
         videoLinkLabel: "Video url (Link)",

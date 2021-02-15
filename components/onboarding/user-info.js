@@ -16,7 +16,7 @@ import keys from '../../config/keys'
 import ColorPicker from '../reusable/color-picker'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         submitError: "Coulnd not submit. Please try refreshing the app",
         emailError: "Please enter a valid email",
         nameError: "Please enter your name",

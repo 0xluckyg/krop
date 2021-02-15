@@ -12,7 +12,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import keys from '../../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         deviceLabel: "Device",
         bothLabel: "Both",
         mobileLabel: "Mobile only",

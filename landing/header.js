@@ -9,7 +9,7 @@ import {showAuthorizeModalAction} from '../redux/actions';
 import keys from '../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         loginLabel: "Login",
         signupLabel: "Sign up for free"
     },

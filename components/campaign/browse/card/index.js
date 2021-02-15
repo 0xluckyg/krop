@@ -17,7 +17,7 @@ import keys from '../../../../config/keys';
 import CampaignPreview from './preview'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         activeLabel: "ACTIVE",
         inactiveLabel: "INACTIVE",
         editLabel: "Edit",

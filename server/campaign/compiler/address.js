@@ -12,7 +12,7 @@ const dom = new JSDOM('')
 const document = dom.window.document
 
 let strings = {
-    en:{
+    us:{
         address1Placeholder: "Address 1",
         address2Placeholder: "Address 2",
         cityPlaceholder: "City",

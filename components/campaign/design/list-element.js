@@ -34,7 +34,7 @@ import {setProperty, findElementPageIndex, elementsToPages} from './element-edit
 import keys from '../../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         questionLabel: "Question",
         textLabel: "Text",
         optionsLabel: "Options"

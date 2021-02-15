@@ -12,7 +12,7 @@ import SectionTabs from './sub/section-tabs'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         longformSettings: "Long form settings",
         requiredLabel: "Required",
         minLengthLabel: "Mininum length",

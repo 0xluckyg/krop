@@ -8,7 +8,7 @@ import keys from '../../../../config/keys'
 import alertStyles from '../../../../shared/campaign-styles/alert'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         alertLabel: "Please fix the errors above!"
     },
     kr: {

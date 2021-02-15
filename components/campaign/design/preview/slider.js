@@ -11,7 +11,7 @@ import elementStyle from '../../../../shared/campaign-styles/reusable'
 import alertStyle from '../../../../shared/campaign-styles/alert'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         alertLabel: "* Please move the slider"
     },
     kr: {

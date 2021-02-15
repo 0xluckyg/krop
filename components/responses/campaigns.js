@@ -23,7 +23,7 @@ import CampaignSessions from './sessions'
 import CampaignResponses from './responses'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         fetchCampaignError: "Couldn't get campaign results. Please try again later",
         noContentTitle: "Hey there,",
         noContentSub: "It looks like you don't have a campaign yet!",

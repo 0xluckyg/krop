@@ -8,7 +8,7 @@ import Card from './card'
 import {loadFonts} from '../../reusable/font-families'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         createLabel: "Create a new campaign!"
     },
     kr: {

@@ -28,7 +28,7 @@ import StageEditor from './stage-editor'
 import SectionHeader from  './element-editor/frame/section-header'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         elementsLabel: "Elements",
         noElementsLabel: "No elements",
         addElementLabel: "Press the plus icon to add an element",

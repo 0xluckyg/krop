@@ -18,7 +18,7 @@ import AppColors from '../../components/settings/app-color'
 import keys from '../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         loggedOutAlert: "Logged out!",
         logoutError: "Couldn't logout. Please try again later",
         logoutLabel: "Logout",

@@ -14,7 +14,7 @@ import {getUserAction, showToastAction, isLoadingAction} from '../../redux/actio
 import Toast from '../../components/reusable/toast'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         matchError: "Your passwords do not match",
         shortError: "Please make your password at least 8 characters",
         longError: "Please keep your password shorter than 9 characters",

@@ -9,7 +9,7 @@ const {textClass, compileElementContainerHTML, compileQuestionHTML} = require('.
 const {formClass} = require('./form')
 
 let strings = {
-    en:{
+    us:{
         nameLabel: "Name",
         firstNamePlaceholder: "First name",
         lastNamePlaceholder: "Last name"

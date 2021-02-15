@@ -3,7 +3,7 @@ const shortid = require('shortid')
 import LocalizedStrings from 'react-localization';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         loyaltyLabel: "Loyalty",
         paragraphLabel: "Paragraph",
         headingLabel: "Heading",

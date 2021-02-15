@@ -10,7 +10,7 @@ import keys from '../../../../config/keys'
 import alertStyle from '../../../../shared/campaign-styles/alert'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         emailLabel: "Email",
         phoneLabel: "Phone",
         phoneNumberLabel: "Phone number",

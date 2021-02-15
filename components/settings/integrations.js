@@ -15,7 +15,7 @@ import {getUserAction, getUserResolveAction, showToastAction, isLoadingAction } 
 import keys from '../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         
     },
     kr: {

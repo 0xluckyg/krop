@@ -35,7 +35,7 @@ import DetailModal from '../../components/responses/detail-modal'
 import CampaignResponses from '../../components/responses/responses'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         fetchError: "Couldn't get profiles. Please try again later",
         deletedAlert: "Profile deleted!",
         deleteError: "Couldn't delete profile. Please try again later",

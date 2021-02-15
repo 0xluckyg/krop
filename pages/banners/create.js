@@ -21,7 +21,7 @@ import {defaultBanner} from '../../components/banner/design/element-objects'
 import {loadFonts} from '../../components/reusable/font-families'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         nameError: "Please give your banner a name",
         createdAlert: "Banner created!",
         createError: "Couldn't create the banner. Please try again later",

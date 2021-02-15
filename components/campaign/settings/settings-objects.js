@@ -1,7 +1,7 @@
 import LocalizedStrings from 'react-localization';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         campaignLabel: "Campaign"
     },
     kr: {

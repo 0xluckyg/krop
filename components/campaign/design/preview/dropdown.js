@@ -10,7 +10,7 @@ import dropdownStyle from '../../../../shared/campaign-styles/dropdown'
 import alertStyle from '../../../../shared/campaign-styles/alert'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         placeholderLabel: "* Please select an option",
         defaultOptionLabel: "Please select one",
     },

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const {createEmailTemplate, sendEmail} = require('../communication/email')
 
 let strings = {
-    en:{
+    us:{
         validationEmailHeaderText: "Thanks for signing up ",
         validationEmailBodyText: "Please verify your email address to get access to exclusive materials!",
         validationEmailButtonText: "Verify email now",

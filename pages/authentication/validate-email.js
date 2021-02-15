@@ -13,7 +13,7 @@ import {getUserAction, showToastAction, isLoadingAction} from '../../redux/actio
 import Toast from '../../components/reusable/toast'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         sentEmailAlert: "Sent email!",
         sendError: "We couldn't send the email. Please try again later",
         verifyLabel: "Please take a moment to verify your email address",

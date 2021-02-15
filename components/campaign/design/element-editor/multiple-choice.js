@@ -13,7 +13,7 @@ import OptionsList from '../../../reusable/draggable-list'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         multipleChoiceLabel: "Multiple choice settings",
         requiredLabel: "Required",
         otherOptionLabel: "Has 'Other' option",

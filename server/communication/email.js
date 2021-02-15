@@ -3,7 +3,7 @@ const fs = require('fs').promises;
 const keys = require('../../config/keys')
 
 let strings = {
-    en:{
+    us:{
         templateLink: "email-template.html",
         bodyText: "Check out our app!",
         goLabel: "GO!"

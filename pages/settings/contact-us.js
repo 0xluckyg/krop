@@ -17,7 +17,7 @@ import Spinner from '../../components/reusable/spinner';
 import keys from '../../config/keys'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         subjectError: "Please enter more than 3 characters",
         bodyError: "Please enter more than 10 characers",
         emailError: "Please enter a valid email",

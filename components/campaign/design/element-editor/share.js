@@ -12,7 +12,7 @@ import {setProperty, getProperty} from './sub/functions'
 import socialIcons from '../../../../static/campaign/social-icons';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         shareButtonsLabel: "Share buttons",
 
         shareContentLabel: "Content to share",

@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import {getUserAction, showToastAction, isLoadingAction} from '../../redux/actions';
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         emailLabel: "Email",
         noEmailLabel: "No email",
         phoneNumberLabel: "Phone number",

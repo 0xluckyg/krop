@@ -9,7 +9,7 @@ import ColorPicker from '../../../reusable/color-picker'
 import {getElement, setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         colorLabel: "color",
         messageColorLabel: "Alert message color",
         backgroundColorLabel: "Alert popup color",

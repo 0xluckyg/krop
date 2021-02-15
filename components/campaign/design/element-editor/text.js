@@ -9,7 +9,7 @@ import SectionContainer from './frame/section-container'
 import {setProperty, getProperty} from './sub/functions'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         headingLabel: "Heading",
         subheadingLabel: "Subheading",
         paragraphLabel: "Paragraph"

@@ -11,7 +11,7 @@ import keys from '../../../../config/keys'
 import alertStyle from '../../../../shared/campaign-styles/alert'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         alertLabel: "* Please type an answer",
         placeholderLabel: "Press enter for a new line"
     },

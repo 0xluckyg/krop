@@ -21,7 +21,7 @@ import DetailModal from './detail-modal'
 import CampaignResponses from './responses'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         fetchError: "Couldn't get campaign sessions. Please try again later",
         noContentTitle: "Hey there,",
         noContentSub: "It looks like you don't have sessions yet!",

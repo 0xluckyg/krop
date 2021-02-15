@@ -15,7 +15,7 @@ import ColorPicker from '../../../reusable/color-picker'
 import Map from './sub/map'
 
 let strings = new LocalizedStrings({
-    en:{
+    us:{
         titleLabel: "Title",
         couponTitleLabel: "Coupon title",
         descriptionLabel: "Description",
