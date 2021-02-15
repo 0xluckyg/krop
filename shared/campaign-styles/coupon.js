@@ -102,7 +102,8 @@ const TITLE_DESKTOP = {
 
 const DESCRIPTION = {
     margin: '10px 0px',
-    fontSize: '15px'
+    fontSize: '15px',
+    whiteSpace: "break-spaces"
 }
 
 const DESCRIPTION_DESKTOP = {
