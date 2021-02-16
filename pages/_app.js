@@ -1,4 +1,3 @@
-require('../config/config');
 require('./global-style.css')
 import React from 'react';
 import App from 'next/app';

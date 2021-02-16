@@ -1,53 +1,20 @@
-t=2021-02-15T15:30:02+0900 lvl=info msg="no configuration paths supplied"
-t=2021-02-15T15:30:02+0900 lvl=info msg="using configuration at default config path" path=/Users/scottcho/.ngrok2/ngrok.yml
-t=2021-02-15T15:30:02+0900 lvl=info msg="open config file" path=/Users/scottcho/.ngrok2/ngrok.yml err=nil
-t=2021-02-15T15:30:02+0900 lvl=info msg="run component" obj=controller comp="memory storage"
-t=2021-02-15T15:30:02+0900 lvl=info msg="run component" obj=controller comp=updater
-t=2021-02-15T15:30:02+0900 lvl=info msg="run component" obj=controller comp="Tunnel session"
-t=2021-02-15T15:30:02+0900 lvl=info msg="run component" obj=controller comp=web
-t=2021-02-15T15:30:02+0900 lvl=info msg="run component" obj=controller comp="signal handler"
-t=2021-02-15T15:30:02+0900 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
-t=2021-02-15T15:30:03+0900 lvl=info msg="tunnel session started" obj=tunSess
-t=2021-02-15T15:30:03+0900 lvl=info msg="client session established" obj=csess id=032bb648f48c
-t=2021-02-15T15:30:03+0900 lvl=info msg="update available" obj=updater
-t=2021-02-15T15:30:03+0900 lvl=info msg="wait to update manually" obj=updater
-t=2021-02-15T15:31:43+0900 lvl=info msg="join connections" obj=join id=c72bc3f2410e l=[::1]:3000 r=61.254.18.27:50553
-t=2021-02-15T15:31:54+0900 lvl=info msg="join connections" obj=join id=b234e25d98cc l=[::1]:3000 r=61.254.18.27:50554
-t=2021-02-15T15:31:54+0900 lvl=info msg="join connections" obj=join id=22c9c56dcda4 l=[::1]:3000 r=61.254.18.27:50603
-t=2021-02-15T15:31:57+0900 lvl=info msg="join connections" obj=join id=aca170156893 l=[::1]:3000 r=61.254.18.27:50602
-t=2021-02-15T15:31:57+0900 lvl=info msg="join connections" obj=join id=7ac74ef869b8 l=[::1]:3000 r=61.254.18.27:50620
-t=2021-02-15T15:31:57+0900 lvl=info msg="join connections" obj=join id=39fe2e296a1d l=[::1]:3000 r=61.254.18.27:50621
-t=2021-02-15T15:33:20+0900 lvl=info msg="join connections" obj=join id=d48ec1617e9f l=[::1]:3000 r=61.254.18.27:50603
-t=2021-02-15T15:33:21+0900 lvl=info msg="join connections" obj=join id=527ca7e1f9af l=[::1]:3000 r=61.254.18.27:50553
-t=2021-02-15T15:33:21+0900 lvl=info msg="join connections" obj=join id=760daeced746 l=[::1]:3000 r=61.254.18.27:50620
-t=2021-02-15T15:33:30+0900 lvl=info msg="join connections" obj=join id=c63bafaa5376 l=[::1]:3000 r=61.254.18.27:50553
-t=2021-02-15T15:33:34+0900 lvl=info msg="join connections" obj=join id=1f1e878ba075 l=[::1]:3000 r=61.254.18.27:50620
-t=2021-02-15T15:33:34+0900 lvl=info msg="join connections" obj=join id=498d0bc78c5d l=[::1]:3000 r=61.254.18.27:50602
-t=2021-02-15T15:33:35+0900 lvl=info msg="join connections" obj=join id=3bbb48091e6a l=[::1]:3000 r=61.254.18.27:50621
-t=2021-02-15T15:33:35+0900 lvl=info msg="join connections" obj=join id=aefd2499da20 l=[::1]:3000 r=61.254.18.27:51036
-t=2021-02-15T15:33:35+0900 lvl=info msg="join connections" obj=join id=ff679cac3f15 l=[::1]:3000 r=61.254.18.27:51035
-t=2021-02-15T15:34:17+0900 lvl=info msg="join connections" obj=join id=676700acb063 l=[::1]:3000 r=61.254.18.27:51036
-t=2021-02-15T15:34:17+0900 lvl=info msg="join connections" obj=join id=28531cb23277 l=[::1]:3000 r=61.254.18.27:50553
-t=2021-02-15T15:34:17+0900 lvl=info msg="join connections" obj=join id=ecfb47c279d3 l=[::1]:3000 r=61.254.18.27:50620
-t=2021-02-15T15:34:36+0900 lvl=info msg="join connections" obj=join id=67396ff00a8a l=[::1]:3000 r=61.254.18.27:50620
-t=2021-02-15T15:34:37+0900 lvl=info msg="join connections" obj=join id=e80aae4b9fb5 l=[::1]:3000 r=61.254.18.27:51302
-t=2021-02-15T15:34:38+0900 lvl=info msg="join connections" obj=join id=9513d386c4b0 l=[::1]:3000 r=61.254.18.27:51308
-t=2021-02-15T15:34:39+0900 lvl=info msg="join connections" obj=join id=85b700028c03 l=[::1]:3000 r=61.254.18.27:51314
-t=2021-02-15T15:34:46+0900 lvl=info msg="join connections" obj=join id=73e2d2883a3b l=[::1]:3000 r=61.254.18.27:51345
-t=2021-02-15T15:34:52+0900 lvl=info msg="join connections" obj=join id=e8adb15eada8 l=[::1]:3000 r=61.254.18.27:50553
-t=2021-02-15T15:34:53+0900 lvl=info msg="join connections" obj=join id=f0959c8248d6 l=[::1]:3000 r=61.254.18.27:50621
-t=2021-02-15T15:41:23+0900 lvl=info msg="join connections" obj=join id=f1ce5bd7dc82 l=[::1]:3000 r=61.254.18.27:52972
-t=2021-02-15T15:43:19+0900 lvl=info msg="join connections" obj=join id=40f4ff63f564 l=[::1]:3000 r=61.254.18.27:53447
-t=2021-02-15T15:43:20+0900 lvl=info msg="join connections" obj=join id=e01e161fdad2 l=[::1]:3000 r=61.254.18.27:53453
-t=2021-02-15T15:43:21+0900 lvl=info msg="join connections" obj=join id=42705e202da3 l=[::1]:3000 r=61.254.18.27:53459
-t=2021-02-15T15:43:28+0900 lvl=info msg="join connections" obj=join id=ae33c47887fb l=[::1]:3000 r=61.254.18.27:53453
-t=2021-02-15T15:43:39+0900 lvl=info msg="join connections" obj=join id=d9c2af1e5edf l=[::1]:3000 r=210.220.73.252:33895
-t=2021-02-15T15:43:46+0900 lvl=info msg="join connections" obj=join id=0336835ccd39 l=[::1]:3000 r=61.254.18.27:56332
-t=2021-02-15T15:43:48+0900 lvl=info msg="join connections" obj=join id=e1b83384b4d5 l=[::1]:3000 r=61.254.18.27:56333
-t=2021-02-15T15:43:51+0900 lvl=info msg="join connections" obj=join id=9843f50ab2f0 l=[::1]:3000 r=61.254.18.27:56337
-t=2021-02-15T15:43:53+0900 lvl=info msg="join connections" obj=join id=fb9d0ff7bc4a l=[::1]:3000 r=61.254.18.27:56338
-t=2021-02-15T15:44:03+0900 lvl=info msg="join connections" obj=join id=bb29bb648026 l=[::1]:3000 r=61.254.18.27:56348
-t=2021-02-15T15:44:05+0900 lvl=info msg="join connections" obj=join id=883160555326 l=[::1]:3000 r=61.254.18.27:56347
-t=2021-02-15T15:44:07+0900 lvl=info msg="join connections" obj=join id=0c2628a7ec87 l=[::1]:3000 r=61.254.18.27:56350
-t=2021-02-15T15:44:29+0900 lvl=info msg="join connections" obj=join id=19ab85636836 l=[::1]:3000 r=61.254.18.27:56352
-t=2021-02-15T15:44:30+0900 lvl=info msg="join connections" obj=join id=3ede0b4fc50c l=[::1]:3000 r=61.254.18.27:56353
+t=2021-02-17T03:50:58+0900 lvl=info msg="no configuration paths supplied"
+t=2021-02-17T03:50:58+0900 lvl=info msg="using configuration at default config path" path=/Users/scottcho/.ngrok2/ngrok.yml
+t=2021-02-17T03:50:58+0900 lvl=info msg="open config file" path=/Users/scottcho/.ngrok2/ngrok.yml err=nil
+t=2021-02-17T03:50:58+0900 lvl=info msg="run component" obj=controller comp="signal handler"
+t=2021-02-17T03:50:58+0900 lvl=info msg="run component" obj=controller comp="memory storage"
+t=2021-02-17T03:50:58+0900 lvl=info msg="run component" obj=controller comp="Tunnel session"
+t=2021-02-17T03:50:58+0900 lvl=info msg="run component" obj=controller comp=web
+t=2021-02-17T03:50:58+0900 lvl=info msg="run component" obj=controller comp=updater
+t=2021-02-17T03:50:58+0900 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
+t=2021-02-17T03:50:58+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-17T03:50:58+0900 lvl=info msg="client session established" obj=csess id=186370a89b27
+t=2021-02-17T03:50:59+0900 lvl=info msg="update available" obj=updater
+t=2021-02-17T03:50:59+0900 lvl=info msg="wait to update manually" obj=updater
+t=2021-02-17T03:51:13+0900 lvl=info msg="join connections" obj=join id=1423d13d6eae l=[::1]:3000 r=84.17.34.18:36242
+t=2021-02-17T03:51:17+0900 lvl=info msg="join connections" obj=join id=5f53bf02d079 l=[::1]:3000 r=84.17.34.18:36244
+t=2021-02-17T03:51:28+0900 lvl=info msg="join connections" obj=join id=5922717d1811 l=[::1]:3000 r=84.17.34.18:43820
+t=2021-02-17T03:51:28+0900 lvl=info msg="join connections" obj=join id=b4b51651295b l=[::1]:3000 r=84.17.34.18:43822
+t=2021-02-17T03:51:28+0900 lvl=info msg="join connections" obj=join id=75234d9b3a42 l=[::1]:3000 r=84.17.34.18:43830
+t=2021-02-17T03:51:28+0900 lvl=info msg="join connections" obj=join id=b40075988e3f l=[::1]:3000 r=84.17.34.18:43828
+t=2021-02-17T03:51:28+0900 lvl=info msg="join connections" obj=join id=a2f443153cd7 l=[::1]:3000 r=84.17.34.18:43832

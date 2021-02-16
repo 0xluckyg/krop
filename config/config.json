@@ -1,9 +1,7 @@
 {
     "development" : {
         "PORT": 3000,
-        "APP_URL": "https://krop.ngrok.io",
         "APP_EMAIL": "info@krop.app",
-        "LANGUAGE": "kr",
         "MONGODB_URI": "mongodb://localhost:27017/krop",
         "S3_BUCKET": "krop-images",
         "GOOGLE_API_CLIENT_ID":"1051648092685-8r05a449ts1lngdvuglrj11g397mebki.apps.googleusercontent.com",
@@ -12,9 +10,7 @@
     },
     "test": {
         "PORT": 3000,
-        "APP_URL": "https://www.krop.kr",
         "APP_EMAIL": "info@krop.app",
-        "LANGUAGE": "kr",
         "S3_BUCKET": "krop-images", 
         "GOOGLE_API_CLIENT_ID":"1051648092685-8r05a449ts1lngdvuglrj11g397mebki.apps.googleusercontent.com",
         "GOOGLE_API_KEY":"AIzaSyCZ9dVpWaMrxDWAdcKKxFJOg0oYigkycLA",
@@ -22,9 +18,7 @@
     },
     "production": {
         "PORT": 3000,
-        "APP_URL": "https://www.krop.kr",
         "APP_EMAIL": "info@krop.app",
-        "LANGUAGE": "kr",
         "S3_BUCKET": "krop-images",
         "GOOGLE_API_CLIENT_ID":"1051648092685-8r05a449ts1lngdvuglrj11g397mebki.apps.googleusercontent.com",
         "GOOGLE_API_KEY":"AIzaSyCZ9dVpWaMrxDWAdcKKxFJOg0oYigkycLA",

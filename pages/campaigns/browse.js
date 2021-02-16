@@ -71,6 +71,7 @@ class BrowseCampaigns extends React.Component {
     
     fetchCampaigns(page) {
         const params = { page }
+        console.log("?: ", process.env.APP_URL)
         axios.get(process.env.APP_URL + '/get-campaigns', {
             params
         }).then(res => {              
@@ -83,6 +84,7 @@ class BrowseCampaigns extends React.Component {
                 this.setState({...result, ...{ isLoading: false }})
             }
         }).catch(err => {
+            console.log("WF: ", err)
             this.setState({isLoading: false})
             this.props.showToastAction(true, strings.fetchError, "error")
             return err

@@ -19,7 +19,6 @@ import PhoneIphoneIcon from '@material-ui/icons/PhoneIphone';
 
 import {showPaymentPlanAction} from '../../redux/actions';
 import keys from '../../config/keys'
-require('../../config/config')
 
 let strings = new LocalizedStrings({
     us:{

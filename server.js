@@ -1,9 +1,8 @@
 if (process.env.NODE_ENV != 'production') {
     require('dotenv').config({path: __dirname + '/.env'})
 }
-require('./config/config');
 require('./server/db/mongoose');
-
+console.log("LAUNCHED ON URL: ", process.env.APP_URL)
 //koa and koa-session will take care of Shopify OAuth
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
@@ -13,7 +12,6 @@ const next = require('next');
 const compression = require('compression')
 const koaConnect = require('koa-connect');
 
-const { SHOPIFY_API_SECRET_KEY } = process.env;
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 //app refers to the Next.js app, which is the react build
