@@ -1,40 +1,13 @@
-t=2021-02-17T04:39:48+0900 lvl=info msg="no configuration paths supplied"
-t=2021-02-17T04:39:48+0900 lvl=info msg="using configuration at default config path" path=/Users/scottcho/.ngrok2/ngrok.yml
-t=2021-02-17T04:39:48+0900 lvl=info msg="open config file" path=/Users/scottcho/.ngrok2/ngrok.yml err=nil
-t=2021-02-17T04:39:48+0900 lvl=info msg="run component" obj=controller comp="signal handler"
-t=2021-02-17T04:39:48+0900 lvl=info msg="run component" obj=controller comp="Tunnel session"
-t=2021-02-17T04:39:48+0900 lvl=info msg="run component" obj=controller comp=web
-t=2021-02-17T04:39:48+0900 lvl=info msg="run component" obj=controller comp="memory storage"
-t=2021-02-17T04:39:48+0900 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
-t=2021-02-17T04:39:48+0900 lvl=info msg="run component" obj=controller comp=updater
-t=2021-02-17T04:39:49+0900 lvl=info msg="tunnel session started" obj=tunSess
-t=2021-02-17T04:39:49+0900 lvl=info msg="client session established" obj=csess id=3fb595b03e49
-t=2021-02-17T04:39:49+0900 lvl=info msg="update available" obj=updater
-t=2021-02-17T04:39:49+0900 lvl=info msg="wait to update manually" obj=updater
-t=2021-02-17T04:39:50+0900 lvl=warn msg="failed to open private leg" id=3dd1b852b3ff privaddr=localhost:3000 err="dial tcp [::1]:3000: getsockopt: connection refused"
-t=2021-02-17T04:39:50+0900 lvl=info msg="join connections" obj=join id=86f3fd925eb5 l=nil r=61.254.18.27:60659
-t=2021-02-17T04:39:50+0900 lvl=warn msg="failed to open private leg" id=7be34220b853 privaddr=localhost:3000 err="dial tcp [::1]:3000: getsockopt: connection refused"
-t=2021-02-17T04:39:50+0900 lvl=info msg="join connections" obj=join id=bd8440c0123f l=nil r=61.254.18.27:61125
-t=2021-02-17T04:39:56+0900 lvl=warn msg="failed to open private leg" id=98c69bf3303f privaddr=localhost:3000 err="dial tcp [::1]:3000: getsockopt: connection refused"
-t=2021-02-17T04:39:56+0900 lvl=warn msg="failed to open private leg" id=ef471ca205cf privaddr=localhost:3000 err="dial tcp [::1]:3000: getsockopt: connection refused"
-t=2021-02-17T04:39:56+0900 lvl=info msg="join connections" obj=join id=ee56152e33e0 l=nil r=61.254.18.27:60659
-t=2021-02-17T04:39:56+0900 lvl=info msg="join connections" obj=join id=0d77abf71e9b l=nil r=61.254.18.27:61125
-t=2021-02-17T04:40:04+0900 lvl=info msg="join connections" obj=join id=110a614cd7fb l=[::1]:3000 r=61.254.18.27:61125
-t=2021-02-17T04:40:04+0900 lvl=info msg="join connections" obj=join id=edd492f36548 l=[::1]:3000 r=61.254.18.27:60659
-t=2021-02-17T04:40:05+0900 lvl=info msg="join connections" obj=join id=bd1e74eb9b79 l=[::1]:3000 r=61.254.18.27:61385
-t=2021-02-17T04:40:15+0900 lvl=info msg="join connections" obj=join id=edc8d4c1e944 l=[::1]:3000 r=61.254.18.27:61427
-t=2021-02-17T04:40:15+0900 lvl=info msg="join connections" obj=join id=a3a2ef74b509 l=[::1]:3000 r=61.254.18.27:61428
-t=2021-02-17T04:40:16+0900 lvl=info msg="join connections" obj=join id=adb9f8f30128 l=[::1]:3000 r=61.254.18.27:61435
-t=2021-02-17T04:40:17+0900 lvl=info msg="join connections" obj=join id=4926ae63d2d0 l=[::1]:3000 r=61.254.18.27:61437
-t=2021-02-17T04:40:17+0900 lvl=info msg="join connections" obj=join id=8f76f51aeb4c l=[::1]:3000 r=61.254.18.27:61438
-t=2021-02-17T04:40:23+0900 lvl=info msg="join connections" obj=join id=29d12db1fbf7 l=[::1]:3000 r=61.254.18.27:61437
-t=2021-02-17T04:40:51+0900 lvl=info msg="component stopped" obj=controller comp="signal handler" err=nil
-t=2021-02-17T04:40:51+0900 lvl=info msg="requesting shutdown" obj=controller
-t=2021-02-17T04:40:51+0900 lvl=info msg="session closing" obj=tunSess err=nil
-t=2021-02-17T04:40:51+0900 lvl=info msg="component stopped" obj=controller comp="Tunnel session" err=nil
-t=2021-02-17T04:40:51+0900 lvl=info msg="component stopped" obj=controller comp="memory storage" err=nil
-t=2021-02-17T04:40:51+0900 lvl=info msg="accept failed" obj=csess id=3fb595b03e49 err="reconnecting session closed"
-t=2021-02-17T04:40:51+0900 lvl=info msg="tunnel session closing permanently" obj=tunSess err="not reconnecting, session closed by the client side"
-t=2021-02-17T04:40:51+0900 lvl=info msg="component stopped" obj=controller comp=updater err=nil
-t=2021-02-17T04:40:51+0900 lvl=info msg="component stopped" obj=controller comp=web err=nil
-t=2021-02-17T04:40:51+0900 lvl=info msg="all component stopped" obj=controller
+t=2021-02-17T14:33:50+0900 lvl=info msg="no configuration paths supplied"
+t=2021-02-17T14:33:50+0900 lvl=info msg="using configuration at default config path" path=/Users/scottcho/.ngrok2/ngrok.yml
+t=2021-02-17T14:33:50+0900 lvl=info msg="open config file" path=/Users/scottcho/.ngrok2/ngrok.yml err=nil
+t=2021-02-17T14:33:50+0900 lvl=info msg="run component" obj=controller comp="signal handler"
+t=2021-02-17T14:33:50+0900 lvl=info msg="run component" obj=controller comp=updater
+t=2021-02-17T14:33:50+0900 lvl=info msg="run component" obj=controller comp="memory storage"
+t=2021-02-17T14:33:50+0900 lvl=info msg="run component" obj=controller comp="Tunnel session"
+t=2021-02-17T14:33:50+0900 lvl=info msg="run component" obj=controller comp=web
+t=2021-02-17T14:33:50+0900 lvl=info msg="starting web service" obj=web addr=127.0.0.1:4040
+t=2021-02-17T14:33:51+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-17T14:33:51+0900 lvl=info msg="client session established" obj=csess id=5a948a275035
+t=2021-02-17T14:33:51+0900 lvl=info msg="update available" obj=updater
+t=2021-02-17T14:33:51+0900 lvl=info msg="wait to update manually" obj=updater

@@ -47,7 +47,6 @@ class ListElement extends React.Component {
 
     render() {
         const {classes, element, onClick} = this.props
-        console.log("E: ", element)
         const {name, type} = element
         return (
             <div className={classes.elementContainer} onClick={onClick}>

@@ -27,6 +27,7 @@ phases:
             # - command
     pre_build:
         commands:
+            - printenv > .env
             - docker login -u $dockerhub_username -p $dockerhub_password
             - echo Logging in to AWS ECR on `date`
             # log in to ecr
