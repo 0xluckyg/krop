@@ -18,7 +18,7 @@ let strings = {
         validationEmailHeaderText: "회원 가입을 해주셔서 감사합니다 ",
         validationEmailBodyText: "이메일을 인증 하시고 프리미엄 기능들을 사용하세요!",
         validationEmailButtonText: "이메일 인증하기",
-        validationEmailSubject: "krop.kr 의 이메일을 인증해 주세요",
+        validationEmailSubject: "이메일을 인증해 주세요",
 
         passwordRecoveryEmailHeaderText: "안녕하세요, ",
         passwordRecoveryEmailBodyText: "밑에 버튼을 눌러 비밀번호를 바꾸세요!",
