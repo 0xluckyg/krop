@@ -158,6 +158,8 @@ class AuthorizeModal extends React.Component {
     }
     
     handleSignUp() {
+        console.log(`URL: ${process.env}/authentication/validate-email?email=`)
+        console.log(`URL: ${process.env.APP_URL}/authentication/validate-email?email=`)
         let valid = this.validateEmail(this.state.signUpEmail)
         if (!valid) return this.setState({signUpEmailError: strings.emailError})
         valid = this.checkPassword()
