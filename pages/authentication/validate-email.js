@@ -91,7 +91,7 @@ class ValidateEmail extends React.Component {
                 </h3>
                 <p className={classes.p}>
                     {
-                        process.env.LANGUAGE == 'en' ? 
+                        process.env.LANGUAGE == 'us' ? 
                         `We have sent an email to ${this.getQuery().email} with a confirmation link to get access to Krop.` :
                         `${this.getQuery().email} 로 이메일을 보냈습니다. 이메일을 인증해 주세요.`
                     }
