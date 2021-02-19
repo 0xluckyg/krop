@@ -158,8 +158,6 @@ class AuthorizeModal extends React.Component {
     }
     
     handleSignUp() {
-        console.log(`URL: ${process.env}/authentication/validate-email?email=`)
-        console.log(`URL: ${process.env.APP_URL}/authentication/validate-email?email=`)
         let valid = this.validateEmail(this.state.signUpEmail)
         if (!valid) return this.setState({signUpEmailError: strings.emailError})
         valid = this.checkPassword()
@@ -170,12 +168,12 @@ class AuthorizeModal extends React.Component {
         this.setState({isLoading: true})
         axios.post(process.env.APP_URL + '/sign-up', params)
         .then((res) => {
-            this.setState({isLoading:false})
+            this.setState({isLoading:false, signUpEmailError: null, signUpPasswordError: undefined})  
             this.sendValidationEmail(signUpEmail, () => {
                 window.location.replace(`${process.env.APP_URL}/authentication/validate-email?email=`+signUpEmail)
             })
         }).catch((err) => {
-            this.setState({isLoading:false})     
+            this.setState({isLoading:false, signUpEmailError: null, signUpPasswordError: undefined})    
             if (err.response && err.response.data) {
                 this.props.showToastAction(true, strings.emailExists, 'error')
             } else {
@@ -331,7 +329,6 @@ class AuthorizeModal extends React.Component {
         ]
         let showType = this.props.showAuthorizeModalReducer
         let googleText = showType=='signup' ? strings.googleSignupText : strings.googleLoginText
-        
         return (
             <GoogleLogin
                 scope={scopes.join(' ')}
@@ -355,7 +352,7 @@ class AuthorizeModal extends React.Component {
                     })
                     this.setState({isLoading: false})
                     this.props.showToastAction(true, strings.googleAuthSuccess)
-                    window.location.replace(`${process.env.APP_URL}`)
+                    // window.location.replace(`${process.env.APP_URL}`)
                 }}
                 onFailure={err => {
                     this.setState({isLoading: false})
@@ -390,12 +387,12 @@ class AuthorizeModal extends React.Component {
                         <p className={classes.mainText}>
                             {headerText}
                         </p>
-                        {this.googleLogin()}
-                        <div className={classes.separatorWrapper}>
+                        {/* {this.googleLogin()} */}
+                        {/* <div className={classes.separatorWrapper}>
                             <span className={classes.separator}>
                                 Or
                             </span>
-                        </div>
+                        </div> */}
                         {(showType == 'signup') ? 
                             this.renderEmailSignup() :
                             this.renderEmailLogin()
@@ -435,7 +432,7 @@ const useStyles = theme => ({
     mainText: {
         textAlign: "center",
         fontSize: 20,    
-        paddingBottom: 10
+        // paddingBottom: 5
     },
     oAuthWrapper: {
         position: 'relative',

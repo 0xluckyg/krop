@@ -1,6 +1,7 @@
 // https://github.com/googleapis/google-api-nodejs-client/blob/c00d1892fe70d7ebf934bcebe3e8a5036c62440c/README.md#manually-refreshing-access-token
 const {OAuth2Client} = require('google-auth-library');
 const {User} = require('../db/user');
+const shortid = require('shortid')
 
 /*************/
 /** HELPERS **/
@@ -35,6 +36,7 @@ async function saveUser(ctx, info) {
             type: 'google',
             name,
             email,
+            domain: shortid.generate(),
             accessToken,
             active: true,
             verified: true,
@@ -59,7 +61,6 @@ async function googleAuth(ctx) {
     try {
         const code = ctx.query.code
         const oauth2Client = createConnection()
-
         const {tokens} = await oauth2Client.getToken(code)
         oauth2Client.setCredentials(tokens);
         const url = 'https://people.googleapis.com/v1/people/me?personFields=names';
@@ -71,13 +72,12 @@ async function googleAuth(ctx) {
             oauth2Client.credentials.access_token
         );
         const email = tokenInfo.email
-        
         const user = await saveUser(ctx, {
             email,
             name,
+            domain: shortid.generate(),
             accessToken: tokens.refresh_token
         })
-
         ctx.body = user
     } catch (err) {
         ctx.status = 500

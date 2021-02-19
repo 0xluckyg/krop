@@ -1,6 +1,7 @@
 const {User} = require('../db/user');
 const jwt = require('jsonwebtoken');
 const {createEmailTemplate, sendEmail} = require('../communication/email')
+const shortid = require('shortid')
 
 let strings = {
     us:{
@@ -70,7 +71,6 @@ async function logIn(ctx) {
         
         const accessToken = await user.generateAuthToken()
         ctx.session = {accessToken, id: user._id, type: 'organic'}
-        console.log("ESSS: ", ctx.session)
         user = user.toObject()
         delete user.password
 
@@ -98,7 +98,11 @@ async function signUp(ctx) {
             return
         }
         
-        let user = new User({email: body.email, ...body});
+        let user = new User({
+            email: body.email, 
+            domain: shortid.generate(),
+            ...body,
+        });
         const accessToken = await user.generateAuthToken()
         ctx.session = {accessToken, id: user._id, type: 'organic'}
         

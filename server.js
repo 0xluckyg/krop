@@ -96,6 +96,7 @@ app.prepare().then(() => {
     routerUnauthorized.post('/campaign-receive', receiveCampaign);
     routerUnauthorized.post('/send-coupon', sendReferralCoupon)
     
+    routerUnauthorized.get('/google-auth', googleAuth);
     routerUnauthorized.get('/log-in', logIn)
     routerUnauthorized.post('/sign-up', signUp)
     routerUnauthorized.post('/send-validation-email', sendValidationEmail);
@@ -133,7 +134,6 @@ app.prepare().then(() => {
 
     server.use(authenticate)
  
-    router.get('/google-auth', googleAuth);
     router.post('/log-out', logOut)
     
     router.get('/get-user', getUser);       
