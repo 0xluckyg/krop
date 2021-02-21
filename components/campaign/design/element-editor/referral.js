@@ -13,6 +13,7 @@ import SectionTabs from './sub/section-tabs'
 import {setProperty, getProperty} from './sub/functions'
 import ColorPicker from '../../../reusable/color-picker'
 import Map from './sub/map'
+import Switch from './sub/switch'
 
 let strings = new LocalizedStrings({
     us:{
@@ -22,6 +23,8 @@ let strings = new LocalizedStrings({
         couponTextLabel: "Coupon text",
         couponImageLabel: "Coupon image",
         storeAddressLabel: "Store address",
+        customExpirationSwitchLabel: "Customize duration",
+        expirationDescriptionCustomLabel: "Custom duration description",
         expirationLabel: "Expiration",
         expirationDescriptionLabel: "Coupon valid for (days) after receiving",
         buttonTextLabel: "Button text",
@@ -44,6 +47,8 @@ let strings = new LocalizedStrings({
         couponTextLabel: "쿠폰 설명",
         couponImageLabel: "쿠폰 이미지",
         storeAddressLabel: "가게 주소",
+        customExpirationSwitchLabel: "커스텀 기간 정하기",
+        expirationDescriptionCustomLabel: "커스텀 기간",
         expirationLabel: "사용 기간",
         expirationDescriptionLabel: "쿠폰이 유효한 기간 (일 수)",
         buttonTextLabel: "버튼 제목",
@@ -67,7 +72,8 @@ class ReferralEditor extends React.Component {
         super(props)
         
         this.state = {
-            editorType: 0
+            editorType: 0,
+            customExpiration: false,
         }
     }
     
@@ -147,6 +153,21 @@ class ReferralEditor extends React.Component {
                     />
                 </SectionContainer>
                 <SectionContainer title={strings.expirationLabel}>
+                    <Switch 
+                        stage={stage}
+                        element={element}
+                        state={state} 
+                        setState={setState}
+                        title={strings.customExpirationSwitchLabel}
+                        
+                        toggle={() => {
+                            this.setState({
+                                customExpiration: !this.state.customExpiration
+                            })
+                        }}
+                        enabled={this.state.customExpiration}
+                    />
+                    {!this.state.customExpiration ? 
                     <Input
                         label={strings.expirationDescriptionLabel}
                         onChange={value => {
@@ -154,7 +175,14 @@ class ReferralEditor extends React.Component {
                             this.setProperty(null, 'couponExpiration', value)
                         }}
                         value={this.getProperty(null, 'couponExpiration')}
-                    />
+                    /> : 
+                    <Input
+                        label={strings.expirationDescriptionCustomLabel}
+                        onChange={value => {
+                            this.setProperty(null, 'couponExpiration', value)
+                        }}
+                        value={this.getProperty(null, 'couponExpiration')}
+                    />}
                 </SectionContainer>
                 <SectionContainer title={strings.couponStyleLabel}>
                     <ColorPicker

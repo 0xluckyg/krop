@@ -64,7 +64,8 @@ function compileCouponHTML(options) {
         couponTitle,
         couponImage,
         couponDescription,
-        storeAddress 
+        storeAddress,
+        couponExpiration
     } = options
 
     const dom = new JSDOM('')
@@ -93,7 +94,11 @@ function compileCouponHTML(options) {
 
     let expiration = document.createElement('p')
     expiration.setAttribute('class', expirationClass)
-    expiration.innerHTML = `{{${keys.EXPIRATION_DATE}}}`
+    if (isNaN(couponExpiration)) {
+        expiration.innerHTML = couponExpiration
+    } else {
+        expiration.innerHTML = `{{${keys.EXPIRATION_DATE}}}`
+    }
     wrapper.appendChild(expiration)
 
     let divider = document.createElement('div')

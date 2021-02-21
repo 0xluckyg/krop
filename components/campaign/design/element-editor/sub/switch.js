@@ -42,8 +42,8 @@ class Switch extends React.Component {
     }
     
     render() {
-        const {classes, title} = this.props
-        const enabled = this.getEnabled()
+        const {classes, title, enabled, toggle} = this.props
+        const switchEnabled = enabled ? enabled : this.getEnabled()
         const selectedColor = keys.APP_COLOR
         const notSelectedColor = keys.APP_COLOR_GRAY_DARKEST
         
@@ -54,11 +54,11 @@ class Switch extends React.Component {
                 </p>
                 <IconButton  
                     className={classes.iconButton} 
-                    onClick={() => this.toggle()}
+                    onClick={() => toggle ? toggle() : this.toggle()}
                     size="small" variant="contained" color="primary">
-                    <Icon path={enabled ? mdiToggleSwitch : mdiToggleSwitchOffOutline}
+                    <Icon path={switchEnabled ? mdiToggleSwitch : mdiToggleSwitchOffOutline}
                         size={0.9}
-                        color={enabled ? selectedColor : notSelectedColor}
+                        color={switchEnabled ? selectedColor : notSelectedColor}
                     />
                 </IconButton >
             </div>
