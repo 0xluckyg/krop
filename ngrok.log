@@ -79,3 +79,130 @@ t=2021-02-21T23:58:53+0900 lvl=info msg="join connections" obj=join id=1480e3660
 t=2021-02-21T23:58:56+0900 lvl=info msg="join connections" obj=join id=0b921ad807af l=[::1]:3000 r=61.254.18.27:50826
 t=2021-02-21T23:59:26+0900 lvl=info msg="join connections" obj=join id=90ced49d00f0 l=[::1]:3000 r=61.254.18.27:50816
 t=2021-02-21T23:59:50+0900 lvl=info msg="join connections" obj=join id=2dc62a8df26a l=[::1]:3000 r=61.254.18.27:50837
+t=2021-02-22T00:11:39+0900 lvl=info msg="join connections" obj=join id=97b3270fe971 l=[::1]:3000 r=61.254.18.27:51144
+t=2021-02-22T00:43:41+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=d593d9349b5b clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T00:43:41+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T00:43:45+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T00:43:45+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T00:47:52+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=e18b688ae9ad clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T00:47:52+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T00:47:55+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T00:47:56+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T00:54:28+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=fe1ce709b525 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T00:54:28+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T00:54:30+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T00:54:30+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T01:20:39+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=bb8e164a40a1 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T01:20:39+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T01:20:42+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T01:20:43+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T02:58:55+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=27cdf378f007 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T02:58:55+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T02:58:59+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T02:58:59+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T03:17:04+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=ee57b5c1a0ef clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T03:17:04+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T03:17:05+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T03:17:06+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T03:20:45+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=ffbed1725e9a clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T03:20:45+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T03:20:47+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T03:20:47+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T04:03:18+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=2d70d2c8ded6 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T04:03:18+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T04:03:19+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T04:03:20+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T04:07:03+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=674178554100 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T04:07:03+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T04:07:05+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T04:07:06+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T04:28:42+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=1180ff3d3b28 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T04:28:42+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T04:28:44+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T04:28:44+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T04:36:03+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=1946ffa4f357 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T04:36:03+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T04:36:06+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T04:36:06+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T05:54:52+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=8bbd0dc15b83 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T05:54:52+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T05:54:53+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T05:54:53+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T07:43:06+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=e0d21d1085b8 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T07:43:06+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T07:43:08+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T07:43:08+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T08:37:20+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=81130f64bf3a clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T08:37:20+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T08:37:21+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T08:37:21+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T08:44:08+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=be85b5b8fa8f clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T08:44:08+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T08:44:10+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T08:44:10+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T10:31:04+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=8368ae577a4c clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T10:31:04+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T10:31:04+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="dial tcp 3.134.73.173:443: connect: network is down"
+t=2021-02-22T10:31:05+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T10:31:06+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T12:19:10+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=84c28e550519 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T12:19:10+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T12:19:10+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="dial tcp 3.133.228.214:443: connect: network is down"
+t=2021-02-22T12:19:11+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T12:19:11+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T13:42:02+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=7051cc8f40e9 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T13:42:02+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T13:42:05+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T13:42:05+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T14:13:24+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=391b0cb52889 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T14:13:24+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T14:13:29+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T14:13:29+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T15:17:15+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=ef7b05beb5d8 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T15:17:15+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T15:17:16+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="dial tcp: lookup tunnel.us.ngrok.com: no such host"
+t=2021-02-22T15:17:17+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="dial tcp: lookup tunnel.us.ngrok.com: no such host"
+t=2021-02-22T15:17:18+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="Get https://dns.google.com/resolve?cd=true&name=tunnel.us.ngrok.com&type=AAAA: dial tcp: lookup dns.google.com: no such host"
+t=2021-02-22T15:17:20+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="Get https://s3.amazonaws.com/dns.ngrok.com/tunnel.json: dial tcp: lookup s3.amazonaws.com: no such host"
+t=2021-02-22T15:17:22+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="[dial udp 8.8.8.8:53: connect: network is unreachable dial udp 8.8.4.4:53: connect: network is unreachable]"
+t=2021-02-22T15:17:26+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="dial tcp: lookup tunnel.us.ngrok.com: no such host"
+t=2021-02-22T15:17:32+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="Get https://dns.google.com/resolve?cd=true&name=tunnel.us.ngrok.com&type=AAAA: dial tcp: lookup dns.google.com: no such host"
+t=2021-02-22T15:17:42+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="Get https://s3.amazonaws.com/dns.ngrok.com/tunnel.json: dial tcp: lookup s3.amazonaws.com: no such host"
+t=2021-02-22T15:28:38+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="[dial udp 8.8.8.8:53: connect: network is unreachable dial udp 8.8.4.4:53: connect: network is unreachable]"
+t=2021-02-22T15:29:01+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T15:29:02+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T15:32:29+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=64d8640d0de9 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T15:32:29+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T15:32:29+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="dial tcp 3.133.228.214:443: connect: network is down"
+t=2021-02-22T15:32:31+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T15:32:31+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T18:04:20+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=49a345cc1b10 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T18:04:20+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T18:04:20+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="dial tcp: lookup tunnel.us.ngrok.com: no such host"
+t=2021-02-22T18:04:21+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="dial tcp: lookup tunnel.us.ngrok.com: no such host"
+t=2021-02-22T18:04:22+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="Get https://dns.google.com/resolve?cd=true&name=tunnel.us.ngrok.com&type=A: dial tcp: lookup dns.google.com: no such host"
+t=2021-02-22T18:04:24+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="Get https://s3.amazonaws.com/dns.ngrok.com/tunnel.json: dial tcp: lookup s3.amazonaws.com: no such host"
+t=2021-02-22T18:04:26+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="[dial udp 8.8.8.8:53: connect: network is unreachable dial udp 8.8.4.4:53: connect: network is unreachable]"
+t=2021-02-22T18:04:29+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="dial tcp: lookup tunnel.us.ngrok.com: no such host"
+t=2021-02-22T18:04:34+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="Get https://dns.google.com/resolve?cd=true&name=tunnel.us.ngrok.com&type=A: dial tcp: lookup dns.google.com: no such host"
+t=2021-02-22T18:04:42+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="Get https://s3.amazonaws.com/dns.ngrok.com/tunnel.json: dial tcp: lookup s3.amazonaws.com: no such host"
+t=2021-02-22T18:04:51+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="[dial udp 8.8.8.8:53: connect: network is unreachable dial udp 8.8.4.4:53: connect: network is unreachable]"
+t=2021-02-22T19:13:54+0900 lvl=eror msg="failed to reconnect session" obj=csess id=ee2a9a95d833 err="dial tcp: lookup tunnel.us.ngrok.com: no such host"
+t=2021-02-22T19:14:21+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T19:14:22+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T21:02:08+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=97893e2ec515 clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T21:02:08+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T21:02:08+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T21:02:08+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-22T22:50:15+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=05ccbec5a2ba clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-22T22:50:15+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-22T22:50:16+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-22T22:50:16+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-23T00:05:46+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=715cdf058c8d clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-23T00:05:47+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-23T00:05:49+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-23T00:05:49+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833
+t=2021-02-23T01:39:28+0900 lvl=eror msg="heartbeat timeout, terminating session" obj=csess id=151e2b1336bc clientid=db830d4bdffb5a1eeab301cf9887ed02
+t=2021-02-23T01:39:28+0900 lvl=eror msg="session closed, starting reconnect loop" obj=csess id=ee2a9a95d833 err="session closed"
+t=2021-02-23T01:39:28+0900 lvl=info msg="tunnel session started" obj=tunSess
+t=2021-02-23T01:39:28+0900 lvl=info msg="client session established" obj=csess id=ee2a9a95d833

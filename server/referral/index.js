@@ -36,7 +36,17 @@ async function deleteReferralCoupon(options) {
 }
 
 async function createReferralCoupon(options) {
-    const {accountId, id, campaignId, couponExpiration, coordinates} = options
+    const {
+        accountId, 
+        id, 
+        campaignId, 
+        couponExpiration, 
+        coordinates,
+        couponTitle,
+        couponImage,
+        couponDescription,
+        storeAddress
+    } = options
     let user = await User.findOne({_id: accountId})
     compiledCoupon = compileCoupon(options)
     const coupon = new Coupon({
@@ -46,7 +56,11 @@ async function createReferralCoupon(options) {
         campaignId,
         domain: user.domain,
         expiration: couponExpiration,
-        coordinates
+        coordinates,
+        storeAddress,
+        couponDescription,
+        couponImage,
+        couponTitle
     })
     await coupon.save()
 }
@@ -131,13 +145,18 @@ async function getReferralCoupon(ctx, next) {
         return await next()
     }
 
+    const {domain, referralId} = couponParams
+    let url = process.env.NODE_ENV == 'development' ? 
+    getDevReferralUrl(domain ,referralId) : 
+    getProductionReferralUrl(domain, referralId)
+
     const referral = await Referral.findOneAndUpdate(couponParams, {
         $inc: {views: 1}
     }, {new: true})
     if (!referral) {
         return await next()
     }
-    const {domain, couponId} = referral
+    const {couponId} = referral
     const coupon = await Coupon.findOneAndUpdate({domain, couponId}, {
         $inc: {views: 1}
     }, {new: true})
@@ -146,7 +165,13 @@ async function getReferralCoupon(ctx, next) {
         return await next()
     }
 
-    let {html, css} = coupon
+    let {
+        html, 
+        css,
+        couponTitle,
+        couponImage,
+        couponDescription
+    } = coupon
     html = html.replace(`{{${keys.EXPIRATION_DATE}}}`, strings.expirationLabel + formatDate(expiration))
 
     ctx.body = `<html lang="en">
@@ -155,6 +180,11 @@ async function getReferralCoupon(ctx, next) {
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>${keys.APP_NAME}</title>
             <meta name="host" content="Krop">
+            <meta property="og:url" content="${url}" />
+            <meta property="og:type" content="article" />
+            <meta property="og:title" content="${couponTitle}" />
+            <meta property="og:description" content="${couponDescription}" />
+            <meta property="og:image" content="${couponImage}" />
             <script
                 src="https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&callback=initMap&libraries=&v=weekly"
                 async

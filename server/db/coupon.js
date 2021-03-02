@@ -13,6 +13,10 @@ const CouponSchema = new mongoose.Schema({
         type: String,
         index: true
     },
+    couponTitle: String,
+    couponImage: String,
+    couponDescription: String,
+    storeAddress: String,
     domain: String,
     html: String,
     css: String,
