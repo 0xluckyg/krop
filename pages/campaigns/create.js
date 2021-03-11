@@ -82,7 +82,7 @@ class CreateCampaign extends React.Component {
             selectedEditor: 0,
             previewScale: 0.8,
             elementMenuOpen: false,
-            showDialog:false,
+            showDialog: false,
             isLoading: false,
         }
     }

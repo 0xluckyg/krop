@@ -376,7 +376,7 @@ class AuthorizeModal extends React.Component {
                     this.props.showAuthorizeModalAction(false)
                 }}
             >
-                <div style={modalContent} className={classes.paper}>
+                <div className={classes.paper}>
                     <div>
                         <IconButton  className={classes.buttonIconWrapper}  onClick={() => {                    
                             this.props.showAuthorizeModalAction(false)
@@ -417,12 +417,6 @@ class AuthorizeModal extends React.Component {
             </Modal>
         )
     }
-}
-
-const modalContent = {
-    top: `50%`,
-    left: `50%`,
-    transform: `translate(-50%, -50%)`
 }
 
 const useStyles = theme => ({
@@ -479,6 +473,9 @@ const useStyles = theme => ({
         padding: theme.spacing(6),
         borderRadius: 5,
         outline: 'none',
+        top: `50%`,
+        left: `50%`,
+        transform: `translate(-50%, -50%)`,
         [theme.breakpoints.up('sm')]: {
 			position: 'absolute',
             width: 500,

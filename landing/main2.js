@@ -36,18 +36,38 @@ class Main extends React.Component {
         return (
             <div className={classes.topContainer}>
                 <div className={classes.mainImageContainer}>
-                    <iframe
-                        className={classes.iframe}
-                        // width='100vh'
-                        // height='100vh'
-                        width="853"
-                        height="480"
-                        src={`https://www.youtube.com/embed/iy8IkfJjezo`}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        title="Embedded youtube"
-                    />
+                    <img className={classes.mainImage} src="../static/landing/main.png"/>
+                </div>
+                <div className={classes.textContainer}>
+                    <h1 className={classes.title}>
+                        {strings.title}
+                    </h1>
+                    <p className={classes.subtitle}>
+                        {strings.subtitle}
+                    </p>
+                    <p className={classes.subText}>
+                        {strings.description}
+                    </p>
+                    <button onClick={() => this.props.showAuthorizeModalAction(true)} className={classes.button}>
+                        {strings.buttonLabel}
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+    renderBottomPart() {
+        const {classes} = this.props
+        return (
+            <div className={classes.bottomContainer}>
+                <div className={classes.compatibleContainerFiller}/>
+                <div className={classes.compatibleContainer}>
+                    <p className={classes.compatibleText}>{strings.integrationLabel}</p>
+                    <div className={classes.compatibleLogoContainer}>
+                        <img className={classes.compatibleLogo1} src="../static/landing/shopify.svg"/>
+                        <img className={classes.compatibleLogo2} src="../static/landing/hubspot.svg"/>
+                        <img className={classes.compatibleLogo3} src="../static/landing/mailchimp.png"/>
+                    </div>
                 </div>
             </div>
         )
@@ -57,40 +77,20 @@ class Main extends React.Component {
         const {classes} = this.props
         return (
             <div className={classes.mainContainer}>
-                <iframe
-                    className={classes.iframe}
-                    // width='100vh'
-                    // height='100vh'
-                    width="853"
-                    height="480"
-                    src={`https://www.youtube.com/embed/iy8IkfJjezo`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    title="Embedded youtube"
-                />
+                {this.renderTopPart()}
+                {/* {this.renderBottomPart()} */}
             </div>
         );
     }
 }
 
 const useStyles = theme => ({
-    iframe:{
-        height: 'calc(100vh - 70px)',
-        width: '100vw',
-        // borderRadius: 5
-    },
     mainContainer: {
-        backgroundColor: 'white',
-        marginTop: 70,
-
+        backgroundColor: keys.APP_COLOR,
         display: 'flex',
         position: 'relative',
         flexDirection: 'column',
         height: 'calc(100vh - 70px)',
-        flexDirection: 'row',
-        backgroundColor: 'white',
-        justifyContent: 'center',
         
         [theme.breakpoints.down('lg')]: {
             height: 'auto',
@@ -100,7 +100,7 @@ const useStyles = theme => ({
         flex: 1,
         display: 'flex',
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: keys.APP_COLOR,
         justifyContent: 'center',
         alignItems: 'center',
         
