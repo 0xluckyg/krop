@@ -59,9 +59,9 @@ function compileFrameHTML(options) {
 
 function compileFrameCSS(options) {
     let headerCSS = compileHeaderCSS(options)
-    
+    let {font, backgroundColor} = options.styles
     let htmlCSS = getCSS('html *', { 
-        fontFamily: options.styles.font,
+        fontFamily: font,
         '-webkitTapHighlightColor': 'rgba(0,0,0,0)'
     }, "")
     
@@ -74,7 +74,8 @@ function compileFrameCSS(options) {
         ...frameStyles.CAMPAIGN_WRAPPER
     })
     let backgroundCSS = getCSS(backgroundClass, {
-        ...frameStyles.BACKGROUND
+        ...frameStyles.BACKGROUND,
+        backgroundColor
     })
     
     const css = htmlCSS+bodyCSS+headerCSS+containerCSS+wrapperCSS+backgroundCSS

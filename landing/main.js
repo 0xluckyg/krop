@@ -30,13 +30,14 @@ class Main extends React.Component {
     constructor(props) {
         super(props)        
     }
-
-    renderTopPart() {
+    
+    render() {
         const {classes} = this.props
         return (
-            <div className={classes.topContainer}>
-                <div className={classes.mainImageContainer}>
+            <div className={classes.mainContainer}>
+                <div className={classes.topContainer}>
                     <iframe
+                        allow='autoplay'
                         className={classes.iframe}
                         // width='100vh'
                         // height='100vh'
@@ -50,35 +51,20 @@ class Main extends React.Component {
                     />
                 </div>
             </div>
-        )
-    }
-
-    render() {
-        const {classes} = this.props
-        return (
-            <div className={classes.mainContainer}>
-                <iframe
-                    className={classes.iframe}
-                    // width='100vh'
-                    // height='100vh'
-                    width="853"
-                    height="480"
-                    src={`https://www.youtube.com/embed/iy8IkfJjezo`}
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    title="Embedded youtube"
-                />
-            </div>
         );
     }
 }
 
 const useStyles = theme => ({
     iframe:{
-        height: 'calc(100vh - 70px)',
-        width: '100vw',
-        // borderRadius: 5
+        height: 'calc(90vh - 70px)',
+        width: '90vw',
+        borderRadius: 10,
+
+        [theme.breakpoints.down('md')]: {
+            height: '270px',
+            width: '90vw'
+        }
     },
     mainContainer: {
         backgroundColor: 'white',
@@ -92,8 +78,8 @@ const useStyles = theme => ({
         backgroundColor: 'white',
         justifyContent: 'center',
         
-        [theme.breakpoints.down('lg')]: {
-            height: 'auto',
+        [theme.breakpoints.down('md')]: {
+            height: '300px',
         }
     },
     topContainer: {
@@ -108,176 +94,6 @@ const useStyles = theme => ({
             flexDirection: 'column'
         }
     },
-    textContainer: {
-        paddingRight: 50,
-        alignItems: 'flex-start',
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 3.5,
-        
-        [theme.breakpoints.down('lg')]: {
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: 30
-        }
-    },
-    title: {
-        fontWeight: 500,
-        fontSize: 45,
-        color: 'white',
-        
-        [theme.breakpoints.down('lg')]: {
-            textAlign: 'center'
-        }
-    },
-    subtitle: {
-        fontSize: 14,
-        color: keys.APP_COLOR_GRAY_LIGHT,
-        
-        [theme.breakpoints.down('lg')]: {
-            textAlign: 'center'
-        }
-    },
-    subText: {
-        color: 'white',
-        fontSize: 20,
-        
-        [theme.breakpoints.down('lg')]: {
-            textAlign: 'center'
-        }
-    },
-    bottomContainer: {
-        height: 120,
-        backgroundColor: 'white',
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        
-        [theme.breakpoints.down('sm')]: {
-            padding: 30,
-            height: 'auto'
-        }
-    },
-    compatibleContainerFiller: {
-        flex: 6.5,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        
-        [theme.breakpoints.down('lg')]: {
-            display: 'none'
-        }
-    },
-    compatibleContainer: {
-        flex: 4.5,
-        paddingRight: 50,
-        
-        [theme.breakpoints.down('lg')]: {
-            paddingLeft: 50,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-        },
-        
-        [theme.breakpoints.down('sm')]: {
-            paddingRight: 30,
-            paddingLeft: 30,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-        }
-    },
-    compatibleText: {
-        fontSize: 10,
-        margin: 0,
-        marginBottom: 10,
-        color: keys.APP_COLOR_GRAY_DARK,
-    },
-    button: {
-        width: 160,
-        height: 45,
-        borderRadius: 30,
-        fontSize: 14,
-        padding: '5px 20px',
-        color: keys.APP_COLOR,
-        backgroundColor: 'white',
-        border: 'none',
-        fontWeight: 600,
-        transition: '0.2s',
-        marginTop: 20,
-        '&:focus': {
-            outline: 'none'
-        },
-        '&:hover': {
-            opacity: 0.8,
-            transition: '0.2s',
-            cursor: 'pointer'
-        }
-    },
-    compatibleLogoContainer: {
-        width: '100%',
-        display: 'flex',
-        marginBottom: 20,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        
-        [theme.breakpoints.down('sm')]: {
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-        }
-    },
-    compatibleLogo1: {
-        width: 110,
-        [theme.breakpoints.down('sm')]: {
-            width: 220,
-            marginTop: 20
-        }
-    },
-    compatibleLogo2: {
-        width: 100,
-        [theme.breakpoints.down('sm')]: {
-            width: 200,
-            marginTop: 20
-        }
-    },
-    compatibleLogo3: {
-        width: 120,
-        [theme.breakpoints.down('sm')]: {
-            width: 240,
-            marginTop: 20
-        }
-    },
-    mainImageContainer: {
-        flex: 5.5,
-        
-        [theme.breakpoints.down('lg')]: {
-            paddingTop: 50,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }
-    },
-    mainImage: {
-        position: 'absolute',
-        width: 'auto',
-        height: '90%',
-        top: '50%',
-        left: '0%',
-        transform: 'translate(-35%, -50%)',
-        
-        [theme.breakpoints.down('lg')]: {
-            // position: 'relative',
-            // objectFit: 'cover',
-            position: 'static',
-            width: '90%',
-            height: 'auto',
-            transform: 'translate(0px, 0px)'
-        }
-    }
 })
 
 function mapDispatchToProps(dispatch){

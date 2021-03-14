@@ -118,7 +118,7 @@ const useStyles = theme => ({
         [theme.breakpoints.down('lg')]: {
             justifyContent: 'center',
             alignItems: 'center',
-            padding: 30
+            padding: 20
         }
     },
     title: {
@@ -127,7 +127,15 @@ const useStyles = theme => ({
         color: 'white',
         
         [theme.breakpoints.down('lg')]: {
-            textAlign: 'center'
+            textAlign: 'center',
+        },
+
+        [theme.breakpoints.down('md')]: {
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 10,
+            fontSize: 30,
+            fontWeight: 700
         }
     },
     subtitle: {
@@ -268,6 +276,7 @@ const useStyles = theme => ({
         top: '50%',
         left: '0%',
         transform: 'translate(-35%, -50%)',
+        borderRadius: 5,
         
         [theme.breakpoints.down('lg')]: {
             // position: 'relative',

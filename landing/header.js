@@ -71,6 +71,7 @@ const useStyles = theme => ({
         left: 0,
         width: '100%',
         height: 70,
+        boxShadow: '-1px 0px 1px 0px rgba(0,0,0,0.67)'
     },
     headerLogo: {
         height: 50,
