@@ -16,7 +16,7 @@ class Index extends React.Component {
         return (
             <Layout>
                 <Main/>
-                <Main2/>
+                {/* <Main2/> */}
                 <Toast/>
                 <CssBaseline />
             </Layout>
