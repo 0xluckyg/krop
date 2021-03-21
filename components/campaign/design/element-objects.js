@@ -450,28 +450,8 @@ const defaultStages = () => [
             isSinglePage: true
         },
         elements: [
-            // loyalty(),
-            // imageUpload(),
             referral(),
-            share(),
-            spacing(),
-            heading(), 
-            subheading(), 
-            paragraph(), 
-            image(),
-            multipleChoice(), 
-            checkbox(), 
-            dropdown(), 
-            slider(), 
-            form(), 
-            email(), 
-            phone(), 
-            address(), 
-            name(), 
-            longForm(), 
-            video(),
-            link(),
-            spacing()
+            share()
         ]
     },
     {
