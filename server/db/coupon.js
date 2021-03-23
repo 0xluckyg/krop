@@ -22,7 +22,9 @@ const CouponSchema = new mongoose.Schema({
     css: String,
     views: Number,
     sends: Number,
-    expiration: Number,
+    expiration: {
+        type: mongoose.Schema.Types.Mixed
+    },
     coordinates: Array,
     views: {
         type: Number,

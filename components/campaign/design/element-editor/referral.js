@@ -87,6 +87,21 @@ class ReferralEditor extends React.Component {
             property
         })
     }
+
+    static getDerivedStateFromProps(props, currentState) {
+        const {selectedStage, selectedElement} = props.state
+        let expiration = getProperty({
+            props,
+            selectedStage,
+            selectedElement,
+            property: 'couponExpiration'
+        })
+        if (isNaN(expiration) && !currentState.customExpiration) {
+            return {
+                customExpiration: true
+            }
+        }
+    }
     
     setProperty(propertyType, property, value) {
         const {selectedStage, selectedElement} = this.props.state
