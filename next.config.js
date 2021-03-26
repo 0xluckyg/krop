@@ -8,7 +8,7 @@ const path = require('path')
 //Allowing use of .css files for react-draft-wysiwyg module
 module.exports = withCSS({
     webpack: (config, options) => {
-        console.log("PENV: ", process.env)
+        console.log("LANGUAGE: ", process.env.LANGUAGE)
         const env = Object.keys(process.env).reduce((acc, curr) => {
             acc[`process.env.${curr}`] = JSON.stringify(process.env[curr]);
             return acc;

@@ -20,7 +20,9 @@ import {loadFonts} from '../../components/reusable/font-families'
 import TemplateSelector from '../../components/templates'
 import TabBar from '../../components/campaign/tab-bar';
 import MainEditor from '../../components/campaign/design'
+import QREditor from '../../components/campaign/qr'
 import SettingsEditor from '../../components/campaign/settings'
+import {defaultQR} from '../../components/campaign/qr/qr-objects'
 import {defaultSettings} from '../../components/campaign/settings/settings-objects'
 import {defaultStages, defaultStyles, defaultAlert, defaultAlertMessages} from '../../components/campaign/design/element-objects'
 import ElementMenu from '../../components/campaign/design/element-menu'
@@ -73,6 +75,7 @@ class CreateCampaign extends React.Component {
             alert: defaultAlert(),
             alertMessages: defaultAlertMessages(),
             settings: defaultSettings,
+            qr: defaultQR,
             //UI STATES
             templateOptions: null,
             viewMode: keys.PHONE_ELEMENT,
@@ -167,6 +170,8 @@ class CreateCampaign extends React.Component {
             case(0):
                 return <MainEditor setState={setState} state={this.state}/>
             case(1):
+                return <QREditor setState={setState} state={this.state}/>
+            case(2):
                 return <SettingsEditor setState={setState} state={this.state}/>
         }
     }
