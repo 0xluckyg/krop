@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import LocalizedStrings from 'react-localization';
 
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 let QRCodeStyling = null
 if (typeof window !== "undefined") {
@@ -12,6 +13,7 @@ import QRStyleEditor from './qr-style';
 
 import {showToastAction} from '../../../redux/actions';
 import keys from '../../../config/keys'
+import Selector from '../design/element-editor/sub/selector'
 
 let strings = new LocalizedStrings({
     us:{
@@ -28,21 +30,64 @@ class QREditor extends React.Component {
     constructor(props){
         super(props)
         this.qrRef = React.createRef();
+        let qr = this.props.state.qr      
+        qr = this.recalculateSize(qr)
+        this.qrCode = new QRCodeStyling({
+            ...qr
+        });
+        this.state = {
+            fileType: 'png'
+        }
+    }
+
+    recalculateSize(qr) {
+        let fixedSize = 320
+        qr = {...qr}
+        qr.margin = (fixedSize / qr.width) * qr.margin
+        qr.width = fixedSize
+        qr.height = fixedSize
+        return qr
     }
 
     componentDidMount() {
         this.renderQR()
     }
 
+    getQrValue() {
+        const {state} = this.props
+        const {domain, path} = state
+        const appUrl = process.env.APP_URL.replace("https://", "")
+        return `${domain}.${appUrl}/${path}`
+    }
+
+    downloadQR() {
+        let newQR = new QRCodeStyling({
+            ...this.props.state.qr
+        });
+        newQR.update({
+            data: this.getQrValue()
+        });
+        newQR.download({
+            extension: this.state.fileType
+        });
+    }
+
     renderQR() {
-        let qr = this.props.state.qr      
-        const qrCode = new QRCodeStyling({
-            ...qr
+        this.qrCode.update({
+            data: this.getQrValue()
         });
-        qrCode.update({
-            data: 'www.facebook.com'
-        });
-        qrCode.append(this.qrRef.current);
+        this.qrCode.append(this.qrRef.current);
+    }
+
+    renderFileTypeSelector() {
+        return <Selector
+            label="Download Type"
+            onChange={(value) => {
+                this.setState({fileType: value})
+            }}
+            options={['png', 'jpeg', 'webp']}
+            value={this.state.fileType}
+        />
     }
 
     render() {
@@ -50,9 +95,26 @@ class QREditor extends React.Component {
         return(
             <div className={classes.container}>
                 <div className={classes.wrapper}>
-                    <QRStyleEditor/>
+                    <QRStyleEditor state={this.props.state} setState={(newState) => {
+                        this.props.setState(newState)
+                        let qr = this.recalculateSize(newState.qr)
+                        this.qrCode.update({
+                            ...qr
+                        })
+                    }}/>
                     <div className={classes.qrCodeContainer}>
+                        <h2>3. Download QR</h2>
                         <div ref={this.qrRef} />
+                        <br/>
+                        {this.renderFileTypeSelector()}
+                        <Button 
+                            // disabled={this.state.isLoading}
+                            className={classes.downloadButton} 
+                            variant="contained"
+                            onClick={() => this.downloadQR()}
+                        >
+                            Download
+                        </Button> 
                     </div>
                 </div>
             </div>            
@@ -74,6 +136,14 @@ const useStyles = theme => ({
         display: 'flex',
         flexDirection: 'row',
         padding: theme.spacing(3, 5),
+    },
+    qrCodeContainer: {
+        width: 350,
+        paddingLeft: 30
+    },
+    downloadButton: {
+        color: 'white',
+        backgroundColor: keys.APP_COLOR
     }
 });
 

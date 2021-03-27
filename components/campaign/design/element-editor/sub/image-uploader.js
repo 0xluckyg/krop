@@ -6,7 +6,7 @@ import LocalizedStrings from 'react-localization';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import {setProperty, getProperty, getElement, modifyElement} from './functions'
+import {setProperty, getProperty} from './functions'
 import Input from './input'
 import keys from '../../../../../config/keys'
 
@@ -39,15 +39,6 @@ class BannerDropzone extends React.Component {
         }
     }
     
-    getElement() {
-        const {stage, element} = this.props
-        return getElement({
-            props: this.props, 
-            selectedStage: stage,
-            selectedElement: element,
-        })
-    }
-    
     getProperty(propertyType, property) {
         const {stage, element} = this.props
         return getProperty({
@@ -67,16 +58,6 @@ class BannerDropzone extends React.Component {
             propertyType, 
             property, 
             value, 
-        })
-    }
-    
-    modifyElement(newElement) {
-        const {stage, element} = this.props
-        modifyElement({
-            props: this.props, 
-            selectedStage: stage, 
-            selectedElement: element, 
-            element: newElement,
         })
     }
     
@@ -116,14 +97,14 @@ class BannerDropzone extends React.Component {
         } else {
             let propertyType = this.props.propertyType ? this.props.propertyType : null
             let property = this.props.property ? this.props.property : keys.MEDIA_PROPERTY
-            this.setProperty(propertyType, property, value)   
+            this.props.setValue ? this.props.setValue(value) : this.setProperty(propertyType, property, value)   
         }
     }
     
     getUrlValue() {
         let propertyType = this.props.propertyType ? this.props.propertyType : null
         let property = this.props.property ? this.props.property : keys.MEDIA_PROPERTY
-        return this.getProperty(propertyType, property)
+        return this.props.value || this.props.value == null ? this.props.value : this.getProperty(propertyType, property)
     }
     
     getImageUrl() {

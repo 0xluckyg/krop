@@ -15,7 +15,8 @@ const defaultQR = {
     margin: 0,
     imageOptions: {
         imageSize: 0.3,
-        margin: 1
+        margin: 10,
+        hideBackgroundDots: true
     },
     dotsOptions: {
         color: '#000',
@@ -29,7 +30,7 @@ const defaultQR = {
         type: 'square',
         gradient: null
     },
-    cornersDotOptionsHelper: {
+    cornersDotOptions: {
         color: '#000',
         // 'rounded' 'dots' 'classy' 'classy-rounded' 'square' 'extra-rounded'
         type: 'square',
