@@ -32,8 +32,8 @@ export default function SimpleTabs(props) {
             <TopTabs
                 value={props.value} onChange={props.handleChange} aria-label="tab-bar">
                 <Tab label={strings.designLabel} id='0'/>
-                <Tab label={strings.qrLabel} id='1' />
-                <Tab label={strings.settingsLabel} id='2' />
+                <Tab label={strings.settingsLabel} id='1' />
+                <Tab label={strings.qrLabel} id='2' />
             </TopTabs>
         );
     } else {
@@ -41,8 +41,8 @@ export default function SimpleTabs(props) {
             <Tabs
                 value={props.value} onChange={props.handleChange} aria-label="tab-bar">
                 <Tab label={strings.designLabel} id='0' />
-                <Tab label={strings.qrLabel} id='1' />
-                <Tab label={strings.settingsLabel} id='2' />
+                <Tab label={strings.settingsLabel} id='1' />
+                <Tab label={strings.qrLabel} id='2' />
             </Tabs>
         );   
     }

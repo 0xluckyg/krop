@@ -170,9 +170,9 @@ class CreateCampaign extends React.Component {
             case(0):
                 return <MainEditor setState={setState} state={this.state}/>
             case(1):
-                return <QREditor setState={setState} state={this.state}/>
-            case(2):
                 return <SettingsEditor setState={setState} state={this.state}/>
+            case(2):
+                return <QREditor setState={setState} state={this.state}/>
         }
     }
     
