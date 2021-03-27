@@ -87,6 +87,8 @@ class CreateCampaign extends React.Component {
             elementMenuOpen: false,
             showDialog: false,
             isLoading: false,
+
+            submitted: false
         }
     }
 
@@ -96,6 +98,9 @@ class CreateCampaign extends React.Component {
 
         if (editableCampaign && editableCampaign._id != state._id) {
             loadFonts(document, [editableCampaign.styles.font])
+            if (!editableCampaign.qr) {
+                editableCampaign.qr = {...defaultQR}
+            }
             return editableCampaign
         } else {
             const {getUserReducer} = nextProps
@@ -111,6 +116,10 @@ class CreateCampaign extends React.Component {
     componentDidMount() {
         window.addEventListener("beforeunload", (ev) => 
         {  
+            console.log("this su ", this.state.submitted)
+            if (this.state.submitted) {
+                return
+            }
             ev.preventDefault();
             return ev.returnValue = 'Are you sure you want to close?';
         });
@@ -144,7 +153,7 @@ class CreateCampaign extends React.Component {
             } else {
                 axios.post(process.env.APP_URL + '/create-campaign', data)
                 .then(res => {
-                    this.setState({isLoading: false})
+                    this.setState({isLoading: false, submitted: true})
                     this.props.showToastAction(true, strings.createdAlert, 'success')
                     window.location.replace('/campaigns/browse')
                 }).catch((err) => {

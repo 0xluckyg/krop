@@ -74,7 +74,40 @@ const CampaignSchema = new mongoose.Schema({
     submits: {
         type: Number,
         default: 0
-    }    
+    },
+    qr: {
+        width: Number,
+        height: Number,
+        image: String,
+        margin: Number,
+        imageOptions: {
+            imageSize: Number,
+            margin: Number,
+            hideBackgroundDots: Boolean
+        },
+        dotsOptions: {
+            color: String,
+            // 'rounded' 'dots' 'classy' 'classy-rounded' 'square' 'extra-rounded'
+            type: String,
+            gradient: Array
+        },
+        cornersSquareOptions: {
+            color: String,
+            // 'rounded' 'dots' 'classy' 'classy-rounded' 'square' 'extra-rounded'
+            type: String,
+            gradient: Array
+        },
+        cornersDotOptions: {
+            color: String,
+            // 'rounded' 'dots' 'classy' 'classy-rounded' 'square' 'extra-rounded'
+            type: String,
+            gradient: Array
+        },
+        backgroundOptions: {
+            color: String,
+            gradient: Array
+        }
+    }
 },{
     timestamps: true // Saves createdAt and updatedAt as dates
 });
