@@ -10,6 +10,7 @@ import red from '@material-ui/core/colors/red';
 import store from '../redux/store';
 import * as keys from '../config/keys';
 import Layout from '../components/main/layout'
+import setupChatra from '../scripts/chat-support'
 
 // Create a theme instance for material ui
 export const theme = createMuiTheme({
@@ -54,6 +55,8 @@ function Krop(props) {
         if (jssStyles) {
             jssStyles.parentElement.removeChild(jssStyles);
         }
+
+        setupChatra(window, document)
     }, []);
     
     // const { Component, pageProps, router } = this.props;        
